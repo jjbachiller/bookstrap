@@ -1,0 +1,132 @@
+<?php
+
+namespace App\Bookstrap;
+
+use Codedge\Fpdf\Fpdf\Fpdf;
+use App\Bookstrap\MetaBook;
+
+class PDF extends FPDF {
+
+    private $metaBook;
+    private $previousPage;
+    private $currentPage;
+
+    public function __construct($metaBook) {
+      $this->metaBook = $metaBook;
+      $size = $this->metaBook->getSize();
+      parent::__construct(config('bookstrap-constants.PDF_ORIENTATION'), config('bookstrap-constants.PDF_UNIT'), $size);
+    }
+
+    public function generatePDF()
+    {
+
+      $pages = $this->metaBook->getBookPages();
+
+      foreach ($pages as $page) {
+        $this->previousPage = $this->currentPage ?? $page;
+        $this->currentPage = $page;
+        $this->addPageToBook();
+      }
+
+      return $this->savePDF();
+    }
+
+    private function addPageToBook()
+    {
+      $this->AddPage();
+
+      $title = $this->currentPage->getTitle();
+      if ($title) {
+        $this->addTitle($title);
+      }
+
+      $image = $this->currentPage->getImage();
+      if ($image) {
+        $this->addImage($image);
+      }
+
+    }
+
+    private function getPDFStyle($element)
+    {
+      $style = '';
+      if ($element->isBold()) $style.='B';
+      if ($element->isItalic()) $style.='I';
+      if ($element->isUnderline()) $style.='U';
+      return $style;
+    }
+
+    private function addTextElement($element, $multiCell = false, $line = 0)
+    {
+      $style = $this->getPDFStyle($element);
+      $this->SetFont($element->getFont(), $style, $element->getFontSize());
+
+      list($x, $y) = $element->getPosition();
+      $this->SetXY($x,$y);
+
+      list($width, $height) = $element->getDimensions();
+      $text = preprocessText($element->getText());
+      $alignment = $element->getAlignment();
+      if ($multiCell) {
+        $this->Multicell($width, $height, $text, 0, $alignment);
+      } else {
+        $this->Cell($width, $height, $text, $line, 0, $alignment);
+      }
+    }
+
+    private function addTitle($title)
+    {
+      $this->addTextElement($title, true);
+    }
+
+    private function addImage($img)
+    {
+      list($x, $y) = $img->getPosition();
+      list($width, $height) = $img->getDimensions();
+
+      $this->Image(
+        $img->getImage(),
+        $x, $y,
+        $width, $height
+      );
+    }
+
+    public function Header()
+    {
+      if (is_null($this->currentPage)) return;
+
+      $header = $this->currentPage->getHeader();
+
+      if ($header) {
+        $this->addTextElement($header, false, 'B');
+      }
+
+      $headerPageNumber = $this->currentPage->getHeaderPageNumber();
+      if ($headerPageNumber) {
+        $this->addTextElement($headerPageNumber);
+      }
+    }
+
+    public function Footer()
+    {
+      if (is_null($this->previousPage)) return;
+
+      $footer = $this->previousPage->getFooter();
+
+      if ($footer) {
+        $this->addTextElement($footer, false, 'T');
+      }
+
+      $footerPageNumber = $this->previousPage->getFooterPageNumber();
+      if ($footerPageNumber) {
+        $this->addTextElement($footerPageNumber);
+      }
+    }
+
+    private function savePDF() {
+      $output = $this->metaBook->getBookSavePath();
+      $output.= config('bookstrap-constants.PDF_EXTENSION');
+      $this->Output($output, 'F');
+      return $output;
+    }
+}
