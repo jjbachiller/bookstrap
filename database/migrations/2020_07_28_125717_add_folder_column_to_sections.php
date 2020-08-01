@@ -13,7 +13,7 @@ class AddFolderColumnToSections extends Migration
      */
     public function up()
     {
-        Schema::table('Sections', function (Blueprint $table) {
+        Schema::table('sections', function (Blueprint $table) {
             $table->string('folder')->after('header')->nullable();
         });
     }
@@ -25,7 +25,7 @@ class AddFolderColumnToSections extends Migration
      */
     public function down()
     {
-        Schema::table('Sections', function (Blueprint $table) {
+        Schema::table('sections', function (Blueprint $table) {
             $table->dropColumn('folder');
         });
     }
