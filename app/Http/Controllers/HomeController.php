@@ -16,6 +16,11 @@ class HomeController extends Controller
         $this->middleware(['auth', 'verified']);
     }
 
+    public function notActivatedAccount(Request $request)
+    {
+        return view('auth.active-pending');
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -25,4 +30,6 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+
 }

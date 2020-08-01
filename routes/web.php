@@ -19,6 +19,8 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
+Route::get('activate-account', 'HomeController@notActivatedAccount')->name('account.notactived');
+
 Route::get('/home', 'BookController@index')->name('dashboard');
 
 // Book creation (allowed as guess)
@@ -34,7 +36,7 @@ Route::get('/book/{bookUid}/{date}/{book}', 'BookController@download')->name('ge
 
 Route::group(
   [
-    'middleware' => ['verified']
+    'middleware' => ['verified', 'active.user']
   ],
   function () {
     // Books

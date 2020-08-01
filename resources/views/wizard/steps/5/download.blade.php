@@ -94,11 +94,16 @@
   @auth
     <div id="download_container" class="d-none">
       @if (Auth::user()->hasVerifiedEmail())
-        <a href="#" id="book_link" class="btn btn-success btn-lg" role="button">
-          <span class="oi oi-cloud-download" title="cloud download" aria-hidden="true"></span>
+        @if (Auth::user()->active)
+          <a href="#" id="book_link" class="btn btn-success btn-lg" role="button">
+            <span class="oi oi-cloud-download" title="cloud download" aria-hidden="true"></span>
 
-          Download your book
-        </a>
+            Download your book
+          </a>
+        @else
+          Your account <strong>has NOT been activated</strong> yet.<br>
+          Your account should be activated by an administrator before you can download a book.
+        @endif
       @else
         {{ __('To download the book, please check your email for a verification link.') }}
         {{ __('If you did not receive the email') }},
