@@ -7,7 +7,7 @@
         Download your book
       </div>
       <div class="card-body p-4">
-        You created a book as guess.
+        You created a book as guest.
         You can download your book clicking here
         <a href="{{ $book->pdf ?? $book->ppt }}" class="btn btn-success">
           <span class="oi oi-cloud-download"></span> Download

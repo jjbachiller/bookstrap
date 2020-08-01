@@ -27,7 +27,7 @@ class BookController extends Controller
         $book->created_as_guess = false;
         $book->save();
         // Return view for created as guess book.
-        return view('dashboard.guess-book', compact('book'));
+        return view('dashboard.guest-book', compact('book'));
       }
       $books = auth()->user()->books()->orderBy('id', 'desc')->paginate(config('bookstrap-constants.NUM_BOOKS_PAGINATION'));
       return view('dashboard.index', compact('books'));
