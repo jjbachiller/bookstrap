@@ -374,6 +374,14 @@ div.dz-preview span {
 	justify-content: center;
 }
 
+.scalated {
+	transform: scale(0.5);
+	-moz-transform: scale(0.5);
+	-webkit-transform: scale(0.5);
+	left: 0;
+	top: 0;
+}
+
 @media(min-width: 700px) {
 	.book_wrapper{
 		margin:0 auto;

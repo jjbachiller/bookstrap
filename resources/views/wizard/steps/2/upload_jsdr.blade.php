@@ -31,11 +31,11 @@ $(".section-index").on('change', function() {
   var sectionHeader = sectionBlock.find(".card-header");
 
   sectionHeader.attr('id', 'heading' + index);
-  sectionHeader.attr('data-target', '#collapse' + index);
-  sectionHeader.attr('aria-controls', 'collapse' + index)
+  // sectionHeader.attr('data-target', '#collapse' + index);
+  // sectionHeader.attr('aria-controls', 'collapse' + index)
 
   sectionBlock.find(".section-button").html("Section " + index);
-  sectionBlock.find(".card-body-container").attr('id', 'collapse' + index).attr('aria-labelledby', 'heading' + index);
+  // sectionBlock.find(".card-body-container").attr('id', 'collapse' + index).attr('aria-labelledby', 'heading' + index);
 
   sectionBlock.find(".addSectionTitle").attr('id', 'addHeader' + index);
   sectionBlock.find(".addTitleHeader").attr('id', 'addTitleHeader' + index);
@@ -54,7 +54,7 @@ $('#addSection').on("click", function() {
 });
 
 function addNewSection(section = []) {
-  $('#Sections .collapse').collapse();
+  // $('#Sections .collapse').collapse();
   if (typeof section['folder'] === 'undefined') {
     // New section
     var currentIndex = $("#section-last-index").val();
@@ -67,6 +67,8 @@ function addNewSection(section = []) {
   var newSection = $(".section-template").clone(true, true);
   newSection.removeClass('section-template d-none').addClass('section-block');
   $("#Sections").append(newSection);
+  $('#Sections').accordion("refresh");
+  newSection.find('.card-header').click();
   // Change index value triggering the change in the identifiers and classes for the block
   newSection.find(".section-index").val(newIndex).change();
   // If user is updating a section and the section has a title, set the title values
@@ -167,12 +169,33 @@ $('.section-title-input').keyup(function() {
   $(this).closest('.section-block').find('.section-button').text($(this).val());
 });
 
+// Disabling bootstrap collapsing
+$('.sections-list').on('hide.bs.collapse', function (e) {
+  e.preventDefault();
+})
+
+$('#Sections').accordion({
+  active: true,
+  heightStyle: "content",
+  "ui-accordion-header": "card-header",
+  "ui-accordion-header-collapsed": "collapsed-header",
+  "ui-accordion-content": "collapse"
+});
+
 // Make sections sortable
 $('.sections-list').sortable({
   group: 'sections-list',
   handle: 'span.oi-ellipses',
+  axis: 'y',
+  opacity: 0.7,
   cursor: 'move',
-});
+  start: function(event, ui) {
+    // ui.item.addClass("scalated");
+  },
+  stop: function(event, ui) {
+    // ui.item.removeClass("scalated");
+  },
+}).disableSelection();
 
 // On load add the existing sections to edit.
 @isset($book)

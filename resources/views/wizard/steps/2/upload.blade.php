@@ -11,7 +11,7 @@
 
 <li class="section-template d-none card">
 
-  <div class="card-header" id="heading1"  data-toggle="collapse" data-target="#collapse1"  aria-expanded="true" aria-controls="collapse1">
+  <div class="card-header" id="heading1">
     <h5 class="mb-0">
       <span class="oi oi-ellipses"></span>
       <button class="btn btn-link section-button">
@@ -23,7 +23,7 @@
     </h5>
   </div>
 
-  <div id="collapse1" class="card-body-container collapse show" aria-labelledby="heading1" data-parent="#Sections">
+  <div id="collapse1" class="card-body-container" aria-labelledby="heading1" data-parent="#Sections">
 
     <div class="card-body">
 
