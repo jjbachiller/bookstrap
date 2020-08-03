@@ -77,7 +77,7 @@
                               -
                             @endif
                             @if ($book->ppt)
-                              <a href="{{ $book->pdf }}" target="_blank" class="text-primary small mr-3">
+                              <a href="{{ $book->ppt }}" target="_blank" class="text-primary small mr-3">
                                 <span class="oi oi-cloud-download"></span> PowerPoint
                               </a>
                             @else
@@ -111,7 +111,7 @@
         </div>
     </div>
     <!-- End Book List -->
-    {{ $books->links('components.pagination') }}        
+    {{ $books->links('components.pagination') }}
 
 </div>
 @endsection
