@@ -196,46 +196,42 @@ function loadBookPreview() {
     shadowBtmWidth:     50,                              // shadow width for bottom shadow
 
     before:             function(){},                    // callback invoked before each page turn animation
-    after:              function(){}                     // callback invoked after each page turn animation
+    after:              function(){},                   // callback invoked after each page turn animation
+    change: function(event, page) {
+      loadPage(page.index);
+    }
   });
+
+  //Bucle para cargar imágenes desde la 0 con lazy
 
   $('#mybook-slider').removeClass('d-none');
 
 }
 
 function generateBook() {
-  var $mybook 		= $('#mybook');
-  var $loading		= $('#loading');
-  var $mybook_images	= $mybook.find('img');
-  var cnt_images		= $mybook_images.length;
-  var loaded			= 0;
+  $('#loading').hide();
+  loadBookPreview();
+  loadPage(0);
+  // Apply the selected options to book.
+  var percentage = $('#image-size').val();
+  $('.img-content img').width(percentage + '%');
+  var position = $('.image-position .btn-primary').attr('rel');
+  imagePosition(position);
+  if($('#addBlankPages').is(':checked')) {
+    addBlankPages();
+  }
+}
 
-  //preload all the images in the book,
-  //and then call the booklet plugin
-
-  $mybook_images.each(function(){
-    var $img 	= $(this);
-    var source	= $img.attr('src');
-
-    $('<img/>').load(function(){
-      ++loaded;
-      if(loaded == cnt_images){
-        $loading.hide();
-        loadBookPreview();
-
-        // Apply the selected options to book.
-        var percentage = $('#image-size').val();
-        $('.img-content img').width(percentage + '%');
-        var position = $('.image-position .btn-primary').attr('rel');
-        imagePosition(position);
-        if($('#addBlankPages').is(':checked')) {
-          addBlankPages();
-        }
-
-      }
-    }).attr('src',source);
-  });
-
+function loadPage(index) {
+  var totalPages = {{ config('bookstrap-constants.NUM_IMAGES_PRELOADED') }} * 2 + 1;
+  var start = index - {{ config('bookstrap-constants.NUM_IMAGES_PRELOADED') }};
+  var end = totalPages + index;
+  for (var i = start; i <= end; i++) {
+    if (i >= 0) {
+      $("div.b-page-" + i).find('img.lazy').lazy();
+      console.log("asignando lazy a : " + i);
+    }
+  }
 }
 
 // Regenerate book on device rotation

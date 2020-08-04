@@ -152,7 +152,7 @@
         <h1>[TITLE]</h1>
       </div>
       <div class="img-content">
-        <img src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+        <img class="lazy" data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
       </div>
     </div>
     <div class="d-inline page-footer invisible">

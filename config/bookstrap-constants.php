@@ -91,4 +91,5 @@ return [
   'PDF_EXTENSION' => '.pdf',
   'PPT_EXTENSION' => '.pptx',
   'NUM_BOOKS_PAGINATION' => 10,
+  'NUM_IMAGES_PRELOADED' => 2,
 ];
