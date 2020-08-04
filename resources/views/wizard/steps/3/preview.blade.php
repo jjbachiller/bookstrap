@@ -120,6 +120,9 @@
   <div id="mybook" style="display:none;">
 
   </div>
+  <div id="mybook-blankpages" style="display:none;">
+
+  </div>
   <div id="mybook-slider" class="d-none">
 
     <input id="bookPagination" data-slider-id='bookPaginationSlider' type="text"/>

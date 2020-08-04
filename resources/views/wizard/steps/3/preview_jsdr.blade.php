@@ -13,7 +13,7 @@ function loadPreviewContent() {
     data: {user: $('#user').val(), _token: "{{ csrf_token() }}", sections: sections},
     success: function (data) {
       json = eval("(" + data + ")");
-      var current_page = 1;
+      var current_page = current_page_blankpages_book = 1;
 
       // Delete old content
       $('#mybook').empty();
@@ -25,6 +25,18 @@ function loadPreviewContent() {
         width: '905px',
         height: '181px'
       }).appendTo('#mybook');
+
+      // Delete old content from the blank pages book
+      $('#mybook-blankpages').empty();
+
+      // Create the content div for the blank pages book.
+      $('<div/>', {
+        id: 'mybook-blankpages-content',
+        "class": 'b-load',
+        width: '905px',
+        height: '181px'
+      }).appendTo('#mybook-blankpages');
+
 
       addCopyright();
 
@@ -41,6 +53,14 @@ function loadPreviewContent() {
           $('#mybook-content').append(page);
           sectionStart = false;
           current_page++;
+
+          // Blank pages
+          page = getNewTitlePage(current_page_blankpages_book, title)
+          $('#mybook-blankpages-content').append(page);
+          current_page_blankpages_book++;
+          var blankpage = getNewTitlePage(current_page_blankpages_book, '');
+          $('#mybook-blankpages-content').append(blankpage);
+          current_page_blankpages_book++;
         }
         // Add section images to the book
         var section = json.sections[section_index];
@@ -49,6 +69,14 @@ function loadPreviewContent() {
           $('#mybook-content').append(page);
           current_page++;
           sectionStart = false;
+
+          // Blank pages
+          page = getNewImagePage(current_page_blankpages_book, image, titleHeader, sectionStart);
+          $('#mybook-blankpages-content').append(page);
+          current_page_blankpages_book++;
+          var blankpage = getNewTitlePage(current_page_blankpages_book, '');
+          $('#mybook-blankpages-content').append(blankpage);
+          current_page_blankpages_book++;
         });
       });
       generateBook();
@@ -133,7 +161,6 @@ function getNewTitlePage(pageNumber, title) {
 }
 
 function loadBookPreview() {
-  var $mybook 		= $('#mybook');
   var $bttn_next		= $('#next_page_button');
   var $bttn_prev		= $('#prev_page_button');
   var bookletWidth = 800;
@@ -152,7 +179,7 @@ function loadBookPreview() {
     }
   }
 
-  $mybook.show().booklet({
+  var bookletOptions = {
     name:               null,                            // name of the booklet to display in the document title bar
     width:              bookletWidth,                             // container width
     height:             bookletHeight,                             // container height
@@ -198,12 +225,18 @@ function loadBookPreview() {
     before:             function(){},                    // callback invoked before each page turn animation
     after:              function(){},                   // callback invoked after each page turn animation
     change: function(event, page) {
+      // On page change, lazy loading the images on the new page.
       loadPage(page.index);
     }
-  });
+  };
 
-  //Bucle para cargar imágenes desde la 0 con lazy
+  $('#mybook').show().booklet(bookletOptions);
+  $('#mybook-blankpages').booklet(bookletOptions);
 
+  // Lazy loading first image
+  loadPage(0);
+
+  // Show the slider for pagination
   $('#mybook-slider').removeClass('d-none');
 
 }
@@ -211,7 +244,6 @@ function loadBookPreview() {
 function generateBook() {
   $('#loading').hide();
   loadBookPreview();
-  loadPage(0);
   // Apply the selected options to book.
   var percentage = $('#image-size').val();
   $('.img-content img').width(percentage + '%');
@@ -391,53 +423,19 @@ function showPageNumber(location) {
 // Blank pages options management
 $('#addBlankPages').on('change', function() {
   if ($(this).is(':checked')) {
-    addBlankPages();
+    // addBlankPages();
+    $('#mybook').hide();
+    $('#mybook-blankpages').booklet("gotopage", 'start');
+    $('#mybook-blankpages').show();
+    generateBookSlider(true);
   } else {
-    removeBlankPages();
+    // removeBlankPages();
+    $('#mybook').booklet("gotopage", 'start');
+    $('#mybook').show();
+    $('#mybook-blankpages').hide();
+    generateBookSlider();
   }
 });
-
-function addBlankPages() {
-  var $mybook 		= $('#mybook');
-  var current_page = 1;
-  var pages = $('#mybook div.page');
-  // If there is a copyright page, content start on page 3
-  var shift =   $('#addCopyright').is(':checked') ? 2 : 0;
-  $mybook.booklet("gotopage", 'start');
-  $.each(pages, function(index, p) {
-    if (index > shift) {
-      current_page++;
-      var page = getNewTitlePage(current_page, '');
-      $mybook.booklet("add", current_page-1 + shift, page);
-
-      current_page++;
-      // Modify page number for every page but first.
-      $(this).find('.page-number').text(current_page);
-    }
-  });
-  loadBookPreview();
-  generateBookSlider();
-}
-
-function removeBlankPages() {
-  var $mybook 		= $('#mybook');
-  var current_page = 1;
-  var pages = $('#mybook div.page');
-  var shift =   $('#addCopyright').is(':checked') ? 2 : 0;
-  $mybook.booklet("gotopage", 'start');
-  $.each(pages, function(index, page) {
-    if (index > shift) {
-      if ((index % 2)) {
-        $mybook.booklet("remove", current_page + shift);
-      } else {
-        current_page++;
-        $(this).find('.page-number').text(current_page);
-      }
-    }
-  });
-  loadBookPreview();
-  generateBookSlider();
-}
 //End Blank pages options management
 
 // Pagination Slider
@@ -461,9 +459,15 @@ $('#next_page_button').on('click', function() {
   $("#bookPagination").bootstrapSlider('setValue', currentPage);
 });
 
-function generateBookSlider() {
+function generateBookSlider(blank = false) {
 
-  var bookPages = $('#mybook').find('div.page');
+  var bookPages = null;
+  if (blank) {
+    bookPages = $('#mybook-blankpages').find('div.page');
+  } else {
+    bookPages = $('#mybook').find('div.page');
+  }
+
   var totalPages = bookPages.length;
   var sectionsPage = [];
 
@@ -521,8 +525,11 @@ function generateBookSlider() {
   });
 
   $("#bookPagination").on("slideStop", function(e) {
-    var $mybook 		= $('#mybook');
-    $mybook.booklet("gotopage", $(this).val());
+    if (blank) {
+      $('#mybook-blankpages').booklet("gotopage", $(this).val());
+    } else {
+      $('#mybook').booklet("gotopage", $(this).val());
+    }
   });
 
   $('#bookPagination').addClass('Initialized');
