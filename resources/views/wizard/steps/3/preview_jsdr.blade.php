@@ -1,3 +1,6 @@
+
+var firstLoad = true;
+
 // Load Book content from server and generate book
 function loadPreviewContent() {
   var sections = [];
@@ -80,11 +83,19 @@ function loadPreviewContent() {
         });
       });
       generateBook();
-      generateBookSlider();
-      @isset($book)
-        var editingBook = @json($book);
-        loadEditingBookValues(editingBook);
-      @endisset
+      var blank = $('#addBlankPages').is(":checked");
+      generateBookSlider(blank);
+
+      if (firstLoad) {
+        // Only load the option for the saved book, the first time that
+        // This step is shown on each edition.
+        @isset($book)
+          var editingBook = @json($book);
+          loadEditingBookValues(editingBook);
+        @endisset
+        firstLoad = false;
+      }
+
     }
   });
 }
@@ -160,11 +171,13 @@ function getNewTitlePage(pageNumber, title) {
   return getNewPageGenericContent(page, pageNumber);
 }
 
-function loadBookPreview() {
+function generateBook() {
   var $bttn_next		= $('#next_page_button');
   var $bttn_prev		= $('#prev_page_button');
   var bookletWidth = 800;
   var bookletHeight = 500;
+
+  $('#loading').hide();
 
   $bttn_next.show();
   $bttn_prev.show();
@@ -230,8 +243,19 @@ function loadBookPreview() {
     }
   };
 
-  $('#mybook').show().booklet(bookletOptions);
+  if (!firstLoad) {
+    // If is not the first time that previwe is show, destroy the old instances.
+    $('#mybook').booklet("destroy")
+    $('#mybook-blankpages').booklet("destroy")
+  }
+  $('#mybook').booklet(bookletOptions);
   $('#mybook-blankpages').booklet(bookletOptions);
+
+  if ($('#addBlankPages').is(":checked")) {
+    $('#mybook-blankpages').show();
+  } else {
+    $('#mybook').show();
+  }
 
   // Lazy loading first image
   loadPage(0);
@@ -239,19 +263,6 @@ function loadBookPreview() {
   // Show the slider for pagination
   $('#mybook-slider').removeClass('d-none');
 
-}
-
-function generateBook() {
-  $('#loading').hide();
-  loadBookPreview();
-  // Apply the selected options to book.
-  var percentage = $('#image-size').val();
-  $('.img-content img').width(percentage + '%');
-  var position = $('.image-position .btn-primary').attr('rel');
-  imagePosition(position);
-  if($('#addBlankPages').is(':checked')) {
-    addBlankPages();
-  }
 }
 
 function loadPage(index) {
@@ -536,6 +547,7 @@ function generateBookSlider(blank = false) {
 }
 
 function loadEditingBookValues(book) {
+  console.log("Cargando los valores del libro");
   $('#image-size').val(book['img_scale']);
   $('.image-position .btn[rel=' + book['img_position'] + ']').click();
   if (book['footer_details'] != '') {

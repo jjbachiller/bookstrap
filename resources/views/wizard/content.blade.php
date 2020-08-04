@@ -196,7 +196,7 @@
 
       // Wizard config and requests logic
       $("#smartwizard").on("stepContent", function(e, anchorObject, stepIndex, stepDirection) {
-        if (stepIndex == 2) {
+        if ((stepIndex == 2) && (stepDirection == 'forward')) {
           loadPreviewContent();
         }
         if (stepIndex == 4) {
