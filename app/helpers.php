@@ -108,6 +108,7 @@
     $dest_x = intval(($miniature['width'] - $new_width) / 2);
     $dest_y = intval(($miniature['height'] - $new_height) / 2);
     */
+
     if ($size[2] == IMAGETYPE_GIF) {
         $imgt = "ImageGIF";
         $imgcreatefrom = "ImageCreateFromGIF";
@@ -125,6 +126,11 @@
       $old_image = $imgcreatefrom($imgPath);
       // $new_image = imagecreatetruecolor($miniature['width'], $miniature['height']);
       $new_image = imagecreatetruecolor($new_width, $new_height);
+      // For png transparency
+      if ($size[2] == IMAGETYPE_PNG) {
+        $white = imagecolorallocate($new_image, 255, 255, 255);
+        imagefill($new_image,0,0,$white);
+      }
       imagecopyresized($new_image, $old_image, 0, 0, 0, 0, $new_width, $new_height, $size[0], $size[1]);
       $miniatureFolder = $basedir . '/' . $miniature['folder'];
       Storage::makeDirectory($miniatureFolder);
