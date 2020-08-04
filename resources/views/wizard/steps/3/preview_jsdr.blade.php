@@ -229,7 +229,6 @@ function loadPage(index) {
   for (var i = start; i <= end; i++) {
     if (i >= 0) {
       $("div.b-page-" + i).find('img.lazy').lazy();
-      console.log("asignando lazy a : " + i);
     }
   }
 }
