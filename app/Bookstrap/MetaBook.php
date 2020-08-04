@@ -52,11 +52,6 @@ class MetaBook {
           $pageNumber++;
         }
       }
-      // We added a blank page at the end of each section in every case.
-      if (!$book->add_blank_pages) {
-        $this->addBlankPage($pageNumber);
-        $pageNumber++;
-      }
     }
   }
 
