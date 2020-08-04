@@ -547,7 +547,6 @@ function generateBookSlider(blank = false) {
 }
 
 function loadEditingBookValues(book) {
-  console.log("Cargando los valores del libro");
   $('#image-size').val(book['img_scale']);
   $('.image-position .btn[rel=' + book['img_position'] + ']').click();
   if (book['footer_details'] != '') {
