@@ -144,6 +144,8 @@ function addNewSection(section = []) {
       for (var index in images) {
         var image = images[index];
         lastDropzone.displayExistingFile(image.data, image.url);
+        // Add to the dropZone files array (so you can delete all).
+        lastDropzone.files.push(image.data);
       }
     }
   }
