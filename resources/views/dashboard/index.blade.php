@@ -24,6 +24,11 @@
                         </th>
                         <th scope="col" class="font-weight-medium">
                             <div class="d-flex justify-content-between align-items-center">
+                                Total Pages
+                            </div>
+                        </th>
+                        <th scope="col" class="font-weight-medium">
+                            <div class="d-flex justify-content-between align-items-center">
                                 Sections
                             </div>
                         </th>
@@ -61,6 +66,9 @@
                               <span class="pl-4 d-block text-muted small">
                                 {{ $book->created_at->format('F d, Y \a\t h:i A') }}
                               </span>
+                          </td>
+                          <td class="align-middle text-center">
+                              <span class="d-block h5">{{ $book->total_pages ?? 0 }}</span>
                           </td>
                           <td class="align-middle text-center">
                               <span class="d-block h5">{{ count($book->sections) }}</span>

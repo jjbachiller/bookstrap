@@ -53,6 +53,7 @@ function loadPreviewContent() {
           var title = titleBlock.find('.section-title-input').val();
           var page = getNewTitlePage(current_page, title);
           titleHeader = (titleBlock.find('.addTitleHeader').is(':checked')) ? title : false;
+          imageNameAsTitle = (titleBlock.find('.imageNameAsTitle').is(':checked')) ? title : false;
           $('#mybook-content').append(page);
           sectionStart = false;
           current_page++;
@@ -68,13 +69,20 @@ function loadPreviewContent() {
         // Add section images to the book
         var section = json.sections[section_index];
         section.forEach(function(image, j) {
-          var page = getNewImagePage(current_page, image, titleHeader, sectionStart);
+          pageOptions = {
+            'pageNumber': current_page,
+            'image': image,
+            'header': titleHeader,
+            'imageNameAsTitle': imageNameAsTitle,
+            'sectionStart': sectionStart,
+          };
+          var page = getNewImagePage(pageOptions);
           $('#mybook-content').append(page);
           current_page++;
           sectionStart = false;
 
           // Blank pages
-          page = getNewImagePage(current_page_blankpages_book, image, titleHeader, sectionStart);
+          page = getNewImagePage(pageOptions);
           $('#mybook-blankpages-content').append(page);
           current_page_blankpages_book++;
           var blankpage = getNewTitlePage(current_page_blankpages_book, '');
@@ -128,34 +136,44 @@ function getNewPageGenericContent(page, pageNumber) {
 }
 
 // Return a new page formated for the book.
-function getNewImagePage(pageNumber, image, header, sectionStart) {
+function getNewImagePage(imagePageOptions) {
   var imageTemplate = $('#page-template').clone();
   //Remove the title section from the template
   imageTemplate.find('.title-content').remove();
-  if (header !== false) {
+  if (imagePageOptions['header'] !== false) {
     imageTemplate.find('.page-header').toggleClass('invisible');
-    imageTemplate.find('.header-text').text(header);
+    imageTemplate.find('.header-text').text(imagePageOptions['header']);
   }
 
-  if (sectionStart) {
+  if (imagePageOptions['sectionStart']) {
     // If it is the first page of a section we add the section-start class
     imageTemplate.find('.page').addClass("section-start");
   }
 
+  var imgTitle = imageTemplate.find('.img-title');
+  if (!imagePageOptions['imageNameAsTitle']) {
+    imgTitle.remove();
+  } else {
+    // Remove path & remove extension.
+    var imageName = imagePageOptions['image'].replace(/^.*[\\\/]/, '').replace(/\.[^/.]+$/, "");
+    imgTitle.html(imageName)
+  }
 
   var page = imageTemplate.html();
-  page = page.replace('[IMG_URL]', image);
+
+  page = page.replace('[IMG_URL]', imagePageOptions['image']);
 
   var footer = $('#footer').val();
-  page = page.replace('[FOOTER]', footer);
+  page = page.replace('[FOOTER]', imagePageOptions['footer']);
 
-  return getNewPageGenericContent(page, pageNumber, false);
+  return getNewPageGenericContent(page, imagePageOptions['pageNumber'], false);
 }
 
 function getNewTitlePage(pageNumber, title) {
   var titleTemplate = $('#page-template').clone();
   //Remove the image section from the template
   titleTemplate.find('.img-content').remove();
+  titleTemplate.find('.img-title').remove();
   titleTemplate.find('.page-header').removeClass('page-header').addClass('page-hidden-meta');
   titleTemplate.find('.page-footer').removeClass('page-footer').addClass('page-hidden-meta');
 

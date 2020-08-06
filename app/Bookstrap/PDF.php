@@ -27,6 +27,8 @@ class PDF extends FPDF {
         $this->currentPage = $page;
         $this->addPageToBook();
       }
+      // For close with the correct footer in the last page.
+      $this->previousPage = $this->currentPage;
 
       return $this->savePDF();
     }
@@ -81,6 +83,12 @@ class PDF extends FPDF {
 
     private function addImage($img)
     {
+      $imgTitle = $img->getImageTitle();
+      if ($imgTitle) {
+        // Add image title on the page
+        $this->addTextElement($imgTitle);
+      }
+
       list($x, $y) = $img->getPosition();
       list($width, $height) = $img->getDimensions();
 

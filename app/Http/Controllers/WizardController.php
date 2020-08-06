@@ -93,7 +93,8 @@ class WizardController extends Controller
     $book->resetContent();
     $sectionOrder = 1;
     // Create and add the new sections.
-    $total_pages = $total_size = 0;
+    // $total_pages = $total_size = 0;
+    $total_size = 0;
     foreach ($sections as $sec)
     {
       $section = new \App\Section;
@@ -106,6 +107,8 @@ class WizardController extends Controller
         $section->header = $sec['addTitleHeader'];
         $section->pages_count++;
       }
+
+      $section->image_name_as_title = $sec['imageNameAsTitle'];
 
       // List images in section in order to calculate num pages and total size for the section.
       if (Auth::check()) {
@@ -125,7 +128,7 @@ class WizardController extends Controller
         $section->size += $fileinfo->getSize();
         $section->pages_count++;
       }
-      $total_pages+= $section->pages_count;
+      //$total_pages+= $section->pages_count;
       $total_size+= $section->size;
 
       $section->order = $sectionOrder;
@@ -135,7 +138,7 @@ class WizardController extends Controller
 
       $sectionOrder++;
     }
-    $book->total_pages = $total_pages;
+    // $book->total_pages = $total_pages;
     $book->total_size = $total_size;
     $book->save();
   }

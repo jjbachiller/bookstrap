@@ -38,8 +38,10 @@ $(".section-index").on('change', function() {
   // sectionBlock.find(".card-body-container").attr('id', 'collapse' + index).attr('aria-labelledby', 'heading' + index);
 
   sectionBlock.find(".addSectionTitle").attr('id', 'addHeader' + index);
+  sectionBlock.find(".imageNameAsTitle").attr('id', 'addImageNameAsTitle' + index);
   sectionBlock.find(".addTitleHeader").attr('id', 'addTitleHeader' + index);
-  sectionBlock.find(".custom-control-label").attr('for', 'addHeader' + index);
+  sectionBlock.find(".addHeaderLabel").attr('for', 'addHeader' + index);
+  sectionBlock.find(".imageNameAsTitleLabel").attr('for', 'addImageNameAsTitle' + index);
   sectionBlock.find(".section-title-input").attr('id', 'sectionTitle' + index);
   sectionBlock.find(".dropzone").attr('id', 'myDrop' + index);
   // sectionBlock.find(".orderByName").attr('id', 'orderByName' + index);
@@ -80,6 +82,12 @@ function addNewSection(section = []) {
       if (!section['header']) {
         newSection.find('addTitleHeader').prop('checked', false);
       }
+  }
+
+  if (typeof section['image_name_as_title'] !== 'undefined') {
+    if (section['image_name_as_title'] == 1) {
+      newSection.find(".imageNameAsTitle").prop('checked', true).change();
+    }
   }
   // If newIndex > 1 add deleteSection button
   var newDrop = newSection.find(".myDrop");

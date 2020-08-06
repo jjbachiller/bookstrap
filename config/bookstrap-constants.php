@@ -84,6 +84,14 @@ return [
   'TITLE_FONT_STYLE' => 'BU',
   'TITLE_ALIGNMENT' => 'C',
 
+  'IMAGE_TITLE_HEIGHT' => 15,
+  'IMAGE_TITLE_FONT' => 'Arial',
+  'IMAGE_TITLE_FONT_SIZE' => 16,
+  'IMAGE_TITLE_FONT_STYLE' => 'BU',
+  'IMAGE_TITLE_ALIGNMENT' => 'C',
+
+  'ELEMENT_TOP_MARGIN_HEIGHT' => 5,
+
   'PDF_UNIT' => 'mm',
   'PDF_ORIENTATION' => 'P',
   'PDF' => 1,

@@ -151,6 +151,12 @@ class PPT extends PhpPresentation {
 
   private function addImage($img)
   {
+    $imgTitle = $img->getImageTitle();
+    if ($imgTitle) {
+      // Add image title on the page
+      $this->addTextElement($imgTitle);
+    }
+
     $currentSlide = $this->getActiveSlide();
     $shape = $currentSlide->createDrawingShape();
 

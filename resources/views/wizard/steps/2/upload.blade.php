@@ -31,8 +31,16 @@
         <input type="hidden" class="section-index" value="1">
 
         <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input addSectionTitle" id="addHeader1">
-          <label class="custom-control-label" for="addHeader1">Add a section title</label>
+          <div class="row">
+            <div class="col">
+              <input type="checkbox" class="custom-control-input addSectionTitle" id="addHeader1">
+              <label class="custom-control-label addHeaderLabel" for="addHeader1">Add a section title</label>
+            </div>
+            <div class="col">
+              <input type="checkbox" class="custom-control-input imageNameAsTitle" id="addImageNameAsTitle1">
+              <label class="custom-control-label imageNameAsTitleLabel" for="addImageNameAsTitle1">Add file name as image title</label>
+            </div>
+          </div>
         </div>
 
         <div class="d-none section-title-text">

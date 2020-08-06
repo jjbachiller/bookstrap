@@ -147,6 +147,12 @@ span.reference a:hover{
 	opacity:0.8;
 }
 
+.booklet .img-title {
+	font-size: large;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
 .book_wrapper{
 	margin:0 auto;
 	padding-top:10px;
@@ -388,6 +394,10 @@ div.dz-preview span {
 	-webkit-transform: scale(0.5);
 	left: 0;
 	top: 0;
+}
+
+.dropzone .dz-preview .dz-error-message {
+    top: 175px !important;
 }
 
 @media(min-width: 700px) {

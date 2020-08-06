@@ -105,7 +105,7 @@ class MetaBook {
     }
 
     // Add section image
-    $page->setSectionImage($image);
+    $page->setSectionImage($image, $this->currentSection->image_name_as_title);
 
     // Add footer text
     $footer = $this->bookSettings->getBook()->footer_details;

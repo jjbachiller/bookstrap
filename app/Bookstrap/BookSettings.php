@@ -87,7 +87,7 @@ class BookSettings {
   }
 
   public function getMaxHeight() {
-    return $this->bookHeight - ($this->marginSide * 2) - config('bookstrap-constants.HEADER_HEIGHT') - config('bookstrap-constants.FOOTER_HEIGHT');
+    return $this->bookHeight - ($this->marginSide * 2) - (config('bookstrap-constants.ELEMENT_TOP_MARGIN_HEIGHT') * 2) - config('bookstrap-constants.HEADER_HEIGHT') - config('bookstrap-constants.FOOTER_HEIGHT');
   }
 
   public function getBookFilePath() {

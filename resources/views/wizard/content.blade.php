@@ -154,6 +154,7 @@
             section.folder = $(this).find("input.section-index").val();
             section.addTitle = $(this).find(".addSectionTitle").is(':checked');
             section.title = $(this).find(".section-title-input").val();
+            section.imageNameAsTitle = $(this).find(".imageNameAsTitle").is(':checked');
             section.addTitleHeader = $(this).find(".addTitleHeader").is(':checked');
             sections.push(section);
         });
