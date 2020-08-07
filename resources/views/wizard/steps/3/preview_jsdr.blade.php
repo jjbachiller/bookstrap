@@ -53,7 +53,6 @@ function loadPreviewContent() {
           var title = titleBlock.find('.section-title-input').val();
           var page = getNewTitlePage(current_page, title);
           titleHeader = (titleBlock.find('.addTitleHeader').is(':checked')) ? title : false;
-          imageNameAsTitle = (titleBlock.find('.imageNameAsTitle').is(':checked')) ? title : false;
           $('#mybook-content').append(page);
           sectionStart = false;
           current_page++;
@@ -66,6 +65,7 @@ function loadPreviewContent() {
           $('#mybook-blankpages-content').append(blankpage);
           current_page_blankpages_book++;
         }
+        var imageNameAsTitle = titleBlock.find('.imageNameAsTitle').is(':checked');
         // Add section images to the book
         var section = json.sections[section_index];
         section.forEach(function(image, j) {
