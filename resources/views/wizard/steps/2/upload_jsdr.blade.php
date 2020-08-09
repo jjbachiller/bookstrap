@@ -38,12 +38,21 @@ $(".section-index").on('change', function() {
   // sectionBlock.find(".card-body-container").attr('id', 'collapse' + index).attr('aria-labelledby', 'heading' + index);
 
   sectionBlock.find(".addSectionTitle").attr('id', 'addHeader' + index);
+  sectionBlock.find(".addSolutionTitle").attr('id', 'addHeaderSolution' + index);
   sectionBlock.find(".imageNameAsTitle").attr('id', 'addImageNameAsTitle' + index);
+  sectionBlock.find(".imageNameAsTitleSolution").attr('id', 'addImageNameAsTitleSolution' + index);
   sectionBlock.find(".addTitleHeader").attr('id', 'addTitleHeader' + index);
+  sectionBlock.find(".addTitleHeaderSolution").attr('id', 'addTitleHeaderSolution' + index);
   sectionBlock.find(".addHeaderLabel").attr('for', 'addHeader' + index);
+  sectionBlock.find(".addHeaderSolutionLabel").attr('for', 'addHeaderSolution' + index);
   sectionBlock.find(".imageNameAsTitleLabel").attr('for', 'addImageNameAsTitle' + index);
+  sectionBlock.find(".imageNameAsTitleLabelSolution").attr('for', 'addImageNameAsTitleSolution' + index);
   sectionBlock.find(".section-title-input").attr('id', 'sectionTitle' + index);
+  sectionBlock.find(".section-title-solution-input").attr('id', 'sectionTitleSolution' + index);
   sectionBlock.find(".dropzone").attr('id', 'myDrop' + index);
+  sectionBlock.find(".dropzone-solutions").attr('id', 'myDropSolutions' + index);
+  sectionBlock.find(".addSolutions").attr('id', 'addSolutions' + index);
+  sectionBlock.find(".addSolutionsLabel").attr('for', 'addSolutions' + index);
   // sectionBlock.find(".orderByName").attr('id', 'orderByName' + index);
 
   if (index > 1) {
