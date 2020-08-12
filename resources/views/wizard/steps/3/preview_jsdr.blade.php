@@ -43,16 +43,18 @@ function loadPreviewContent() {
 
       addCopyright();
 
-      $.each(json.order, function(i, section_index) {
+      function addSectionContent(section_index, images, solutions = false) {
         var sectionStart = true;
         // Get title for .section-index i
         var sectionIndex = $('.section-index[value=' + section_index + ']');
-        var titleBlock = sectionIndex.closest('.title-block');
+        var titleBlock = solutions ? sectionIndex.closest('.card-body').find('.solutions-title-block') : sectionIndex.closest('.title-block');
         var titleHeader = false;
-        if (titleBlock.find('.addSectionTitle').is(':checked')) {
-          var title = titleBlock.find('.section-title-input').val();
+        var sectionTitle = solutions ? titleBlock.find('.addSolutionTitle') : titleBlock.find('.addSectionTitle');
+        if (sectionTitle.is(':checked')) {
+          var title = solutions ? titleBlock.find('.section-title-solutions-input').val() : titleBlock.find('.section-title-input').val();
           var page = getNewTitlePage(current_page, title);
-          titleHeader = (titleBlock.find('.addTitleHeader').is(':checked')) ? title : false;
+          var addHeader = solutions ? titleBlock.find('.addTitleHeaderSolution') : titleBlock.find('.addTitleHeader');
+          titleHeader = (addHeader.is(':checked')) ? title : false;
           $('#mybook-content').append(page);
           sectionStart = false;
           current_page++;
@@ -65,10 +67,9 @@ function loadPreviewContent() {
           $('#mybook-blankpages-content').append(blankpage);
           current_page_blankpages_book++;
         }
-        var imageNameAsTitle = titleBlock.find('.imageNameAsTitle').is(':checked');
-        // Add section images to the book
-        var section = json.sections[section_index];
-        section.forEach(function(image, j) {
+        var imageNameAsTitle = solutions ? titleBlock.find('.imageNameAsTitleSolution').is(':checked') : titleBlock.find('.imageNameAsTitle').is(':checked');
+
+        images.forEach(function(image, j) {
           pageOptions = {
             'pageNumber': current_page,
             'image': image,
@@ -89,7 +90,31 @@ function loadPreviewContent() {
           $('#mybook-blankpages-content').append(blankpage);
           current_page_blankpages_book++;
         });
+      }
+
+      var solutionsToTheEnd = [];
+      // Add Sections to the book preview
+      $.each(json.order, function(i, section_index) {
+        var section = json.sections[section_index];
+        addSectionContent(section_index, section.images);
+        // Check if solutions go now or at the end
+        var postponedSolution = $('.section-index[value=' + section_index + ']').closest('.card-body').find('.placeSolutionsAtTheEnd');
+        if (postponedSolution.is(':checked')) {
+          var sectionSolutions = {
+            'index': section_index,
+            'images': section.solutions
+          };
+          solutionsToTheEnd.push(sectionSolutions);
+        } else {
+          addSectionContent(section_index, section.solutions, true);
+        }
       });
+
+      // Add solutions marked to the end on each section, to the end of the book preview.
+      solutionsToTheEnd.forEach(function(solution, i) {
+        addSectionContent(solution.index, solution.images, true);
+      });
+
       generateBook();
       var blank = $('#addBlankPages').is(":checked");
       generateBookSlider(blank);
@@ -407,6 +432,7 @@ $('.image-position .btn').on('click', function() {
 $('#addFooter').on('change', function() {
   $('#footerOptions').toggleClass('d-none');
   $('.page-footer').toggleClass('invisible');
+  $('.footer-text').text($('#footer').val());
 });
 
 $('#footer').keyup(function() {

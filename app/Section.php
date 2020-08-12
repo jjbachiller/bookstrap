@@ -23,4 +23,10 @@ class Section extends Model
 
       return $sectionFolder;
     }
+
+    public function getSolutionsFolder()
+    {
+      $solutionsFolder = $this->getContentFolder() . config('bookstrap-constants.SOLUTIONS_FOLDER');
+      return $solutionsFolder;
+    }
 }

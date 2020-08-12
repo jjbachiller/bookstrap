@@ -90,6 +90,14 @@ class BookSettings {
     return $this->bookHeight - ($this->marginSide * 2) - (config('bookstrap-constants.ELEMENT_TOP_MARGIN_HEIGHT') * 2) - config('bookstrap-constants.HEADER_HEIGHT') - config('bookstrap-constants.FOOTER_HEIGHT');
   }
 
+  public function getContentXOffset() {
+    return $this->marginSide;
+  }
+
+  public function getContentYOffset() {
+    return $this->marginSide + config('bookstrap-constants.HEADER_HEIGHT');
+  }
+
   public function getBookFilePath() {
     return $this->bookFolder . $this->book->name;
   }

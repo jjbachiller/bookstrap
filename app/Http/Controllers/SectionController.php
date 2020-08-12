@@ -21,6 +21,9 @@ class SectionController extends Controller
           // FIXME: Check filesize here.
           $userUid = (Auth::check()) ? Auth::user()->uid : session('user_uid');
           $srcPath    =  config('bookstrap-constants.uploads_path') . $userUid . '/' . getSessionBookUid() . '/' . $request->input('section') . '/';
+          if ($request->input('solutions')) {
+            $srcPath.= config('bookstrap-constants.SOLUTIONS_FOLDER');
+          }
           Storage::makeDirectory($srcPath);
           $fileName   =   trim($file->getClientOriginalName());
 

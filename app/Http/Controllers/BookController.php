@@ -63,27 +63,19 @@ class BookController extends Controller
       $virtualPath = config('bookstrap-constants.uploads_virtual_path') . $book->uid . '/';
       foreach ($book->sections as $key => $section)
       {
-        $images = [];
+        // Section images.
         $sectionFolder = Storage::path($section->getContentFolder());
-        $filenames = glob($sectionFolder.'*');
-        natsort($filenames);
-        foreach ($filenames as $imgFile) {
-          // $data = ['procesing' => true, 'accepted' => true, 'status' => 'success'];
-          $data = [];
-          $fileinfo = new \SplFileInfo($imgFile);
-          if (!$fileinfo->isFile() || !in_array($fileinfo->getExtension(), config('bookstrap-constants.allowedExtensions'), true)) continue;
-          $data['name'] = $fileinfo->getFilename();
-          $data['size'] = $fileinfo->getSize();
-          $data['type'] = $fileinfo->getType();
-          // Virtual url to the resource
-          $fileVirtualPath = $virtualPath . $section->folder . '/preview/' . $fileinfo->getFilename();
-          $images[] = ['data' => $data, 'url' => url($fileVirtualPath)];
-        }
-        $book->sections[$key]->{"images"} = $images;
+        $virtualFolder = $virtualPath . $section->folder . '/';
+        $book->sections[$key]->{"images"} = getImageExtendedDataFromFolder($sectionFolder, $virtualFolder);
+        // Solutions images.
+        $solutionsFolder = $sectionFolder . config('bookstrap-constants.SOLUTIONS_FOLDER');
+        $virtualSolutionsFolder = $virtualFolder . config('bookstrap-constants.SOLUTIONS_FOLDER');
+        $book->sections[$key]->{"solutions"} = getImageExtendedDataFromFolder($solutionsFolder, $virtualSolutionsFolder);
       }
 
       return view('wizard.content', compact('book'));
     }
+
 
     /**
      * Remove the specified resource from storage.

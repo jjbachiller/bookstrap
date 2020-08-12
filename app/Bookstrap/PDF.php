@@ -42,9 +42,9 @@ class PDF extends FPDF {
         $this->addTitle($title);
       }
 
-      $image = $this->currentPage->getImage();
-      if ($image) {
-        $this->addImage($image);
+      $images = $this->currentPage->getImages();
+      if ($images) {
+        $this->addImages($images);
       }
 
     }
@@ -81,22 +81,24 @@ class PDF extends FPDF {
       $this->addTextElement($title, true);
     }
 
-    private function addImage($img)
+    private function addImages($images)
     {
-      $imgTitle = $img->getImageTitle();
-      if ($imgTitle) {
-        // Add image title on the page
-        $this->addTextElement($imgTitle);
+      foreach ($images as $img) {
+        $imgTitle = $img->getImageTitle();
+        if ($imgTitle) {
+          // Add image title on the page
+          $this->addTextElement($imgTitle);
+        }
+
+        list($x, $y) = $img->getPosition();
+        list($width, $height) = $img->getDimensions();
+
+        $this->Image(
+          $img->getImage(),
+          $x, $y,
+          $width, $height
+        );
       }
-
-      list($x, $y) = $img->getPosition();
-      list($width, $height) = $img->getDimensions();
-
-      $this->Image(
-        $img->getImage(),
-        $x, $y,
-        $width, $height
-      );
     }
 
     public function Header()

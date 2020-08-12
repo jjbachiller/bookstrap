@@ -11,17 +11,51 @@
     return round($val * config('bookstrap-constants.DPI') / config('bookstrap-constants.INCH_IN_MM'), 2);
   }
 
-/*
-  function pointsToPixels($val)
-  {
-    return $val * config('constants.POINT_IN_PIXELS');
+  function getSizeAndPages($folder) {
+    $size = $pages = 0;
+    $filenames = glob($folder.'*');
+    foreach ($filenames as $imgFile) {
+      $fileinfo = new \SplFileInfo($imgFile);
+      if (!$fileinfo->isFile() || !in_array($fileinfo->getExtension(), config('bookstrap-constants.allowedExtensions'), true)) continue;
+      $size += $fileinfo->getSize();
+      $pages++;
+    }
+    return array($size, $pages);
   }
 
-  function pointsToMM($val)
-  {
-    return $val * config('constants.POINT_IN_MM');
+  function getImageLinksFromFolder($realFolder, $virtualFolder, $size = 'preview') {
+    $images = [];
+    $filenames = glob($realFolder.'*');
+    natsort($filenames);
+    foreach ($filenames as $filename) {
+      $fileinfo = new \SplFileInfo($filename);
+      if (!$fileinfo->isFile() || !in_array($fileinfo->getExtension(), config('bookstrap-constants.allowedExtensions'), true)) continue;
+      // Show miniatures in order to save bandwith
+      $miniatures = config('bookstrap-constants.miniatures');
+      $images[] = url($virtualFolder  . $miniatures[$size]['folder'] . basename($filename));
+    }
+    return $images;
   }
-*/
+
+  function getImageExtendedDataFromFolder($folder, $virtualFolder)
+  {
+    $images = [];
+    $filenames = glob($folder.'*');
+    natsort($filenames);
+    foreach ($filenames as $imgFile) {
+      // $data = ['procesing' => true, 'accepted' => true, 'status' => 'success'];
+      $data = [];
+      $fileinfo = new \SplFileInfo($imgFile);
+      if (!$fileinfo->isFile() || !in_array($fileinfo->getExtension(), config('bookstrap-constants.allowedExtensions'), true)) continue;
+      $data['name'] = $fileinfo->getFilename();
+      $data['size'] = $fileinfo->getSize();
+      $data['type'] = $fileinfo->getType();
+      // Virtual url to the resource
+      $fileVirtualPath = $virtualFolder . 'preview/' . $fileinfo->getFilename();
+      $images[] = ['data' => $data, 'url' => url($fileVirtualPath)];
+    }
+    return $images;
+  }
 
   function preprocessText($text)
   {
@@ -137,4 +171,127 @@
       $miniaturePath = Storage::path($miniatureFolder) . $img;
       $imgt($new_image, $miniaturePath);
     }
+  }
+
+  function calculateImageMaxDimensions($bookMaxWidth, $bookMaxHeight, $totalImages)
+  {
+    switch ($totalImages) {
+      case 2:
+        $imageMaxWidth = $bookMaxWidth;
+        $imageMaxHeight = $bookMaxHeight / 2;
+        break;
+      case 3:
+      case 6:
+        $imageMaxWidth = $bookMaxWidth / 2;
+        $imageMaxHeight = $bookMaxHeight / 3;
+        break;
+      case 4:
+        $imageMaxWidth = $bookMaxWidth / 2;
+        $imageMaxHeight = $bookMaxHeight / 2;
+        break;
+      case 5:
+        $imageMaxWidth = $bookMaxWidth / 3;
+        $imageMaxHeight = $bookMaxHeight / 3;
+        break;
+      default:
+        $imageMaxWidth = $bookMaxWidth;
+        $imageMaxHeight = $bookMaxHeight;
+    }
+
+    return [$imageMaxWidth, $imageMaxHeight];
+  }
+
+  function calculateImageOffset($totalImages, $currentImage, $imageMaxWidth, $imageMaxHeight)
+  {
+    switch ($currentImage) {
+      case 2:
+        $offsetX = 0;
+
+        if ($totalImages == 2 || $totalImages == 4 || $totalImages == 6) {
+          $offsetY = $imageMaxHeight;
+        } else {
+          $offsetY = $imageMaxHeight * 2;
+        }
+
+        break;
+      case 3:
+
+        if ($totalImages == 3) {
+          // Centered on the right side of the page
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight;
+
+        } elseif ($totalImages == 4) {
+
+          $offsetX = $imageMaxWidth;
+          $offsetY = 0;
+
+        } elseif ($totalImages == 5) {
+
+          $offsetX = $imageMaxWidth * 2;
+          $offsetY = 0;
+
+        } elseif ($totalImages == 6) {
+
+          $offsetX = 0;
+          $offsetY = $imageMaxHeight * 2;
+
+        }
+
+        break;
+      case 4:
+
+        if ($totalImages == 4) {
+
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight;
+
+        } elseif ($totalImages == 5) {
+
+          $offsetX = $imageMaxWidth * 2;
+          $offsetY = $imageMaxHeight * 2;
+
+        } elseif ($totalImages == 6) {
+
+          $offsetX = $imageMaxWidth;
+          $offsetY = 0;
+
+        }
+
+        break;
+      case 5:
+        // Same offset for 5 or 6 images
+        $offsetX = $imageMaxWidth;
+        $offsetY = $imageMaxHeight;
+
+        break;
+      case 6:
+        $offsetX = $imageMaxWidth;
+        $offsetY = $imageMaxHeight * 2;
+
+        break;
+      default:
+        $offsetX = $offsetY = 0;
+    }
+
+    return [$offsetX, $offsetY];
+  }
+
+  // Scale the original image to fit the document size
+  function scaleToFit($image, $maxWidth, $maxHeight)
+  {
+      list($width, $height) = getimagesize($image);
+
+      $width = pixelsToMM($width);
+      $height = pixelsToMM($height);
+
+      $widthScale = $maxWidth / $width;
+      $heightScale = $maxHeight / $height;
+
+      $scale = min($widthScale, $heightScale);
+
+      $inDocumentWidth = $scale * $width;
+      $inDocumentHeight = $scale * $height;
+
+      return array($inDocumentWidth, $inDocumentHeight);
   }

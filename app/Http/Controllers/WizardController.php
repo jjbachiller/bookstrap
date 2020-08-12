@@ -93,7 +93,6 @@ class WizardController extends Controller
     $book->resetContent();
     $sectionOrder = 1;
     // Create and add the new sections.
-    // $total_pages = $total_size = 0;
     $total_size = 0;
     foreach ($sections as $sec)
     {
@@ -109,6 +108,17 @@ class WizardController extends Controller
       }
 
       $section->image_name_as_title = $sec['imageNameAsTitle'];
+      $section->images_per_page = $sec['imagesPerPage'];
+
+      if ($sec['addSolutionsTitle']) {
+        $section->solutions_title = $sec['solutionsTitle'];
+        $section->solutions_header = $sec['solutionsHeader'];
+        $section->pages_count++;
+      }
+
+      $section->solutions_name_as_title = $sec['solutionNameAsTitle'];
+      $section->solutions_per_page = $sec['solutionsPerPage'];
+      $section->solutions_to_the_end = $sec['solutionsToTheEnd'];
 
       // List images in section in order to calculate num pages and total size for the section.
       if (Auth::check()) {
@@ -120,15 +130,15 @@ class WizardController extends Controller
 
       $workFolder = config('bookstrap-constants.uploads_path') . $userUid . '/' . $book->uid . '/';
       $sectionFolder = Storage::path($workFolder) . $sec['folder'] . '/';
+      list($sectionSize, $sectionPages) = getSizeAndPages($sectionFolder);
+      $section->size+= $sectionSize;
+      $section->pages_count+= $sectionPages;
 
-      $filenames = glob($sectionFolder.'*');
-      foreach ($filenames as $imgFile) {
-        $fileinfo = new \SplFileInfo($imgFile);
-        if (!$fileinfo->isFile() || !in_array($fileinfo->getExtension(), config('bookstrap-constants.allowedExtensions'), true)) continue;
-        $section->size += $fileinfo->getSize();
-        $section->pages_count++;
-      }
-      //$total_pages+= $section->pages_count;
+      $solutionsFolder = $sectionFolder . config('bookstrap-constants.SOLUTIONS_FOLDER');
+      list($solutionsSize, $solutionsPages) = getSizeAndPages($solutionsFolder);
+      $section->size+= $solutionsSize;
+      $section->pages_count+= $solutionsPages;
+
       $total_size+= $section->size;
 
       $section->order = $sectionOrder;
@@ -138,8 +148,9 @@ class WizardController extends Controller
 
       $sectionOrder++;
     }
-    // $book->total_pages = $total_pages;
     $book->total_size = $total_size;
     $book->save();
   }
+
+
 }

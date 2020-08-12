@@ -12,7 +12,7 @@ class Page {
   private $header;
   private $headerPageNumber;
   private $title;
-  private $image;
+  private $images;
   private $footer;
   private $footerPageNumber;
 
@@ -129,52 +129,69 @@ class Page {
     $this->title->setText($title);
   }
 
-  public function setSectionImage($image, $addTitle=false)
+  public function setSectionImages($images, $addTitle=false)
   {
-    $this->image = new ImageElement();
+    $this->images = [];
 
-    // If it's not wanted we can save space arround image title only (double of this)
-    // Then we have to initialize here to 0 and add twice if ($addTitle)
-    $startY = config('bookstrap-constants.ELEMENT_TOP_MARGIN_HEIGHT');
+    list($imgMaxWidth, $imgMaxHeight) = calculateImageMaxDimensions($this->bookSettings->getMaxWidth(), $this->bookSettings->getMaxHeight(), count($images));
 
-    if ($addTitle) {
-      // Remove extension from image name
-      $imageName = pathinfo($image, PATHINFO_FILENAME);
-      $imageTitle = $this->getSectionImageTitle($imageName);
-      $this->image->setImageTitle($imageTitle);
-      $startY+= config('bookstrap-constants.IMAGE_TITLE_HEIGHT') + config('bookstrap-constants.ELEMENT_TOP_MARGIN_HEIGHT');
+    foreach ($images as $current => $image) {
+      $imgPosition = $current + 1;
+      $totalImages = count($images);
+      $imageElement = new ImageElement();
+      // Set the maximal dimensions and the max init point for the image
+      $imageElement->setDimensions($imgMaxWidth, $imgMaxHeight);
+      list($offsetX, $offsetY) = calculateImageOffset($totalImages, $imgPosition, $imgMaxWidth, $imgMaxHeight);
+
+      // We add the offset of the content for the document
+      $offsetX+= $this->bookSettings->getContentXOffset();
+      $offsetY+= $this->bookSettings->getContentYOffset();
+
+      // And add an inner margin for the image elements.
+      $innerImageOffset = config('bookstrap-constants.ELEMENT_TOP_MARGIN_HEIGHT');
+      if ($addTitle) {
+        // Remove extension from image name
+        $imageName = pathinfo($image, PATHINFO_FILENAME);
+        $imageTitle = $this->getSectionImageTitle($imageName, $totalImages, $offsetX, $offsetY, $imgMaxWidth);
+        $imageElement->setImageTitle($imageTitle);
+        // If the image has a title we add the title offset
+        $innerImageOffset+= config('bookstrap-constants.IMAGE_TITLE_HEIGHT') + config('bookstrap-constants.ELEMENT_TOP_MARGIN_HEIGHT');
+      }
+      // Get the scated image dimensions
+      $imgMaxHeightWithOffset = $imgMaxHeight - $innerImageOffset;
+      list($scalatedWidth, $scalatedHeight) = scaleToFit($image, $imgMaxWidth, $imgMaxHeightWithOffset);
+      // scale Image to the user preferences
+      $userScale = $this->getReducedImagePercentage();
+      $reducedWidth = $scalatedWidth * $userScale;
+      $reducedHeight = $scalatedHeight * $userScale;
+      $imageElement->setDimensions($reducedWidth, $reducedHeight);
+
+      // Update the offset adding the inner y offset after the elements added.
+      $offsetY+= $innerImageOffset;
+      // Set the image alignment into the reserved space.
+      list($x, $y) = $this->getInDocumentPosition($reducedWidth, $reducedHeight, $imgMaxWidth, $imgMaxHeightWithOffset, $offsetX, $offsetY);
+      $imageElement->setPosition($x, $y);
+
+      $imageElement->setImage($image);
+
+      $this->images[] = $imageElement;
     }
-
-    // Fit image size to document site
-    list($width, $height) = $this->scaleToFit($image, $startY);
-    // scale Image to the user preferences
-    $userScale = $this->getReducedImagePercentage();
-    $width = $width * $userScale;
-    $height = $height * $userScale;
-
-    $this->image->setDimensions($width, $height);
-
-    list($x, $y) = $this->getInDocumentPosition($width, $height, $startY);
-    $this->image->setPosition($x, $y);
-
-    $this->image->setImage($image);
   }
 
-  private function getSectionImageTitle($imageName)
+  private function getSectionImageTitle($imageName, $totalImages, $x, $y, $width)
   {
     $imageTitle = new TextElement();
 
-    $x = $this->bookSettings->getMargin();
-    $y = $this->bookSettings->getMargin() + config('bookstrap-constants.HEADER_HEIGHT') + config('bookstrap-constants.ELEMENT_TOP_MARGIN_HEIGHT');
     $imageTitle->setPosition($x, $y);
 
-    $width = $this->bookSettings->getMaxWidth();
     $height = config('bookstrap-constants.IMAGE_TITLE_HEIGHT');
     $imageTitle->setDimensions($width, $height);
 
+    $fontSizes = config('bookstrap-constants.IMAGE_TITLE_FONT_SIZES');
+
     $imageTitle->setTextStyle(
       config('bookstrap-constants.IMAGE_TITLE_FONT'),
-      config('bookstrap-constants.IMAGE_TITLE_FONT_SIZE'),
+      $fontSizes[$totalImages],
       config('bookstrap-constants.IMAGE_TITLE_FONT_STYLE'),
       config('bookstrap-constants.IMAGE_TITLE_ALIGNMENT')
     );
@@ -183,87 +200,49 @@ class Page {
     return $imageTitle;
   }
 
-  // Scale the original image to fit the document size
-  private function scaleToFit($image, $startY)
-  {
-      list($width, $height) = getimagesize($image);
-
-      $width = pixelsToMM($width);
-      $height = pixelsToMM($height);
-
-      $widthScale = $this->bookSettings->getMaxWidth() / $width;
-      $heightScale = ($this->bookSettings->getMaxHeight() - $startY) / $height;
-
-      $scale = min($widthScale, $heightScale);
-
-      $inDocumentWidth = $scale * $width;
-      $inDocumentHeight = $scale * $height;
-
-      return array($inDocumentWidth, $inDocumentHeight);
-  }
-
-
-  private function getInDocumentPosition($imgWidth, $imgHeight, $startY) {
+  private function getInDocumentPosition($imgWidth, $imgHeight, $maxWidth, $maxHeight, $offsetX, $offsetY) {
     $book = $this->bookSettings->getBook();
-
-    // Height of the section where the image can be allocated
-    $imageSectionHeight = $this->bookSettings->getBookHeight() - $startY;
-
-    $topStartY = $startY + $this->bookSettings->getMargin();
-
-    // Image Y coordinate on bottom allignment
-    // Last Y point in the document.
-    $bottomStartY = $this->bookSettings->getBookHeight();
-    // Up Y the height of the image
-    $bottomStartY-= $imgHeight;
-    // Up Y the margin of the document
-    $bottomStartY-= $this->bookSettings->getMargin();
-    // Up Y the footer Height.
-    $bottomStartY-= config('bookstrap-constants.FOOTER_HEIGHT');
-    // Up Y the margin top of the footer.
-    $bottomStartY-= config('bookstrap-constants.ELEMENT_TOP_MARGIN_HEIGHT');
 
     switch ($book->img_position) {
       case config('bookstrap-constants.imagePositions.TOP_LEFT'):
-        $x = $this->bookSettings->getMargin();
-        $y = $topStartY + config('bookstrap-constants.HEADER_HEIGHT');
+        $x = $offsetX;
+        $y = $offsetY;
         break;
       case config('bookstrap-constants.imagePositions.TOP_CENTER'):
-        $x = ($this->bookSettings->getBookWidth() - $imgWidth) / 2;
-        $y = $topStartY + config('bookstrap-constants.HEADER_HEIGHT');
+        $x = $offsetX + (($maxWidth - $imgWidth) / 2);
+        $y = $offsetY;
         break;
       case config('bookstrap-constants.imagePositions.TOP_RIGHT'):
-        $x = $this->bookSettings->getBookWidth() - ($imgWidth + $this->bookSettings->getMargin());
-        $y = $topStartY + config('bookstrap-constants.HEADER_HEIGHT');
+        $x = $offsetX + ($maxWidth - $imgWidth);
+        $y = $offsetY;
         break;
       case config('bookstrap-constants.imagePositions.MIDDLE_LEFT'):
-        $x = $this->bookSettings->getMargin();
-        $y = (($imageSectionHeight - $imgHeight) / 2); + $startY;
+        $x = $offsetX;
+        $y = $offsetY + (($maxHeight - $imgHeight) / 2);
         break;
       case config('bookstrap-constants.imagePositions.MIDDLE_CENTER'):
-        $x = ($this->bookSettings->getBookWidth() - $imgWidth) / 2;
-        $y = (($imageSectionHeight - $imgHeight) / 2) + $startY;
-        // print_r("X: " . $x . " Y: " . $y);
+        $x = $offsetX + (($maxWidth - $imgWidth) / 2);
+        $y = $offsetY + (($maxHeight - $imgHeight) / 2);
         break;
       case config('bookstrap-constants.imagePositions.MIDDLE_RIGHT'):
-        $x = $this->bookSettings->getBookWidth() - ($imgWidth + $this->bookSettings->getMargin());
-        $y = (($imageSectionHeight - $imgHeight) / 2) + $startY;
+        $x = $offsetX + ($maxWidth - $imgWidth);
+        $y = $offsetY + (($maxHeight - $imgHeight) / 2);
         break;
       case config('bookstrap-constants.imagePositions.BOTTOM_LEFT'):
-        $x = $this->bookSettings->getMargin();
-        $y = $bottomStartY;
+        $x = $offsetX;
+        $y = $offsetY + ($maxHeight - $imgHeight);
         break;
       case config('bookstrap-constants.imagePositions.BOTTOM_CENTER'):
-        $x = ($this->bookSettings->getBookWidth() - $imgWidth) / 2;
-        $y = $bottomStartY;
+        $x = $offsetX + (($maxWidth - $imgWidth) / 2);
+        $y = $offsetY + ($maxHeight - $imgHeight);
         break;
       case config('bookstrap-constants.imagePositions.BOTTOM_RIGHT'):
-        $x = $this->bookSettings->getBookWidth() - ($imgWidth + $this->bookSettings->getMargin());
-        $y = $bottomStartY;
+        $x = $offsetX + ($maxWidth - $imgWidth);
+        $y = $offsetY + ($maxHeight - $imgHeight);
         break;
       default:
-        $x = $this->bookSettings->getMargin();
-        $y = $startY + config('bookstrap-constants.HEADER_HEIGHT');
+        $x = $offsetX + (($maxWidth - $imgWidth) / 2);
+        $y = $offsetY + (($maxHeight - $imgHeight) / 2);
     }
 
     return array($x, $y);
@@ -289,9 +268,9 @@ class Page {
     return is_null($this->title) ? false : $this->title;
   }
 
-  public function getImage()
+  public function getImages()
   {
-    return is_null($this->image) ? false : $this->image;
+    return is_null($this->images) ? false : $this->images;
   }
 
   public function getFooter()

@@ -31,6 +31,7 @@ return [
   'uploads_virtual_path' => 'content/',
   'downloads_path' => 'downloads/',
   'downloads_virtual_path' => 'book/',
+  'SOLUTIONS_FOLDER' => 'solutions/',
   'pageNumberPositions' => [
     'HEADER' => 1,
     'FOOTER' => 2,
@@ -86,10 +87,16 @@ return [
 
   'IMAGE_TITLE_HEIGHT' => 10,
   'IMAGE_TITLE_FONT' => 'Arial',
-  'IMAGE_TITLE_FONT_SIZE' => 15,
   'IMAGE_TITLE_FONT_STYLE' => 'BU',
   'IMAGE_TITLE_ALIGNMENT' => 'C',
-
+  'IMAGE_TITLE_FONT_SIZES' => [
+    1 => 15,
+    2 => 12,
+    3 => 9,
+    4 => 9,
+    5 => 7,
+    6 => 7,
+  ],
   'ELEMENT_TOP_MARGIN_HEIGHT' => 1,
 
   'PDF_UNIT' => 'mm',

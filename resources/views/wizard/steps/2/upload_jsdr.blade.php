@@ -1,3 +1,4 @@
+//// New section add
 $(function() {
   $(".myDrop").sortable({
     items: '.dz-preview',
@@ -14,16 +15,6 @@ $(function() {
 //Dropzone script
 Dropzone.autoDiscover = false;
 
-$(".upload_files").on("click",function (){
-  var dropzoneIndex = $(this).closest(".section-block").find('.section-index').val();
-  var sectionDropzone = Dropzone.forElement("#myDrop"+dropzoneIndex);
-  sectionDropzone.processQueue();
-});
-
-$(".addSectionTitle").on('change', function() {
-  $(this).closest(".title-block").find(".section-title-text").toggleClass('d-none');
-});
-
 // Add a section block
 $(".section-index").on('change', function() {
   var index = $(this).val();
@@ -31,11 +22,8 @@ $(".section-index").on('change', function() {
   var sectionHeader = sectionBlock.find(".card-header");
 
   sectionHeader.attr('id', 'heading' + index);
-  // sectionHeader.attr('data-target', '#collapse' + index);
-  // sectionHeader.attr('aria-controls', 'collapse' + index)
 
   sectionBlock.find(".section-button").html("Section " + index);
-  // sectionBlock.find(".card-body-container").attr('id', 'collapse' + index).attr('aria-labelledby', 'heading' + index);
 
   sectionBlock.find(".addSectionTitle").attr('id', 'addHeader' + index);
   sectionBlock.find(".addSolutionTitle").attr('id', 'addHeaderSolution' + index);
@@ -48,24 +36,28 @@ $(".section-index").on('change', function() {
   sectionBlock.find(".imageNameAsTitleLabel").attr('for', 'addImageNameAsTitle' + index);
   sectionBlock.find(".imageNameAsTitleLabelSolution").attr('for', 'addImageNameAsTitleSolution' + index);
   sectionBlock.find(".section-title-input").attr('id', 'sectionTitle' + index);
-  sectionBlock.find(".section-title-solution-input").attr('id', 'sectionTitleSolution' + index);
+  sectionBlock.find(".section-title-solutions-input").attr('id', 'sectionTitleSolution' + index);
   sectionBlock.find(".dropzone").attr('id', 'myDrop' + index);
   sectionBlock.find(".dropzone-solutions").attr('id', 'myDropSolutions' + index);
   sectionBlock.find(".addSolutions").attr('id', 'addSolutions' + index);
   sectionBlock.find(".addSolutionsLabel").attr('for', 'addSolutions' + index);
-  // sectionBlock.find(".orderByName").attr('id', 'orderByName' + index);
+  sectionBlock.find(".placeSolutionsAtTheEnd").attr('id', 'solutionsAtTheEnd' + index);
+  sectionBlock.find(".placeSolutionsAtTheEndLabel").attr('for', 'solutionsAtTheEnd' + index);
+
+  sectionBlock.find(".imagesPerPage").attr('id', 'imagesPerPage' + index);
+  sectionBlock.find(".imagesPerPageLabel").attr('for', 'imagesPerPage' + index);
+  sectionBlock.find(".solutionsPerPage").attr('id', 'solutionsPerPage' + index);
+  sectionBlock.find(".solutionsPerPageLabel").attr('for', 'solutionsPerPage' + index);
 
   if (index > 1) {
     sectionBlock.find(".delete-section").removeClass('d-none');
   }
 });
 
-$('#addSection').on("click", function() {
-  addNewSection();
-});
+$('#addSection').on("click", addNewSection);
 
 function addNewSection(section = []) {
-  // $('#Sections .collapse').collapse();
+
   if (typeof section['folder'] === 'undefined') {
     // New section
     var currentIndex = $("#section-last-index").val();
@@ -74,15 +66,20 @@ function addNewSection(section = []) {
     // Existing section (update)
     var newIndex = parseInt(section['folder']);
   }
+
   $("#section-last-index").val(newIndex);
   var newSection = $(".section-template").clone(true, true);
   newSection.removeClass('section-template d-none').addClass('section-block');
   $("#Sections").append(newSection);
   $('#Sections').accordion("refresh");
   newSection.find('.card-header').click();
+
   // Change index value triggering the change in the identifiers and classes for the block
   newSection.find(".section-index").val(newIndex).change();
-  // If user is updating a section and the section has a title, set the title values
+
+  // Load section value if is an editing section
+
+  // SECTION CONTENT: If user is updating a section and the section has a title, set the title values
   if ((typeof section['title'] !== 'undefined')
     && (section['title'] !== null)) {
       newSection.find(".addSectionTitle").prop('checked', true).change();
@@ -98,9 +95,38 @@ function addNewSection(section = []) {
       newSection.find(".imageNameAsTitle").prop('checked', true).change();
     }
   }
+
+  // SOLUTIONS CONTENT:
+  if (typeof section['solutions'] != 'undefined') {
+    newSection.find(".addSolutions").prop('checked', true).change();
+    if (section['solutions_title'] !== null) {
+      newSection.find(".addSolutionTitle").prop('checked', true).change();
+      newSection.find(".section-title-solutions-input").val(section['solutions_title']);
+      newSection.find(".solutions-title-block div.alert").text(section['solutions_title']);
+      if (!section['solutions_header']) {
+        newSection.find('addTitleHeaderSolution').prop('checked', false);
+      }
+    }
+
+    if (typeof section['solutions_name_as_title'] !== 'undefined') {
+      if (section['solutions_name_as_title'] == 1) {
+        newSection.find(".imageNameAsTitleSolution").prop('checked', true).change();
+      }
+    }
+
+    if (typeof section['solutions_to_the_end'] !== 'undefined') {
+      if (section['solutions_to_the_end'] == 1) {
+        newSection.find(".placeSolutionsAtTheEnd").prop('checked', true).change();
+      }
+    }
+  }
+
+
   // If newIndex > 1 add deleteSection button
-  var newDrop = newSection.find(".myDrop");
-  newDrop.dropzone(
+  var newDrops = newSection.find(".myDrop");
+
+  // Set the dropzone & solution dropzone functionality
+  newDrops.dropzone(
   {
        paramName: "files", // The name that will be used to transfer the file
        addRemoveLinks: true,
@@ -112,25 +138,64 @@ function addNewSection(section = []) {
        url: "{{ route('section.upload-images') }}",
   });
 
-  var lastDropzone = Dropzone.forElement("#myDrop"+newIndex);
+  var sectionDropzone = Dropzone.forElement("#myDrop"+newIndex);
 
-  lastDropzone.on("sending", function(file, xhr, formData) {
+  setupDropzone(sectionDropzone, newSection, newIndex);
+
+  var solutionsDropzone = Dropzone.forElement("#myDropSolutions"+newIndex);
+
+  setupDropzone(solutionsDropzone, newSection, newIndex, 1);
+
+  // If is editing a section, add the images of the existing section to the dropZone.
+  if (typeof section['images'] !== 'undefined') {
+    var images = section['images'];
+    if (images instanceof Array) {
+      for (var index in images) {
+        var image = images[index];
+        sectionDropzone.displayExistingFile(image.data, image.url);
+        // Add to the dropZone files array (so you can delete all).
+        sectionDropzone.files.push(image.data);
+      }
+    }
+  }
+
+  // And the same for the solutions if user is editing an existing section with solutions
+  if (typeof section['solutions'] !== 'undefined') {
+    var solutions = section['solutions'];
+    if (solutions instanceof Array) {
+      for (var index in solutions) {
+        var solution = solutions[index];
+        solutionsDropzone.displayExistingFile(solution.data, solution.url);
+        solutionsDropzone.files.push(solution.data);
+      }
+    }
+  }
+
+}
+
+function setupDropzone(newDropzone, newSection, newIndex, solutions=0) {
+
+  newDropzone.on("sending", function(file, xhr, formData) {
     var filenames = [];
     $('.dz-preview .dz-filename').each(function() {
       filenames.push($(this).find('span').text());
     });
     formData.append("_token", $('#_token').val());
-    formData.append("user", $('#user').val());
+    // formData.append("user", $('#user').val());
     formData.append("section", newIndex);
-    formData.append("orderByName", $('#orderByName'+newIndex).is(':checked')?1:0);
+    formData.append("solutions", solutions);
+    // formData.append("orderByName", $('#orderByName'+newIndex).is(':checked')?1:0);
     formData.append('filenames', filenames);
   });
 
-  lastDropzone.on("addedfile", function(file) {
+  var deleteClass = solutions ? '.delete-solutions' : '.delete-images';
+
+  newDropzone.on("addedfile", function(file) {
     // Enable the delete all images button
-    newSection.find(".delete-images").prop('disabled', false);
+    newSection.find(deleteClass).prop('disabled', false);
     // Append the file name to the image preview.
-    var preview = newSection.find(".dz-preview:last-child");
+    var previewContent = solutions ? newSection.find('.solutions-content') : newSection.find('.section-content');
+    var preview = previewContent.find(".dz-preview:last-child");
     var filenameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
     var imageName = $("<span/>")
                       .attr("class", "badge badge-pill badge-primary mb-2")
@@ -142,36 +207,42 @@ function addNewSection(section = []) {
     preview.prepend(imageName);
   });
 
-  lastDropzone.on("removedfile", function(file) {
+  newDropzone.on("removedfile", function(file) {
     $.ajax({
       type: "POST",
       url : "{{ route('section.delete-image') }}",
       data: {user: $('#user').val(), _token: "{{ csrf_token() }}", section: newIndex, image: file.name}
     });
 
-    if (lastDropzone.files.length == 0) {
-      newSection.find(".delete-images").prop('disabled', true);
+    if (newDropzone.files.length == 0) {
+      newSection.find(deleteClass).prop('disabled', true);
     }
   });
 
-  // If is editing a section, add the images of the existing section to the dropZone.
-  if (typeof section['images'] !== 'undefined') {
-    var images = section['images'];
-    if (images instanceof Array) {
-      for (var index in images) {
-        var image = images[index];
-        lastDropzone.displayExistingFile(image.data, image.url);
-        // Add to the dropZone files array (so you can delete all).
-        lastDropzone.files.push(image.data);
-      }
-    }
-  }
 }
+
+//// End new section add
+
+$(".addSectionTitle").on('change', function() {
+  $(this).closest(".title-block").find(".section-title-text").toggleClass('d-none');
+});
+
+$(".addSolutionTitle").on('change', function() {
+  $(this).closest(".solutions-title-block").find(".section-title-text").toggleClass('d-none');
+})
 
 $('.delete-images').on('click', function() {
   if (confirm("Are you sure you want to delete all images from this section?")) {
     var dropzoneIndex = $(this).closest(".section-block").find('.section-index').val();
     var sectionDropzone = Dropzone.forElement("#myDrop"+dropzoneIndex);
+    sectionDropzone.removeAllFiles(true);
+  }
+});
+
+$('.delete-solutions').on('click', function() {
+  if (confirm("Are you sure you want to delete all solutions from this section?")) {
+    var dropzoneIndex = $(this).closest(".section-block").find('.section-index').val();
+    var sectionDropzone = Dropzone.forElement("#myDropSolutions"+dropzoneIndex);
     sectionDropzone.removeAllFiles(true);
   }
 });
@@ -186,6 +257,10 @@ $('.delete-section').on('click', function(e) {
 
 $('.section-title-input').keyup(function() {
   $(this).closest('.section-block').find('.section-button').text($(this).val());
+});
+
+$('.section-title-solutions-input').keyup(function() {
+  $(this).closest('.section-block').find('.alert').text($(this).val());
 });
 
 // Disabling bootstrap collapsing
@@ -215,6 +290,10 @@ $('.sections-list').sortable({
     // ui.item.removeClass("scalated");
   },
 }).disableSelection();
+
+$('.addSolutions').on('change', function() {
+  $(this).closest('.section-block').find('.solutions-content').toggleClass('d-none');
+});
 
 // On load add the existing sections to edit.
 @isset($book)
