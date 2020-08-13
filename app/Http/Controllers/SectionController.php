@@ -59,7 +59,11 @@ class SectionController extends Controller
   public function deleteSectionImage(Request $request) {
     // FIXME: Validate if user exist and if not, if exists any user with this uid ...
       $userUid = (Auth::check()) ? Auth::user()->uid : session('user_uid');
-      $srcPath = config('bookstrap-constants.uploads_path') . $userUid . '/' . getSessionBookUid() . '/' . $request->input('section') . '/' . $request->input('image');
+      $srcPath = config('bookstrap-constants.uploads_path') . $userUid . '/' . getSessionBookUid() . '/' . $request->input('section') . '/';
+      if ($request->input('solutions')) {
+        $srcPath.= config('bookstrap-constants.SOLUTIONS_FOLDER');
+      }
+      $srcPath.= $request->input('image');
       return Storage::delete($srcPath);
   }
 

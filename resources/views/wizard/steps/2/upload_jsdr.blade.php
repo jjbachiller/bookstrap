@@ -213,20 +213,42 @@ function setupDropzone(newDropzone, newSection, newIndex, solutions=0) {
                       .html(filenameWithoutExt);
     imageName.tooltip();
     preview.prepend(imageName);
+
+    var secondDZ = solutions ? Dropzone.forElement("#myDrop"+newIndex) : Dropzone.forElement("#myDropSolutions"+newIndex);
+    // If the number of files are different error = true
+    var error = (newDropzone.files.length + 1) - secondDZ.files.length;
+    updateSolutionsNumberMatchMessage(newIndex, error);
   });
 
   newDropzone.on("removedfile", function(file) {
     $.ajax({
       type: "POST",
       url : "{{ route('section.delete-image') }}",
-      data: {user: $('#user').val(), _token: "{{ csrf_token() }}", section: newIndex, image: file.name}
+      data: {user: $('#user').val(), _token: "{{ csrf_token() }}", section: newIndex, image: file.name, solutions: solutions}
     });
 
     if (newDropzone.files.length == 0) {
       newSection.find(deleteClass).prop('disabled', true);
     }
-  });
 
+    var secondDZ = solutions ? Dropzone.forElement("#myDrop"+newIndex) : Dropzone.forElement("#myDropSolutions"+newIndex);
+    // If the number of files are different error = true
+    var error = newDropzone.files.length - secondDZ.files.length;
+    updateSolutionsNumberMatchMessage(newIndex, error);
+  });
+}
+
+function updateSolutionsNumberMatchMessage(sectionIndex, error) {
+  if ($(document).find("#addSolutions"+sectionIndex).is(':checked')) {
+    var sectionHeader = $(document).find("#heading"+sectionIndex);
+    if (error) {
+      sectionHeader.addClass('bg-danger');
+      sectionHeader.find('.section-error').removeClass('d-none');
+    } else {
+      sectionHeader.removeClass('bg-danger');
+      sectionHeader.find('.section-error').addClass('d-none');
+    }
+  }
 }
 
 //// End new section add

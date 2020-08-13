@@ -44,10 +44,11 @@ function loadPreviewContent() {
       addCopyright();
 
       function addSectionContent(section_index, images, solutions = false) {
+
         var sectionStart = true;
         // Get title for .section-index i
         var sectionIndex = $('.section-index[value=' + section_index + ']');
-        var titleBlock = solutions ? sectionIndex.closest('.card-body').find('.solutions-title-block') : sectionIndex.closest('.title-block');
+        var titleBlock = solutions ? sectionIndex.closest('.card-body-container').find('.solutions-title-block') : sectionIndex.closest('.title-block');
         var titleHeader = false;
         var sectionTitle = solutions ? titleBlock.find('.addSolutionTitle') : titleBlock.find('.addSectionTitle');
         if (sectionTitle.is(':checked')) {
@@ -67,8 +68,14 @@ function loadPreviewContent() {
           $('#mybook-blankpages-content').append(blankpage);
           current_page_blankpages_book++;
         }
+
         var imageNameAsTitle = solutions ? titleBlock.find('.imageNameAsTitleSolution').is(':checked') : titleBlock.find('.imageNameAsTitle').is(':checked');
         var imagesPerPage = solutions ? titleBlock.find('.solutionsPerPage').val() : titleBlock.find('.imagesPerPage').val();
+
+        if (solutions) {
+          console.log('Adding solutions');
+          console.log(titleBlock.html());
+        }
 
         var currentPageImages = new Array();
         images.forEach(function(image, j) {
@@ -96,7 +103,7 @@ function loadPreviewContent() {
             // Reset the images per page array
             currentPageImages = new Array();
           }
-          
+
           currentPageImages.push(image);
         });
 
