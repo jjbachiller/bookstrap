@@ -57,9 +57,9 @@ class PPT extends PhpPresentation {
       $this->addTitle($title);
     }
 
-    $image = $page->getImage();
-    if ($image) {
-      $this->addImage($image);
+    $images = $page->getImages();
+    if ($images) {
+      $this->addImages($images);
     }
 
     $footer = $page->getFooter();
@@ -149,25 +149,27 @@ class PPT extends PhpPresentation {
     $this->addTextElement($title);
   }
 
-  private function addImage($img)
+  private function addImages($images)
   {
-    $imgTitle = $img->getImageTitle();
-    if ($imgTitle) {
-      // Add image title on the page
-      $this->addTextElement($imgTitle);
+    foreach ($images as $img) {
+      $imgTitle = $img->getImageTitle();
+      if ($imgTitle) {
+        // Add image title on the page
+        $this->addTextElement($imgTitle);
+      }
+
+      $currentSlide = $this->getActiveSlide();
+      $shape = $currentSlide->createDrawingShape();
+
+      list($x, $y) = $img->getPosition();
+      list($width, $height) = $img->getDimensions();
+
+      $shape->setPath($img->getImage());
+      $shape->setWidth(mmToPixels($width));
+      $shape->setHeight(mmToPixels($height));
+      $shape->setOffsetX(mmToPixels($x));
+      $shape->setOffsetY(mmToPixels($y));
     }
-
-    $currentSlide = $this->getActiveSlide();
-    $shape = $currentSlide->createDrawingShape();
-
-    list($x, $y) = $img->getPosition();
-    list($width, $height) = $img->getDimensions();
-
-    $shape->setPath($img->getImage());
-    $shape->setWidth(mmToPixels($width));
-    $shape->setHeight(mmToPixels($height));
-    $shape->setOffsetX(mmToPixels($x));
-    $shape->setOffsetY(mmToPixels($y));
   }
 
   private function addFooter($footer)

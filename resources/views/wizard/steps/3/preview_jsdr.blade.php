@@ -68,11 +68,43 @@ function loadPreviewContent() {
           current_page_blankpages_book++;
         }
         var imageNameAsTitle = solutions ? titleBlock.find('.imageNameAsTitleSolution').is(':checked') : titleBlock.find('.imageNameAsTitle').is(':checked');
+        var imagesPerPage = solutions ? titleBlock.find('.solutionsPerPage').val() : titleBlock.find('.imagesPerPage').val();
 
+        var currentPageImages = new Array();
         images.forEach(function(image, j) {
+          if (currentPageImages.length == imagesPerPage) {
+            pageOptions = {
+              'pageNumber': current_page,
+              'images': currentPageImages,
+              'header': titleHeader,
+              'imageNameAsTitle': imageNameAsTitle,
+              'sectionStart': sectionStart,
+            };
+            var page = getNewImagePage(pageOptions);
+            $('#mybook-content').append(page);
+            current_page++;
+            sectionStart = false;
+
+            // Blank pages
+            page = getNewImagePage(pageOptions);
+            $('#mybook-blankpages-content').append(page);
+            current_page_blankpages_book++;
+            var blankpage = getNewTitlePage(current_page_blankpages_book, '');
+            $('#mybook-blankpages-content').append(blankpage);
+            current_page_blankpages_book++;
+
+            // Reset the images per page array
+            currentPageImages = new Array();
+          }
+          
+          currentPageImages.push(image);
+        });
+
+        // Add a new page with the pending images.
+        if (currentPageImages.length > 0) {
           pageOptions = {
             'pageNumber': current_page,
-            'image': image,
+            'images': currentPageImages,
             'header': titleHeader,
             'imageNameAsTitle': imageNameAsTitle,
             'sectionStart': sectionStart,
@@ -89,7 +121,8 @@ function loadPreviewContent() {
           var blankpage = getNewTitlePage(current_page_blankpages_book, '');
           $('#mybook-blankpages-content').append(blankpage);
           current_page_blankpages_book++;
-        });
+        }
+
       }
 
       var solutionsToTheEnd = [];
@@ -175,18 +208,27 @@ function getNewImagePage(imagePageOptions) {
     imageTemplate.find('.page').addClass("section-start");
   }
 
-  var imgTitle = imageTemplate.find('.img-title');
-  if (!imagePageOptions['imageNameAsTitle']) {
-    imgTitle.remove();
-  } else {
-    // Remove path & remove extension.
-    var imageName = imagePageOptions['image'].replace(/^.*[\\\/]/, '').replace(/\.[^/.]+$/, "");
-    imgTitle.html(imageName)
-  }
+  var numImages = imagePageOptions['images'].length;
+  var imagesLayout = $('.images-layout').find('.images-per-page-' + numImages).clone();
+  imagePageOptions['images'].forEach(function(image, i) {
+    var imageNumber = i + 1;
+    // Load or remove the title for each image
+    var imgTitle = imagesLayout.find('.title-' + imageNumber);
+    if (!imagePageOptions['imageNameAsTitle']) {
+      // imgTitle.remove();
+      imgTitle.html('');
+    } else {
+      // Remove path & extension from image route.
+      var imageName = image.replace(/^.*[\\\/]/, '').replace(/\.[^/.]+$/, "");
+      imgTitle.html(imageName);
+    }
+
+    imagesLayout.find('.image-' + imageNumber).attr('data-src', image);
+  });
+  // Load the images layout on the images container section in the template.
+  imageTemplate.find('.images-content').html(imagesLayout);
 
   var page = imageTemplate.html();
-
-  page = page.replace('[IMG_URL]', imagePageOptions['image']);
 
   var footer = $('#footer').val();
   page = page.replace('[FOOTER]', imagePageOptions['footer']);

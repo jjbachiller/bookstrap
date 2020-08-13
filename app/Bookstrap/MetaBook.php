@@ -61,7 +61,7 @@ class MetaBook {
 
         $solutionsFolder = Storage::path($section->getSolutionsFolder());
 
-        $pageNumber = $this->fillSectionPages($solutionsFolder, $pageNumber, $section->images_per_page, $book->add_blank_pages, true);
+        $pageNumber = $this->fillSectionPages($solutionsFolder, $pageNumber, $section->solutions_per_page, $book->add_blank_pages, true);
       }
 
     }
@@ -81,7 +81,7 @@ class MetaBook {
 
       $solutionsFolder = Storage::path($section->getSolutionsFolder());
 
-      $pageNumber = $this->fillSectionPages($solutionsFolder, $pageNumber, $section->images_per_page, $book->add_blank_pages, true);
+      $pageNumber = $this->fillSectionPages($solutionsFolder, $pageNumber, $section->solutions_per_page, $book->add_blank_pages, true);
     }
 
   }

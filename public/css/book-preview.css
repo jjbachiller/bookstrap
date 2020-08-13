@@ -148,9 +148,15 @@ span.reference a:hover{
 }
 
 .booklet .img-title {
-	font-size: large;
+	/* font-size: large; */
 	font-weight: bold;
 	text-decoration: underline;
+	text-align: center;
+	min-height: 15px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	font-size: 1vw;
+	height: 1.4vw;
 }
 
 .book_wrapper{
@@ -161,6 +167,10 @@ span.reference a:hover{
 	position:relative;
 	background:transparent url(../img/bg-phone_w.png) no-repeat 16px 2px;
 	/* background:transparent url(../img/bg.png) no-repeat 9px 27px; */
+}
+
+.h-33 {
+	height: 33%;
 }
 
 #mybook-slider {

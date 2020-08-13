@@ -96,6 +96,10 @@ function addNewSection(section = []) {
     }
   }
 
+  if (typeof section['images_per_page'] !== 'undefined') {
+      newSection.find('.imagesPerPage').val(section['images_per_page']);
+  }
+
   // SOLUTIONS CONTENT:
   if (typeof section['solutions'] != 'undefined') {
     newSection.find(".addSolutions").prop('checked', true).change();
@@ -112,6 +116,10 @@ function addNewSection(section = []) {
       if (section['solutions_name_as_title'] == 1) {
         newSection.find(".imageNameAsTitleSolution").prop('checked', true).change();
       }
+    }
+
+    if (typeof section['solutions_per_page'] !== 'undefined') {
+        newSection.find('.solutionsPerPage').val(section['solutions_per_page']);
     }
 
     if (typeof section['solutions_to_the_end'] !== 'undefined') {

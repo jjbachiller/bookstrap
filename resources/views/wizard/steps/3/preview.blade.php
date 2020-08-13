@@ -9,7 +9,7 @@
         <div class="col-md-6 book-options-col image-options">
 
           <div class="row">
-            <div class="col">
+            <div class="col h-100">
               <div class="row">
                 <label for="image-size">Image Size</label>
               </div>
@@ -21,7 +21,7 @@
 
           <div class="row">
 
-            <div class="col">
+            <div class="col h-100">
 
               <div class="row">
                 <label for="image-position">Image position</label>
@@ -58,7 +58,7 @@
         <div class="col-md-6 book-options-col">
 
           <div class="row">
-            <div class="col">
+            <div class="col h-100">
               <div class="row">
                 <div class="custom-control custom-switch">
                   <input type="checkbox" class="custom-control-input" id="addFooter">
@@ -73,7 +73,7 @@
           </div>
 
           <div class="row">
-            <div class="col">
+            <div class="col h-100">
               <div class="row">
                 <div class="custom-control custom-switch">
                   <input type="checkbox" class="custom-control-input" id="addPageNumber">
@@ -154,7 +154,7 @@
       <div class="title-content">
         <h1>[TITLE]</h1>
       </div>
-      <div class="images-content">
+      <div class="images-content w-100 h-100">
         {{-- Here we'll load the correspondant images layout --}}
       </div>
     </div>
@@ -167,188 +167,195 @@
 
 <div class="images-layout d-none">
   {{-- 1 image per page --}}
-   <div class="container images-per-page-1">
-     <div class="row">
-       <div class="img-title title-1"></div>
-       <div class="img-content">
-         <img class="lazy image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+   <div class="container p-0 w-100 h-100 images-per-page-1">
+     <div class="row no-gutters h-100">
+       <div class="col h-100">
+         <div class="img-title title-1"></div>
+         <div class="img-content">
+           {{-- <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/> --}}
+           <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+         </div>
        </div>
      </div>
    </div>
    {{-- 2 images per page --}}
-   <div class="container" id="images-per-page-2">
-     <div class="row">
-       <div class="img-title title-1"></div>
-       <div class="img-content">
-         <img class="lazy image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+   <div class="container p-0 w-100 h-100 images-per-page-2">
+     <div class="row no-gutters h-50">
+       <div class="col h-100">
+         <div class="img-title title-1"></div>
+         <div class="img-content">
+           <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+         </div>
        </div>
      </div>
-     <div class="row">
-       <div class="img-title title-2"></div>
-       <div class="img-content">
-         <img class="lazy image-2"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+     <div class="row no-gutters h-50">
+       <div class="col h-100">
+         <div class="img-title title-2"></div>
+         <div class="img-content">
+           <img class="lazy img-fluid image-2"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+         </div>
        </div>
      </div>
    </div>
    {{-- 3 images per page --}}
-   <div class="container" id="images-per-page-3">
-     <div class="row">
-       <div class="col">
+   <div class="container p-0 w-100 h-100 images-per-page-3">
+     <div class="row no-gutters h-33">
+       <div class="col h-100">
          <div class="img-title title-1"></div>
          <div class="img-content">
-           <img class="lazy image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+           <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
          </div>
        </div>
-       <div class="col">
+       <div class="col h-100">
 
        </div>
      </div>
-     <div class="row">
-       <div class="col">
+     <div class="row no-gutters h-33">
+       <div class="col h-100">
 
        </div>
-       <div class="col">
+       <div class="col h-100">
          <div class="img-title title-3"></div>
          <div class="img-content">
-           <img class="lazy image-3"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+           <img class="lazy img-fluid image-3"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
          </div>
        </div>
      </div>
-     <div class="row">
-       <div class="col">
+     <div class="row no-gutters h-33">
+       <div class="col h-100">
          <div class="img-title title-2"></div>
          <div class="img-content">
-           <img class="lazy image-2"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+           <img class="lazy img-fluid image-2"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
          </div>
        </div>
-       <div class="col">
+       <div class="col h-100">
 
        </div>
      </div>
    </div>
    {{-- 4 images per page --}}
-   <div class="container" id="images-per-page-4">
-     <div class="row">
-       <div class="col">
+   <div class="container p-0 w-100 h-100 images-per-page-4">
+     <div class="row no-gutters h-50">
+       <div class="col h-100">
          <div class="img-title title-1"></div>
          <div class="img-content">
-           <img class="lazy image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+           <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
          </div>
        </div>
-       <div class="col">
+       <div class="col h-100">
          <div class="img-title title-3"></div>
          <div class="img-content">
-           <img class="lazy image-3"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+           <img class="lazy img-fluid image-3"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
          </div>
        </div>
      </div>
-     <div class="row">
-       <div class="col">
+     <div class="row no-gutters h-50">
+       <div class="col h-100">
          <div class="img-title title-2"></div>
          <div class="img-content">
-           <img class="lazy image-2"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+           <img class="lazy img-fluid image-2"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
          </div>
        </div>
-       <div class="col">
+       <div class="col h-100">
          <div class="img-title title-4"></div>
          <div class="img-content">
-           <img class="lazy image-4"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+           <img class="lazy img-fluid image-4"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
          </div>
        </div>
      </div>
    </div>
    {{-- 5 images per page --}}
-   <div class="container" id="images-per-page-5">
-     <div class="row">
-       <div class="col">
+   <div class="container p-0 w-100 h-100 images-per-page-5">
+     <div class="row no-gutters h-33">
+       <div class="col h-100">
          <div class="img-title title-1"></div>
          <div class="img-content">
-           <img class="lazy image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+           <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
          </div>
        </div>
-       <div class="col">
+       <div class="col h-100">
 
        </div>
-       <div class="col">
+       <div class="col h-100">
          <div class="img-title title-3"></div>
          <div class="img-content">
-           <img class="lazy image-3"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+           <img class="lazy img-fluid image-3"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
          </div>
        </div>
      </div>
-     <div class="row">
-       <div class="col">
+     <div class="row no-gutters h-33">
+       <div class="col h-100">
 
        </div>
-       <div class="col">
+       <div class="col h-100">
          <div class="img-title title-5"></div>
          <div class="img-content">
-           <img class="lazy image-5"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+           <img class="lazy img-fluid image-5"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
          </div>
        </div>
-       <div class="col">
+       <div class="col h-100">
 
        </div>
      </div>
-     <div class="row">
-       <div class="col">
+     <div class="row no-gutters h-33">
+       <div class="col h-100">
          <div class="img-title title-2"></div>
          <div class="img-content">
-           <img class="lazy image-2"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+           <img class="lazy img-fluid image-2"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
          </div>
        </div>
-       <div class="col">
+       <div class="col h-100">
 
        </div>
-       <div class="col">
+       <div class="col h-100">
          <div class="img-title title-4"></div>
          <div class="img-content">
-           <img class="lazy image-4"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+           <img class="lazy img-fluid image-4"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
          </div>
        </div>
      </div>
    </div>
    {{-- 6 images per page --}}
-   <div class="container" id="images-per-page-6">
-     <div class="row">
-       <div class="col">
+   <div class="container p-0 w-100 h-100 images-per-page-6">
+     <div class="row no-gutters h-33">
+       <div class="col h-100">
          <div class="img-title title-1"></div>
          <div class="img-content">
-           <img class="lazy image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+           <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
          </div>
        </div>
-       <div class="col">
+       <div class="col h-100">
          <div class="img-title title-4"></div>
          <div class="img-content">
-           <img class="lazy image-4"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+           <img class="lazy img-fluid image-4"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
          </div>
        </div>
      </div>
-     <div class="row">
-       <div class="col">
+     <div class="row no-gutters h-33">
+       <div class="col h-100">
          <div class="img-title title-2"></div>
          <div class="img-content">
-           <img class="lazy image-2"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+           <img class="lazy img-fluid image-2"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
          </div>
        </div>
-       <div class="col">
+       <div class="col h-100">
          <div class="img-title title-5"></div>
          <div class="img-content">
-           <img class="lazy image-5"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+           <img class="lazy img-fluid image-5"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
          </div>
        </div>
      </div>
-     <div class="row">
-       <div class="col">
+     <div class="row no-gutters h-33">
+       <div class="col h-100">
          <div class="img-title title-3"></div>
          <div class="img-content">
-           <img class="lazy image-3"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+           <img class="lazy img-fluid image-3"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
          </div>
        </div>
-       <div class="col">
+       <div class="col h-100">
          <div class="img-title title-6"></div>
          <div class="img-content">
-           <img class="lazy image-6"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
+           <img class="lazy img-fluid image-6"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
          </div>
        </div>
      </div>
