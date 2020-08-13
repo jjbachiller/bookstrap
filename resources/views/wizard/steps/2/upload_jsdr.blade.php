@@ -101,7 +101,7 @@ function addNewSection(section = []) {
   }
 
   // SOLUTIONS CONTENT:
-  if (typeof section['solutions'] != 'undefined') {
+  if (typeof section['solutions'] !== 'undefined' && section['solutions'].length > 0) {
     newSection.find(".addSolutions").prop('checked', true).change();
     if (section['solutions_title'] !== null) {
       newSection.find(".addSolutionTitle").prop('checked', true).change();
