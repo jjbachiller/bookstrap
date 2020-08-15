@@ -35,7 +35,7 @@
           <div class="row">
             <div class="col">
               <label class="imagesPerPageLabel" for="imagesPerPage1">Images per page:</label>
-              <input type="number" min="1" max="6" step="1" class="imagesPerPage" id="imagesPerPage1" oninput="(validity.valid)||(value='1');" value="1">
+              <input type="number" min="1" max="12" step="1" class="imagesPerPage" id="imagesPerPage1" oninput="(validity.valid)||(value='1');" value="1">
             </div>
             <div class="col">
 

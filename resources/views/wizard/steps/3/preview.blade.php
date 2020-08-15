@@ -154,7 +154,7 @@
       <div class="title-content">
         <h1>[TITLE]</h1>
       </div>
-      <div class="images-content w-100 h-100">
+      <div class="images-content">
         {{-- Here we'll load the correspondant images layout --}}
       </div>
     </div>
@@ -167,197 +167,235 @@
 
 <div class="images-layout d-none">
   {{-- 1 image per page --}}
-   <div class="container p-0 w-100 h-100 images-per-page-1">
-     <div class="row no-gutters h-100">
-       <div class="col h-100">
-         <div class="img-title title-1"></div>
-         <div class="img-content">
-           {{-- <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/> --}}
-           <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-     </div>
+  <div class="p-0 w-100 h-100 images-per-page-1">
+    <div class="h-100 d-flex flex-column flex-nowrap justify-content-center">
+      <div class="img-title-full title-1"></div>
+      <img class="lazy img-fluid image-1 full"  data-src="[IMG_URL]" alt=""/>
+    </div>
+  </div>
+  {{-- 2 images per page --}}
+  <div class="p-0 w-100 h-100 images-per-page-2">
+   <div class="h-50 d-flex flex-column flex-nowrap justify-content-center">
+     <div class="img-title title-1"></div>
+     <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt=""/>
    </div>
-   {{-- 2 images per page --}}
-   <div class="container p-0 w-100 h-100 images-per-page-2">
-     <div class="row no-gutters h-50">
-       <div class="col h-100">
-         <div class="img-title title-1"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-     </div>
-     <div class="row no-gutters h-50">
-       <div class="col h-100">
-         <div class="img-title title-2"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-2"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-     </div>
+   <div class="h-50 d-flex flex-column flex-nowrap justify-content-center">
+     <div class="img-title title-2"></div>
+     <img class="lazy img-fluid image-2"  data-src="[IMG_URL]" alt=""/>
    </div>
+  </div>
    {{-- 3 images per page --}}
-   <div class="container p-0 w-100 h-100 images-per-page-3">
-     <div class="row no-gutters h-33">
-       <div class="col h-100">
-         <div class="img-title title-1"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-       <div class="col h-100">
-
-       </div>
-     </div>
-     <div class="row no-gutters h-33">
-       <div class="col h-100">
-
-       </div>
-       <div class="col h-100">
-         <div class="img-title title-3"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-3"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-     </div>
-     <div class="row no-gutters h-33">
-       <div class="col h-100">
-         <div class="img-title title-2"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-2"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-       <div class="col h-100">
-
-       </div>
-     </div>
+   <div class="p-0 w-100 h-100 images-per-page-3">
+    <div class="h-33 d-flex flex-row flex-nowrap justify-content-left">
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-mini title-1"></div>
+        <img class="lazy mini img-fluid image-1"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-50 d-flex flex-column">
+      </div>
+    </div>
+    <div class="h-33 d-flex flex-row flex-nowrap justify-content-right">
+      <div class="w-50 d-flex flex-column">
+      </div>
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-mini title-2"></div>
+        <img class="lazy mini img-fluid image-2"  data-src="[IMG_URL]" alt=""/>
+      </div>
+    </div>
+    <div class="h-33 d-flex flex-row flex-nowrap justify-content-left">
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-mini title-3"></div>
+        <img class="lazy mini img-fluid image-3"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-50 d-flex flex-column">
+      </div>
+    </div>
    </div>
    {{-- 4 images per page --}}
-   <div class="container p-0 w-100 h-100 images-per-page-4">
-     <div class="row no-gutters h-50">
-       <div class="col h-100">
-         <div class="img-title title-1"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-       <div class="col h-100">
-         <div class="img-title title-3"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-3"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-     </div>
-     <div class="row no-gutters h-50">
-       <div class="col h-100">
-         <div class="img-title title-2"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-2"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-       <div class="col h-100">
-         <div class="img-title title-4"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-4"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-     </div>
+   <div class="p-0 w-100 h-100 images-per-page-4">
+    <div class="h-50 d-flex flex-row flex-nowrap justify-content-center">
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title title-1"></div>
+        <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title title-3"></div>
+        <img class="lazy img-fluid image-3"  data-src="[IMG_URL]" alt=""/>
+      </div>
+    </div>
+    <div class="h-50 d-flex flex-row flex-nowrap justify-content-center">
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title title-2"></div>
+        <img class="lazy img-fluid image-2"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title title-4"></div>
+        <img class="lazy img-fluid image-4"  data-src="[IMG_URL]" alt=""/>
+      </div>
+    </div>
    </div>
    {{-- 5 images per page --}}
-   <div class="container p-0 w-100 h-100 images-per-page-5">
-     <div class="row no-gutters h-33">
-       <div class="col h-100">
-         <div class="img-title title-1"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-       <div class="col h-100">
-
-       </div>
-       <div class="col h-100">
-         <div class="img-title title-3"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-3"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-     </div>
-     <div class="row no-gutters h-33">
-       <div class="col h-100">
-
-       </div>
-       <div class="col h-100">
-         <div class="img-title title-5"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-5"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-       <div class="col h-100">
-
-       </div>
-     </div>
-     <div class="row no-gutters h-33">
-       <div class="col h-100">
-         <div class="img-title title-2"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-2"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-       <div class="col h-100">
-
-       </div>
-       <div class="col h-100">
-         <div class="img-title title-4"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-4"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-     </div>
+   <div class="p-0 w-100 h-100 images-per-page-5">
+    <div class="h-33 d-flex flex-row flex-nowrap justify-content-center">
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-mini title-1"></div>
+        <img class="lazy mini img-fluid image-1"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-mini title-3"></div>
+        <img class="lazy mini img-fluid image-3"  data-src="[IMG_URL]" alt=""/>
+      </div>
+    </div>
+    <div class="h-33 d-flex flex-row flex-nowrap justify-content-center">
+      <div class="w-100 d-flex flex-column">
+        <div class="img-title-mini title-5"></div>
+        <img class="lazy mini img-fluid image-5"  data-src="[IMG_URL]" alt=""/>
+      </div>
+    </div>
+    <div class="h-33 d-flex flex-row flex-nowrap justify-content-center">
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-mini title-2"></div>
+        <img class="lazy mini img-fluid image-2"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-mini title-4"></div>
+        <img class="lazy mini img-fluid image-4"  data-src="[IMG_URL]" alt=""/>
+      </div>
+    </div>
    </div>
    {{-- 6 images per page --}}
-   <div class="container p-0 w-100 h-100 images-per-page-6">
-     <div class="row no-gutters h-33">
-       <div class="col h-100">
-         <div class="img-title title-1"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-       <div class="col h-100">
-         <div class="img-title title-4"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-4"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-     </div>
-     <div class="row no-gutters h-33">
-       <div class="col h-100">
-         <div class="img-title title-2"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-2"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-       <div class="col h-100">
-         <div class="img-title title-5"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-5"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-     </div>
-     <div class="row no-gutters h-33">
-       <div class="col h-100">
-         <div class="img-title title-3"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-3"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-       <div class="col h-100">
-         <div class="img-title title-6"></div>
-         <div class="img-content">
-           <img class="lazy img-fluid image-6"  data-src="[IMG_URL]" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
-         </div>
-       </div>
-     </div>
+   <div class="p-0 w-100 h-100 images-per-page-6">
+    <div class="h-33 d-flex flex-row flex-nowrap justify-content-center">
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-mini title-1"></div>
+        <img class="lazy mini img-fluid image-1"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-mini title-4"></div>
+        <img class="lazy mini img-fluid image-4"  data-src="[IMG_URL]" alt=""/>
+      </div>
+    </div>
+    <div class="h-33 d-flex flex-row flex-nowrap justify-content-center">
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-mini title-2"></div>
+        <img class="lazy mini img-fluid image-2"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-mini title-5"></div>
+        <img class="lazy mini img-fluid image-5"  data-src="[IMG_URL]" alt=""/>
+      </div>
+    </div>
+    <div class="h-33 d-flex flex-row flex-nowrap justify-content-center">
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-mini title-3"></div>
+        <img class="lazy mini img-fluid image-3"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-mini title-6"></div>
+        <img class="lazy mini img-fluid image-6"  data-src="[IMG_URL]" alt=""/>
+      </div>
+    </div>
+   </div>
+   {{-- 7 to 8 images per page --}}
+   <div class="p-0 w-100 h-100 images-per-page-7 images-per-page-8">
+    <div class="h-25 d-flex flex-row flex-nowrap justify-content-center">
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-nano title-1"></div>
+        <img class="lazy nano img-fluid image-1"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-nano title-5"></div>
+        <img class="lazy nano img-fluid image-5"  data-src="[IMG_URL]" alt=""/>
+      </div>
+    </div>
+    <div class="h-25 d-flex flex-row flex-nowrap justify-content-center">
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-nano title-2"></div>
+        <img class="lazy nano img-fluid image-2"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-nano title-6"></div>
+        <img class="lazy nano img-fluid image-6"  data-src="[IMG_URL]" alt=""/>
+      </div>
+    </div>
+    <div class="h-25 d-flex flex-row flex-nowrap justify-content-center">
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-nano title-3"></div>
+        <img class="lazy nano img-fluid image-3"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-nano title-7"></div>
+        <img class="lazy nano img-fluid image-7"  data-src="[IMG_URL]" alt=""/>
+      </div>
+    </div>
+    <div class="h-25 d-flex flex-row flex-nowrap justify-content-center">
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-nano title-4"></div>
+        <img class="lazy nano img-fluid image-4"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-50 d-flex flex-column">
+        <div class="img-title-nano title-8"></div>
+        <img class="lazy nano img-fluid image-8"  data-src="[IMG_URL]" alt=""/>
+      </div>
+    </div>
+   </div>
+   {{-- 9 to 12 images per page --}}
+   <div class="p-0 w-100 h-100 images-per-page-9 images-per-page-10 images-per-page-11 images-per-page-12">
+    <div class="h-25 d-flex flex-row flex-nowrap justify-content-center">
+      <div class="w-33 d-flex flex-column">
+        <div class="img-title-nano title-1"></div>
+        <img class="lazy nano img-fluid image-1"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-33 d-flex flex-column">
+        <div class="img-title-nano title-5"></div>
+        <img class="lazy nano img-fluid image-5"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-33 d-flex flex-column">
+        <div class="img-title-nano title-9"></div>
+        <img class="lazy nano img-fluid image-9"  data-src="[IMG_URL]" alt=""/>
+      </div>
+    </div>
+    <div class="h-25 d-flex flex-row flex-nowrap justify-content-center">
+      <div class="w-33 d-flex flex-column">
+        <div class="img-title-nano title-2"></div>
+        <img class="lazy nano img-fluid image-2"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-33 d-flex flex-column">
+        <div class="img-title-nano title-6"></div>
+        <img class="lazy nano img-fluid image-6"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-33 d-flex flex-column">
+        <div class="img-title-nano title-10"></div>
+        <img class="lazy nano img-fluid image-10"  data-src="[IMG_URL]" alt=""/>
+      </div>
+    </div>
+    <div class="h-25 d-flex flex-row flex-nowrap justify-content-center">
+      <div class="w-33 d-flex flex-column">
+        <div class="img-title-nano title-3"></div>
+        <img class="lazy nano img-fluid image-3"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-33 d-flex flex-column">
+        <div class="img-title-nano title-7"></div>
+        <img class="lazy nano img-fluid image-7"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-33 d-flex flex-column">
+        <div class="img-title-nano title-11"></div>
+        <img class="lazy nano img-fluid image-11"  data-src="[IMG_URL]" alt=""/>
+      </div>
+    </div>
+    <div class="h-25 d-flex flex-row flex-nowrap justify-content-center">
+      <div class="w-33 d-flex flex-column">
+        <div class="img-title-nano title-4"></div>
+        <img class="lazy nano img-fluid image-4"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-33 d-flex flex-column">
+        <div class="img-title-nano title-8"></div>
+        <img class="lazy nano img-fluid image-8"  data-src="[IMG_URL]" alt=""/>
+      </div>
+      <div class="w-33 d-flex flex-column">
+        <div class="img-title-nano title-12"></div>
+        <img class="lazy nano img-fluid image-12"  data-src="[IMG_URL]" alt=""/>
+      </div>
+    </div>
    </div>
 </div>
