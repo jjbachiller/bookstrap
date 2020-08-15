@@ -33,9 +33,22 @@
           <input type="hidden" class="section-index" value="1">
 
           <div class="row">
-            <div class="col">
-              <label class="imagesPerPageLabel" for="imagesPerPage1">Images per page:</label>
-              <input type="number" min="1" max="12" step="1" class="imagesPerPage" id="imagesPerPage1" oninput="(validity.valid)||(value='1');" value="1">
+            <div class="col-2 mb-3">
+              <label class="imagesPerPageLabel text-muted" for="imagesPerPage1">Images per page:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <span class="oi oi-grid-two-up"></span>
+                  </div>
+                </div>
+                <select class="custom-select imagesPerPage text-right" id="imagesPerPage1">
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="4">4</option>
+                  <option value="6">6</option>
+                  <option value="12">12</option>
+                </select>
+              </div>
             </div>
             <div class="col">
 
@@ -105,9 +118,22 @@
         </div>
 
         <div class="row">
-          <div class="col">
-            <label class="solutionsPerPageLabel" for="solutionsPerPage1">Solutions per page:</label>
-            <input type="number" min="1" max="6" step="1" class="solutionsPerPage" id="solutionsPerPage1" oninput="(validity.valid)||(value='1');" value="1">
+          <div class="col-2 mb-3">
+            <label class="solutionsPerPageLabel text-muted" for="solutionsPerPage1">Solutions per page:</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="oi oi-grid-two-up"></span>
+                </div>
+              </div>
+              <select class="custom-select solutionsPerPage text-right" id="solutionsPerPage1">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="6">6</option>
+                <option value="12">12</option>
+              </select>
+            </div>
           </div>
           <div class="col">
 

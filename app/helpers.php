@@ -176,6 +176,10 @@
   function calculateImageMaxDimensions($bookMaxWidth, $bookMaxHeight, $totalImages)
   {
     switch ($totalImages) {
+      case 1:
+        $imageMaxWidth = $bookMaxWidth;
+        $imageMaxHeight = $bookMaxHeight;
+        break;
       case 2:
         $imageMaxWidth = $bookMaxWidth;
         $imageMaxHeight = $bookMaxHeight / 2;
@@ -193,9 +197,14 @@
         $imageMaxWidth = $bookMaxWidth / 3;
         $imageMaxHeight = $bookMaxHeight / 3;
         break;
-      default:
-        $imageMaxWidth = $bookMaxWidth;
-        $imageMaxHeight = $bookMaxHeight;
+      case 7:
+      case 8:
+        $imageMaxWidth = $bookMaxWidth / 2;
+        $imageMaxHeight = $bookMaxHeight / 4;
+        break;
+      default: // From 9 to 12
+        $imageMaxWidth = $bookMaxWidth / 3;
+        $imageMaxHeight = $bookMaxHeight / 4;
     }
 
     return [$imageMaxWidth, $imageMaxHeight];
@@ -207,7 +216,7 @@
       case 2:
         $offsetX = 0;
 
-        if ($totalImages == 2 || $totalImages == 4 || $totalImages == 6) {
+        if ($totalImages == 2 || $totalImages == 4 || $totalImages >= 6) {
           $offsetY = $imageMaxHeight;
         } else {
           $offsetY = $imageMaxHeight * 2;
@@ -231,7 +240,7 @@
           $offsetX = $imageMaxWidth * 2;
           $offsetY = 0;
 
-        } elseif ($totalImages == 6) {
+        } else {
 
           $offsetX = 0;
           $offsetY = $imageMaxHeight * 2;
@@ -256,18 +265,63 @@
           $offsetX = $imageMaxWidth;
           $offsetY = 0;
 
+        } else {
+
+          $offsetX = 0;
+          $offsetY = $imageMaxHeight * 3;
+          
         }
 
         break;
       case 5:
         // Same offset for 5 or 6 images
-        $offsetX = $imageMaxWidth;
-        $offsetY = $imageMaxHeight;
+        if ($totalImages <= 6) {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight;
+        } else {
+          $offsetX = $imageMaxWidth;
+          $offsetY = 0;
+        }
 
         break;
       case 6:
+        if ($totalImages == 6) {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight * 2;
+        } else {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight;
+        }
+
+        break;
+      case 7:
         $offsetX = $imageMaxWidth;
         $offsetY = $imageMaxHeight * 2;
+
+        break;
+      case 8:
+        $offsetX = $imageMaxWidth;
+        $offsetY = $imageMaxHeight * 3;
+
+        break;
+      case 9:
+        $offsetX = $imageMaxWidth * 2;
+        $offsetY = 0;
+
+        break;
+      case 10:
+        $offsetX = $imageMaxWidth * 2;
+        $offsetY = $imageMaxHeight;
+
+        break;
+      case 11:
+        $offsetX = $imageMaxWidth * 2;
+        $offsetY = $imageMaxHeight * 2;
+
+        break;
+      case 12:
+        $offsetX = $imageMaxWidth * 2;
+        $offsetY = $imageMaxHeight * 3;
 
         break;
       default:

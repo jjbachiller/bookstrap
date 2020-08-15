@@ -72,11 +72,6 @@ function loadPreviewContent() {
         var imageNameAsTitle = solutions ? titleBlock.find('.imageNameAsTitleSolution').is(':checked') : titleBlock.find('.imageNameAsTitle').is(':checked');
         var imagesPerPage = solutions ? titleBlock.find('.solutionsPerPage').val() : titleBlock.find('.imagesPerPage').val();
 
-        if (solutions) {
-          console.log('Adding solutions');
-          console.log(titleBlock.html());
-        }
-
         var currentPageImages = new Array();
         images.forEach(function(image, j) {
           if (currentPageImages.length == imagesPerPage) {
@@ -232,6 +227,19 @@ function getNewImagePage(imagePageOptions) {
 
     imagesLayout.find('.image-' + imageNumber).attr('data-src', image);
   });
+
+  // Remove the empty image container for the layout if correspond.
+  if (numImages == 7) {
+    console.log("Entro a borrar");
+    imagesLayout.find('.image-8').remove();
+  }
+
+  if (numImages > 8 && numImages < 12) {
+    for (i = numImages+1; i <= 12; i++) {
+      imagesLayout.find('.image-' + i).remove();
+    }
+  }
+
   // Load the images layout on the images container section in the template.
   imageTemplate.find('.images-content').html(imagesLayout);
 

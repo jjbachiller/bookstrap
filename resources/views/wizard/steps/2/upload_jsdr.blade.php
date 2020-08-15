@@ -97,7 +97,7 @@ function addNewSection(section = []) {
   }
 
   if (typeof section['images_per_page'] !== 'undefined') {
-      newSection.find('.imagesPerPage').val(section['images_per_page']);
+    newSection.find('.imagesPerPage').val(section['images_per_page']);
   }
 
   // SOLUTIONS CONTENT:
@@ -216,9 +216,21 @@ function setupDropzone(newDropzone, newSection, newIndex, solutions=0) {
 
     var secondDZ = solutions ? Dropzone.forElement("#myDrop"+newIndex) : Dropzone.forElement("#myDropSolutions"+newIndex);
     // If the number of files are different error = true
+    /// (When we added an existing file, it calls this event but index
+    // count one less so here we check only this scenario )
     var error = (newDropzone.files.length + 1) - secondDZ.files.length;
+    //console.log("AddedFile: " + (newDropzone.files.length + 1) +  " second: " + secondDZ.files.length);
     updateSolutionsNumberMatchMessage(newIndex, error);
   });
+
+  newDropzone.on("success", function(file) {
+    // Check the normal scenario of uploading a file from the user computer
+    var secondDZ = solutions ? Dropzone.forElement("#myDrop"+newIndex) : Dropzone.forElement("#myDropSolutions"+newIndex);
+    //console.log("Success: " + newDropzone.files.length +  " second: " + secondDZ.files.length);
+    // If the number of files are different error = true
+    var error = newDropzone.files.length - secondDZ.files.length;
+    updateSolutionsNumberMatchMessage(newIndex, error);
+  })
 
   newDropzone.on("removedfile", function(file) {
     $.ajax({
@@ -234,6 +246,7 @@ function setupDropzone(newDropzone, newSection, newIndex, solutions=0) {
     var secondDZ = solutions ? Dropzone.forElement("#myDrop"+newIndex) : Dropzone.forElement("#myDropSolutions"+newIndex);
     // If the number of files are different error = true
     var error = newDropzone.files.length - secondDZ.files.length;
+    console.log("Delete: " + newDropzone.files.length +  " second: " + secondDZ.files.length);
     updateSolutionsNumberMatchMessage(newIndex, error);
   });
 }
