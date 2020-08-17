@@ -157,7 +157,7 @@ class Page {
         // If the image has a title we add the title offset
         $innerImageOffset+= config('bookstrap-constants.IMAGE_TITLE_HEIGHT') + config('bookstrap-constants.ELEMENT_TOP_MARGIN_HEIGHT');
       }
-      // Get the scated image dimensions
+      // Get the scaled image dimensions
       $imgMaxHeightWithOffset = $imgMaxHeight - $innerImageOffset;
       list($scalatedWidth, $scalatedHeight) = scaleToFit($image, $imgMaxWidth, $imgMaxHeightWithOffset);
       // scale Image to the user preferences
