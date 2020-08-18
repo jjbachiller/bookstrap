@@ -67,6 +67,11 @@ class BookSettings {
     return $this->book;
   }
 
+  public function fullBleedImages()
+  {
+    return $this->book->full_bleed;
+  }
+
   public function getMargin()
   {
     return $this->marginSide;
@@ -91,11 +96,11 @@ class BookSettings {
   }
 
   public function getContentXOffset() {
-    return $this->marginSide;
+    return $this->fullBleedImages() ? 0 : $this->marginSide;
   }
 
   public function getContentYOffset() {
-    return $this->marginSide;
+    return $this->fullBleedImages() ? 0 : $this->marginSide;
     // return $this->marginSide + config('bookstrap-constants.HEADER_HEIGHT');
   }
 

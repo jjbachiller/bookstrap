@@ -103,6 +103,12 @@
             </div>
           </div>
 
+          <div class="row">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="fullBleed">
+              <label class="custom-control-label" for="fullBleed">Full bleed images</label>
+            </div>
+          </div>
         </div>
 
       </div>

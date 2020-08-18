@@ -223,6 +223,7 @@
             footer: getBookFooter(),
             pageNumber: getBookPageNumber(),
             addBlankPages: $('#addBlankPages').is(':checked'),
+            fullBleed: $('#fullBleed').is(':checked'),
             totalPages: $('#total-pages').val(),
             filetype: $("input[name='book_filetype']:checked").val(),
             filename: $("input[name='book_filename']").val(),

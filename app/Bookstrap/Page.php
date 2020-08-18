@@ -133,8 +133,9 @@ class Page {
   {
     $this->images = [];
 
+    $pageWidth = $this->getPageWidth();
     $pageHeight = $this->getPageHeight();
-    list($imgMaxWidth, $imgMaxHeight) = calculateImageMaxDimensions($this->bookSettings->getMaxWidth(), $pageHeight, count($images));
+    list($imgMaxWidth, $imgMaxHeight) = calculateImageMaxDimensions($pageWidth, $pageHeight, count($images));
 
     foreach ($images as $current => $image) {
       $imgPosition = $current + 1;
@@ -151,6 +152,10 @@ class Page {
       // If it have header we added its height to the offset of the content
       if ($this->header) {
         $offsetY+= config('bookstrap-constants.HEADER_HEIGHT');
+        // FIXME: Add margin to $offsetY if fullbleed because we haven't
+        // add it previously
+
+
         // And add an inner margin for the image elements.
         $innerImageOffset = config('bookstrap-constants.ELEMENT_TOP_MARGIN_HEIGHT');
       }
@@ -186,10 +191,19 @@ class Page {
     }
   }
 
+  private function getPageWidth() {
+    $fullBleed = $this->bookSettings->fullBleedImages();
+    return $fullBleed ? $this->bookSettings->getBookWidth():$this->bookSettings->getMaxWidth();
+  }
+
   private function getPageHeight() {
     $pageHeight = $this->bookSettings->getBookHeight();
     // We allways substract the margin on the header and footer.
-    $pageHeight-= $this->bookSettings->getMargin() * 2;
+    // Except when fullBleed is selected
+    if (!$this->bookSettings->fullBleedImages()) {
+      $pageHeight-= $this->bookSettings->getMargin() * 2;
+    }
+
     if ($this->header) {
       $pageHeight-= config('bookstrap-constants.HEADER_HEIGHT');
     }

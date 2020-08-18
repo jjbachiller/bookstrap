@@ -76,6 +76,7 @@ class WizardController extends Controller
     $book->footer_details = $configuration['footer']['addFooter'] ? $configuration['footer']['text'] : '';
     $book->page_number_position = $configuration['pageNumber']['addPageNumber'] ? $configuration['pageNumber']['position'] : 0;
     $book->add_blank_pages = $configuration['addBlankPages'];
+    $book->full_bleed = $configuration['fullBleed'];
     $book->total_pages = $configuration['totalPages'];
     if (!Auth::check()) {
       $book->created_as_guess = true;
