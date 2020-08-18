@@ -95,7 +95,8 @@ class BookSettings {
   }
 
   public function getContentYOffset() {
-    return $this->marginSide + config('bookstrap-constants.HEADER_HEIGHT');
+    return $this->marginSide;
+    // return $this->marginSide + config('bookstrap-constants.HEADER_HEIGHT');
   }
 
   public function getBookFilePath() {

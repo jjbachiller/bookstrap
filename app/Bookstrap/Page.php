@@ -133,7 +133,8 @@ class Page {
   {
     $this->images = [];
 
-    list($imgMaxWidth, $imgMaxHeight) = calculateImageMaxDimensions($this->bookSettings->getMaxWidth(), $this->bookSettings->getMaxHeight(), count($images));
+    $pageHeight = $this->getPageHeight();
+    list($imgMaxWidth, $imgMaxHeight) = calculateImageMaxDimensions($this->bookSettings->getMaxWidth(), $pageHeight, count($images));
 
     foreach ($images as $current => $image) {
       $imgPosition = $current + 1;
@@ -142,13 +143,18 @@ class Page {
       // Set the maximal dimensions and the max init point for the image
       $imageElement->setDimensions($imgMaxWidth, $imgMaxHeight);
       list($offsetX, $offsetY) = calculateImageOffset($totalImages, $imgPosition, $imgMaxWidth, $imgMaxHeight);
-
       // We add the offset of the content for the document
       $offsetX+= $this->bookSettings->getContentXOffset();
       $offsetY+= $this->bookSettings->getContentYOffset();
 
-      // And add an inner margin for the image elements.
-      $innerImageOffset = config('bookstrap-constants.ELEMENT_TOP_MARGIN_HEIGHT');
+      $innerImageOffset = 0;
+      // If it have header we added its height to the offset of the content
+      if ($this->header) {
+        $offsetY+= config('bookstrap-constants.HEADER_HEIGHT');
+        // And add an inner margin for the image elements.
+        $innerImageOffset = config('bookstrap-constants.ELEMENT_TOP_MARGIN_HEIGHT');
+      }
+
       if ($addTitle) {
         // Remove extension from image name
         $imageName = pathinfo($image, PATHINFO_FILENAME);
@@ -168,14 +174,31 @@ class Page {
 
       // Update the offset adding the inner y offset after the elements added.
       $offsetY+= $innerImageOffset;
+
       // Set the image alignment into the reserved space.
       list($x, $y) = $this->getInDocumentPosition($reducedWidth, $reducedHeight, $imgMaxWidth, $imgMaxHeightWithOffset, $offsetX, $offsetY);
+
       $imageElement->setPosition($x, $y);
 
       $imageElement->setImage($image);
 
       $this->images[] = $imageElement;
     }
+  }
+
+  private function getPageHeight() {
+    $pageHeight = $this->bookSettings->getBookHeight();
+    // We allways substract the margin on the header and footer.
+    $pageHeight-= $this->bookSettings->getMargin() * 2;
+    if ($this->header) {
+      $pageHeight-= config('bookstrap-constants.HEADER_HEIGHT');
+    }
+
+    if ($this->footer) {
+      $pageHeight-= config('bookstrap-constants.FOOTER_HEIGHT');
+    }
+
+    return $pageHeight;
   }
 
   private function getSectionImageTitle($imageName, $totalImages, $x, $y, $width)

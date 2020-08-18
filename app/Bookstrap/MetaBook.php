@@ -178,16 +178,16 @@ class MetaBook {
       $page->setHeader($header);
     }
 
-    // Add section image
-    $imageTitle = $solution ? $this->currentSection->solutions_name_as_title : $this->currentSection->image_name_as_title;
-    $page->setSectionImages($images, $imageTitle);
-
     // Add footer text
     $footer = $this->bookSettings->getBook()->footer_details;
     if (!empty($footer))
     {
       $page->setFooter($footer);
     }
+
+    // Add section image
+    $imageTitle = $solution ? $this->currentSection->solutions_name_as_title : $this->currentSection->image_name_as_title;
+    $page->setSectionImages($images, $imageTitle);
 
     $this->pages[] = $page;
   }
