@@ -67,13 +67,13 @@ return [
   ],
   'PAGENUMBER_WIDTH' => 15,
 
-  'HEADER_HEIGHT' => 15,
+  'HEADER_HEIGHT' => 5,
   'HEADER_FONT' => 'Arial',
   'HEADER_FONT_SIZE' => 11,
   'HEADER_FONT_STYLE' => 'I',
   'HEADER_ALIGNMENT' => 'L',
 
-  'FOOTER_HEIGHT' => 15,
+  'FOOTER_HEIGHT' => 5,
   'FOOTER_FONT' => 'Arial',
   'FOOTER_FONT_SIZE' => 11,
   'FOOTER_FONT_STYLE' => 'I',
@@ -85,7 +85,7 @@ return [
   'TITLE_FONT_STYLE' => 'BU',
   'TITLE_ALIGNMENT' => 'C',
 
-  'IMAGE_TITLE_HEIGHT' => 10,
+  'IMAGE_TITLE_HEIGHT' => 8,
   'IMAGE_TITLE_FONT' => 'Arial',
   'IMAGE_TITLE_FONT_STYLE' => 'BU',
   'IMAGE_TITLE_ALIGNMENT' => 'C',
