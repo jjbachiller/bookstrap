@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['verify' => true]);
+// Auth::routes(['verify' => true]);
 
 Route::get('activate-account', 'HomeController@notActivatedAccount')->name('account.notactived');
 
@@ -35,9 +35,20 @@ Route::get('/content/{bookUid}/{section}/{size}/{image}', 'ContentController@get
 Route::get('/content/{bookUid}/{section}/solutions/{size}/{image}', 'ContentController@getSolutionsContent')->name('get.solutions-content');
 Route::get('/book/{bookUid}/{date}/{book}', 'BookController@download')->name('get.book');
 
+Route::get('/login', 'AuthenticationController@showLogin')
+  ->name('login.form')
+  ->middleware('guest');
+
+Route::post('/login', 'AuthenticationController@login')
+  ->name('login')
+  ->middleware('guest');
+
+Route::post('/logout', 'AuthenticationController@logout')
+  ->name('logout');
+
 Route::group(
   [
-    'middleware' => ['verified', 'active.user']
+    'middleware' => ['auth', 'active.user']
   ],
   function () {
     // Books
