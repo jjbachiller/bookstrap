@@ -20,7 +20,8 @@
           <div class="card-header">{{ __('Register') }}</div>
 
             <div class="card-body">
-                <form method="POST" action="{{ route('register') }}">
+
+                {{-- <form method="POST" action="{{ route('login') }}">
                     @csrf
 
                     <div class="form-group row">
@@ -83,7 +84,7 @@
                     <div class="d-flex justify-content-end p-3">
                         Do you already have an account? <strong><a href="{{ route('login') }}">Log in</a></strong>
                     </div>
-                </form>
+                </form> --}}
             </div>
           </div>
         </div>
@@ -101,16 +102,16 @@
             Download your book
           </a>
         @else
-          Your account <strong>has NOT been activated</strong> yet.<br>
+          Your account <strong>is NOT active</strong>.<br>
           Your account should be activated by an administrator before you can download a book.
         @endif
-      @else
+      {{-- @else
         {{ __('To download the book, please check your email for a verification link.') }}
         {{ __('If you did not receive the email') }},
         <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
             @csrf
             <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
-        </form>
+        </form> --}}
       @endif
     </div>
 

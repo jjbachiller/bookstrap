@@ -40,6 +40,7 @@ class AuthenticationController extends Controller
         $newUser->email = $aMemberUser['email'];
         $newUser->password = '';
         $newUser->amember_id = $aMemberUser['user_id'];
+        $newUser->uid = uniqid();
         $newUser->active = 1;
 
         $newUser->save();
@@ -49,17 +50,28 @@ class AuthenticationController extends Controller
 
       // Update suscription info
       list($subscriptionType, $subscribedUntil) = aMember::getHigherSubscription($aMemberUser['subscriptions']);
-      if (!is_null($subscriptionType)) {
-        $user->subscription_type = $subscriptionType;
-        $user->subscribed_until = $subscribedUntil;
-        $user->save();
-      }
+
+      $user->subscription_type = $subscriptionType;
+      $user->subscribed_until = $subscribedUntil;
+      $user->save();
 
       // Logged the user locally
       Auth::login($user);
 
+      // If the user created a book as guest, assign it to the user.
+      if (session('idBook')) {
+        if (session('user_uid')) {
+          // Move the book content to the user logged
+          moveUserContent(session('user_uid'), $user->uid);
+          $book = \App\Book::findOrFail(session('idBook'));
+          // Move content from the folder of the guess uid to the folder of the user uid
+          $book->updateBookOwner($user);
+          session()->forget('idBook');
+          session()->forget('user_uid');
+        }
+      }
+
       // Redirect to the dashboard
-      // FIXME: Check if user has a book pending to associate the book and show the screen
       return redirect()->route('dashboard');
     }
 

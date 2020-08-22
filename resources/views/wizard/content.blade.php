@@ -4,6 +4,23 @@
 
 @section('extra_css')
   <link href="https://cdn.jsdelivr.net/npm/smartwizard@5.0.0/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
+
+  <style media="screen">
+
+    .sw-theme-dots > .nav::before {
+      background: #f5f5f5;
+    }
+
+    .sw-theme-dots > .nav .nav-link.done::after {
+      background: #fde0e8;
+    }
+
+    .sw-theme-dots > .nav .nav-link.done {
+      color: #f6648c;
+    }
+
+  </style>
+
   <link href="{{ asset('css/open-iconic/font/css/open-iconic-bootstrap.css') }}" rel="stylesheet" />
 
   @include('wizard.steps.2.upload_css')
@@ -109,7 +126,8 @@
       // Book Generation
       $('#smartwizard').smartWizard({
         autoAdjustHeight: false,
-        theme: 'arrows',
+        theme: 'dots',
+        justified: true,
         enableURLhash: false,
         keyboardSettings: {
           keyNavigation: false,

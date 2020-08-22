@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
+        // $this->middleware(['auth']);
     }
 
     public function notActivatedAccount(Request $request)
@@ -28,7 +28,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // return view('home');
+        $page_title = 'Bookstrap Home';
+        $page_description = 'All you need to create low content books';
+
+        return view('pages.dashboard', compact('page_title', 'page_description'));
+
     }
 
 

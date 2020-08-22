@@ -10,12 +10,11 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
         <link rel="stylesheet" href="{{ asset('/css/app.css')}}">
+        <link rel="stylesheet" href="{{ asset('/css/theme.min.css')}}">
 
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
-                color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -81,7 +80,7 @@
                         <a href="{{ url('/home') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
-
+                        <a href="{{ route('pricing') }}">Pricing</a>
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">Register</a>
                         @endif
@@ -94,7 +93,7 @@
                     Bookstrap
                 </div>
 
-                <a href="{{ route('books.wizard') }}" class="btn btn-lg btn-success btn-block">Try it now!</a>
+                <a href="{{ route('books.wizard') }}" class="btn btn-lg btn-primary btn-block">Try it now!</a>
 
             </div>
         </div>

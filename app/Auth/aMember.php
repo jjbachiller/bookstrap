@@ -34,8 +34,6 @@ class aMember {
     $subscriptions = config('amember.subscriptions');
     foreach ($subscriptions as $subscription) {
       if (isset($userSubscriptions[$subscription])) {
-        // FIXME: Check if date is expired, perhaps user has a lower
-        // subscription active.
         $expireDate = $userSubscriptions[$subscription];
         return array($subscription, $expireDate);
       }

@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-end mb-4">
       <div class="col-md-4">
-        <a href="{{ route('books.wizard') }}" class="btn btn-success btn-block">
+        <a href="{{ route('books.wizard') }}" class="btn btn-primary btn-block">
           <span class="oi oi-plus"></span> Add New Book
         </a>
       </div>
