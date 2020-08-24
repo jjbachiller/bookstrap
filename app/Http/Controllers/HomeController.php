@@ -32,7 +32,7 @@ class HomeController extends Controller
         $page_title = 'Bookstrap Home';
         $page_description = 'All you need to create low content books';
 
-        return view('pages.dashboard', compact('page_title', 'page_description'));
+        return view('pages.home', compact('page_title', 'page_description'));
 
     }
 

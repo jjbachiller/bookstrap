@@ -3,7 +3,7 @@
     <div class="mobile-logo">
         <a href="{{ url('/') }}">
 
-            @php
+            {{-- @php
                 $kt_logo_image = 'logo-light.png'
             @endphp
 
@@ -23,8 +23,9 @@
                     @php $kt_logo_image = 'logo-light.png' @endphp
                 @endif
 
-            @endif
-
+            @endif --}}
+            @php $kt_logo_image = 'bookstrap-logo sm.png' @endphp
+            
             <img alt="{{ config('app.name') }}" src="{{ asset('media/logos/'.$kt_logo_image) }}"/>
         </a>
     </div>

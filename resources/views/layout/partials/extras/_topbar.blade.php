@@ -125,13 +125,14 @@
 
     {{-- User --}}
     @if (config('layout.extras.user.display'))
+      @if (Auth::check())
         @if (config('layout.extras.user.layout') == 'offcanvas')
             <div class="topbar-item">
                 <div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">
                     <span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
-                    <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">Sean</span>
+                    <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{ Auth::user()->name }}</span>
                     <span class="symbol symbol-35 symbol-light-success">
-                        <span class="symbol-label font-size-h5 font-weight-bold">S</span>
+                        <span class="symbol-label font-size-h5 font-weight-bold">{{ substr(Auth::user()->name, 0, 1) }}</span>
                     </span>
                 </div>
             </div>
@@ -141,9 +142,9 @@
                 <div class="topbar-item" data-toggle="dropdown" data-offset="0px,0px">
                     <div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2">
                         <span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
-                        <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">Sean</span>
+                        <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{ Auth::user()->name }}</span>
                         <span class="symbol symbol-35 symbol-light-success">
-                            <span class="symbol-label font-size-h5 font-weight-bold">S</span>
+                            <span class="symbol-label font-size-h5 font-weight-bold">{{ substr(Auth::user()->name, 0, 1) }}</span>
                         </span>
                     </div>
                 </div>
@@ -154,5 +155,10 @@
                 </div>
             </div>
         @endif
+      @else
+        <div class="topbar-item">
+          <a href="{{ route('login') }}" class="btn btn-text-success btn-hover-light-success font-weight-bold mr-2">Login</a>
+        </div>
+      @endif
     @endif
 </div>

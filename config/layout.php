@@ -112,7 +112,7 @@ return [
 
     // Subheader
     'subheader' => [
-        'display' => true,
+        'display' => false,
         'displayDesc' => true,
         'layout' => 'subheader-v1',
         'fixed' => true,
@@ -136,15 +136,15 @@ return [
     // Brand
     'brand' => [
         'self' => [
-            'theme' => 'dark' // light, dark
+            'theme' => 'light' // light, dark
         ]
     ],
 
     // Aside
     'aside' => [
         'self' => [
-            'theme' => 'dark', // light, dark
-            'display' => true,
+            'theme' => 'light', // light, dark
+            'display' => false,
             'fixed' => true,
             'minimize' => [
                 'toggle' => true, // allow toggle
@@ -176,7 +176,7 @@ return [
 
         // Search
         'search' => [
-            'display' => true,
+            'display' => false,
             'layout' => 'dropdown', // offcanvas, dropdown
             'offcanvas' => [
                 'direction' => 'right'
@@ -185,7 +185,7 @@ return [
 
         // Notifications
         'notifications' => [
-            'display' => true,
+            'display' => false,
             'layout' => 'dropdown', // offcanvas, dropdown
             'dropdown' => [
                 'style' => 'dark' // light|dark
@@ -197,7 +197,7 @@ return [
 
         // Quick Actions
         'quick-actions' => [
-            'display' => true,
+            'display' => false,
             'layout' => 'dropdown', // offcanvas, dropdown
             'dropdown' => [
                 'style' => 'dark' // light|dark
@@ -212,7 +212,7 @@ return [
             'display' => true,
             'layout' => 'offcanvas', // offcanvas, dropdown
             'dropdown' => [
-                'style' => 'dark' // light|dark
+                'style' => 'light' // light|dark
             ],
             'offcanvas' => [
                 'direction' => 'right'
@@ -221,12 +221,12 @@ return [
 
         // Languages
         'languages' => [
-            'display' => true
+            'display' => false
         ],
 
         // Cart
         'cart' => [
-            'display' => true,
+            'display' => false,
             'dropdown' => [
                 'style' => 'dark' // light|dark
             ]
@@ -234,7 +234,7 @@ return [
 
         // Quick Panel
         'quick-panel' => [
-            'display' => true,
+            'display' => false,
             'offcanvas' => [
                 'direction' => 'right'
             ]
@@ -242,12 +242,12 @@ return [
 
         // Chat
         'chat' => [
-            'display' => true,
+            'display' => false,
         ],
 
         // Page Toolbar
         'toolbar' => [
-            'display' => true
+            'display' => false
         ],
 
         // Scrolltop
