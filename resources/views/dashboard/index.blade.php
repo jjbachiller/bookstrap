@@ -219,11 +219,11 @@
                     </tr>
                     @endforelse
                   </tbody>
-                  <tfoot>
-                    <!-- End Book List -->
-                    {{ $books->links('components.pagination') }}
-                  </tfoot>
                 </table>
+
+                <!-- End Book List -->
+                {{ $books->links('components.pagination') }}
+
               </div>
               <!-- End Widget Table -->
           </div>
