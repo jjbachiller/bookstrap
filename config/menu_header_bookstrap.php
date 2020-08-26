@@ -7,19 +7,19 @@ return [
         [
             'title' => 'Home',
             'root' => true,
-            'page' => '/',
+            'page' => url('/'),
             'new-tab' => false,
         ],
         [
             'title' => 'Pricing',
             'root' => true,
-            'page' => '#pricing',
+            'page' => url('/#pricing'),
             'new-tab' => false,
         ],
         [
             'title' => 'FAQ',
             'root' => true,
-            'page' => '#FAQ',
+            'page' => url('/#FAQ'),
             'new-tab' => false,
         ],
         [

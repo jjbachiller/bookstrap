@@ -33,9 +33,10 @@ class aMember {
   {
     $subscriptions = config('amember.subscriptions');
     foreach ($subscriptions as $subscription) {
-      if (isset($userSubscriptions[$subscription])) {
-        $expireDate = $userSubscriptions[$subscription];
-        return array($subscription, $expireDate);
+      $subscriptionId = $subscription['id'];
+      if (isset($userSubscriptions[$subscriptionId])) {
+        $expireDate = $userSubscriptions[$subscriptionId];
+        return array($subscriptionId, $expireDate);
       }
     }
     return array(null, null);

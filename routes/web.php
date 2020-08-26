@@ -15,14 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/pricing', function () {
-    return view('pricing');
-})->name('pricing');
-
-
 // Auth::routes(['verify' => true]);
 
-Route::get('activate-account', 'HomeController@notActivatedAccount')->name('account.notactived');
+// Route::get('activate-account', 'HomeController@notActivatedAccount')->name('account.notactived');
 
 Route::get('/home', 'BookController@index')->name('dashboard');
 

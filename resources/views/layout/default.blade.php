@@ -33,6 +33,10 @@ License: You must have a valid license purchased only from themeforest(the above
             <link href="{{ config('layout.self.rtl') ? asset(Metronic::rtlCssPath($style)) : asset($style) }}" rel="stylesheet" type="text/css"/>
         @endforeach
 
+        @isset($fullLayout)
+          <link href="{{ asset('css/login.min.css') }}" rel="stylesheet" type="text/css"/>
+        @endisset
+
         {{-- Layout Themes (used by all pages) --}}
         @foreach (Metronic::initThemes() as $theme)
             <link href="{{ config('layout.self.rtl') ? asset(Metronic::rtlCssPath($theme)) : asset($theme) }}" rel="stylesheet" type="text/css"/>
@@ -55,6 +59,7 @@ License: You must have a valid license purchased only from themeforest(the above
         {{-- Global Config (global config for global JS scripts) --}}
         <script>
             var KTAppSettings = {!! json_encode(config('layout.js'), JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES) !!};
+
         </script>
 
         {{-- Global Theme JS Bundle (used by all pages)  --}}
@@ -64,6 +69,14 @@ License: You must have a valid license purchased only from themeforest(the above
 
         {{-- Includable JS --}}
         @yield('scripts')
+
+        <script type="text/javascript">
+            {{-- JQuery code to launch the contact modal --}}
+            $('.contactModalTrigger a').on('click', function(event) {
+              event.preventDefault();
+              $('#contactModal').modal('show');
+            });
+        </script>
 
     </body>
 </html>

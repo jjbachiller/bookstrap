@@ -1,49 +1,68 @@
-{{-- Extends layout --}}
-@extends('layout.default')
+@extends('layouts.app')
 
-@section('styles')
+@section('title', 'Book Wizard')
+
+@section('extra_css')
   <link href="https://cdn.jsdelivr.net/npm/smartwizard@5.0.0/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
+
+  <style media="screen">
+
+    .sw-theme-dots > .nav::before {
+      background: #f5f5f5;
+    }
+
+    .sw-theme-dots > .nav .nav-link.done::after {
+      background: #fde0e8;
+    }
+
+    .sw-theme-dots > .nav .nav-link.done {
+      color: #f6648c;
+    }
+
+  </style>
+
+  <link href="{{ asset('css/open-iconic/font/css/open-iconic-bootstrap.css') }}" rel="stylesheet" />
+
   @include('wizard.steps.2.upload_css')
   @include('wizard.steps.3.preview_css')
 @endsection
 
-{{-- Content --}}
 @section('content')
     <div id="smartwizard">
       <ul class="nav">
          <li>
              <a class="nav-link" href="#step-1">
-                <strong><i class="icon-xl fas fa-pencil-ruler"></i></strong>
+                <strong>Step 1</strong>
                 <br>
-                1. Book Options
+                Book Options
              </a>
          </li>
          <li>
              <a class="nav-link" href="#step-2">
-                <strong><i class="icon-xl fas fa-layer-group"></i></strong>
+                <strong>Step 2</strong>
                 <br>
-                2. Book Sections
+                Add Sections
              </a>
          </li>
          <li>
              <a class="nav-link" href="#step-3">
-                <strong><i class="icon-xl far fa-eye"></i></strong>
+                <strong>Step 3</strong>
                 <br>
-                3. Book Preview
+                Book Preview
              </a>
          </li>
          <li>
              <a class="nav-link" href="#step-4">
-                <strong><i class="icon-xl far fa-file-alt"></i></strong>
+                <strong>Step 4</strong>
                 <br>
-                4. File Options
+                File Options
              </a>
          </li>
          <li>
              <a class="nav-link" href="#step-5">
-                <strong><i class="icon-xl fas fa-cloud-download-alt"></i></strong>
+                <strong>Step 5</strong>
                 <br>
-                5. Download
+                Download your file
              </a>
          </li>
       </ul>
@@ -88,8 +107,8 @@
     </div>
 @endsection
 
-@section('scripts')
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+@section('extra_js')
+
   <script src="https://cdn.jsdelivr.net/npm/smartwizard@5.0.0/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
 
   @include('wizard.steps.2.upload_js')
@@ -107,7 +126,7 @@
       // Book Generation
       $('#smartwizard').smartWizard({
         autoAdjustHeight: false,
-        theme: 'default',
+        theme: 'dots',
         justified: true,
         enableURLhash: false,
         keyboardSettings: {

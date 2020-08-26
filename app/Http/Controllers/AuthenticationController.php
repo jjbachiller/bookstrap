@@ -13,7 +13,11 @@ class AuthenticationController extends Controller
 {
     public function showLogin()
     {
-      return view('auth.login');
+      $page_title = 'Bookstrap Sign In';
+      $page_description = 'Access to your Bookstrap account';
+      $fullLayout = true;
+
+      return view('pages.login', compact('page_title', 'page_description', 'fullLayout'));
     }
 
     public function login(Request $request)

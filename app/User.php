@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use Carbon\Carbon;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -46,5 +48,31 @@ class User extends Authenticatable
     public function sections()
     {
       return $this->hasMany('App\Section');
+    }
+
+    public function subscription()
+    {
+      $subscriptionType = $this->subscription_type;
+      if (is_null($subscriptionType)) {
+        return false;
+      }
+      
+      $subscriptions = config('amember.subscriptions');
+      $subscription = [];
+      foreach ($subscriptions as $sub) {
+        if ($sub['id'] == $subscriptionType) {
+          $subscription = $sub;
+          break;
+        }
+      }
+
+      if (empty($subscription)) {
+        return false;
+      }
+
+      //Extraer la fecha de mysql a Carbon
+      $endSubscriptionDate = Carbon::parse($this->subscribed_until);
+      $subscription['next_billing'] = $endSubscriptionDate->add('1 day');
+      return $subscription;
     }
 }
