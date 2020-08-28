@@ -44,11 +44,10 @@ function loadPreviewContent() {
       addCopyright();
 
       function addSectionContent(section_index, images, solutions = false) {
-
         var sectionStart = true;
         // Get title for .section-index i
-        var sectionIndex = $('.section-index[value=' + section_index + ']');
-        var titleBlock = solutions ? sectionIndex.closest('.card-body-container').find('.solutions-title-block') : sectionIndex.closest('.title-block');
+        var sectionIndex = $('#Sections').find('.section-index[value=' + section_index + ']');
+        var titleBlock = solutions ? sectionIndex.closest('.card-body-container').find('.solutions-title-block') : sectionIndex.closest('.card-body-container').find('.title-block');
         var titleHeader = false;
         var sectionTitle = solutions ? titleBlock.find('.addSolutionTitle') : titleBlock.find('.addSectionTitle');
         if (sectionTitle.is(':checked')) {
@@ -230,7 +229,6 @@ function getNewImagePage(imagePageOptions) {
 
   // Remove the empty image container for the layout if correspond.
   if (numImages == 7) {
-    console.log("Entro a borrar");
     imagesLayout.find('.image-8').remove();
   }
 

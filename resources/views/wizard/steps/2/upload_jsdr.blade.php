@@ -246,7 +246,6 @@ function setupDropzone(newDropzone, newSection, newIndex, solutions=0) {
     var secondDZ = solutions ? Dropzone.forElement("#myDrop"+newIndex) : Dropzone.forElement("#myDropSolutions"+newIndex);
     // If the number of files are different error = true
     var error = newDropzone.files.length - secondDZ.files.length;
-    console.log("Delete: " + newDropzone.files.length +  " second: " + secondDZ.files.length);
     updateSolutionsNumberMatchMessage(newIndex, error);
   });
 }
@@ -322,7 +321,7 @@ $('#Sections').accordion({
 // Make sections sortable
 $('.sections-list').sortable({
   group: 'sections-list',
-  handle: 'span.oi-ellipses',
+  handle: 'span.flaticon-more',
   axis: 'y',
   opacity: 0.7,
   cursor: 'move',
@@ -336,6 +335,14 @@ $('.sections-list').sortable({
 
 $('.addSolutions').on('change', function() {
   $(this).closest('.section-block').find('.solutions-content').toggleClass('d-none');
+});
+
+$('.toggleSectionOptions').on('click', function() {
+  $(this).closest(".section-block").find('.section-options').toggleClass('d-none');
+});
+
+$('.toggleSolutionsOptions').on('click', function() {
+  $(this).closest(".section-block").find('.solutions-options').toggleClass('d-none');
 });
 
 // On load add the existing sections to edit.

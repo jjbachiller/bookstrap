@@ -7,85 +7,107 @@
   @include('wizard.steps.3.preview_css')
 @endsection
 
-{{-- Content --}}
 @section('content')
-    <div id="smartwizard">
-      <ul class="nav">
-         <li>
-             <a class="nav-link" href="#step-1">
-                <strong><i class="icon-xl fas fa-pencil-ruler"></i></strong>
-                <br>
-                1. Book Options
-             </a>
-         </li>
-         <li>
-             <a class="nav-link" href="#step-2">
-                <strong><i class="icon-xl fas fa-layer-group"></i></strong>
-                <br>
-                2. Book Sections
-             </a>
-         </li>
-         <li>
-             <a class="nav-link" href="#step-3">
-                <strong><i class="icon-xl far fa-eye"></i></strong>
-                <br>
-                3. Book Preview
-             </a>
-         </li>
-         <li>
-             <a class="nav-link" href="#step-4">
-                <strong><i class="icon-xl far fa-file-alt"></i></strong>
-                <br>
-                4. File Options
-             </a>
-         </li>
-         <li>
-             <a class="nav-link" href="#step-5">
-                <strong><i class="icon-xl fas fa-cloud-download-alt"></i></strong>
-                <br>
-                5. Download
-             </a>
-         </li>
-      </ul>
+  <div class="card card-custom">
+    <div class="card-body p-0">
+      <div id="smartwizard" class="wizard wizard-1" data-wizard-state="first" data-wizard-clickable="true">
+        <div class="wizard-nav border-bottom">
+          <ul class="nav wizard-steps p-3">
+             <li class="wizard-step m-auto" data-wizard-step="step" data-wizard-state="current">
+               <div class="d-flex justify-content-center align-items-center">
+                 <a class="nav-link wizard-label flex-column text-center" href="#step-1">
+                    <i class="icon-xl fas fa-pencil-ruler mb-2" style="color: inherit;"></i>
+                    <h5 class="flex-row">1. Book Options</h5>
+                 </a>
+                 <span class="flex-column pl-6">
+                   <i class="icon-xl fas fa-chevron-circle-right text-light-secondary"></i>
+                 </span>
+               </div>
+             </li>
+             <li class="wizard-step m-auto" data-wizard-step="step" data-wizard-state="pending">
+               <div class="d-flex justify-content-center align-items-center">
+                 <a class="nav-link wizard-label flex-column text-center" href="#step-2">
+                    <i class="icon-xl fas fa-layer-group mb-2" style="color: inherit;"></i>
+                    <h5>2. Book Sections</h5>
+                 </a>
+                 <span class="flex-column pl-6">
+                   <i class="icon-xl fas fa-chevron-circle-right text-light-secondary"></i>
+                 </span>
+               </div>
+             </li>
+             <li class="wizard-step m-auto" data-wizard-step="step" data-wizard-state="pending">
+               <div class="d-flex justify-content-center align-items-center">
+                 <a class="nav-link wizard-label flex-column text-center" href="#step-3">
+                    <i class="icon-xl far fa-eye mb-2" style="color: inherit;"></i>
+                    <h5>3. Book Preview</h5>
+                 </a>
+                 <span class="flex-column pl-6">
+                   <i class="icon-xl fas fa-chevron-circle-right text-light-secondary"></i>
+                 </span>
+               </div>
+             </li>
+             <li class="wizard-step m-auto" data-wizard-step="step" data-wizard-state="pending">
+               <div class="d-flex justify-content-center align-items-center">
+                 <a class="nav-link wizard-label flex-column text-center" href="#step-4">
+                    <i class="icon-xl far fa-file-alt mb-2" style="color: inherit;"></i>
+                    <h5>4. File Options</h5>
+                 </a>
+                 <span class="flex-column pl-6">
+                   <i class="icon-xl fas fa-chevron-circle-right text-light-secondary"></i>
+                 </span>
+               </div>
+             </li>
+             <li class="wizard-step m-auto" data-wizard-step="step" data-wizard-state="pending">
+                 <a class="nav-link wizard-label flex-column" href="#step-5">
+                    <i class="icon-xl fas fa-cloud-download-alt mb-2" style="color: inherit;"></i>
+                    <h5>5. Download</h5>
+                 </a>
+             </li>
+          </ul>
+        </div>
 
-      <div class="tab-content">
 
-         <input type="hidden" name="user" id="user" value="{{ substr(str_shuffle(MD5(microtime())), 0, 30) }}">
-         <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
+        <div class="tab-content">
 
-         <div id="step-1" class="tab-pane" role="tabpanel">
-           @include('wizard.steps.1.options')
-         </div>
+           <input type="hidden" name="user" id="user" value="{{ substr(str_shuffle(MD5(microtime())), 0, 30) }}">
+           <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
 
-         <div id="step-2" class="tab-pane" role="tabpanel">
-           <div id="step2" class="step">
-             @include('wizard.steps.2.upload')
+           <div id="step-1" class="tab-pane" role="tabpanel">
+             @include('wizard.steps.1.options')
            </div>
-         </div>
 
-         <div id="step-3" class="tab-pane" role="tabpanel">
-
-           <div id="step3" class="step">
-             @include('wizard.steps.3.preview')
+           <div id="step-2" class="tab-pane" role="tabpanel">
+             <div id="step2" class="step">
+               @include('wizard.steps.2.upload')
+             </div>
            </div>
 
-         </div>
+           <div id="step-3" class="tab-pane" role="tabpanel">
 
-         <div id="step-4" class="tab-pane" role="tabpanel">
-           <div id="step4" class="step">
-             @include('wizard.steps.4.file')
-           </div>
-         </div>
+             <div id="step3" class="step">
+               @include('wizard.steps.3.preview')
+             </div>
 
-         <div id="step-5" class="tab-pane" role="tabpanel">
-           <div id="step5" class="step">
-             @include('wizard.steps.5.download')
            </div>
-         </div>
+
+           <div id="step-4" class="tab-pane" role="tabpanel">
+             <div id="step4" class="step">
+               @include('wizard.steps.4.file')
+             </div>
+           </div>
+
+           <div id="step-5" class="tab-pane" role="tabpanel">
+             <div id="step5" class="step">
+               @include('wizard.steps.5.download')
+             </div>
+           </div>
+
+        </div>
 
       </div>
 
     </div>
+  </div>
 @endsection
 
 @section('scripts')
@@ -116,7 +138,7 @@
         toolbarSettings: {
           toolbarExtraButtons: [
             $('<button/>').html('<span class="oi oi-reload"></span> Restart wizard')
-              .addClass('btn btn-warning restart_wizard float-left')
+              .addClass('btn btn-primary restart_wizard float-left')
           ]
         }
       });

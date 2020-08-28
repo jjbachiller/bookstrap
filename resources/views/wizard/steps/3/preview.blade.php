@@ -4,9 +4,21 @@
 
     <div class="col-md-10 mx-auto">
 
-      <div class="form-group row">
+      <div class="form-group row flex justify-content-center">
 
-        <div class="col-md-6 book-options-col image-options">
+        <div class="card card-custom shadow">
+        	<div class="card-header card-header-right ribbon ribbon-clip ribbon-left">
+        		<div class="ribbon-target" style="top: 12px;">
+        			<span class="ribbon-inner bg-info"></span>
+              <i class="icon-xl text-white far fa-clock"></i>
+              &nbsp;&nbsp;Realtime updated
+        		</div>
+        		<h3 class="card-title">
+        			Book Options
+        		</h3>
+        	</div>
+        	<div class="card-body">
+        {{-- <div class="col-md-6 book-options-col image-options">
 
           <div class="row">
             <div class="col h-100">
@@ -53,64 +65,87 @@
 
           </div>
 
-        </div>
+        </div> --}}
 
-        <div class="col-md-6 book-options-col">
+            <div class="book-options-col col-10 ml-25">
 
-          <div class="row">
-            <div class="col h-100">
               <div class="row">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="addFooter">
-                  <label class="custom-control-label" for="addFooter">Add footer</label>
+                <div class="col h-100">
+                  <label class="addFooterLabel text-muted">Add Footer:</label>
+                  <span class="switch switch-outline switch-icon switch-info">
+                    <label>
+                      <input type="checkbox" class="custom-control-input" id="addFooter"/>
+                      <span></span>
+                    </label>
+                  </span>
+                    {{--
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="addFooter">
+                      <label class="custom-control-label" for="addFooter">Add footer</label>
+                    </div> --}}
+                  <div class="d-none" id="footerOptions">
+                    <input type="text" class="form-control" id="footer" aria-describedby="Footer text" maxlength="60" value="Footer Details">
+                  </div>
+                </div>
+                <div class="col h-100">
+                  <label class="addPageNumberLabel text-muted">Add page number:</label>
+                  <span class="switch switch-outline switch-icon switch-info">
+                    <label>
+                      <input type="checkbox" class="custom-control-input" id="addPageNumber"/>
+                      <span></span>
+                    </label>
+                  </span>
+                    {{-- <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="addPageNumber">
+                      <label class="custom-control-label" for="addPageNumber">Add page number</label>
+                    </div> --}}
+                  <div class="d-none" id="pageNumberOptions">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-outline-secondary">
+                        <input type="radio" name="options" id="option1" autocomplete="off" value="1"> Header
+                      </label>
+                      <label class="btn btn-outline-secondary active">
+                        <input type="radio" name="options" id="option2" autocomplete="off" value="2" checked> Footer
+                      </label>
+                      <label class="btn btn-outline-secondary">
+                        <input type="radio" name="options" id="option3" autocomplete="off" value="3"> Both
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="row d-none" id="footerOptions">
-                <label for="footer">Footer</label>
-                <input type="text" class="form-control" id="footer" aria-describedby="Footer text" maxlength="60" value="Footer Details">
-              </div>
-            </div>
-          </div>
 
-          <div class="row">
-            <div class="col h-100">
               <div class="row">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="addPageNumber">
-                  <label class="custom-control-label" for="addPageNumber">Add page number</label>
+                <div class="col">
+                  <label class="addBlankPagesLabel text-muted">Add intermediate blank pages:</label>
+                  <span class="switch switch-outline switch-icon switch-info">
+                    <label>
+                      <input type="checkbox" class="custom-control-input" id="addBlankPages"/>
+                      <span></span>
+                    </label>
+                  </span>
+                  {{-- <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="addBlankPages">
+                    <label class="custom-control-label" for="addBlankPages">Add intermediate blank pages</label>
+                  </div> --}}
+                </div>
+                <div class="col">
+                  <label class="fullBleedLabel text-muted">Full bleed images:</label>
+                  <span class="switch switch-outline switch-icon switch-info">
+                    <label>
+                      <input type="checkbox" class="custom-control-input" id="fullBleed"/>
+                      <span></span>
+                    </label>
+                  </span>
+                  {{-- <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="fullBleed">
+                    <label class="custom-control-label" for="fullBleed">Full bleed images</label>
+                  </div> --}}
                 </div>
               </div>
-              <div class="row d-none" id="pageNumberOptions">
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                  <label class="btn btn-secondary">
-                    <input type="radio" name="options" id="option1" autocomplete="off" value="1"> Header
-                  </label>
-                  <label class="btn btn-secondary active">
-                    <input type="radio" name="options" id="option2" autocomplete="off" value="2"> Footer
-                  </label>
-                  <label class="btn btn-secondary">
-                    <input type="radio" name="options" id="option3" autocomplete="off" value="3"> Both
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" id="addBlankPages">
-              <label class="custom-control-label" for="addBlankPages">Add intermediate blank pages</label>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" id="fullBleed">
-              <label class="custom-control-label" for="fullBleed">Full bleed images</label>
             </div>
           </div>
         </div>
-
       </div>
 
     </div>

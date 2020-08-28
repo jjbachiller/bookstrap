@@ -375,17 +375,17 @@ img.lazy {
 /* Custom btn-group-toggle */
 /* selected btn css */
 .btn-group-toggle .btn:not(:disabled):not(.disabled).active, .btn-group-toggle .btn:not(:disabled):not(.disabled):active, .show>.btn.dropdown-toggle {
-      color: #fff;
-      background-color: #2196F3;
-      border-color: #2196F3;
+      color: #eee5ff;
+      background-color: #8950fc;
+      border-color: #eee5ff;
 }
 
 /* non selected btn css */
-.btn-group-toggle .btn {
+/* .btn-group-toggle .btn {
   color: #fff;
   background-color: #b7b7b7;
   border-color: #6c757d;
-}
+} */
 
 .book-options-col {
 	padding: 0 25px;
