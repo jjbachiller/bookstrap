@@ -62,8 +62,6 @@
                       <span></span>
                     </label>
                   </span>
-                  {{-- <input type="checkbox" class="custom-control-input addSectionTitle" id="addHeader1">
-                  <label class="custom-control-label addHeaderLabel" for="addHeader1">Add a section title</label> --}}
                 </div>
               </div>
             </div>
@@ -80,8 +78,6 @@
                       <span></span>
                     </label>
                   </span>
-                  {{-- <input type="checkbox" class="custom-control-input imageNameAsTitle" id="addImageNameAsTitle1">
-                  <label class="custom-control-label imageNameAsTitleLabel" for="addImageNameAsTitle1">Add file name as image title</label> --}}
                 </div>
               </div>
             </div>
@@ -98,8 +94,6 @@
                       <span></span>
                     </label>
                   </span>
-                  {{-- <input type="checkbox" class="custom-control-input addSolutions" id="addSolutions1">
-                  <label class="custom-control-label addSolutionsLabel" for="addSolutions1">Is it a puzzle with solutions section?</label> --}}
                 </div>
               </div>
             </div>
@@ -116,17 +110,10 @@
               <span></span>
             </label>
           </span>
-{{--
-
-          <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary pt-3">
-              <input type="checkbox" id="addTitleHeader1" class="addTitleHeader" value="1" checked="checked" />
-              <span></span>
-              &nbsp;&nbsp;Add title to the section pages header.
-          </label> --}}
-            {{-- <input type="checkbox" id="addTitleHeader1" class="addTitleHeader" value="1" checked="checked"> Add title to the section pages header. --}}
         </div>
 
       </div>
+
       <button class="btn btn-light btn-shadow btn-hover-primary rounded-top-0 text-dark-75 ml-5 font-weight-bolder font-size-lg toggleSectionOptions" type="button" name="button">
         <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\General\Settings-1.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
           <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -161,15 +148,11 @@
             </button>
           </div>
         </div>
-
-        {{-- <div class="row mt-2">
-          <div class="col">
-          </div>
-
-        </div> --}}
       </div>
+
     </div>
     {{-- End of Whole Section content--}}
+
     {{-- Whole Section solutions content--}}
     <div class="card-footer solutions-content mt-2 d-none bg-light-success p-2" style="box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);">
 
@@ -209,9 +192,6 @@
                       <span></span>
                     </label>
                   </span>
-                {{--
-                  <input type="checkbox" class="custom-control-input addSolutionTitle" id="addHeaderSolution1">
-                  <label class="custom-control-label addHeaderSolutionLabel" for="addHeaderSolution1">Add a solutions section title</label> --}}
                 </div>
               </div>
             </div>
@@ -228,8 +208,6 @@
                       <span></span>
                     </label>
                   </span>
-                  {{-- <input type="checkbox" class="custom-control-input imageNameAsTitleSolution" id="addImageNameAsTitleSolution1">
-                  <label class="custom-control-label imageNameAsTitleLabelSolution" for="addImageNameAsTitleSolution1">Add file name as solution title</label> --}}
                 </div>
               </div>
             </div>
@@ -246,8 +224,6 @@
                       <span></span>
                     </label>
                   </span>
-                  {{-- <input type="checkbox" class="custom-control-input placeSolutionsAtTheEnd" id="solutionsAtTheEnd1">
-                  <label class="custom-control-label placeSolutionsAtTheEndLabel" for="solutionsAtTheEnd1">Place solutions at the end of the book</label> --}}
                 </div>
               </div>
             </div>
@@ -264,12 +240,6 @@
               <span></span>
             </label>
           </span>
-          {{-- <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-success pt-3">
-              <input type="checkbox" id="addTitleHeaderSolution1" class="addTitleHeaderSolution" value="1" checked="checked" />
-              <span></span>
-              &nbsp;&nbsp;Add title to the solution pages header.
-          </label> --}}
-            {{-- <input type="checkbox" id="addTitleHeaderSolution1" class="addTitleHeaderSolution" value="1" checked="checked"> Add title to the solution pages header. --}}
         </div>
 
       </div>
@@ -304,8 +274,10 @@
           </div>
         </div>
       </div>
+
     </div>
     {{-- End of Whole Section solutions content--}}
+    
   </div>
 
 </li>

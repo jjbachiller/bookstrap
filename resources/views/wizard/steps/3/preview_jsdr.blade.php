@@ -216,7 +216,6 @@ function getNewImagePage(imagePageOptions) {
     // Load or remove the title for each image
     var imgTitle = imagesLayout.find('.title-' + imageNumber);
     if (!imagePageOptions['imageNameAsTitle']) {
-      // imgTitle.remove();
       imgTitle.html('');
     } else {
       // Remove path & extension from image route.
