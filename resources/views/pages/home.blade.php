@@ -409,7 +409,7 @@
                   <span>sed do eiusmod tempors labore et dolore</span>
                   <span>magna siad enim aliqua</span>
                 </p>
-                <a href="javascript:;" onclick='cart.addCheckoutExternal(this,{"id":"29","qty":1,"type":"product","plan":30}); return false;' type="button" class="btn btn-primary text-uppercase font-size-lg font-weight-bolder px-15 py-3">Subscribe</a>
+                <a href="https://puzzlebookcompiler.com/members/product/LCBW-Starter" target="_blank" type="button" class="btn btn-primary text-uppercase font-size-lg font-weight-bolder px-15 py-3">Subscribe</a>
               </div>
             </div>
       			<!-- end: Pricing-->
@@ -429,7 +429,7 @@
     						<span>sed do eiusmod tempors labore et dolore</span>
     						<span>magna siad enim aliqua</span>
     					</p>
-    					<a href="javascript:;" onclick='cart.addCheckoutExternal(this,{"id":"33","qty":1,"type":"product","plan":38}); return false;' type="button" class="btn btn-white text-uppercase font-size-lg font-weight-bolder px-15 py-3">Subscribe</a>
+    					<a href="https://puzzlebookcompiler.com/members/product/LCBW-Silver" target="_blank" type="button" class="btn btn-white text-uppercase font-size-lg font-weight-bolder px-15 py-3">Subscribe</a>
     				</div>
     			</div>
     			<!-- end: Pricing-->
@@ -449,7 +449,7 @@
     						<span>sed do eiusmod tempors labore et dolore</span>
     						<span>magna siad enim aliqua</span>
     					</p>
-    					<a href="javascript:;" onclick='cart.addCheckoutExternal(this,{"id":"34","qty":1,"type":"product","plan":39}); return false;' type="button" class="btn btn-primary text-uppercase font-size-lg font-weight-bolder px-15 py-3">Subscribe</a>
+    					<a href="https://puzzlebookcompiler.com/members/product/LCBW-Gold" target="_blank" type="button" class="btn btn-primary text-uppercase font-size-lg font-weight-bolder px-15 py-3">Subscribe</a>
     				</div>
     			</div>
     			<!-- end: Pricing-->
@@ -469,7 +469,7 @@
                     Temporarily you can create a free account to test Bookstrap.
                 </p>
               </div>
-              <a href="javascript:;" onclick='cart.addCheckoutExternal(this,{"id":"35","qty":1,"type":"product","plan":40}); return false;' class="btn btn-link btn-link-white font-weight-bold">
+              <a href="https://puzzlebookcompiler.com/members/product/LCBW-Free" target="_blank" class="btn btn-link btn-link-white font-weight-bold">
                 Create a Free Account
                 <span class="svg-icon svg-icon-lg svg-icon-white">
                   <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
@@ -495,7 +495,7 @@
 {{-- Scripts Section --}}
 @section('scripts')
     {{-- <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script> --}}
-    <script src="https://puzzlebookcompiler.com/members/application/cart/views/public/js/cart.js"></script>
+
     <script type="text/javascript">
 
       $(document).ready(function () {
