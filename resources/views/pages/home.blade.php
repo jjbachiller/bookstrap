@@ -18,7 +18,7 @@
           </div>
           <div class="col-lg-6 ml-auto">
             <div class="embed-responsive embed-responsive-16by9">
-              <iframe class="embed-responsive-item" src="https://youtu.be/6EbYJSThKKg"></iframe>
+              <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/6EbYJSThKKg"></iframe>
             </div>
           </div>
         </div>
