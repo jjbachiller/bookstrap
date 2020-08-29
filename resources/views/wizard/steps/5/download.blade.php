@@ -93,34 +93,37 @@
 
   @endguest
   @auth
-    <div id="download_container" class="d-none">
-      @if (Auth::user()->hasVerifiedEmail())
-        @if (Auth::user()->active)
-          <a href="#" id="book_link" class="btn btn-success btn-lg" role="button">
-            <span class="oi oi-cloud-download" title="cloud download" aria-hidden="true"></span>
-
+    <div id="download_container" class="justify-content-center d-none">
+      @if (Auth::user()->active)
+        <div class="bg-light-success px-6 py-8 rounded-xl mb-7 text-center w-50 text-success">
+          <strong>Your books is now available for download!</strong><br>
+          <a href="#" id="book_link" class="btn btn-success btn-lg text-light-success font-weight-bold font-size-h6 mt-2">
+            <i class="icon-xl fas fa-cloud-download-alt text-white"></i>
             Download your book
           </a>
-        @else
-          Your account <strong>is NOT active</strong>.<br>
-          Your account should be activated by an administrator before you can download a book.
-        @endif
-      {{-- @else
-        {{ __('To download the book, please check your email for a verification link.') }}
-        {{ __('If you did not receive the email') }},
-        <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-            @csrf
-            <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
-        </form> --}}
+        </div>
+        {{-- <a href="#" id="book_link" class="btn btn-success btn-lg" role="button">
+          <span class="oi oi-cloud-download" title="cloud download" aria-hidden="true"></span>
+
+          Download your book
+        </a> --}}
       @endif
     </div>
 
-    <div id="reload_container" class="d-none">
-      <button class="btn btn-warning restart_wizard" id="restart_wizard" type="button">
+    <div id="reload_container" class="justify-content-center d-none">
+      <div class="bg-light-info px-6 py-8 rounded-xl mb-7 text-center w-50 text-info">
+        <strong>Books Wizard finished</strong><br>
+        {{-- <a href="{{ route('books.wizard') }}" class="text-info font-weight-bold font-size-h6 mt-2"> --}}
+        <button class="btn btn-info restart_wizard text-light-info font-weight-bold font-size-h6 mt-2" id="restart_wizard" type="button">
+          <i class="icon-xl fas fa-book-medical text-light-info"></i>
+          Create another book
+        </button>
+      </div>
+      {{-- <button class="btn btn-warning restart_wizard" id="restart_wizard" type="button">
         <span class="oi oi-reload" title="reload" aria-hidden="true"></span>
 
         Restart Wizard
-      </button>
+      </button> --}}
     </div>
 
   @endauth

@@ -1,12 +1,13 @@
 <div class="book_options">
 
-  <div class="row">
+  {{-- <div class="row">
 
     <div class="col-md-10 mx-auto">
 
-      <div class="form-group row flex justify-content-center">
+      <div class="form-group row flex justify-content-center"> --}}
+      <div class="d-flex justify-content-center">
 
-        <div class="card card-custom shadow">
+        <div class="card card-custom shadow w-75">
         	<div class="card-header card-header-right ribbon ribbon-clip ribbon-left">
         		<div class="ribbon-target" style="top: 12px;">
         			<span class="ribbon-inner bg-info"></span>
@@ -67,7 +68,7 @@
 
         </div> --}}
 
-            <div class="book-options-col col-10 ml-25">
+            <div class="book-options-col col-10">
 
               <div class="row">
                 <div class="col h-100">
@@ -148,9 +149,9 @@
         </div>
       </div>
 
-    </div>
+    {{-- </div>
 
-  </div>
+  </div> --}}
 
 </div>
 

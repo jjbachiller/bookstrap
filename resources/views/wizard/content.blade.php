@@ -145,13 +145,13 @@
 
       function bookGenerated() {
         $('#creating_container').addClass('d-none');
-        $('#reload_container').removeClass('d-none');
+        $('#reload_container').removeClass('d-none').addClass('d-flex');
       }
 
       function bookGenerationReset() {
         $('#creating_container').removeClass('d-none');
-        $('#reload_container').addClass('d-none');
-        $('#download_container').addClass('d-none');
+        $('#reload_container').removeClass('d-flex').addClass('d-none');
+        $('#download_container').removeClass('d-flex').addClass('d-none');
         $('#error_container').addClass('d-none');
         $('#creator-register-form').addClass('d-none');
       }
@@ -159,7 +159,7 @@
       function bookGeneratedSuccess(url) {
         bookGenerated();
         $('#book_link').attr('href', url);
-        $('#download_container').removeClass('d-none');
+        $('#download_container').removeClass('d-none').addClass('d-flex');
         $('#creator-register-form').removeClass('d-none');
       }
 
@@ -238,8 +238,10 @@
             user: $('#user').val(),
             copyright: getCopyright(),
             sections: getBookSections(),
-            imageSize: $("#image-size").val(),
-            imagePosition: $("#image-position").find(".btn-primary").attr('rel'),
+            // imageSize: $("#image-size").val(),
+            // imagePosition: $("#image-position").find(".btn-primary").attr('rel'),
+            imageSize: 100,
+            imagePosition: 5,
             header: getBookHeader(),
             footer: getBookFooter(),
             pageNumber: getBookPageNumber(),

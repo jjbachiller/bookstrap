@@ -18,6 +18,9 @@ License: You must have a valid license purchased only from themeforest(the above
         {{-- Title Section --}}
         <title>{{ config('app.name') }} | @yield('title', $page_title ?? '')</title>
 
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
         {{-- Meta Data --}}
         <meta name="description" content="@yield('page_description', $page_description ?? '')"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
