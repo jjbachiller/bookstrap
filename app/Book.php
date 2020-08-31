@@ -52,4 +52,9 @@ class Book extends Model
       DB::table('sections')->where('book_id', $this->id)->where('user_id', Auth::user()->id)->delete();
       DB::table('books')->where('id', $this->id)->delete();
     }
+
+    public static function getBooksWithContent()
+    {
+      //
+    }
 }
