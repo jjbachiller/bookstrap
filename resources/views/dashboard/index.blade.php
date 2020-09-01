@@ -47,15 +47,9 @@
               <!--begin::Body-->
               <div class="card-body p-0 position-relative overflow-hidden text-center">
                 <h1 class="font-weight-bolder mt-20">
-                  <span class="widget-big-text">{{ count($books)}}</span> Books <br>
+                  <span class="widget-big-text">{{ $statistics['totalBooks'] }}</span> Books <br>
                   <span class="text-dark-75 font-size-lg">
-                    @php
-                      $totalPages = 0;
-                      foreach ($books as $book) {
-                        $totalPages=+ $book->total_pages;
-                      }
-                    @endphp
-                    ({{ $totalPages}} total pages.)
+                    ({{ $statistics['totalPages'] }} total pages.)
                   </span>
                 </h1>
               </div>
@@ -77,7 +71,15 @@
                 <div id="chart" style="min-height: 250px;">
 
                 </div>
-                <span class="btn btn-primary btn-shadow btn-shadow-hover font-weight-bolder mb-10 py-3">Disk Percentage</span>
+                <h3 class="text-dark-50 pb-2">{{ formatBytes($statistics['totalSize']) }} occupied</h3>
+                <span class="btn btn-primary btn-shadow btn-shadow-hover font-weight-bolder mb-10 py-3">
+                  @php
+                    $subscription = Auth::user()->subscription();
+                  @endphp
+
+                  <i class="icon-xl far fa-hdd"></i>
+                  {{ formatBytes($subscription['disk_quote']) }} Disk Available
+                </span>
                 {{-- <span class="label label-lg label-primary label-inline font-weight-bolder mb-10 py-3">Disk Percentage</span> --}}
               </div>
               <!--end::Body-->
@@ -96,9 +98,6 @@
               <!--end::Header-->
               <!--begin::Body-->
               <div class="card-body p-0 position-relative overflow-hidden mt-10 text-center">
-                @php
-        			    $subscription = Auth::user()->subscription();
-        			  @endphp
                 <h1 class="widget-big-text mt-10">
                   <i class="icon-6x text-primary {{ $subscription['icon'] }}"></i><br>
                   {{ $subscription['name'] }}
@@ -134,7 +133,12 @@
                         <td class="pl-0 py-4">
                           <div class="symbol symbol-50 symbol-light">
                             <span class="symbol-label">
-                              <img src="{{ asset('media/svg/misc/014-kickstarter.svg') }}" class="h-50 align-self-center">
+                              @php
+                                $types = config('book-types');
+                                $type = $types[$book->book_type];
+                              @endphp
+                              <i class="icon-xl {{ $type['icon'] }} {{ $type['text-color'] }}"></i>
+                              {{-- <img src="{{ asset('media/svg/misc/014-kickstarter.svg') }}" class="h-50 align-self-center"> --}}
                             </span>
                           </div>
                         </td>
@@ -266,7 +270,7 @@
       //       };
 
       var options = {
-              series: [75],
+              series: [{{ $statistics['percentDiskOccupied'] }}],
               chart: {
               height: 250,
               type: 'radialBar',

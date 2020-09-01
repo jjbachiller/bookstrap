@@ -234,6 +234,7 @@
           bookGenerationReset();
 
           var data = {
+            type: $('#book-type').val(),
             size: $('#book-size').val(),
             user: $('#user').val(),
             copyright: getCopyright(),

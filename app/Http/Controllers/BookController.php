@@ -6,6 +6,7 @@ use App\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\bookstrap\StatisticsCalculator;
 
 class BookController extends Controller
 {
@@ -29,8 +30,12 @@ class BookController extends Controller
         // Return view for created as guess book.
         return view('dashboard.guest-book', compact('book'));
       }
-      $books = auth()->user()->books()->orderBy('id', 'desc')->paginate(config('bookstrap-constants.NUM_BOOKS_PAGINATION'));
-      return view('dashboard.index', compact('books'));
+
+      $statistics = StatisticsCalculator::dashBoardStatistics();
+
+      $books = auth()->user()->books()->withContent()->orderBy('id', 'desc')->paginate(config('bookstrap-constants.NUM_BOOKS_PAGINATION'));
+
+      return view('dashboard.index', compact('books', 'statistics'));
     }
 
     public function download($bookUid, $date, $book)

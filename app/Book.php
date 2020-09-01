@@ -20,6 +20,11 @@ class Book extends Model
       return $this->hasMany('App\Section')->orderBy('order');;
     }
 
+    public function scopeWithContent($query)
+    {
+      return $query->has('sections');
+    }
+
     public function resetContent() {
       $this->sections()->delete();
     }

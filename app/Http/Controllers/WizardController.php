@@ -69,6 +69,8 @@ class WizardController extends Controller
   {
     $book = \App\Book::findOrFail(session('idBook'));
     $book->name = $configuration['filename'];
+    $bookTypes = config('book-types');
+    $book->book_type = array_key_exists($configuration['type'], $bookTypes) ? $configuration['type'] : array_shift($bookTypes);
     $bookSizes = config('book-sizes');
     $book->dimensions = array_key_exists($configuration['size'], $bookSizes) ? $configuration['size'] : reset($bookSizes);
     $book->img_position = $configuration['imagePosition'];
