@@ -6,7 +6,7 @@ use App\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-use App\bookstrap\StatisticsCalculator;
+use App\Bookstrap\StatisticsCalculator;
 
 class BookController extends Controller
 {

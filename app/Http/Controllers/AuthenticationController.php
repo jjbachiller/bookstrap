@@ -23,7 +23,13 @@ class AuthenticationController extends Controller
     public function login(Request $request)
     {
       // Ask for amember user with this credentials
-      $aMemberUser = aMember::login($request->input('email'), $request->input('password'));
+      if (app()->isLocal()) {
+        // For local development, don't ask the API for the user
+        $aMemberUser = ['ok' => true, 'name' => 'Juan Bachiller', 'email' => 'jjbachiller@gmail.com', 'user_id' => 23, 'subscriptions' => [34 => '2022-01-01']];
+      } else {
+        $aMemberUser = aMember::login($request->input('email'), $request->input('password'));
+      }
+
       if (!isset($aMemberUser['ok']) || !$aMemberUser['ok']) {
         // Not exist, redirect to login with an error.
         $errors = new MessageBag(['password' => ['Email and/or password invalid.']]);
