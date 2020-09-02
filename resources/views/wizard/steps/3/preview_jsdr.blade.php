@@ -383,100 +383,70 @@ window.addEventListener(orientationEvent, function() {
 
 
 // Image size options management
-$('#image-size').TouchSpin({
-  min: 1,
-  max: 100,
-  initval: '100',
-  replacementval: '',
-  decimals: 0,
-  forcestepdivisibility: 'round',
-  verticalbuttons: false,
-  verticalupclass: 'oi oi-chevron-top',
-  verticaldownclass: 'oi oi-chevron-bottom',
-  boostat: 5,
-  booster: true,
-  maxboostedstep: 10,
-  postfix: '%',
-  step: 1,
-  stepinterval: 100,
-  stepintervaldelay: 500,
-  mousewheel: true,
-  buttondown_class: 'btn btn-primary',
-  buttonup_class: 'btn btn-primary',
-  buttondown_txt: '-',
-  buttonup_txt: '+'
-});
+// $('#image-size').TouchSpin({
+//   min: 1,
+//   max: 100,
+//   initval: '100',
+//   replacementval: '',
+//   decimals: 0,
+//   forcestepdivisibility: 'round',
+//   verticalbuttons: false,
+//   verticalupclass: 'oi oi-chevron-top',
+//   verticaldownclass: 'oi oi-chevron-bottom',
+//   boostat: 5,
+//   booster: true,
+//   maxboostedstep: 10,
+//   postfix: '%',
+//   step: 1,
+//   stepinterval: 100,
+//   stepintervaldelay: 500,
+//   mousewheel: true,
+//   buttondown_class: 'btn btn-primary',
+//   buttonup_class: 'btn btn-primary',
+//   buttondown_txt: '-',
+//   buttonup_txt: '+'
+// });
 
-$('#image-size').on('change', function() {
-  var percentage = $(this).val();
-  if (percentage) {
-    $('.img-content img').width(percentage+'%');
-  }
-});
+// $('#image-size').on('change', function() {
+//   var percentage = $(this).val();
+//   console.log("Entro con: " + percentage);
+//   if (percentage) {
+//     $('.imgages-content img').width(percentage);
+//   }
+// });
 
-$('#image-size').focusout(function() {
-  var percentage = $(this).val();
-  if (!isNaN(percentage) || percentage < 0 || percentage > 100) {
-    var image_width = $('.page-content img').width();
-    var parent_width = $('.page-content img').parent().width();
-    var image_percentage = Math.ceil(image_width / parent_width * 100);
-    $(this).val(image_percentage);
-  }
-});
+// $('#image-size').focusout(function() {
+//   var percentage = $(this).val();
+//   if (!isNaN(percentage) || percentage < 0 || percentage > 100) {
+//     var image_width = $('.page-content img').width();
+//     var parent_width = $('.page-content img').parent().width();
+//     var image_percentage = Math.ceil(image_width / parent_width * 100);
+//     $(this).val(image_percentage);
+//   }
+// });
 // End image size options management
 
 // Image position options management
 function imagePosition(position) {
-  var align = 'center';
-  var justify = 'center';
+  var justify = 'justify-content-center';
 
   switch (position) {
-    case '1':
-      align="start";
-      justify = "start";
-      break;
     case '2':
-      align="start";
-      justify = "center";
-      break;
-    case '3':
-      align="start";
-      justify = "end";
-      break;
-    case '4':
-      align="center";
-      justify = "start";
-      break;
-    case '5':
-      align="center";
-      justify = "center";
-      break;
-    case '6':
-      align="center";
-      justify = "end";
-      break;
-    case '7':
-      align="end";
-      justify = "start";
+      justify = "justify-content-start";
       break;
     case '8':
-      align="end";
-      justify = "center";
-      break;
-    case '9':
-      align="end";
-      justify = "end";
+      justify = "justify-content-end";
       break;
   }
-
-  $('.img-content').css({'align-items': align, 'justify-content': justify});
+  $('.image-container').removeClass('justify-content-start justify-content-center justify-content-end');
+  $('.image-container').addClass(justify);
 };
 
-$('.image-position .btn').on('click', function() {
-  var position = $(this).attr('rel');
+$('#image-position').on('click', function() {
+  var position = $(this).find('.active').find('input').val();
   imagePosition(position);
-  $('.image-position .btn').removeClass('btn-primary').addClass('btn-light');
-  $(this).removeClass('btn-light').addClass('btn-primary');
+  // $('.image-position .btn').removeClass('btn-primary').addClass('btn-light');
+  // $(this).removeClass('btn-light').addClass('btn-primary');
 });
 // End image position options management
 
@@ -643,6 +613,50 @@ function generateBookSlider(blank = false) {
 
   $('#bookPagination').addClass('Initialized');
 }
+
+function initSizeSlider() {
+  // init slider
+  var verticalSlider = document.getElementById('size-slider');
+  noUiSlider.create(verticalSlider, {
+    start: 100,
+    // orientation: 'vertical',
+    range: {
+      'min': 0,
+      'max': 100
+    },
+    format: wNumb({
+        decimals: 0,
+        suffix: '%'
+    })
+  });
+
+  // init slider input
+  var sliderInput = document.getElementById('image-size');
+
+  verticalSlider.noUiSlider.on('update', function( values, handle ) {
+    sliderInput.value = values[handle];
+    resizePreviewImage(sliderInput.value);
+  });
+
+  sliderInput.addEventListener('change', function(){
+    verticalSlider.noUiSlider.set(this.value);
+    resizePreviewImage(this.value);
+  });
+}
+
+function resizePreviewImage(percentage)
+{
+  $('.images-content').find('img').attr('style', 'width: ' + percentage + ' !important');
+}
+
+// $('#image-size').on('change', function() {
+//   alert("El valor ha cambiado " + this.val());
+//   // Update the images on the preview
+//   // $('.images-content').find('img').attr('style', this.val() + ' !important');
+//
+// });
+
+initSizeSlider();
 
 function loadEditingBookValues(book) {
   $('#image-size').val(book['img_scale']);
