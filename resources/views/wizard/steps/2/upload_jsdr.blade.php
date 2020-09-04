@@ -85,9 +85,18 @@ function addNewSection(section = []) {
       newSection.find(".addSectionTitle").prop('checked', true).change();
       newSection.find(".section-title-input").val(section['title']);
       newSection.find('.section-button').text(section['title']);
-      if (!section['header']) {
-        newSection.find('addTitleHeader').prop('checked', false);
+      if ((typeof section['header'] !== 'undefined')
+        && (section['header'] !== null)) {
+        $('#section-title-as .btn input[value=' + {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }} + ']').click();
+      } else {
+        $('#section-title-as .btn input[value=' + {{ config('bookstrap-constants.sectionTitle.PAGE') }} + ']').click();
       }
+  } else if ((typeof section['header'] !== 'undefined')
+    && (section['header'] !== null)) {
+      newSection.find(".addSectionTitle").prop('checked', true).change();
+      newSection.find(".section-title-input").val(section['header']);
+      newSection.find('.section-button').text(section['header']);
+      $('#section-title-as .btn input[value=' + {{ config('bookstrap-constants.sectionTitle.HEADER') }} + ']').click();
   }
 
   if (typeof section['image_name_as_title'] !== 'undefined') {

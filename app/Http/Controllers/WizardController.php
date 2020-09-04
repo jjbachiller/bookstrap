@@ -108,8 +108,13 @@ class WizardController extends Controller
         $section->pages_count++;
       }
 
-      $section->title = $sec['title'] ?? null;
-      $section->header = $sec['titleHeader'] ?? null;
+      if ($sec['addTitle']) {
+        $section->title = empty($sec['title']) ? null : $sec['title'];
+        $section->header = empty($sec['titleHeader']) ? null : $sec['titleHeader'];
+      } else {
+        $section->title = $section->header = null;
+      }
+
 
       $section->image_name_as_title = $sec['imageNameAsTitle'];
       $section->images_per_page = $sec['imagesPerPage'];

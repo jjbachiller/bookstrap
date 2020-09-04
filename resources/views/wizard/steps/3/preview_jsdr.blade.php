@@ -1,4 +1,5 @@
 
+
 var firstLoad = true;
 
 // Load Book content from server and generate book
@@ -59,6 +60,15 @@ function loadPreviewContent() {
 
               var page = getNewTitlePage(current_page, title);
               $('#mybook-content').append(page);
+              current_page++;
+
+              // Blank pages
+              page = getNewTitlePage(current_page_blankpages_book, title)
+              $('#mybook-blankpages-content').append(page);
+              current_page_blankpages_book++;
+              var blankpage = getNewTitlePage(current_page_blankpages_book, '');
+              $('#mybook-blankpages-content').append(blankpage);
+              current_page_blankpages_book++;
 
           }
 
@@ -68,22 +78,8 @@ function loadPreviewContent() {
               titleHeader = title;
 
           }
-          // } else {
-          //
-          //     titleHeader = false;
-          //
-          // }
 
           sectionStart = false;
-          current_page++;
-
-          // Blank pages
-          page = getNewTitlePage(current_page_blankpages_book, title)
-          $('#mybook-blankpages-content').append(page);
-          current_page_blankpages_book++;
-          var blankpage = getNewTitlePage(current_page_blankpages_book, '');
-          $('#mybook-blankpages-content').append(blankpage);
-          current_page_blankpages_book++;
         }
 
         var imageNameAsTitle = solutions ? titleBlock.find('.imageNameAsTitleSolution').is(':checked') : titleBlock.find('.imageNameAsTitle').is(':checked');
@@ -677,8 +673,11 @@ function resizePreviewImage(percentage)
 initSizeSlider();
 
 function loadEditingBookValues(book) {
-  $('#image-size').val(book['img_scale']);
-  $('.image-position .btn[rel=' + book['img_position'] + ']').click();
+  // $('#image-size').val(book['img_scale']);
+  var verticalSlider = document.getElementById('size-slider');
+  verticalSlider.noUiSlider.set(book['img_scale'] + '%');
+  $('#image-position .btn input[value=' + book['img_position'] + ']').click();
+  imagePosition(book['img_position'].toString());
   if (book['footer_details'] != '') {
     $('#addFooter').prop('checked', true).change();
     $('#footer').val(book['footer_details']);
@@ -690,6 +689,9 @@ function loadEditingBookValues(book) {
   }
   if (book['add_blank_pages'] != 0) {
     $('#addBlankPages').prop('checked', true).change();
+  }
+  if (book['full_bleed'] != 0) {
+    $('#fullBleed').prop('checked', true).change();
   }
 }
 
