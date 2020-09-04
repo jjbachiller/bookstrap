@@ -174,9 +174,11 @@
             var section = {};
             section.folder = $(this).find("input.section-index").val();
             section.addTitle = $(this).find(".addSectionTitle").is(':checked');
-            section.title = $(this).find(".section-title-input").val();
+            var sectionTitle = $(this).find(".section-title-input").val();
+            var titleAs = $('#section-title-as').find('.active').find('input').val();
+            section.title = (titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE') }} | titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? sectionTitle : '';
+            section.titleHeader = (titleAs == {{ config('bookstrap-constants.sectionTitle.HEADER') }} | titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? sectionTitle : '';
             section.imageNameAsTitle = $(this).find(".imageNameAsTitle").is(':checked');
-            section.addTitleHeader = $(this).find(".addTitleHeader").is(':checked');
             section.imagesPerPage = $(this).find(".imagesPerPage").val();
             // Solutions fields
             section.addSolutionsTitle = $(this).find(".addSolutionTitle").is(':checked');
@@ -188,6 +190,15 @@
             sections.push(section);
         });
         return sections;
+      }
+
+      function getImageSize() {
+          var imagePercentage = $("#image-size").val();
+          return imagePercentage.replace('%', '');
+      }
+
+      function getImagePosition() {
+          return $('#image-position').find('.active').find('input').val();
       }
 
       function getBookHeader() {
@@ -239,11 +250,8 @@
             user: $('#user').val(),
             copyright: getCopyright(),
             sections: getBookSections(),
-            imageSize: $("#image-size").val(),
-            imagePosition: $('#image-position').find('.active').find('input').val(),
-            // imagePosition: $("#image-position").find(".btn-primary").attr('rel'),
-            // imageSize: 100,
-            // imagePosition: 5,
+            imageSize: getImageSize(),
+            imagePosition: getImagePosition(),
             header: getBookHeader(),
             footer: getBookFooter(),
             pageNumber: getBookPageNumber(),

@@ -37,6 +37,11 @@ return [
     'FOOTER' => 2,
     'BOTH' => 3
   ],
+  'sectionTitle' => [
+    'PAGE' => 1,
+    'HEADER' => 2,
+    'PAGE_AND_HEADER' => 3,
+  ],
   'imagePositions' => [
     'TOP_LEFT' => 1,
     'TOP_CENTER' => 2,

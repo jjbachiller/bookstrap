@@ -389,6 +389,12 @@ img.lazy {
       border-color: #eee5ff;
 }
 
+.btn-group-toggle.toggle-primary .btn:not(:disabled):not(.disabled).active, .btn-group-toggle .btn:not(:disabled):not(.disabled):active, .show>.btn.dropdown-toggle {
+      color: #e1f0ff;
+      background-color: #3699ff;
+      border-color: #e1f0ff;
+}
+
 /* non selected btn css */
 /* .btn-group-toggle .btn {
   color: #fff;

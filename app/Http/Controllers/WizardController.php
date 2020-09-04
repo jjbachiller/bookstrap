@@ -104,11 +104,12 @@ class WizardController extends Controller
       $section->size = 0;
       $section->pages_count = 1; // A section has always a blank pages at the end.
 
-      if ($sec['addTitle']) {
-        $section->title = $sec['title'];
-        $section->header = $sec['addTitleHeader'];
+      if ($sec['title']) {
         $section->pages_count++;
       }
+
+      $section->title = $sec['title'] ?? null;
+      $section->header = $sec['titleHeader'] ?? null;
 
       $section->image_name_as_title = $sec['imageNameAsTitle'];
       $section->images_per_page = $sec['imagesPerPage'];

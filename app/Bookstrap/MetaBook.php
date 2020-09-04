@@ -30,7 +30,7 @@ class MetaBook {
     foreach ($sections as $section)
     {
       $this->currentSection = $section;
-      if (!is_null($section->title)) {
+      if (!empty($section->title)) {
         $this->addTitlePage($pageNumber);
         $pageNumber++;
 
@@ -172,9 +172,8 @@ class MetaBook {
     $page = $this->getBookPage($pageNumber);
 
     // Add header text
-    $addHeader = $solution ? $this->currentSection->solutions_header : $this->currentSection->header;
-    if ($addHeader) {
-      $header = $solution ? $this->currentSection->solutions_title : $this->currentSection->title;
+    $header = $solution ? $this->currentSection->solutions_header : $this->currentSection->header;
+    if (!empty($header)) {
       $page->setHeader($header);
     }
 

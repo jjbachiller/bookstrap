@@ -101,17 +101,26 @@
 
         </div>
 
-        <div class="d-none section-title-text">
+        <div class="d-none section-title-text mt-2">
           <input type="text" class="form-control section-title-input" id="sectionTitle1" aria-describedby="Header text" maxlength="60" placeholder="Section title">
-          <label class="addTitleHeaderLabel text-muted">Add title as header:</label>
-          <span class="switch switch-outline switch-icon switch-primary">
-            <label>
-              <input type="checkbox" class="custom-control-input addTitleHeader" id="addTitleHeader1" name="select" checked="checked" value="1"/>
-              <span></span>
-            </label>
-          </span>
+          <div class="row mt-2">
+            <div class="col">
+              <label class="addTitleHeaderLabel text-muted">Add title as:</label>
+              <br>
+              <div class="btn-group btn-group-toggle toggle-primary" data-toggle="buttons" id="section-title-as">
+                <label class="btn btn-outline-secondary">
+                  <input type="radio" name="options" id="option1" autocomplete="off" value="{{ config('bookstrap-constants.sectionTitle.PAGE') }}"> Section 1st page
+                </label>
+                <label class="btn btn-outline-secondary">
+                  <input type="radio" name="options" id="option2" autocomplete="off" value="{{ config('bookstrap-constants.sectionTitle.HEADER') }}"> Section header
+                </label>
+                <label class="btn btn-outline-secondary active">
+                  <input type="radio" name="options" id="option3" autocomplete="off" value="{{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}" checked> 1st page & header
+                </label>
+              </div>
+            </div>
+          </div>
         </div>
-
       </div>
 
       <button class="btn btn-light btn-shadow btn-hover-primary rounded-top-0 text-dark-75 ml-5 font-weight-bolder font-size-lg toggleSectionOptions" type="button" name="button">
@@ -277,7 +286,7 @@
 
     </div>
     {{-- End of Whole Section solutions content--}}
-    
+
   </div>
 
 </li>

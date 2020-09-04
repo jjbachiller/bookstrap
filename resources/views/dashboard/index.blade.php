@@ -19,7 +19,7 @@
 @section('content')
 
   {{-- Dashboard 1 --}}
-  <div class="col-xxl-8 order-2 order-xxl-1">
+  <div class="order-2 order-xxl-1">
     <div class="card card-custom card-stretch gutter-b">
       <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
