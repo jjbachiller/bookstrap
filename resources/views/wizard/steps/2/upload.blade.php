@@ -242,13 +242,19 @@
 
         <div class="d-none section-title-text">
           <input type="text" class="form-control section-title-solutions-input" id="sectionTitleSolution1" aria-describedby="Header text" maxlength="60" placeholder="Solutions title">
-          <label class="addTitleHeaderSolutionLabel text-muted">Add title as header:</label>
-          <span class="switch switch-outline switch-icon switch-success">
-            <label>
-              <input type="checkbox" class="custom-control-input addTitleHeaderSolution" id="addTitleHeaderSolution1" name="select"  value="1" checked="checked" />
-              <span></span>
+          <label class="addTitleHeaderSolutionLabel text-muted">Add solutions title as:</label>
+          <br>
+          <div class="btn-group btn-group-toggle toggle-success" data-toggle="buttons" id="solutions-title-as">
+            <label class="btn btn-outline-secondary">
+              <input type="radio" name="options" id="option1" autocomplete="off" value="{{ config('bookstrap-constants.sectionTitle.PAGE') }}"> Solutions 1st page
             </label>
-          </span>
+            <label class="btn btn-outline-secondary">
+              <input type="radio" name="options" id="option2" autocomplete="off" value="{{ config('bookstrap-constants.sectionTitle.HEADER') }}"> Solutions header
+            </label>
+            <label class="btn btn-outline-secondary active">
+              <input type="radio" name="options" id="option3" autocomplete="off" value="{{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}" checked> 1st page & header
+            </label>
+          </div>
         </div>
 
       </div>

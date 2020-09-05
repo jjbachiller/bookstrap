@@ -182,9 +182,11 @@
             section.imagesPerPage = $(this).find(".imagesPerPage").val();
             // Solutions fields
             section.addSolutionsTitle = $(this).find(".addSolutionTitle").is(':checked');
-            section.solutionsTitle = $(this).find(".section-title-solutions-input").val();
+            var solutionsTitle = $(this).find(".section-title-solutions-input").val();
+            var solutionsTitleAs = $('#solutions-title-as').find('.active').find('input').val();
+            section.solutionsTitle = (solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.PAGE') }} | solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? solutionsTitle : '';
+            section.solutionsHeader = (solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.HEADER') }} | solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? solutionsTitle : '';
             section.solutionNameAsTitle = $(this).find(".imageNameAsTitleSolution").is(':checked');
-            section.solutionsHeader = $(this).find(".addTitleHeaderSolution").is(':checked');
             section.solutionsPerPage = $(this).find(".solutionsPerPage").val();
             section.solutionsToTheEnd = $(this).find(".placeSolutionsAtTheEnd").is(':checked');
             sections.push(section);

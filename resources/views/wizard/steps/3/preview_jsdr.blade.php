@@ -53,7 +53,7 @@ function loadPreviewContent() {
         var sectionTitle = solutions ? titleBlock.find('.addSolutionTitle') : titleBlock.find('.addSectionTitle');
         if (sectionTitle.is(':checked')) {
           var title = solutions ? titleBlock.find('.section-title-solutions-input').val() : titleBlock.find('.section-title-input').val();
-          var titleAs = $('#section-title-as').find('.active').find('input').val();
+          var titleAs = solutions ? $('#solutions-title-as').find('.active').find('input').val() : $('#section-title-as').find('.active').find('input').val();
 
           if (titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE') }}
             | titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) {

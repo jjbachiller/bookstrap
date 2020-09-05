@@ -112,13 +112,21 @@ function addNewSection(section = []) {
   // SOLUTIONS CONTENT:
   if (typeof section['solutions'] !== 'undefined' && section['solutions'].length > 0) {
     newSection.find(".addSolutions").prop('checked', true).change();
+
     if (section['solutions_title'] !== null) {
       newSection.find(".addSolutionTitle").prop('checked', true).change();
       newSection.find(".section-title-solutions-input").val(section['solutions_title']);
-      newSection.find(".solutions-title-block div.alert").text(section['solutions_title']);
-      if (!section['solutions_header']) {
-        newSection.find('addTitleHeaderSolution').prop('checked', false);
+      newSection.find(".solutions-content div.alert").text(section['solutions_title']);
+      if (section['solutions_header'] !== null) {
+        $('#solutions-title-as .btn input[value=' + {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }} + ']').click();
+      } else {
+        $('#solutions-title-as .btn input[value=' + {{ config('bookstrap-constants.sectionTitle.PAGE') }} + ']').click();
       }
+    } else if (section['solutions_header'] !== null) {
+      newSection.find(".addSolutionTitle").prop('checked', true).change();
+      newSection.find(".section-title-solutions-input").val(section['solutions_header']);
+      newSection.find(".solutions-content div.alert").text(section['solutions_header']);
+      $('#solutions-title-as .btn input[value=' + {{ config('bookstrap-constants.sectionTitle.HEADER') }} + ']').click();
     }
 
     if (typeof section['solutions_name_as_title'] !== 'undefined') {
