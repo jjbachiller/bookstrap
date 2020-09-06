@@ -70,6 +70,7 @@ function loadPreviewContent() {
               $('#mybook-blankpages-content').append(blankpage);
               current_page_blankpages_book++;
 
+              sectionStart = false;
           }
 
           if (titleAs == {{ config('bookstrap-constants.sectionTitle.HEADER') }}
@@ -79,7 +80,6 @@ function loadPreviewContent() {
 
           }
 
-          sectionStart = false;
         }
 
         var imageNameAsTitle = solutions ? titleBlock.find('.imageNameAsTitleSolution').is(':checked') : titleBlock.find('.imageNameAsTitle').is(':checked');
@@ -101,6 +101,7 @@ function loadPreviewContent() {
             sectionStart = false;
 
             // Blank pages
+            pageOptions['pageNumber'] = current_page_blankpages_book;
             page = getNewImagePage(pageOptions);
             $('#mybook-blankpages-content').append(page);
             current_page_blankpages_book++;
@@ -130,6 +131,7 @@ function loadPreviewContent() {
           sectionStart = false;
 
           // Blank pages
+          pageOptions['pageNumber'] = current_page_blankpages_book;
           page = getNewImagePage(pageOptions);
           $('#mybook-blankpages-content').append(page);
           current_page_blankpages_book++;

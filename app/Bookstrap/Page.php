@@ -133,8 +133,9 @@ class Page {
   {
     $this->images = [];
 
-    $pageWidth = $this->getPageWidth();
-    $pageHeight = $this->getPageHeight();
+    $moreThanOneImage = count($images) > 1;
+    $pageWidth = $this->getPageWidth($moreThanOneImage);
+    $pageHeight = $this->getPageHeight($moreThanOneImage);
     list($imgMaxWidth, $imgMaxHeight) = calculateImageMaxDimensions($pageWidth, $pageHeight, count($images));
 
     foreach ($images as $current => $image) {
@@ -145,8 +146,8 @@ class Page {
       $imageElement->setDimensions($imgMaxWidth, $imgMaxHeight);
       list($offsetX, $offsetY) = calculateImageOffset($totalImages, $imgPosition, $imgMaxWidth, $imgMaxHeight);
       // We add the offset of the content for the document
-      $offsetX+= $this->bookSettings->getContentXOffset();
-      $offsetY+= $this->bookSettings->getContentYOffset();
+      $offsetX+= $this->bookSettings->getContentXOffset($moreThanOneImage);
+      $offsetY+= $this->bookSettings->getContentYOffset($moreThanOneImage);
 
       $innerImageOffset = 0;
       // If it have header we added its height to the offset of the content
@@ -191,16 +192,19 @@ class Page {
     }
   }
 
-  private function getPageWidth() {
-    $fullBleed = $this->bookSettings->fullBleedImages();
+  // If there are more than one image per page, full bleed has no effect.
+  private function getPageWidth($moreThanOneImage = false) {
+    $fullBleed = $moreThanOneImage ? false : $this->bookSettings->fullBleedImages();
     return $fullBleed ? $this->bookSettings->getBookWidth():$this->bookSettings->getMaxWidth();
   }
 
-  private function getPageHeight() {
+  // If there are more than one image per page, full bleed has no effect.
+  private function getPageHeight($moreThanOneImage = false) {
     $pageHeight = $this->bookSettings->getBookHeight();
     // We allways substract the margin on the header and footer.
     // Except when fullBleed is selected
-    if (!$this->bookSettings->fullBleedImages()) {
+    $fullBleed = $moreThanOneImage ? false : $this->bookSettings->fullBleedImages();
+    if (!$fullBleed) {
       $pageHeight-= $this->bookSettings->getMargin() * 2;
     }
 

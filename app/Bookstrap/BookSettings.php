@@ -95,12 +95,16 @@ class BookSettings {
     return $this->bookHeight - ($this->marginSide * 2) - (config('bookstrap-constants.ELEMENT_TOP_MARGIN_HEIGHT') * 2) - config('bookstrap-constants.HEADER_HEIGHT') - config('bookstrap-constants.FOOTER_HEIGHT');
   }
 
-  public function getContentXOffset() {
-    return $this->fullBleedImages() ? 0 : $this->marginSide;
+  // If the section has more than one image per page, full bleed makes no sense
+  public function getContentXOffset($moreThanOneImage) {
+    $fullBleed = ($moreThanOneImage) ? false : $this->fullBleedImages();
+    return $fullBleed ? 0 : $this->marginSide;
   }
 
-  public function getContentYOffset() {
-    return $this->fullBleedImages() ? 0 : $this->marginSide;
+  // If the section has more than one image per page, full bleed makes no sense
+  public function getContentYOffset($moreThanOneImage) {
+    $fullBleed = ($moreThanOneImage) ? false : $this->fullBleedImages();
+    return $fullBleed ? 0 : $this->marginSide;
     // return $this->marginSide + config('bookstrap-constants.HEADER_HEIGHT');
   }
 
