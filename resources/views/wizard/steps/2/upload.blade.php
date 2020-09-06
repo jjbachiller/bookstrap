@@ -147,7 +147,7 @@
             </div>
           </div>
           <div class="col-3 d-flex flex-column justify-content-between">
-            <button type="button" class="btn btn-info btn-lg font-weight-bold" name="button" >
+            <button type="button" class="btn btn-info btn-lg font-weight-bold" name="button"  data-toggle="modal" data-target="#loadContentFromLibrary">
               <i class="icon-xl fas fa-box-open"></i>
               Bookstrap Content
             </button>
@@ -296,3 +296,7 @@
   </div>
 
 </li>
+
+{{-- Modal for library content --}}
+
+@include('wizard.steps.2.modal.load_content')
