@@ -37,8 +37,10 @@ class WizardController extends Controller
 
     $configuration = json_decode($request->getContent(), true);
 
-    $book = $this->updateSessionBook($configuration);
+    // $book = $this->updateSessionBook($configuration);
 
+    $book = \App\Book::findOrFail(session('idBook'));
+    
     $metaBook = new MetaBook($book);
 
     if ($configuration['filetype'] == config('bookstrap-constants.PDF'))
@@ -85,86 +87,86 @@ class WizardController extends Controller
     }
     $book->save();
 
-    $this->updateBookSections($book, $configuration['sections']);
+    // $this->updateBookSections($book, $configuration['sections']);
 
     return $book;
   }
 
-  private function updateBookSections($book, $sections)
-  {
-    // Delete book old sections
-    $book->resetContent();
-    $sectionOrder = 1;
-    // Create and add the new sections.
-    $total_size = 0;
-    foreach ($sections as $sec)
-    {
-      $section = new \App\Section;
-
-      $section->size = 0;
-      $section->pages_count = 1; // A section has always a blank pages at the end.
-
-      if ($sec['title']) {
-        $section->pages_count++;
-      }
-
-      if ($sec['addTitle']) {
-        $section->title = empty($sec['title']) ? null : $sec['title'];
-        $section->header = empty($sec['titleHeader']) ? null : $sec['titleHeader'];
-      } else {
-        $section->title = $section->header = null;
-      }
-
-
-      $section->image_name_as_title = $sec['imageNameAsTitle'];
-      $section->images_per_page = $sec['imagesPerPage'];
-
-      if ($sec['solutionsTitle']) {
-        $section->pages_count++;
-      }
-
-      if ($sec['addSolutionsTitle']) {
-        $section->solutions_title = empty($sec['solutionsTitle']) ? null : $sec['solutionsTitle'];
-        $section->solutions_header = empty($sec['solutionsHeader']) ? null : $sec['solutionsHeader'];
-      } else {
-        $section->solutions_title = $section->solutions_header = null;
-      }
-
-      $section->solutions_name_as_title = $sec['solutionNameAsTitle'];
-      $section->solutions_per_page = $sec['solutionsPerPage'];
-      $section->solutions_to_the_end = $sec['solutionsToTheEnd'];
-
-      // List images in section in order to calculate num pages and total size for the section.
-      if (Auth::check()) {
-        $section->user_id = Auth::user()->id;
-        $userUid = Auth::user()->uid;
-      } else {
-        $userUid = session('user_uid');
-      }
-
-      $workFolder = config('bookstrap-constants.uploads_path') . $userUid . '/' . $book->uid . '/';
-      $sectionFolder = Storage::path($workFolder) . $sec['folder'] . '/';
-      list($sectionSize, $sectionPages) = getSizeAndPages($sectionFolder);
-      $section->size+= $sectionSize;
-      $section->pages_count+= $sectionPages;
-
-      $solutionsFolder = $sectionFolder . config('bookstrap-constants.SOLUTIONS_FOLDER');
-      list($solutionsSize, $solutionsPages) = getSizeAndPages($solutionsFolder);
-      $section->size+= $solutionsSize;
-      $section->pages_count+= $solutionsPages;
-
-      $total_size+= $section->size;
-
-      $section->order = $sectionOrder;
-      $section->folder = $sec['folder'];
-
-      $book->sections()->save($section);
-
-      $sectionOrder++;
-    }
-    $book->total_size = $total_size;
-    $book->save();
-  }
+  // private function updateBookSections($book, $sections)
+  // {
+  //   // Delete book old sections
+  //   $book->resetContent();
+  //   $sectionOrder = 1;
+  //   // Create and add the new sections.
+  //   $total_size = 0;
+  //   foreach ($sections as $sec)
+  //   {
+  //     $section = new \App\Section;
+  //
+  //     $section->size = 0;
+  //     $section->pages_count = 1; // A section has always a blank pages at the end.
+  //
+  //     if ($sec['title']) {
+  //       $section->pages_count++;
+  //     }
+  //
+  //     if ($sec['addTitle']) {
+  //       $section->title = empty($sec['title']) ? null : $sec['title'];
+  //       $section->header = empty($sec['titleHeader']) ? null : $sec['titleHeader'];
+  //     } else {
+  //       $section->title = $section->header = null;
+  //     }
+  //
+  //
+  //     $section->image_name_as_title = $sec['imageNameAsTitle'];
+  //     $section->images_per_page = $sec['imagesPerPage'];
+  //
+  //     if ($sec['solutionsTitle']) {
+  //       $section->pages_count++;
+  //     }
+  //
+  //     if ($sec['addSolutionsTitle']) {
+  //       $section->solutions_title = empty($sec['solutionsTitle']) ? null : $sec['solutionsTitle'];
+  //       $section->solutions_header = empty($sec['solutionsHeader']) ? null : $sec['solutionsHeader'];
+  //     } else {
+  //       $section->solutions_title = $section->solutions_header = null;
+  //     }
+  //
+  //     $section->solutions_name_as_title = $sec['solutionNameAsTitle'];
+  //     $section->solutions_per_page = $sec['solutionsPerPage'];
+  //     $section->solutions_to_the_end = $sec['solutionsToTheEnd'];
+  //
+  //     // List images in section in order to calculate num pages and total size for the section.
+  //     if (Auth::check()) {
+  //       $section->user_id = Auth::user()->id;
+  //       $userUid = Auth::user()->uid;
+  //     } else {
+  //       $userUid = session('user_uid');
+  //     }
+  //
+  //     $workFolder = config('bookstrap-constants.uploads_path') . $userUid . '/' . $book->uid . '/';
+  //     $sectionFolder = Storage::path($workFolder) . $sec['folder'] . '/';
+  //     list($sectionSize, $sectionPages) = getSizeAndPages($sectionFolder);
+  //     $section->size+= $sectionSize;
+  //     $section->pages_count+= $sectionPages;
+  //
+  //     $solutionsFolder = $sectionFolder . config('bookstrap-constants.SOLUTIONS_FOLDER');
+  //     list($solutionsSize, $solutionsPages) = getSizeAndPages($solutionsFolder);
+  //     $section->size+= $solutionsSize;
+  //     $section->pages_count+= $solutionsPages;
+  //
+  //     $total_size+= $section->size;
+  //
+  //     $section->order = $sectionOrder;
+  //     $section->folder = $sec['folder'];
+  //
+  //     $book->sections()->save($section);
+  //
+  //     $sectionOrder++;
+  //   }
+  //   $book->total_size = $total_size;
+  //   $book->save();
+  // }
 
 
 }

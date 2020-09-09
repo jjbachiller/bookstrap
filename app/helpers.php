@@ -269,7 +269,7 @@
 
           $offsetX = 0;
           $offsetY = $imageMaxHeight * 3;
-          
+
         }
 
         break;
@@ -348,4 +348,10 @@
       $inDocumentHeight = $scale * $height;
 
       return array($inDocumentWidth, $inDocumentHeight);
+  }
+
+  function randomGen($min, $max, $quantity) {
+    $numbers = range($min, $max);
+    shuffle($numbers);
+    return array_slice($numbers, 0, $quantity);
   }

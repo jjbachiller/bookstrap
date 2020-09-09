@@ -168,31 +168,31 @@
         $('#error_container').removeClass('d-none');
       }
 
-      function getBookSections() {
-        var sections = [];
-        $("#Sections .section-block").each(function(index) {
-            var section = {};
-            section.folder = $(this).find("input.section-index").val();
-            section.addTitle = $(this).find(".addSectionTitle").is(':checked');
-            var sectionTitle = $(this).find(".section-title-input").val();
-            var titleAs = $('#section-title-as').find('.active').find('input').val();
-            section.title = (titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE') }} | titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? sectionTitle : '';
-            section.titleHeader = (titleAs == {{ config('bookstrap-constants.sectionTitle.HEADER') }} | titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? sectionTitle : '';
-            section.imageNameAsTitle = $(this).find(".imageNameAsTitle").is(':checked');
-            section.imagesPerPage = $(this).find(".imagesPerPage").val();
-            // Solutions fields
-            section.addSolutionsTitle = $(this).find(".addSolutionTitle").is(':checked');
-            var solutionsTitle = $(this).find(".section-title-solutions-input").val();
-            var solutionsTitleAs = $('#solutions-title-as').find('.active').find('input').val();
-            section.solutionsTitle = (solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.PAGE') }} | solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? solutionsTitle : '';
-            section.solutionsHeader = (solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.HEADER') }} | solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? solutionsTitle : '';
-            section.solutionNameAsTitle = $(this).find(".imageNameAsTitleSolution").is(':checked');
-            section.solutionsPerPage = $(this).find(".solutionsPerPage").val();
-            section.solutionsToTheEnd = $(this).find(".placeSolutionsAtTheEnd").is(':checked');
-            sections.push(section);
-        });
-        return sections;
-      }
+      // function getBookSections() {
+      //   var sections = [];
+      //   $("#Sections .section-block").each(function(index) {
+      //       var section = {};
+      //       section.folder = $(this).find("input.section-index").val();
+      //       section.addTitle = $(this).find(".addSectionTitle").is(':checked');
+      //       var sectionTitle = $(this).find(".section-title-input").val();
+      //       var titleAs = $('#section-title-as').find('.active').find('input').val();
+      //       section.title = (titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE') }} | titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? sectionTitle : '';
+      //       section.titleHeader = (titleAs == {{ config('bookstrap-constants.sectionTitle.HEADER') }} | titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? sectionTitle : '';
+      //       section.imageNameAsTitle = $(this).find(".imageNameAsTitle").is(':checked');
+      //       section.imagesPerPage = $(this).find(".imagesPerPage").val();
+      //       // Solutions fields
+      //       section.addSolutionsTitle = $(this).find(".addSolutionTitle").is(':checked');
+      //       var solutionsTitle = $(this).find(".section-title-solutions-input").val();
+      //       var solutionsTitleAs = $('#solutions-title-as').find('.active').find('input').val();
+      //       section.solutionsTitle = (solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.PAGE') }} | solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? solutionsTitle : '';
+      //       section.solutionsHeader = (solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.HEADER') }} | solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? solutionsTitle : '';
+      //       section.solutionNameAsTitle = $(this).find(".imageNameAsTitleSolution").is(':checked');
+      //       section.solutionsPerPage = $(this).find(".solutionsPerPage").val();
+      //       section.solutionsToTheEnd = $(this).find(".placeSolutionsAtTheEnd").is(':checked');
+      //       sections.push(section);
+      //   });
+      //   return sections;
+      // }
 
       function getImageSize() {
           var imagePercentage = $("#image-size").val();
@@ -231,6 +231,33 @@
         return copyright;
       }
 
+      function updateBookOptions() {
+        var data = {
+          type: $('#book-type').val(),
+          size: $('#book-size').val(),
+          user: $('#user').val(),
+          imageSize: getImageSize(),
+          imagePosition: getImagePosition(),
+          header: getBookHeader(),
+          footer: getBookFooter(),
+          pageNumber: getBookPageNumber(),
+          addBlankPages: $('#addBlankPages').is(':checked'),
+          fullBleed: $('#fullBleed').is(':checked'),
+          totalPages: $('#total-pages').val(),
+          filename: $("input[name='book_filename']").val(),
+        };
+
+        $.ajax({
+          type: "POST",
+          url: "{{ route('books.update') }}",
+          dataType: 'json',
+          data: JSON.stringify(data),
+          success: function(response) {
+            console.log("Book updated successfully");
+          },
+        });
+      }
+
       $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -238,8 +265,27 @@
       });
 
       // Wizard config and requests logic
+      $("#smartwizard").on("leaveStep", function(e, anchorObject, currentStepIndex, nextStepIndex, stepDirection) {
+        switch (currentStepIndex) {
+          case 0:
+            updateBookOptions();
+            break;
+          case 1:
+            // Update sections with a method on the upload_jsdr.
+            sendSectionsUpdate();
+            break;
+          case 2:
+            updateBookOptions();
+            break;
+          case 3:
+            updateBookOptions();
+            break;
+        }
+      });
+
       $("#smartwizard").on("stepContent", function(e, anchorObject, stepIndex, stepDirection) {
         if ((stepIndex == 2) && (stepDirection == 'forward')) {
+          // Entering on the preview tab from sections reload the content.
           loadPreviewContent();
         }
         if (stepIndex == 4) {
@@ -247,21 +293,7 @@
           bookGenerationReset();
 
           var data = {
-            type: $('#book-type').val(),
-            size: $('#book-size').val(),
-            user: $('#user').val(),
-            copyright: getCopyright(),
-            sections: getBookSections(),
-            imageSize: getImageSize(),
-            imagePosition: getImagePosition(),
-            header: getBookHeader(),
-            footer: getBookFooter(),
-            pageNumber: getBookPageNumber(),
-            addBlankPages: $('#addBlankPages').is(':checked'),
-            fullBleed: $('#fullBleed').is(':checked'),
-            totalPages: $('#total-pages').val(),
             filetype: $("input[name='book_filetype']:checked").val(),
-            filename: $("input[name='book_filename']").val(),
           };
 
           $.ajax({

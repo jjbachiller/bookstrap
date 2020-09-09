@@ -13,6 +13,12 @@ class Section extends Model
       return $this->belongsTo('App\Book');
     }
 
+    // Images of the book
+    public function images()
+    {
+      return $this->hasMany('App\Image')->orderBy('order');;
+    }
+
     public function getContentFolder()
     {
       $user_uid = Auth::check() ? Auth::user()->uid : session('user_uid');

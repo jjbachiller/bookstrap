@@ -25,10 +25,17 @@ Route::get('/home', 'BookController@index')->name('dashboard');
 Route::get('/books/wizard', 'WizardController@start')->name('books.wizard');
 Route::post('/books/wizard', 'WizardController@generateBookFile')->name('books.generate');
 
+Route::post('/books/update', 'BookController@update')->name('books.update');
+
 Route::post('/sections/upload_images', 'SectionController@uploadSectionImages')->name('section.upload-images');
 Route::post('/sections/delete_image', 'SectionController@deleteSectionImage')->name('section.delete-image');
+Route::post('/books/sections/update', 'SectionController@updateSections')->name('sections.update');
+
+Route::post('/sections/load_sudokus', 'SectionController@loadSudokuImages')->name('section.load-sudokus');
 
 Route::post('/preview/getContent', 'ContentController@getPreviewContent')->name('preview.content');
+Route::get('/content/{bookUid}/{section}/{id}', 'ContentController@getDatabaseContent')->name('get.database-content');
+Route::get('/content/{bookUid}/{section}/solutions/{id}', 'ContentController@getDatabaseSolutionsContent')->name('get.database-solutions-content');
 Route::get('/content/{bookUid}/{section}/{size}/{image}', 'ContentController@getContent')->name('get.content');
 Route::get('/content/{bookUid}/{section}/solutions/{size}/{image}', 'ContentController@getSolutionsContent')->name('get.solutions-content');
 Route::get('/book/{bookUid}/{date}/{book}', 'BookController@download')->name('get.book');
@@ -54,3 +61,7 @@ Route::group(
     Route::get('/books/{bookId}', 'BookController@edit')->name('books.edit');
     Route::delete('/books/{book}', 'BookController@destroy')->name('books.destroy');
   });
+
+
+// Test routes: Should be deleted
+Route::get('/s3', 'TestController@s3')->name('s3');

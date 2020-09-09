@@ -27,6 +27,7 @@
   <div id="collapse1" class="card-body-container" aria-labelledby="heading1" data-parent="#Sections">
 
     <div class="card-body p-0">
+      <input type="hidden" class="section-id" value="">
       <input type="hidden" class="section-index" value="1">
 
       <div class="title-block section-options p-5 d-none" style="box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);">
@@ -147,7 +148,7 @@
             </div>
           </div>
           <div class="col-3 d-flex flex-column justify-content-between">
-            <button type="button" class="btn btn-info btn-lg font-weight-bold" name="button"  data-toggle="modal" data-target="#loadContentFromLibrary">
+            <button type="button" class="btn btn-info btn-lg font-weight-bold loadLibraryContentButton" name="button"  data-toggle="modal" data-target="#loadContentFromLibrary">
               <i class="icon-xl fas fa-box-open"></i>
               Bookstrap Content
             </button>

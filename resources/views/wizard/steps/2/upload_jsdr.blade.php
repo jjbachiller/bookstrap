@@ -78,6 +78,10 @@ function addNewSection(section = []) {
   newSection.find(".section-index").val(newIndex).change();
 
   // Load section value if is an editing section
+  if ((typeof section['id'] !== 'undefined')
+    && (section['id'] !== null)) {
+    newSection.find(".section-id").val(section['id']);
+  }
 
   // SECTION CONTENT: If user is updating a section and the section has a title, set the title values
   if ((typeof section['title'] !== 'undefined')
@@ -195,7 +199,71 @@ function addNewSection(section = []) {
       }
     }
   }
+}
+// End AddSection block
+function getSectionByIndex(sectionIndex) {
+  var section = $("#Sections").find(".section-index[value=" + sectionIndex + "]").closest(".section-block");
 
+  return section;
+}
+
+
+function currentSectionData(sectionIndex) {
+  var currentSection = getSectionByIndex(sectionIndex);
+
+  var section = {};
+  section.id = currentSection.find("input.section-id").val();
+  section.folder = currentSection.find("input.section-index").val();
+  section.addTitle = currentSection.find(".addSectionTitle").is(':checked');
+  var sectionTitle = currentSection.find(".section-title-input").val();
+  var titleAs = currentSection.find('#section-title-as').find('.active').find('input').val();
+  section.title = (titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE') }} | titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? sectionTitle : '';
+  section.titleHeader = (titleAs == {{ config('bookstrap-constants.sectionTitle.HEADER') }} | titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? sectionTitle : '';
+  section.imageNameAsTitle = currentSection.find(".imageNameAsTitle").is(':checked');
+  section.imagesPerPage = currentSection.find(".imagesPerPage").val();
+  // Solutions fields
+  section.addSolutionsTitle = currentSection.find(".addSolutionTitle").is(':checked');
+  var solutionsTitle = currentSection.find(".section-title-solutions-input").val();
+  var solutionsTitleAs = currentSection.find('#solutions-title-as').find('.active').find('input').val();
+  section.solutionsTitle = (solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.PAGE') }} | solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? solutionsTitle : '';
+  section.solutionsHeader = (solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.HEADER') }} | solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? solutionsTitle : '';
+  section.solutionNameAsTitle = currentSection.find(".imageNameAsTitleSolution").is(':checked');
+  section.solutionsPerPage = currentSection.find(".solutionsPerPage").val();
+  section.solutionsToTheEnd = currentSection.find(".placeSolutionsAtTheEnd").is(':checked');
+
+  return section;
+}
+
+function sendSectionsUpdate() {
+    var sections = [];
+    var order = 1;
+    $("#Sections .section-block").each(function(index) {
+      var currentIndex = $(this).find("input.section-index").val()
+      var currentSection = currentSectionData(currentIndex);
+      currentSection.order = order;
+      order += 1;
+      sections.push(currentSection );
+    });
+
+    var data = {
+      sections: sections
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "{{ route('sections.update') }}",
+      dataType: 'json',
+      data: JSON.stringify(data),
+      success: function(response) {
+        console.log("Sections updated successfully");
+      },
+    });
+}
+
+function updateSectionId(sectionIndex, id) {
+  var currentSection = getSectionByIndex(sectionIndex);
+
+  currentSection.find("input.section-id").val(id);
 }
 
 function setupDropzone(newDropzone, newSection, newIndex, solutions=0) {
@@ -206,10 +274,11 @@ function setupDropzone(newDropzone, newSection, newIndex, solutions=0) {
       filenames.push($(this).find('span').text());
     });
     formData.append("_token", $('#_token').val());
-    // formData.append("user", $('#user').val());
     formData.append("section", newIndex);
+    // On every image upload, we send the section data for update/creation.
+    var sectionData = currentSectionData(newIndex);
+    formData.append("section-data", JSON.stringify(sectionData));
     formData.append("solutions", solutions);
-    // formData.append("orderByName", $('#orderByName'+newIndex).is(':checked')?1:0);
     formData.append('filenames', filenames);
   });
 
@@ -240,12 +309,17 @@ function setupDropzone(newDropzone, newSection, newIndex, solutions=0) {
     updateSolutionsNumberMatchMessage(newIndex, error);
   });
 
-  newDropzone.on("success", function(file) {
+  newDropzone.on("success", function(file, response) {
     // Check the normal scenario of uploading a file from the user computer
     var secondDZ = solutions ? Dropzone.forElement("#myDrop"+newIndex) : Dropzone.forElement("#myDropSolutions"+newIndex);
 
     // If the number of files are different error = true
     var error = newDropzone.files.length - secondDZ.files.length;
+
+    // Update the sectionId
+    var resp = JSON.parse(response);
+    updateSectionId(newIndex, resp.sectionId);
+
     updateSolutionsNumberMatchMessage(newIndex, error);
   })
 
@@ -279,8 +353,6 @@ function updateSolutionsNumberMatchMessage(sectionIndex, error) {
     }
   }
 }
-
-//// End new section add
 
 $(".addSectionTitle").on('change', function() {
   $(this).closest(".title-block").find(".section-title-text").toggleClass('d-none');
@@ -372,3 +444,41 @@ $('.toggleSolutionsOptions').on('click', function() {
   // If is not editing, we add a new blank section
   addNewSection();
 @endisset
+
+
+// Begin ::::> Load content from library functions
+
+$('.loadLibraryContentButton').on('click', function() {
+  var sectionIndex = $(this).closest(".section-block").find(".section-index").val();
+  // Save the section index that will be affected by the actions on the modal
+  $("#modalAffectedSection").val(sectionIndex);
+});
+
+$('#addSudokusButton').on('click', function() {
+  var affectedSectionIndex = $("#modalAffectedSection").val();
+  var affectedSection = currentSectionData(affectedSectionIndex);
+  
+  // Take the selected values from the popup
+  var data = {
+    'section-data': affectedSection,
+    'difficulty': $('#sudokusDifficulty').val(),
+    'number': $('#sudokusNumber').val(),
+  }
+
+  // ajax call to randomly associate sudokus to section
+  $.ajax({
+    type: "POST",
+    url: "{{ route('section.load-sudokus') }}",
+    dataType: 'json',
+    data: JSON.stringify(data),
+    success: function(response) {
+      console.log(response);
+    },
+  });
+
+
+  // on success, mark add solutions to true if it is false.
+  // with the array of sudokus and the array of solutions, fill the section both dropzones
+});
+
+// End ::::> Load content from library functions
