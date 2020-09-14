@@ -40,7 +40,7 @@ class WizardController extends Controller
     // $book = $this->updateSessionBook($configuration);
 
     $book = \App\Book::findOrFail(session('idBook'));
-    
+
     $metaBook = new MetaBook($book);
 
     if ($configuration['filetype'] == config('bookstrap-constants.PDF'))
@@ -67,30 +67,30 @@ class WizardController extends Controller
 
   }
 
-  private function updateSessionBook($configuration)
-  {
-    $book = \App\Book::findOrFail(session('idBook'));
-    $book->name = $configuration['filename'];
-    $bookTypes = config('book-types');
-    $book->book_type = array_key_exists($configuration['type'], $bookTypes) ? $configuration['type'] : array_shift($bookTypes);
-    $bookSizes = config('book-sizes');
-    $book->dimensions = array_key_exists($configuration['size'], $bookSizes) ? $configuration['size'] : reset($bookSizes);
-    $book->img_position = $configuration['imagePosition'];
-    $book->img_scale = $configuration['imageSize'];
-    $book->footer_details = $configuration['footer']['addFooter'] ? $configuration['footer']['text'] : '';
-    $book->page_number_position = $configuration['pageNumber']['addPageNumber'] ? $configuration['pageNumber']['position'] : 0;
-    $book->add_blank_pages = $configuration['addBlankPages'];
-    $book->full_bleed = $configuration['fullBleed'];
-    $book->total_pages = $configuration['totalPages'];
-    if (!Auth::check()) {
-      $book->created_as_guess = true;
-    }
-    $book->save();
-
-    // $this->updateBookSections($book, $configuration['sections']);
-
-    return $book;
-  }
+  // private function updateSessionBook($configuration)
+  // {
+  //   $book = \App\Book::findOrFail(session('idBook'));
+  //   $book->name = $configuration['filename'];
+  //   $bookTypes = config('book-types');
+  //   $book->book_type = array_key_exists($configuration['type'], $bookTypes) ? $configuration['type'] : array_shift($bookTypes);
+  //   $bookSizes = config('book-sizes');
+  //   $book->dimensions = array_key_exists($configuration['size'], $bookSizes) ? $configuration['size'] : reset($bookSizes);
+  //   $book->img_position = $configuration['imagePosition'];
+  //   $book->img_scale = $configuration['imageSize'];
+  //   $book->footer_details = $configuration['footer']['addFooter'] ? $configuration['footer']['text'] : '';
+  //   $book->page_number_position = $configuration['pageNumber']['addPageNumber'] ? $configuration['pageNumber']['position'] : 0;
+  //   $book->add_blank_pages = $configuration['addBlankPages'];
+  //   $book->full_bleed = $configuration['fullBleed'];
+  //   $book->total_pages = $configuration['totalPages'];
+  //   if (!Auth::check()) {
+  //     $book->created_as_guess = true;
+  //   }
+  //   $book->save();
+  //
+  //   // $this->updateBookSections($book, $configuration['sections']);
+  //
+  //   return $book;
+  // }
 
   // private function updateBookSections($book, $sections)
   // {

@@ -6,57 +6,80 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
+use App\Classes\ImageManager;
+
 class ContentController extends Controller
 {
 
-    public function getPreviewContent(Request $request)
-    {
-      $userUid = (Auth::check()) ? Auth::user()->uid : session('user_uid');
-      $srcPath = config('bookstrap-constants.uploads_path') . $userUid . '/' . getSessionBookUid() . '/';
-      $srcPath = Storage::path($srcPath);
-      $virtualPath = config('bookstrap-constants.uploads_virtual_path') . getSessionBookUid() . '/';
-      $sectionFolders = $request->input('sections');
-      $sectionsContent = [];
-      foreach($sectionFolders as $folder) {
-        // Images
-        $sectionPath = $srcPath . $folder . '/';
-        $sectionVirtualPath = $virtualPath . $folder . '/';
-        $images = getImageLinksFromFolder($sectionPath, $sectionVirtualPath);
-        // Solutions
-        $sectionPath.= config('bookstrap-constants.SOLUTIONS_FOLDER');
-        $sectionVirtualPath.= config('bookstrap-constants.SOLUTIONS_FOLDER');
-        $solutions = getImageLinksFromFolder($sectionPath, $sectionVirtualPath);
+  public function getPreviewContent(Request $request)
+  {
+    $book = \App\Book::with(['sections.images', 'sections.solutions'])->findOrFail(session('idBook'));
 
-        $sectionsContent[$folder] = ['images' => $images, 'solutions' => $solutions];
-      }
-      echo json_encode(['order' => $sectionFolders, 'sections' => $sectionsContent]);
+    return $book;
+  }
+
+  public function getImage($size, $imageId)
+  {
+    $image = \App\Image::findOrFail($imageId);
+    if ($image->section->book->user_id != Auth::user()->id)
+    {
+      abort(404);
     }
 
-    public function getContent($bookUid, $section, $size, $image, $solutions = false)
-    {
-      $userUid =  Auth::check() ? Auth::user()->uid : session('user_uid');
-      // Validate image is from the user else --> 404
-      $contentPath = config('bookstrap-constants.uploads_path') . $userUid . '/' . $bookUid . '/' . $section . '/';
-      if ($solutions) {
-        $contentPath.= config('bookstrap-constants.SOLUTIONS_FOLDER');
-      }
-      $miniatures = config('bookstrap-constants.miniatures');
-      if (!array_key_exists($size, $miniatures)) {
-        abort(404);
-      }
-      $contentPath.= $miniatures[$size]['folder'];
-
-      $contentPath.= $image;
-      $file = Storage::path($contentPath);
-      if (!is_file($file)) {
-        abort(404);
-      }
-      return response()->file($file);
+    $miniatures = config('bookstrap-constants.miniatures');
+    if (!array_key_exists($size, $miniatures)) {
+      abort(404);
     }
 
-    public function getSolutionsContent($bookUid, $section, $size, $image)
-    {
-      return $this->getContent($bookUid, $section, $size, $image, true);
+    $imagePath = $image->path($size) . $image->file_name;
+    $file = Storage::path($imagePath);
+    if (!is_file($file)) {
+      if (!$image->isLocal()) {
+        // If it's an s3 Image we try to readownload it
+        if (!ImageManager::saveS3ImageLocally($image)) {
+          abort(404);
+        }
+      }
+      abort(404);
     }
+
+    return response()->file($file);
+  }
+
+  public function getPreviewImage($imageId)
+  {
+    return $this->getImage('preview', $imageId);
+  }
+
+  // private function getLocalImageFile($image, $size) {
+  //
+  //   $contentPath = config('bookstrap-constants.uploads_path') . $image->section->book->user->uid . '/' . $image->section->book->uid . '/' . $image->section->id . '/';
+  //   if ($image->solution) {
+  //     $contentPath.= config('bookstrap-constants.SOLUTIONS_FOLDER');
+  //   }
+  //
+  //   $miniatures = config('bookstrap-constants.miniatures');
+  //   if (!array_key_exists($size, $miniatures)) {
+  //     abort(404);
+  //   }
+  //   $contentPath.= $miniatures[$size]['folder'];
+  //
+  //   $contentPath.= $image->file_name;
+  //   $file = Storage::path($contentPath);
+  //   if (!is_file($file)) {
+  //     abort(404);
+  //   }
+  //   return response()->file($file);
+  // }
+  //
+  // private function getSudokuImageFile($image)
+  // {
+  //   $directory = $image->s3_disk . $image->s3_directory;
+  //   $directory .= ($image->solutions) ? config('sudokus.solutions_folder') : config('sudokus.puzzles_folder');
+  //
+  //   $path = $directory . $image->file_name;
+  //
+  //   return Storage::disk('s3')->response($path);
+  // }
 
 }

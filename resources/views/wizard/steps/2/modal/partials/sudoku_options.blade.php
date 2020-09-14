@@ -5,7 +5,7 @@
   <label class="col-form-label text-right col-lg-2 col-sm-12">Difficulty level:</label>
   <div class="col-lg-4 col-md-9 col-sm-12">
     <div class="dropdown bootstrap-select form-control">
-      <select class="form-control selectpicker" data-style="btn-info" data-container="body" id="sudokusDifficulty">
+      <select class="form-control selectpicker" data-style="btn-light-info" data-container="body" id="sudokusDifficulty">
         @foreach (config('sudokus.difficulties') as $difValue => $difName)
           <option value="{{ $difValue }}">{{ $difName }}</option>
         @endforeach
@@ -16,7 +16,7 @@
   <label class="col-form-label text-right col-lg-2 col-sm-12">Amount:</label>
   <div class="col-lg-4 col-md-9 col-sm-12">
     <div class="dropdown bootstrap-select form-control">
-      <select class="form-control selectpicker" data-style="btn-info" data-container="body" id="sudokusNumber">
+      <select class="form-control selectpicker" data-style="btn-light-info" data-container="body" id="sudokusNumber">
         @foreach (config('sudokus.addGroups') as $amount)
           <option value="{{ $amount }}">{{ $amount }} Sudokus</option>
         @endforeach

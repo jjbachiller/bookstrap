@@ -284,10 +284,6 @@
       });
 
       $("#smartwizard").on("stepContent", function(e, anchorObject, stepIndex, stepDirection) {
-        if ((stepIndex == 2) && (stepDirection == 'forward')) {
-          // Entering on the preview tab from sections reload the content.
-          loadPreviewContent();
-        }
         if (stepIndex == 4) {
 
           bookGenerationReset();

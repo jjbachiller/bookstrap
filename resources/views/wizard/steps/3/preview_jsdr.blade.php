@@ -4,19 +4,12 @@ var firstLoad = true;
 
 // Load Book content from server and generate book
 function loadPreviewContent() {
-  var sections = [];
-  $("#Sections").find(".section-index").each(
-    function(index) {
-      sections.push($(this).val());
-    }
-  );
 
   $.ajax({
     type: "POST",
     url : "{{ route('preview.content') }}",
-    data: {user: $('#user').val(), _token: "{{ csrf_token() }}", sections: sections},
     success: function (data) {
-      json = eval("(" + data + ")");
+
       var current_page = current_page_blankpages_book = 1;
 
       // Delete old content
@@ -44,63 +37,46 @@ function loadPreviewContent() {
 
       addCopyright();
 
-      function addSectionContent(section_index, images, solutions = false) {
+      function addSectionContent(section, images, solutions = false) {
         var sectionStart = true;
-        // Get title for .section-index i
-        var sectionIndex = $('#Sections').find('.section-index[value=' + section_index + ']');
-        var titleBlock = solutions ? sectionIndex.closest('.card-body-container').find('.solutions-title-block') : sectionIndex.closest('.card-body-container').find('.title-block');
-        var titleHeader = false;
-        var sectionTitle = solutions ? titleBlock.find('.addSolutionTitle') : titleBlock.find('.addSectionTitle');
-        if (sectionTitle.is(':checked')) {
-          var title = solutions ? titleBlock.find('.section-title-solutions-input').val() : titleBlock.find('.section-title-input').val();
-          var titleAs = solutions ? $('#solutions-title-as').find('.active').find('input').val() : $('#section-title-as').find('.active').find('input').val();
+        // if has a title, add title page
+        var title = (solutions) ? section.solutions_title : section.title;
+        if (title) {
+          // Add a title page to the simple page book
+          var page = getNewTitlePage(current_page, title);
+          $('#mybook-content').append(page);
+          current_page++;
 
-          if (titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE') }}
-            | titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) {
+          // Add a title page to the blank page book
+          page = getNewTitlePage(current_page_blankpages_book, title)
+          $('#mybook-blankpages-content').append(page);
+          current_page_blankpages_book++;
+          var blankpage = getNewTitlePage(current_page_blankpages_book, '');
+          $('#mybook-blankpages-content').append(blankpage);
+          current_page_blankpages_book++;
 
-              var page = getNewTitlePage(current_page, title);
-              $('#mybook-content').append(page);
-              current_page++;
-
-              // Blank pages
-              page = getNewTitlePage(current_page_blankpages_book, title)
-              $('#mybook-blankpages-content').append(page);
-              current_page_blankpages_book++;
-              var blankpage = getNewTitlePage(current_page_blankpages_book, '');
-              $('#mybook-blankpages-content').append(blankpage);
-              current_page_blankpages_book++;
-
-              sectionStart = false;
-          }
-
-          if (titleAs == {{ config('bookstrap-constants.sectionTitle.HEADER') }}
-            | titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) {
-
-              titleHeader = title;
-
-          }
-
+          sectionStart = false;
         }
 
-        var imageNameAsTitle = solutions ? titleBlock.find('.imageNameAsTitleSolution').is(':checked') : titleBlock.find('.imageNameAsTitle').is(':checked');
-        var imagesPerPage = solutions ? titleBlock.find('.solutionsPerPage').val() : titleBlock.find('.imagesPerPage').val();
-
+        var imagesPerPage = (solutions) ? section.solutions_per_page : section.images_per_page;
         var currentPageImages = new Array();
         images.forEach(function(image, j) {
+          // If we have collected the number of the images need on each page
           if (currentPageImages.length == imagesPerPage) {
-            pageOptions = {
+            var pageOptions = {
               'pageNumber': current_page,
               'images': currentPageImages,
-              'header': titleHeader,
-              'imageNameAsTitle': imageNameAsTitle,
+              'header': (solutions) ? section.solutions_header : section.header,
+              'imageNameAsTitle': (solutions) ? section.solutions_name_as_title : section.image_name_as_title,
               'sectionStart': sectionStart,
             };
+            // Add a new Images page to the simple pages book
             var page = getNewImagePage(pageOptions);
             $('#mybook-content').append(page);
             current_page++;
             sectionStart = false;
 
-            // Blank pages
+            // And Add a new Images page to the Blank pages book
             pageOptions['pageNumber'] = current_page_blankpages_book;
             page = getNewImagePage(pageOptions);
             $('#mybook-blankpages-content').append(page);
@@ -113,18 +89,19 @@ function loadPreviewContent() {
             currentPageImages = new Array();
           }
 
-          currentPageImages.push(image);
+          currentPageImages.push({'name': image.show_name, 'url': image.url});
         });
 
-        // Add a new page with the pending images.
+        // Just finished the loop, add a new page with the pending images
         if (currentPageImages.length > 0) {
-          pageOptions = {
+          var pageOptions = {
             'pageNumber': current_page,
             'images': currentPageImages,
-            'header': titleHeader,
-            'imageNameAsTitle': imageNameAsTitle,
+            'header': (solutions) ? section.solutions_header : section.header,
+            'imageNameAsTitle': (solutions) ? section.solutions_name_as_title : section.image_name_as_title,
             'sectionStart': sectionStart,
           };
+
           var page = getNewImagePage(pageOptions);
           $('#mybook-content').append(page);
           current_page++;
@@ -139,30 +116,28 @@ function loadPreviewContent() {
           $('#mybook-blankpages-content').append(blankpage);
           current_page_blankpages_book++;
         }
-
       }
 
       var solutionsToTheEnd = [];
       // Add Sections to the book preview
-      $.each(json.order, function(i, section_index) {
-        var section = json.sections[section_index];
-        addSectionContent(section_index, section.images);
+      $.each(data.sections, function(i, section) {
+        // var section = json.sections[section_index];
+        addSectionContent(section, section.images);
         // Check if solutions go now or at the end
-        var postponedSolution = $('.section-index[value=' + section_index + ']').closest('.card-body').find('.placeSolutionsAtTheEnd');
-        if (postponedSolution.is(':checked')) {
+        if (section.solutions_to_the_end) {
           var sectionSolutions = {
-            'index': section_index,
+            'section': section,
             'images': section.solutions
           };
           solutionsToTheEnd.push(sectionSolutions);
         } else {
-          addSectionContent(section_index, section.solutions, true);
+          addSectionContent(section, section.solutions, true);
         }
       });
 
       // Add solutions marked to the end on each section, to the end of the book preview.
       solutionsToTheEnd.forEach(function(solution, i) {
-        addSectionContent(solution.index, solution.images, true);
+        addSectionContent(solution.section, solution.images, true);
       });
 
       generateBook();
@@ -178,7 +153,6 @@ function loadPreviewContent() {
         @endisset
         firstLoad = false;
       }
-
     }
   });
 }
@@ -215,7 +189,7 @@ function getNewImagePage(imagePageOptions) {
   var imageTemplate = $('#page-template').clone();
   //Remove the title section from the template
   imageTemplate.find('.title-content').remove();
-  if (imagePageOptions['header'] !== false) {
+  if (imagePageOptions['header']) {
     imageTemplate.find('.page-header').toggleClass('invisible');
     imageTemplate.find('.header-text').text(imagePageOptions['header']);
   }
@@ -235,11 +209,10 @@ function getNewImagePage(imagePageOptions) {
       imgTitle.html('');
     } else {
       // Remove path & extension from image route.
-      var imageName = image.replace(/^.*[\\\/]/, '').replace(/\.[^/.]+$/, "");
-      imgTitle.html(imageName);
+      imgTitle.html(image.name);
     }
 
-    imagesLayout.find('.image-' + imageNumber).attr('data-src', image);
+    imagesLayout.find('.image-' + imageNumber).attr('data-src', image.url);
   });
 
   // Remove the empty image container for the layout if correspond.

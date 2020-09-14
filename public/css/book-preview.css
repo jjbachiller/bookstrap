@@ -326,6 +326,12 @@ a#prev_page_button:hover{
 	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=70);
 }
 
+.progress-ui {
+	width: 250px;
+	margin-top: 15px;
+	margin-left: -56px;
+}
+
 /* Custom switch */
 /*
 .custom-switch {

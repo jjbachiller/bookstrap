@@ -93,10 +93,11 @@ class PDF extends FPDF {
         list($x, $y) = $img->getPosition();
         list($width, $height) = $img->getDimensions();
 
+        $image = $img->getImage();
         $this->Image(
-          $img->getImage(),
+          $image->fullPath(),
           $x, $y,
-          $width, $height
+          $width, $height,
         );
       }
     }

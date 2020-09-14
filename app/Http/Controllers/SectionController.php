@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
+use App\Classes\ImageManager;
+
 class SectionController extends Controller
 {
 
@@ -71,22 +73,20 @@ class SectionController extends Controller
     $section->pages_count+= $solutionsPages;
 
     $section->order = $sectionData->order ?? null;
-    $section->folder = $sectionData->folder;
+    // $section->folder = $sectionData->folder;
 
     $book->sections()->save($section);
 
     return $section;
   }
 
-  private function saveImage($imageData)
-  {
-
-  }
-
+  // FIXME: Clean this method (divide)
   public function uploadSectionImages(Request $request)
   {
     $sectionData = json_decode($request->input('section-data'));
     $section = $this->updateSection($sectionData);
+
+    $imgManager = new ImageManager();
 
     $errorCode = 0;
     $errorMessage = '';
@@ -100,31 +100,11 @@ class SectionController extends Controller
 
         if($file->getMimeType() == 'image/gif' || $file->getMimeType() == 'image/jpeg' || $file->getMimeType() == 'image/png') {
           // FIXME: Check filesize here.
-          $userUid = (Auth::check()) ? Auth::user()->uid : session('user_uid');
-          $srcPath    =  config('bookstrap-constants.uploads_path') . $userUid . '/' . getSessionBookUid() . '/' . $request->input('section') . '/';
-          if ($request->input('solutions')) {
-            $srcPath.= config('bookstrap-constants.SOLUTIONS_FOLDER');
-          }
-          Storage::makeDirectory($srcPath);
-          $fileName   =   trim($file->getClientOriginalName());
-
-          if($file->storeAs($srcPath, $fileName))
-          {
-              // Image save in database
-              $image = new \App\Image;
-              $image->name = $fileName;
-              $section->images()->save($image);
-
-              // Miniatures generation
-              $miniatures = config('bookstrap-constants.miniatures');
-              foreach ($miniatures as $miniature) {
-                if ($miniature['width'] == 0 || $miniature['height'] == 0) continue;
-                makeThumbnails($srcPath, $fileName, $miniature);
-              }
-              $prepareNames[] .=  $fileName; //need to be fixed.
-              $Sflag      =   1; // success
+          $image = $imgManager->saveLocalImage($section, $file, $request->input('solutions'));
+          if ($image) {
+            $Sflag = 1;
           }else{
-              $Sflag  = 2; // file not move to the destination
+            $Sflag = 2; // file not move to the destination
           }
         }
         else
@@ -146,7 +126,7 @@ class SectionController extends Controller
 
     $response = array('sectionId' => $section->id, 'errorCode' => $errorCode, 'errorMessage' => $errorMessage);
 
-    echo json_encode($response);
+    return response()->json($response);
   }
 
   public function loadSudokuImages(Request $request) {
@@ -154,29 +134,33 @@ class SectionController extends Controller
     $sectionData = (object) $sudokusData['section-data'];
     $section = $this->updateSection($sectionData);
 
+    $imgManager = new ImageManager();
+
     $difficulty = $sudokusData['difficulty'];
     $sudokusNumber = $sudokusData['number'];
-    // Load in bd number of sudokus in the difficulty folder.
-    $sudokuConfig = config('sudokus');
-    $imgPath = $directory = $sudokuConfig['sudokus_folder'] . $difficulty;
-    $sudokusList = randomGen(0, $sudokuConfig['max_number'], $sudokusNumber);
-    $imgVirtualPath = '/content/' . $section->book->id . '/' .$section->id . '/';
-    $imagesURLs = $solutionsURLs = [];
+
+    $counter = 1;
+    $sudokusList = randomGen(0, config('sudokus.max_number'), $sudokusNumber);
+    $images = $solutions = [];
     foreach ($sudokusList as $sudoku) {
-      $image = new \App\Image;
-      $image->s3_disk = $sudokuConfig['sudokus_folder'];
-      $image->s3_directory = $difficulty;
-      $image->name = $sudoku . $sudokuConfig['ext'];
+      $fileName = $sudoku  . config('sudokus.ext');
+      $showName = 'Sudoku ' . $counter;
+      $image = $imgManager->saveSudokuImage($section, $difficulty, $fileName, $showName);
 
-      $section->images()->save($image);
+      $images[] = $image;
 
-      $imagesURLs[] = $imgVirtualPath . $image->id;
-      $solutionsURLs[] = $imgVirtualPath . 'solutions/' . $image->id;
+      $showName = 'Solution ' . $counter;
+      $solution = $imgManager->saveSudokuImage($section, $difficulty, $fileName, $showName, true);
+
+      $solutions[] = $solution;
+
+      $counter++;
     }
 
-    $response = array('sectionId' => $section->id, 'images' => $imagesURLs, 'solutions' => $solutionsURLs);
+    $response = array('sectionId' => $section->id, 'images' => $images, 'solutions' => $solutions);
 
-    echo json_encode($response);
+    // echo json_encode($response);
+    return response()->json($response);
   }
 
   public function  updateSections(Request $request) {
@@ -186,7 +170,9 @@ class SectionController extends Controller
       $sectionObject = (object) $sectionArray;
       $this->updateSection($sectionObject);
     }
-    // FIXME: Feedbak.
+
+    $response = array('result' => 'ok');
+    echo json_encode($response);
   }
 
   public function deleteSectionImage(Request $request) {

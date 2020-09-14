@@ -2,10 +2,14 @@
 
 return [
   'sudokus_folder' => '/sudoku/',
-  'puzzle_folder' => '/puzzles/',
+  'puzzles_folder' => '/puzzles/',
   'solutions_folder' => '/solutions/',
   'ext' => '.png',
-  'max_number' => 10000, 
+  'type' => 'image/png',
+  'max_number' => 10000,
+  'width' => 1823,
+  'height' => 1823,
+  'size' => 120000,
   'difficulties' => [
     'levelone' => 'Level 1',
     'leveltwo' => 'Level 2',

@@ -14,9 +14,20 @@ class Section extends Model
     }
 
     // Images of the book
+    public function content()
+    {
+      // return $this->hasMany('App\Image')->orderBy('order');
+      return $this->hasMany('App\Image')->orderBy('id');
+    }
+
     public function images()
     {
-      return $this->hasMany('App\Image')->orderBy('order');;
+      return $this->hasMany('App\Image')->where('solution', 0)->orderBy('id');
+    }
+
+    public function solutions()
+    {
+      return $this->hasMany('App\Image')->where('solution', 1)->orderBy('id');
     }
 
     public function getContentFolder()
@@ -25,7 +36,7 @@ class Section extends Model
       $sectionFolder = config('bookstrap-constants.uploads_path');
       $sectionFolder .= $user_uid . '/';
       $sectionFolder .= $this->book->uid  . '/';
-      $sectionFolder .= $this->folder . '/';
+      $sectionFolder .= $this->id . '/';
 
       return $sectionFolder;
     }

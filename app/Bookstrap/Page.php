@@ -163,8 +163,8 @@ class Page {
 
       if ($addTitle) {
         // Remove extension from image name
-        $imageName = pathinfo($image, PATHINFO_FILENAME);
-        $imageTitle = $this->getSectionImageTitle($imageName, $totalImages, $offsetX, $offsetY, $imgMaxWidth);
+        // $imageName = pathinfo($image, PATHINFO_FILENAME);
+        $imageTitle = $this->getSectionImageTitle($image->show_name, $totalImages, $offsetX, $offsetY, $imgMaxWidth);
         $imageElement->setImageTitle($imageTitle);
         // If the image has a title we add the title offset
         $innerImageOffset+= config('bookstrap-constants.IMAGE_TITLE_HEIGHT') + config('bookstrap-constants.ELEMENT_TOP_MARGIN_HEIGHT');

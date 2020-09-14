@@ -5,6 +5,7 @@ namespace App\Bookstrap;
 use App\Book;
 use App\Bookstrap\BookSettings;
 use App\Bookstrap\Page;
+use App\Classes\ImageManager;
 use Illuminate\Support\Facades\Storage;
 
 class MetaBook {
@@ -41,8 +42,8 @@ class MetaBook {
       }
       //Get section folder and get sorten images
       // foreach image add a image page and a blank page if this options is selected.
-      $sectionFolder = Storage::path($section->getContentFolder());
-      $pageNumber = $this->fillSectionPages($sectionFolder, $pageNumber, $section->images_per_page, $book->add_blank_pages);
+      // $sectionFolder = Storage::path($section->getContentFolder());
+      $pageNumber = $this->fillSectionPages($section->images, $pageNumber, false);
 
       if ($section->solutions_to_the_end) {
           // postponed solution
@@ -59,9 +60,10 @@ class MetaBook {
           }
         }
 
-        $solutionsFolder = Storage::path($section->getSolutionsFolder());
+        // $solutionsFolder = Storage::path($section->getSolutionsFolder());
 
-        $pageNumber = $this->fillSectionPages($solutionsFolder, $pageNumber, $section->solutions_per_page, $book->add_blank_pages, true);
+        // $pageNumber = $this->fillSectionPages($solutionsFolder, $pageNumber, $section->solutions_per_page, $book->add_blank_pages, true);
+        $pageNumber = $this->fillSectionPages($section->solutions, $pageNumber, true);
       }
 
     }
@@ -79,29 +81,32 @@ class MetaBook {
         }
       }
 
-      $solutionsFolder = Storage::path($section->getSolutionsFolder());
+      // $solutionsFolder = Storage::path($section->getSolutionsFolder());
 
-      $pageNumber = $this->fillSectionPages($solutionsFolder, $pageNumber, $section->solutions_per_page, $book->add_blank_pages, true);
+      // $pageNumber = $this->fillSectionPages($solutionsFolder, $pageNumber, $section->solutions_per_page, $book->add_blank_pages, true);
+      $pageNumber = $this->fillSectionPages($section->solutions, $pageNumber, true);
     }
 
   }
 
-  private function fillSectionPages($folder, $pageNumber, $imagesPerPage, $addBlankPages, $solutions = false)
+  // private function fillSectionPages($section, $pageNumber, $solutions = false)
+  private function fillSectionPages($images, $pageNumber, $solutions = false)
   {
     $imagesCurrentPage = [];
-    $filenames = glob($folder.'*');
-    natsort($filenames);
-    foreach ($filenames as $imgFile) {
-      $fileinfo = new \SplFileInfo($imgFile);
-      if (!$fileinfo->isFile() || !in_array($fileinfo->getExtension(), config('bookstrap-constants.allowedExtensions'), true)) continue;
+    // $filenames = glob($folder.'*');
+    // natsort($filenames);
+    // foreach ($filenames as $imgFile) {
+    foreach ($images as $image) {
+      // $fileinfo = new \SplFileInfo($imgFile);
+      // if (!$fileinfo->isFile() || !in_array($fileinfo->getExtension(), config('bookstrap-constants.allowedExtensions'), true)) continue;
+      $imagesCurrentPage[] = $image;
 
-      $imagesCurrentPage[] = $imgFile;
-
+      $imagesPerPage = ($solutions) ? $image->section->solutions_per_page : $image->section->images_per_page;
       if (count($imagesCurrentPage) == $imagesPerPage) {
         $this->addImagePage($imagesCurrentPage, $pageNumber, $solutions);
         $pageNumber++;
 
-        if ($addBlankPages) {
+        if ($image->section->book->add_blank_pages) {
           $this->addBlankPage($pageNumber);
           $pageNumber++;
         }
@@ -115,7 +120,7 @@ class MetaBook {
       $this->addImagePage($imagesCurrentPage, $pageNumber, $solutions);
       $pageNumber++;
 
-      if ($addBlankPages) {
+      if ($image->section->book->add_blank_pages) {
         $this->addBlankPage($pageNumber);
         $pageNumber++;
       }

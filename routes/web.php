@@ -32,12 +32,14 @@ Route::post('/sections/delete_image', 'SectionController@deleteSectionImage')->n
 Route::post('/books/sections/update', 'SectionController@updateSections')->name('sections.update');
 
 Route::post('/sections/load_sudokus', 'SectionController@loadSudokuImages')->name('section.load-sudokus');
+Route::post('/sections/num_images', 'ProgressController@getSectionNumImages')->name('section.num-images');
 
 Route::post('/preview/getContent', 'ContentController@getPreviewContent')->name('preview.content');
-Route::get('/content/{bookUid}/{section}/{id}', 'ContentController@getDatabaseContent')->name('get.database-content');
-Route::get('/content/{bookUid}/{section}/solutions/{id}', 'ContentController@getDatabaseSolutionsContent')->name('get.database-solutions-content');
-Route::get('/content/{bookUid}/{section}/{size}/{image}', 'ContentController@getContent')->name('get.content');
-Route::get('/content/{bookUid}/{section}/solutions/{size}/{image}', 'ContentController@getSolutionsContent')->name('get.solutions-content');
+Route::get('/content/{id}', 'ContentController@getPreviewImage')->name('get.content');
+Route::get('/content/{size}/{id}', 'ContentController@getImage')->name('get.content');
+// Route::get('/content/{bookUid}/{section}/solutions/{id}', 'ContentController@getDatabaseSolutionsContent')->name('get.database-solutions-content');
+// Route::get('/content/{bookUid}/{section}/{size}/{image}', 'ContentController@getContent')->name('get.content');
+// Route::get('/content/{bookUid}/{section}/solutions/{size}/{image}', 'ContentController@getSolutionsContent')->name('get.solutions-content');
 Route::get('/book/{bookUid}/{date}/{book}', 'BookController@download')->name('get.book');
 
 Route::get('/login', 'AuthenticationController@showLogin')
@@ -65,3 +67,7 @@ Route::group(
 
 // Test routes: Should be deleted
 Route::get('/s3', 'TestController@s3')->name('s3');
+Route::get('/fopen', 'TestController@fopen')->name('fopen');
+Route::get('/curl', 'TestController@curl')->name('curl');
+Route::get('/referer', 'TestController@referer')->name('referer');
+Route::get('/internal-referer', 'TestController@internalReferer')->name('internal-referer');

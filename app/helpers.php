@@ -334,10 +334,10 @@
   // Scale the original image to fit the document size
   function scaleToFit($image, $maxWidth, $maxHeight)
   {
-      list($width, $height) = getimagesize($image);
+      // list($width, $height) = getimagesize($image);
 
-      $width = pixelsToMM($width);
-      $height = pixelsToMM($height);
+      $width = pixelsToMM($image->width);
+      $height = pixelsToMM($image->height);
 
       $widthScale = $maxWidth / $width;
       $heightScale = $maxHeight / $height;

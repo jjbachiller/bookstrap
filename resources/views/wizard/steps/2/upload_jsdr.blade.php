@@ -181,9 +181,10 @@ function addNewSection(section = []) {
     if (images instanceof Array) {
       for (var index in images) {
         var image = images[index];
-        sectionDropzone.displayExistingFile(image.data, image.url);
-        // Add to the dropZone files array (so you can delete all).
-        sectionDropzone.files.push(image.data);
+        var imageData = {'name': image['show_name'], 'size': image['size'], 'type': image['type']};
+
+        sectionDropzone.displayExistingFile(imageData, image['preview_url']);
+        sectionDropzone.files.push(imageData);
       }
     }
   }
@@ -194,8 +195,9 @@ function addNewSection(section = []) {
     if (solutions instanceof Array) {
       for (var index in solutions) {
         var solution = solutions[index];
-        solutionsDropzone.displayExistingFile(solution.data, solution.url);
-        solutionsDropzone.files.push(solution.data);
+        var solutionData = {'name': solution['show_name'], 'size': solution['size'], 'type': solution['type']};
+        solutionsDropzone.displayExistingFile(solutionData, solution['preview_url']);
+        solutionsDropzone.files.push(solutionData);
       }
     }
   }
@@ -255,7 +257,8 @@ function sendSectionsUpdate() {
       dataType: 'json',
       data: JSON.stringify(data),
       success: function(response) {
-        console.log("Sections updated successfully");
+        // After update the section data, load the content in the preview
+        loadPreviewContent();
       },
     });
 }
@@ -317,8 +320,7 @@ function setupDropzone(newDropzone, newSection, newIndex, solutions=0) {
     var error = newDropzone.files.length - secondDZ.files.length;
 
     // Update the sectionId
-    var resp = JSON.parse(response);
-    updateSectionId(newIndex, resp.sectionId);
+    updateSectionId(newIndex, response.sectionId);
 
     updateSolutionsNumberMatchMessage(newIndex, error);
   })
@@ -454,16 +456,62 @@ $('.loadLibraryContentButton').on('click', function() {
   $("#modalAffectedSection").val(sectionIndex);
 });
 
+function updateProgress(startFrom, targetNum, sectionId) {
+  // Query each 2 seconds, the number of files from s3 copied locally.
+  setTimeout(function() {
+    $.ajax({
+      type: "POST",
+      url: "{{ route('section.num-images') }}",
+      dataType: 'json',
+      data: JSON.stringify({ 'id': sectionId}),
+      success: function(response) {
+        var numNewFiles = response.num_images - startFrom;
+        var percentage = (numNewFiles * 100) / targetNum;
+        $('.currentProgress div.progress-bar').width(percentage + '%');
+        if (percentage < 100) {
+          updateProgress(startFrom, targetNum, sectionId);
+        }
+      }
+    });
+  }, 2000);
+}
+
+function showProgress(numNewImages, sectionId) {
+  $('#progress-container').clone().removeClass('d-none').addClass('currentProgress').appendTo('.blockPage');
+  $.ajax({
+    type: "POST",
+    url: "{{ route('section.num-images') }}",
+    dataType: 'json',
+    data: JSON.stringify({ 'id': sectionId}),
+    success: function(response) {
+      updateProgress(response.num_images, numNewImages, sectionId);
+    }
+  });
+}
+
 $('#addSudokusButton').on('click', function() {
   var affectedSectionIndex = $("#modalAffectedSection").val();
   var affectedSection = currentSectionData(affectedSectionIndex);
-  
+
   // Take the selected values from the popup
   var data = {
     'section-data': affectedSection,
     'difficulty': $('#sudokusDifficulty').val(),
     'number': $('#sudokusNumber').val(),
   }
+
+  // Block the section container
+  // var sectionToLock = getSectionByIndex(affectedSectionIndex);
+  KTApp.blockPage({
+    overlayColor: '#000',
+    state: 'info',
+    message: 'Generating content. Please wait...',
+    opacity: 0.15,
+  });
+
+  // The number of images is doubled to include solutions
+  var numImages = data.number * 2;
+  showProgress(numImages, data.section-data.id);
 
   // ajax call to randomly associate sudokus to section
   $.ajax({
@@ -472,13 +520,37 @@ $('#addSudokusButton').on('click', function() {
     dataType: 'json',
     data: JSON.stringify(data),
     success: function(response) {
-      console.log(response);
+      $('.currentProgress').remove();
+      KTApp.unblockPage('#smartwizard');
+      updateSectionId(affectedSectionIndex, response.sectionId);
+      // Mark the section as a section with solutions.
+      if (!$("#addSolutions"+affectedSectionIndex).prop('checked')) {
+        $("#addSolutions"+affectedSectionIndex).prop('checked', true).change();
+      }
+      var sectionDropzone = Dropzone.forElement("#myDrop"+affectedSectionIndex);
+
+      var images = response.images;
+      for (var index in images) {
+        var image = images[index];
+        var imageData = {'name': image.show_name, 'size': image.size, 'type': image.type};
+        sectionDropzone.displayExistingFile(imageData, image.url);
+        // Add to the dropZone files array (so you can delete all).
+        sectionDropzone.files.push(imageData);
+      }
+
+      var solutionsDropzone = Dropzone.forElement("#myDropSolutions"+affectedSectionIndex);
+
+      var solutions = response.solutions;
+      for (var index in response.solutions) {
+        var solution = solutions[index];
+        var solutionData = {'name': solution.show_name, 'size': solution.size, 'type': solution.type};
+        solutionsDropzone.displayExistingFile(solutionData, solution.url);
+        solutionsDropzone.files.push(solutionData);
+      }
+
     },
   });
 
-
-  // on success, mark add solutions to true if it is false.
-  // with the array of sudokus and the array of solutions, fill the section both dropzones
 });
 
 // End ::::> Load content from library functions

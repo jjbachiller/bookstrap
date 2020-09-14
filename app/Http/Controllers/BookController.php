@@ -58,25 +58,11 @@ class BookController extends Controller
      */
     public function edit($bookId)
     {
-      $book = \App\Book::findOrFail($bookId);
+      $book = \App\Book::with(['sections.images', 'sections.solutions'])->findOrFail($bookId);
       if (auth()->user()->id != $book->user_id) {
         return abort(401);
       }
       session(['idBook' => $book->id]);
-
-      // Generate image data for dropZone (FIXME: Take it out of here!
-      $virtualPath = config('bookstrap-constants.uploads_virtual_path') . $book->uid . '/';
-      foreach ($book->sections as $key => $section)
-      {
-        // Section images.
-        $sectionFolder = Storage::path($section->getContentFolder());
-        $virtualFolder = $virtualPath . $section->folder . '/';
-        $book->sections[$key]->{"images"} = getImageExtendedDataFromFolder($sectionFolder, $virtualFolder);
-        // Solutions images.
-        $solutionsFolder = $sectionFolder . config('bookstrap-constants.SOLUTIONS_FOLDER');
-        $virtualSolutionsFolder = $virtualFolder . config('bookstrap-constants.SOLUTIONS_FOLDER');
-        $book->sections[$key]->{"solutions"} = getImageExtendedDataFromFolder($solutionsFolder, $virtualSolutionsFolder);
-      }
 
       return view('wizard.content', compact('book'));
     }

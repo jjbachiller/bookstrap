@@ -164,7 +164,8 @@ class PPT extends PhpPresentation {
       list($x, $y) = $img->getPosition();
       list($width, $height) = $img->getDimensions();
 
-      $shape->setPath($img->getImage());
+      $image = $img->getImage();
+      $shape->setPath($image->fullPath());
       $shape->setWidth(mmToPixels($width));
       $shape->setHeight(mmToPixels($height));
       $shape->setOffsetX(mmToPixels($x));
