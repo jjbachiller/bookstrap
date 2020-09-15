@@ -231,7 +231,31 @@
         return copyright;
       }
 
-      function updateBookOptions() {
+
+      function generateBookFile() {
+
+        bookGenerationReset();
+
+        var data = {
+          filetype: $("input[name='book_filetype']:checked").val(),
+        };
+
+        $.ajax({
+          type: "POST",
+          url: "{{ route('books.generate') }}",
+          dataType: 'json',
+          data: JSON.stringify(data),
+          success: function(response) {
+            bookGeneratedSuccess(response.file_url);
+          },
+          error: function (data){
+            bookGeneratedError();
+          }
+        });
+      }
+
+      function updateBookOptions(generateBook) {
+
         var data = {
           type: $('#book-type').val(),
           size: $('#book-size').val(),
@@ -253,9 +277,13 @@
           dataType: 'json',
           data: JSON.stringify(data),
           success: function(response) {
-            console.log("Book updated successfully");
+            if (generateBook) {
+              // If user goes to the generating screen
+              generateBookFile();
+            }
           },
         });
+
       }
 
       $.ajaxSetup({
@@ -265,46 +293,22 @@
       });
 
       // Wizard config and requests logic
-      $("#smartwizard").on("leaveStep", function(e, anchorObject, currentStepIndex, nextStepIndex, stepDirection) {
+      $("#smartwizard").on("leaveStep", function(e, anchorObject, currentStepIndex, stepDirection) {
         switch (currentStepIndex) {
           case 0:
-            updateBookOptions();
+            updateBookOptions(false);
             break;
           case 1:
             // Update sections with a method on the upload_jsdr.
             sendSectionsUpdate();
             break;
           case 2:
-            updateBookOptions();
+            updateBookOptions(false);
             break;
           case 3:
-            updateBookOptions();
+            var generateBook = (stepDirection == 'forward') ? true:false;
+            updateBookOptions(generateBook);
             break;
-        }
-      });
-
-      $("#smartwizard").on("stepContent", function(e, anchorObject, stepIndex, stepDirection) {
-        if (stepIndex == 4) {
-
-          bookGenerationReset();
-
-          var data = {
-            filetype: $("input[name='book_filetype']:checked").val(),
-          };
-
-          $.ajax({
-            type: "POST",
-            url: "{{ route('books.generate') }}",
-            dataType: 'json',
-            data: JSON.stringify(data),
-            success: function(response) {
-              bookGeneratedSuccess(response.file_url);
-            },
-            error: function (data){
-              bookGeneratedError();
-            }
-          });
-
         }
       });
 

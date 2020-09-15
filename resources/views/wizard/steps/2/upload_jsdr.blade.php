@@ -468,8 +468,15 @@ function updateProgress(startFrom, targetNum, sectionId) {
         var numNewFiles = response.num_images - startFrom;
         var percentage = (numNewFiles * 100) / targetNum;
         $('.currentProgress div.progress-bar').width(percentage + '%');
+        // console.log("startFrom: " + startFrom);
+        // console.log("targetNum: " + targetNum);
+        // console.log("numNewFiles: " + numNewFiles);
+        // console.log("percentage: " + percentage);
         if (percentage < 100) {
-          updateProgress(startFrom, targetNum, sectionId);
+          // Check if loader ended before and element is removed
+          if ($('.currentProgress').length) {
+            updateProgress(startFrom, targetNum, sectionId);
+          }
         }
       }
     });
@@ -482,20 +489,16 @@ function showProgress(numNewImages, sectionId) {
     type: "POST",
     url: "{{ route('section.num-images') }}",
     dataType: 'json',
-    data: JSON.stringify({ 'id': sectionId}),
+    data: JSON.stringify({'id': sectionId}),
     success: function(response) {
       updateProgress(response.num_images, numNewImages, sectionId);
     }
   });
 }
 
-$('#addSudokusButton').on('click', function() {
-  var affectedSectionIndex = $("#modalAffectedSection").val();
-  var affectedSection = currentSectionData(affectedSectionIndex);
-
-  // Take the selected values from the popup
+function addSudokus(sectionIndex, sectionId) {
   var data = {
-    'section-data': affectedSection,
+    'section-id': sectionId,
     'difficulty': $('#sudokusDifficulty').val(),
     'number': $('#sudokusNumber').val(),
   }
@@ -511,7 +514,7 @@ $('#addSudokusButton').on('click', function() {
 
   // The number of images is doubled to include solutions
   var numImages = data.number * 2;
-  showProgress(numImages, data.section-data.id);
+  showProgress(numImages, sectionId);
 
   // ajax call to randomly associate sudokus to section
   $.ajax({
@@ -522,12 +525,11 @@ $('#addSudokusButton').on('click', function() {
     success: function(response) {
       $('.currentProgress').remove();
       KTApp.unblockPage('#smartwizard');
-      updateSectionId(affectedSectionIndex, response.sectionId);
       // Mark the section as a section with solutions.
-      if (!$("#addSolutions"+affectedSectionIndex).prop('checked')) {
-        $("#addSolutions"+affectedSectionIndex).prop('checked', true).change();
+      if (!$("#addSolutions"+sectionIndex).prop('checked')) {
+        $("#addSolutions"+sectionIndex).prop('checked', true).change();
       }
-      var sectionDropzone = Dropzone.forElement("#myDrop"+affectedSectionIndex);
+      var sectionDropzone = Dropzone.forElement("#myDrop"+sectionIndex);
 
       var images = response.images;
       for (var index in images) {
@@ -538,7 +540,7 @@ $('#addSudokusButton').on('click', function() {
         sectionDropzone.files.push(imageData);
       }
 
-      var solutionsDropzone = Dropzone.forElement("#myDropSolutions"+affectedSectionIndex);
+      var solutionsDropzone = Dropzone.forElement("#myDropSolutions"+sectionIndex);
 
       var solutions = response.solutions;
       for (var index in response.solutions) {
@@ -549,6 +551,25 @@ $('#addSudokusButton').on('click', function() {
       }
 
     },
+  });
+
+}
+
+$('#addSudokusButton').on('click', function() {
+  var affectedSectionIndex = $("#modalAffectedSection").val();
+  var affectedSection = currentSectionData(affectedSectionIndex);
+
+  // Update or create the section data
+  $.ajax({
+    type: "POST",
+    url: "{{ route('section.update-section') }}",
+    dataType: 'json',
+    data: JSON.stringify({'section-data': affectedSection}),
+    success: function(response) {
+      updateSectionId(affectedSectionIndex, response.id);
+      // Once created, load the sudokus
+      addSudokus(affectedSectionIndex, response.id);
+    }
   });
 
 });

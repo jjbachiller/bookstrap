@@ -355,3 +355,24 @@
     shuffle($numbers);
     return array_slice($numbers, 0, $quantity);
   }
+
+  function getBookFileSizeFromUrl($bookFileUrl) {
+    $urlData = parse_url($bookFileUrl);
+    $urlSegments = explode('/', $urlData['path']);
+    if (count($urlSegments) != 5) {
+      return 0;
+    }
+
+    $bookUid = $urlSegments[2];
+    $date = $urlSegments[3];
+    $book = $urlSegments[4];
+
+    $userUid =  Auth::user()->uid;
+
+    $bookPath = config('bookstrap-constants.downloads_path') . $userUid . '/' . $bookUid . '/' . $date  . '/' . $book;
+    $file = Storage::path($bookPath);
+    if (!is_file($file)) {
+      return 0;
+    }
+    return filesize($file);
+  }

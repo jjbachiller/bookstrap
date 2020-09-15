@@ -87,6 +87,10 @@ class BookController extends Controller
       $book->full_bleed = $bookData['fullBleed'];
       $book->total_pages = $bookData['totalPages'];
       $book->save();
+
+      $book->updatedPagesAndSize();
+
+      return $book;
     }
 
     /**

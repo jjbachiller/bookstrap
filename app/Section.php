@@ -30,6 +30,33 @@ class Section extends Model
       return $this->hasMany('App\Image')->where('solution', 1)->orderBy('id');
     }
 
+    // public static function boot() {
+    //   parent::boot();
+    //
+    //   self::updated(function($section){
+    //     $section->updatedPagesAndSize();
+    //   });
+    //
+    // }
+
+    public function updatedPagesAndSize()
+    {
+      $numImages = $this->images->count();
+      $pagesImages = ceil($numImages / $this->images_per_page);
+      $numSolutions = $this->solutions->count();
+      $pagesSolutions = ceil($numSolutions / $this->solutions_per_page);
+      $totalPages = $pagesImages + $pagesSolutions;
+      if ($this->title) $totalPages+= 1;
+      if ($this->solutions_title) $totalPages+= 1;
+      if ($this->book->add_blank_pages) {
+        $totalPages*= 2;
+      }
+
+      $this->size = $this->content->sum('size');
+      $this->pages_count = $totalPages;
+      $this->save();
+    }
+
     public function getContentFolder()
     {
       $user_uid = Auth::check() ? Auth::user()->uid : session('user_uid');

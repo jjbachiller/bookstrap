@@ -25,6 +25,30 @@ class Book extends Model
       return $query->has('sections');
     }
 
+    // public static function boot() {
+    //   parent::boot();
+    //
+    //   self::updated(function($book){
+    //     $book->updatedPagesAndSize();
+    //   });
+    //
+    // }
+
+    public function updatedPagesAndSize()
+    {
+      foreach ($this->sections as $section) {
+        $section->updatedPagesAndSize();
+      }
+
+      $bookSize = $this->sections->sum('size');
+      // Add the size of the pdf or ppt if it exists
+      $bookSize+= getBookFileSizeFromUrl($this->pdf);
+      $bookSize+= getBookFileSizeFromUrl($this->ppt);
+      $this->total_size = $bookSize;
+      $this->total_pages = $this->sections()->sum('pages_count');
+      $this->save();
+    }
+
     public function resetContent() {
       $this->sections()->delete();
     }
@@ -58,8 +82,8 @@ class Book extends Model
       DB::table('books')->where('id', $this->id)->delete();
     }
 
-    public static function getBooksWithContent()
+    public function lastCreatedSection()
     {
-      //
+      return $this->sections()->orderBy('id', 'desc')->first();
     }
 }

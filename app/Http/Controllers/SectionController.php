@@ -11,9 +11,8 @@ use App\Classes\ImageManager;
 class SectionController extends Controller
 {
 
-  private function updateSection($sectionData)
+  private function updateOrCreateSection($sectionData)
   {
-
     $book = \App\Book::findOrFail(session('idBook'));
 
     $section = empty($sectionData->id) ? new \App\Section : \App\Section::findOrFail($sectionData->id);
@@ -61,21 +60,23 @@ class SectionController extends Controller
       $userUid = session('user_uid');
     }
 
-    $workFolder = config('bookstrap-constants.uploads_path') . $userUid . '/' . $book->uid . '/';
-    $sectionFolder = Storage::path($workFolder) . $sectionData->folder . '/';
-    list($sectionSize, $sectionPages) = getSizeAndPages($sectionFolder);
-    $section->size+= $sectionSize;
-    $section->pages_count+= $sectionPages;
-
-    $solutionsFolder = $sectionFolder . config('bookstrap-constants.SOLUTIONS_FOLDER');
-    list($solutionsSize, $solutionsPages) = getSizeAndPages($solutionsFolder);
-    $section->size+= $solutionsSize;
-    $section->pages_count+= $solutionsPages;
+    // $workFolder = config('bookstrap-constants.uploads_path') . $userUid . '/' . $book->uid . '/';
+    // $sectionFolder = Storage::path($workFolder) . $sectionData->folder . '/';
+    // list($sectionSize, $sectionPages) = getSizeAndPages($sectionFolder);
+    // $section->size+= $sectionSize;
+    // $section->pages_count+= $sectionPages;
+    //
+    // $solutionsFolder = $sectionFolder . config('bookstrap-constants.SOLUTIONS_FOLDER');
+    // list($solutionsSize, $solutionsPages) = getSizeAndPages($solutionsFolder);
+    // $section->size+= $solutionsSize;
+    // $section->pages_count+= $solutionsPages;
 
     $section->order = $sectionData->order ?? null;
     // $section->folder = $sectionData->folder;
 
     $book->sections()->save($section);
+
+    $section->book->updatedPagesAndSize();
 
     return $section;
   }
@@ -84,7 +85,7 @@ class SectionController extends Controller
   public function uploadSectionImages(Request $request)
   {
     $sectionData = json_decode($request->input('section-data'));
-    $section = $this->updateSection($sectionData);
+    $section = $this->updateOrCreateSection($sectionData);
 
     $imgManager = new ImageManager();
 
@@ -131,15 +132,17 @@ class SectionController extends Controller
 
   public function loadSudokuImages(Request $request) {
     $sudokusData = json_decode($request->getContent(), true);
-    $sectionData = (object) $sudokusData['section-data'];
-    $section = $this->updateSection($sectionData);
+    // $sectionData = (object) $sudokusData['section-data'];
+    // $section = $this->updateSection($sectionData);
+
+    $section = \App\Section::findOrFail($sudokusData['section-id']);
 
     $imgManager = new ImageManager();
 
     $difficulty = $sudokusData['difficulty'];
     $sudokusNumber = $sudokusData['number'];
 
-    $counter = 1;
+    $counter = $section->images->where('s3_disk', config('sudokus.sudokus_folder'))->count() + 1;
     $sudokusList = randomGen(0, config('sudokus.max_number'), $sudokusNumber);
     $images = $solutions = [];
     foreach ($sudokusList as $sudoku) {
@@ -157,10 +160,20 @@ class SectionController extends Controller
       $counter++;
     }
 
-    $response = array('sectionId' => $section->id, 'images' => $images, 'solutions' => $solutions);
+    $response = array('images' => $images, 'solutions' => $solutions);
 
     // echo json_encode($response);
     return response()->json($response);
+  }
+
+  public function updateSection(Request $request)
+  {
+    $requestData = json_decode($request->getContent(), true);
+    $sectionData = (object) $requestData['section-data'];
+
+    $section = $this->updateOrCreateSection($sectionData);
+
+    return $section;
   }
 
   public function  updateSections(Request $request) {
@@ -168,7 +181,7 @@ class SectionController extends Controller
     $sections = $updatedData['sections'];
     foreach ($sections as $sectionArray) {
       $sectionObject = (object) $sectionArray;
-      $this->updateSection($sectionObject);
+      $this->updateOrCreateSection($sectionObject);
     }
 
     $response = array('result' => 'ok');
