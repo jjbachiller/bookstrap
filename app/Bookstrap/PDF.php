@@ -97,7 +97,7 @@ class PDF extends FPDF {
         $this->Image(
           $image->fullPath(),
           $x, $y,
-          $width, $height,
+          $width, $height
         );
       }
     }

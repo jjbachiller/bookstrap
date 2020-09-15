@@ -24,6 +24,9 @@ return [
     'leveleleven' => 'Level 11',
     'leveltwelve' => 'Level 12',
     'levelthirdteen' => 'Level 13',
+    'levelfourteen' => 'Level 14',
+    'levelfifteen' => 'Level 15',
+    'levelsixteen' => 'Level 16',
   ],
   'addGroups' => [
     10, 25, 50, 100, 150, 200
