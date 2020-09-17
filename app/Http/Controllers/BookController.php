@@ -105,6 +105,7 @@ class BookController extends Controller
       if ($user->id != $book->user_id) {
         return abort(401);
       }
+
       // Delete uploads path content for the book
       $bookUploads = config('bookstrap-constants.uploads_path') . $user->uid . '/' . $book->uid;
       Storage::deleteDirectory($bookUploads);
@@ -112,7 +113,7 @@ class BookController extends Controller
       $bookDownloads = config('bookstrap-constants.downloads_path') . $user->uid . '/' . $book->uid;
       Storage::deleteDirectory($bookDownloads);
       // Delete book data in DB
-      $book->deleteBook();
+      $book->deleteWithSections();
       // Redirect to home
       return redirect('home');
     }

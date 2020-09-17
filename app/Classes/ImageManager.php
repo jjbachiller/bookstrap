@@ -82,4 +82,47 @@ class ImageManager
     }
     return true;
   }
+
+  public static function deleteImage($image)
+  {
+    if ($image->isLocal()) {
+      self::deleteLocalImage($image);
+      return false;
+    }
+
+    return self::deleteS3Image($image);
+  }
+
+  private static function deleteLocalImage($image)
+  {
+    $imagesSizes = config('bookstrap-constants.miniatures');
+    foreach (array_keys($imagesSizes) as $size) {
+      $sizePath = $image->path($size);
+      $sizePath.= $image->file_name;
+      Storage::delete($sizePath);
+    }
+
+    $image->delete();
+  }
+
+  private static function deleteS3Image($image)
+  {
+    // Find the complementary solution/image to delete it too.
+    $solutionComplemented = !$image->solution;
+
+    $solution = \App\Image::where('section_id', $image->section_id)
+      ->where('s3_disk', $image->s3_disk)
+      ->where('s3_directory', $image->s3_directory)
+      ->where('file_name', $image->file_name)
+      ->where('solution', $solutionComplemented)->first();
+
+    $deletedSolutionId = false;
+    if (!empty($solution)) {
+      $deletedSolutionId = $solution->id;
+      $solution->delete();
+    }
+
+    $image->delete();
+    return ['deletedSolutionId' => $deletedSolutionId];
+  }
 }

@@ -185,6 +185,10 @@ function addNewSection(section = []) {
 
         sectionDropzone.displayExistingFile(imageData, image['preview_url']);
         sectionDropzone.files.push(imageData);
+        // Add the database id to the preview Element
+        var lastFile = sectionDropzone.files[sectionDropzone.files.length - 1];
+        $('<input>').addClass('imageId').attr('type','hidden').val(image.id).appendTo(lastFile.previewElement);
+
       }
     }
   }
@@ -198,6 +202,9 @@ function addNewSection(section = []) {
         var solutionData = {'name': solution['show_name'], 'size': solution['size'], 'type': solution['type']};
         solutionsDropzone.displayExistingFile(solutionData, solution['preview_url']);
         solutionsDropzone.files.push(solutionData);
+        // Add the database id to the preview Element
+        var lastSolutionFile = solutionsDropzone.files[solutionsDropzone.files.length - 1];
+        $('<input>').addClass('imageId').attr('type','hidden').val(solution.id).appendTo(lastSolutionFile.previewElement);
       }
     }
   }
@@ -313,6 +320,10 @@ function setupDropzone(newDropzone, newSection, newIndex, solutions=0) {
   });
 
   newDropzone.on("success", function(file, response) {
+    // Append the image id in database to the preview Element
+    var bookstrapImage = response.images.shift();
+    $('<input>').addClass('imageId').attr('type','hidden').val(bookstrapImage.id).appendTo(file.previewElement);
+
     // Check the normal scenario of uploading a file from the user computer
     var secondDZ = solutions ? Dropzone.forElement("#myDrop"+newIndex) : Dropzone.forElement("#myDropSolutions"+newIndex);
 
@@ -326,11 +337,24 @@ function setupDropzone(newDropzone, newSection, newIndex, solutions=0) {
   })
 
   newDropzone.on("removedfile", function(file) {
+    var imageId = $(file.previewElement).find('.imageId').val();
+
     $.ajax({
       type: "POST",
       url : "{{ route('section.delete-image') }}",
-      data: {user: $('#user').val(), _token: "{{ csrf_token() }}", section: newIndex, image: file.name, solutions: solutions}
+      data: {user: $('#user').val(), _token: "{{ csrf_token() }}", imageId: imageId},
+      success: function(response) {
+        if (response.deletedSolutionId) {
+          // If has deleted a complement (solution for deleted images o image for deleted solutions)
+          // Remove the preview of this file deleted.
+          $('.dz-preview').find("input.imageId[value='" + response.deletedSolutionId + "']").parent().remove();
+          //We should remove it from the DZ files array to prevent call deletes when press remove all images buttons.
+        }
+
+      },
     });
+
+    // Delete complementary Image/solution.
 
     if (newDropzone.files.length == 0) {
       newSection.find(deleteClass).prop('disabled', true);
@@ -382,6 +406,14 @@ $('.delete-solutions').on('click', function() {
 
 $('.delete-section').on('click', function(e) {
   if (confirm("Do you really want to delete this section?")) {
+    var sectionId = $(this).closest(".section-block").find(".section-id").val();
+    if (sectionId) {
+      $.ajax({
+        type: "POST",
+        url : "{{ route('section.delete-section') }}",
+        data: {_token: "{{ csrf_token() }}", sectionId: sectionId},
+      });
+    }
     $(this).closest(".section-block").remove();
   } else {
     e.stopPropagation();
@@ -538,6 +570,9 @@ function addSudokus(sectionIndex, sectionId) {
         sectionDropzone.displayExistingFile(imageData, image.url);
         // Add to the dropZone files array (so you can delete all).
         sectionDropzone.files.push(imageData);
+        // Add the database id to the preview Element
+        var lastFile = sectionDropzone.files[sectionDropzone.files.length - 1];
+        $('<input>').addClass('imageId').attr('type','hidden').val(image.id).appendTo(lastFile.previewElement);
       }
 
       var solutionsDropzone = Dropzone.forElement("#myDropSolutions"+sectionIndex);
@@ -548,6 +583,9 @@ function addSudokus(sectionIndex, sectionId) {
         var solutionData = {'name': solution.show_name, 'size': solution.size, 'type': solution.type};
         solutionsDropzone.displayExistingFile(solutionData, solution.url);
         solutionsDropzone.files.push(solutionData);
+        // Add the database id to the preview Element
+        var lastSolutionFile = solutionsDropzone.files[solutionsDropzone.files.length - 1];
+        $('<input>').addClass('imageId').attr('type','hidden').val(solution.id).appendTo(lastSolutionFile.previewElement);
       }
 
     },

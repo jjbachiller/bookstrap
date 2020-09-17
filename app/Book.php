@@ -25,15 +25,6 @@ class Book extends Model
       return $query->has('sections');
     }
 
-    // public static function boot() {
-    //   parent::boot();
-    //
-    //   self::updated(function($book){
-    //     $book->updatedPagesAndSize();
-    //   });
-    //
-    // }
-
     public function updatedPagesAndSize()
     {
       foreach ($this->sections as $section) {
@@ -75,15 +66,15 @@ class Book extends Model
       return $book;
     }
 
-    public function deleteBook()
-    {
-
-      DB::table('sections')->where('book_id', $this->id)->where('user_id', Auth::user()->id)->delete();
-      DB::table('books')->where('id', $this->id)->delete();
-    }
-
     public function lastCreatedSection()
     {
       return $this->sections()->orderBy('id', 'desc')->first();
+    }
+
+    public function deleteWithSections()
+    {
+      $this->sections->each->deleteWithImages();
+      $this->sections()->delete();
+      $this->delete();
     }
 }

@@ -30,15 +30,6 @@ class Section extends Model
       return $this->hasMany('App\Image')->where('solution', 1)->orderBy('id');
     }
 
-    // public static function boot() {
-    //   parent::boot();
-    //
-    //   self::updated(function($section){
-    //     $section->updatedPagesAndSize();
-    //   });
-    //
-    // }
-
     public function updatedPagesAndSize()
     {
       $numImages = $this->images->count();
@@ -72,5 +63,11 @@ class Section extends Model
     {
       $solutionsFolder = $this->getContentFolder() . config('bookstrap-constants.SOLUTIONS_FOLDER');
       return $solutionsFolder;
+    }
+
+    public function deleteWithImages()
+    {
+      $this->content()->delete();
+      $this->delete();
     }
 }
