@@ -357,7 +357,17 @@ function loadPage(index) {
   var end = totalPages + index;
   for (var i = start; i <= end; i++) {
     if (i >= 0) {
-      $("div.b-page-" + i).find('img.lazy').lazy();
+      var image = $("div.b-page-" + i).find('img.lazy');
+      // Only load image if it has not been loaded yet.
+      if (image.parent().hasClass('spinner')) {
+        image.lazy({
+          // Remove the spinner when the image has been loaded
+          afterLoad: function(img) {
+            img.parent().removeClass('spinner spinner-center');
+          }
+
+        });
+      }
     }
   }
 }
