@@ -1,3 +1,7 @@
+<button class="back-categories-button btn btn-secondary font-weight-bold mr-1" type="button">
+  <i class="icon-2x flaticon2-back"></i>
+  Back
+</button>
 <div class="row h-50 justify-content-center">
   <div class="col-xl-6">
     <div class="card card-custom bgi-no-repeat gutter-b" style="height: 350px; background-color: #FFF; background-position: calc(100% + 0.5rem) calc(100% + 0.5rem); background-size: auto 100%; background-image: url(/media/img/working.jpg)">

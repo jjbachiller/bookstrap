@@ -8,23 +8,17 @@
                   <i aria-hidden="true" class="ki ki-close"></i>
               </button>
           </div>
-          <div class="modal-body">
+          <div id="load-content-window" class="modal-body">
+            <div id="load-content-steps" class="w-100" style="height: 550px; overflow: hidden">
               <input type="hidden" id="modalAffectedSection" value="">
-              <div data-scroll="true" data-height="250">
-                @include('wizard.steps.2.modal.partials.content_menu')
+              <input type="hidden" id="selectedContentType" value="">
+              <div id="content-categories" class="float-left w-100" data-scroll="true" data-height="550">
+                @include('wizard.modal.partials.content_menu')
               </div>
-              <div class="tab-content">
-                {{-- begin::Sudoku --}}
-                <div class="tab-pane fade" id="sudoku_options" role="tabpanel" aria-labelledby="sudoku-tab">
-                  @include('wizard.steps.2.modal.partials.sudoku_options')
-                </div>
-                {{-- end::Sudoku --}}
-                {{-- begin::Coming soon --}}
-                <div class="tab-pane fade" id="coming_soon" role="tabpanel" aria-labelledby="coming-soon-tab">
-                  @include('wizard.steps.2.modal.partials.coming_soon')
-                </div>
-                {{-- end::Coming soon --}}
+              <div class="library-content float-left d-flex w-100" style="height: 550px;">
+                @include('wizard.modal.partials.options')
               </div>
+            </div>
           </div>
         </div>
     </div>

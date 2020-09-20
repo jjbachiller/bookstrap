@@ -109,21 +109,21 @@ class SectionController extends Controller
 
     $section = \App\Section::findOrFail($sudokusData['section-id']);
 
-    $difficulty = $sudokusData['difficulty'];
+    $directory = $sudokusData['directory'];
     $sudokusNumber = $sudokusData['number'];
 
-    $counter = $section->images->where('s3_disk', config('sudokus.sudokus_folder'))->count() + 1;
+    $counter = $section->images->where('s3_disk', config('sudokus.s3_folder'))->count() + 1;
     $sudokusList = randomGen(0, config('sudokus.max_number'), $sudokusNumber);
     $images = $solutions = [];
     foreach ($sudokusList as $sudoku) {
       $fileName = $sudoku  . config('sudokus.ext');
       $showName = 'Sudoku ' . $counter;
-      $image = ImageManager::saveSudokuImage($section, $difficulty, $fileName, $showName);
+      $image = ImageManager::saveSudokuImage($section, $directory, $fileName, $showName);
 
       $images[] = $image;
 
       $showName = 'Solution ' . $counter;
-      $solution = ImageManager::saveSudokuImage($section, $difficulty, $fileName, $showName, true);
+      $solution = ImageManager::saveSudokuImage($section, $directory, $fileName, $showName, true);
 
       $solutions[] = $solution;
 

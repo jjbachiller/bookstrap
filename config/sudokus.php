@@ -1,9 +1,11 @@
-<?php
+ <?php
 
 return [
-  'sudokus_folder' => '/sudoku/',
+  's3_folder' => '/sudoku/',
   'puzzles_folder' => '/puzzles/',
   'solutions_folder' => '/solutions/',
+  'puzzle_name' => 'Sudoku',
+  'solution_name' => 'Solutions',
   'ext' => '.png',
   'type' => 'image/png',
   'max_number' => 10000,

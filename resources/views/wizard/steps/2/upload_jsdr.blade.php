@@ -528,12 +528,25 @@ function showProgress(numNewImages, sectionId) {
   });
 }
 
-function addSudokus(sectionIndex, sectionId) {
-  var data = {
-    'section-id': sectionId,
-    'difficulty': $('#sudokusDifficulty').val(),
-    'number': $('#sudokusNumber').val(),
+function getDataForContentType(contentType) {
+  var data = { 'content-type': contentType }
+  switch (contentType) {
+    '{{ config(content-types.SUDOKUS) }}':
+
+        data.directory = $('#sudokusDifficulty').val();
+        data.number = $('#sudokusNumber').val();
+        break;
+
+    '{{ config(content-types.SIKAKUS) }}':
+      break;
   }
+  return data;
+}
+
+function addContent(sectionIndex, sectionId) {
+  var contentType = $("#selectedContentType").val();
+  var data = getDataForContentType(contentType);
+  var data.section-id = sectionId;
 
   // Block the section container
   // var sectionToLock = getSectionByIndex(affectedSectionIndex);
@@ -557,10 +570,7 @@ function addSudokus(sectionIndex, sectionId) {
     success: function(response) {
       $('.currentProgress').remove();
       KTApp.unblockPage('#smartwizard');
-      // Mark the section as a section with solutions.
-      if (!$("#addSolutions"+sectionIndex).prop('checked')) {
-        $("#addSolutions"+sectionIndex).prop('checked', true).change();
-      }
+
       var sectionDropzone = Dropzone.forElement("#myDrop"+sectionIndex);
 
       var images = response.images;
@@ -575,6 +585,10 @@ function addSudokus(sectionIndex, sectionId) {
         $('<input>').addClass('imageId').attr('type','hidden').val(image.id).appendTo(lastFile.previewElement);
       }
 
+      // Mark the section as a section with solutions.
+      if (!$("#addSolutions"+sectionIndex).prop('checked')) {
+        $("#addSolutions"+sectionIndex).prop('checked', true).change();
+      }
       var solutionsDropzone = Dropzone.forElement("#myDropSolutions"+sectionIndex);
 
       var solutions = response.solutions;
@@ -593,7 +607,7 @@ function addSudokus(sectionIndex, sectionId) {
 
 }
 
-$('#addSudokusButton').on('click', function() {
+function loadContentFromLibrary() {
   var affectedSectionIndex = $("#modalAffectedSection").val();
   var affectedSection = currentSectionData(affectedSectionIndex);
 
@@ -605,8 +619,8 @@ $('#addSudokusButton').on('click', function() {
     data: JSON.stringify({'section-data': affectedSection}),
     success: function(response) {
       updateSectionId(affectedSectionIndex, response.id);
-      // Once created, load the sudokus
-      addSudokus(affectedSectionIndex, response.id);
+      // Once created, load the content
+      addContent(affectedSectionIndex, response.id);
     }
   });
 

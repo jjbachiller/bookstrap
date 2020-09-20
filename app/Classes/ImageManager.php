@@ -47,11 +47,11 @@ class ImageManager
     return false;
   }
 
-  public static function saveSudokuImage($section, $difficulty, $file_name, $show_name, $solution = false)
+  public static function saveSudokuImage($section, $directory, $file_name, $show_name, $solution = false)
   {
     $image = new \App\Image;
-    $image->s3_disk = config('sudokus.sudokus_folder');
-    $image->s3_directory = $difficulty;
+    $image->s3_disk = config('sudokus.s3_folder');
+    $image->s3_directory = $directory;
     $image->file_name = $file_name;
     $image->show_name = $show_name;
     $image->size = config('sudokus.size');;

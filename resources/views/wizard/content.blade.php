@@ -104,6 +104,10 @@
 
         </div>
 
+        {{-- Modal for library content --}}
+
+        @include('wizard.modal.load_content')
+
       </div>
 
     </div>
@@ -337,6 +341,8 @@
       @include('wizard.steps.2.upload_jsdr')
 
       @include('wizard.steps.3.preview_jsdr')
+
+      @include('wizard.modal.load_content_jsdr')      
 
     });
 

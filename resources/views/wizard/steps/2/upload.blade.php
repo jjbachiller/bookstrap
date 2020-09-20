@@ -303,7 +303,3 @@
       <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
   </div>
 </div>
-
-{{-- Modal for library content --}}
-
-@include('wizard.steps.2.modal.load_content')

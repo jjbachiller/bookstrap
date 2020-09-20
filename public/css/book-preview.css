@@ -332,6 +332,11 @@ a#prev_page_button:hover{
 	margin-left: -56px;
 }
 
+.nav.nav-pills.nav-light-primary .nav-link.active {
+	color: #7e8299 !important;
+	background-color: #FFF !important;
+}
+
 /* Custom switch */
 /*
 .custom-switch {
