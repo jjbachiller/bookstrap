@@ -529,15 +529,16 @@ function showProgress(numNewImages, sectionId) {
 }
 
 function getDataForContentType(contentType) {
-  var data = { 'content-type': contentType }
+  var data = { 'content_type': contentType };
   switch (contentType) {
-    '{{ config(content-types.SUDOKUS) }}':
+    case '{{ config("content-types.SUDOKUS") }}':
 
         data.directory = $('#sudokusDifficulty').val();
         data.number = $('#sudokusNumber').val();
+        data.has_solutions = {{ empty(config('sudokus.solutions_folder')) ? 0 : 1 }};
         break;
 
-    '{{ config(content-types.SIKAKUS) }}':
+    case '{{ config("content-types.SIKAKUS") }}':
       break;
   }
   return data;
@@ -546,7 +547,7 @@ function getDataForContentType(contentType) {
 function addContent(sectionIndex, sectionId) {
   var contentType = $("#selectedContentType").val();
   var data = getDataForContentType(contentType);
-  var data.section-id = sectionId;
+  data.section_id = sectionId;
 
   // Block the section container
   // var sectionToLock = getSectionByIndex(affectedSectionIndex);
@@ -558,13 +559,13 @@ function addContent(sectionIndex, sectionId) {
   });
 
   // The number of images is doubled to include solutions
-  var numImages = data.number * 2;
+  var numImages = (data.has_solutions) ? data.number * 2 : data.number;
   showProgress(numImages, sectionId);
 
   // ajax call to randomly associate sudokus to section
   $.ajax({
     type: "POST",
-    url: "{{ route('section.load-sudokus') }}",
+    url: "{{ route('section.load-library-content') }}",
     dataType: 'json',
     data: JSON.stringify(data),
     success: function(response) {
@@ -573,6 +574,7 @@ function addContent(sectionIndex, sectionId) {
 
       var sectionDropzone = Dropzone.forElement("#myDrop"+sectionIndex);
 
+      // Add the library content to the dropzone images.
       var images = response.images;
       for (var index in images) {
         var image = images[index];
@@ -585,23 +587,25 @@ function addContent(sectionIndex, sectionId) {
         $('<input>').addClass('imageId').attr('type','hidden').val(image.id).appendTo(lastFile.previewElement);
       }
 
-      // Mark the section as a section with solutions.
-      if (!$("#addSolutions"+sectionIndex).prop('checked')) {
-        $("#addSolutions"+sectionIndex).prop('checked', true).change();
-      }
-      var solutionsDropzone = Dropzone.forElement("#myDropSolutions"+sectionIndex);
+      // If content has solutions, added the solutions to the solutions dropzone.
+      if (data.has_solutions) {
+        // Mark the section as a section with solutions.
+        if (!$("#addSolutions"+sectionIndex).prop('checked')) {
+          $("#addSolutions"+sectionIndex).prop('checked', true).change();
+        }
+        var solutionsDropzone = Dropzone.forElement("#myDropSolutions"+sectionIndex);
 
-      var solutions = response.solutions;
-      for (var index in response.solutions) {
-        var solution = solutions[index];
-        var solutionData = {'name': solution.show_name, 'size': solution.size, 'type': solution.type};
-        solutionsDropzone.displayExistingFile(solutionData, solution.url);
-        solutionsDropzone.files.push(solutionData);
-        // Add the database id to the preview Element
-        var lastSolutionFile = solutionsDropzone.files[solutionsDropzone.files.length - 1];
-        $('<input>').addClass('imageId').attr('type','hidden').val(solution.id).appendTo(lastSolutionFile.previewElement);
+        var solutions = response.solutions;
+        for (var index in response.solutions) {
+          var solution = solutions[index];
+          var solutionData = {'name': solution.show_name, 'size': solution.size, 'type': solution.type};
+          solutionsDropzone.displayExistingFile(solutionData, solution.url);
+          solutionsDropzone.files.push(solutionData);
+          // Add the database id to the preview Element
+          var lastSolutionFile = solutionsDropzone.files[solutionsDropzone.files.length - 1];
+          $('<input>').addClass('imageId').attr('type','hidden').val(solution.id).appendTo(lastSolutionFile.previewElement);
+        }
       }
-
     },
   });
 
@@ -624,6 +628,6 @@ function loadContentFromLibrary() {
     }
   });
 
-});
+};
 
 // End ::::> Load content from library functions

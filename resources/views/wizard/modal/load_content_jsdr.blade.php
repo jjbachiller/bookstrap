@@ -30,6 +30,7 @@ $('#loadContentFromLibrary').on('hidden.bs.modal', function () {
 });
 
 $('#addSudokusButton').on('click', function() {
-  $('#selectedContentType').val({{ config('content-types.SUDOKUS') }});
+  $('#selectedContentType').val("{{ config('content-types.SUDOKUS') }}");
+
   loadContentFromLibrary();
 });

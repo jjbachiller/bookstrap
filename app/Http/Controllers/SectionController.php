@@ -104,34 +104,18 @@ class SectionController extends Controller
     return response()->json($response);
   }
 
-  public function loadSudokuImages(Request $request) {
-    $sudokusData = json_decode($request->getContent(), true);
+  public function loadLibraryContent(Request $request) {
+    $contentData = json_decode($request->getContent(), true);
 
-    $section = \App\Section::findOrFail($sudokusData['section-id']);
+    $section = \App\Section::findOrFail($contentData['section_id']);
 
-    $directory = $sudokusData['directory'];
-    $sudokusNumber = $sudokusData['number'];
+    $config = config($contentData['content_type']);
 
-    $counter = $section->images->where('s3_disk', config('sudokus.s3_folder'))->count() + 1;
-    $sudokusList = randomGen(0, config('sudokus.max_number'), $sudokusNumber);
-    $images = $solutions = [];
-    foreach ($sudokusList as $sudoku) {
-      $fileName = $sudoku  . config('sudokus.ext');
-      $showName = 'Sudoku ' . $counter;
-      $image = ImageManager::saveSudokuImage($section, $directory, $fileName, $showName);
-
-      $images[] = $image;
-
-      $showName = 'Solution ' . $counter;
-      $solution = ImageManager::saveSudokuImage($section, $directory, $fileName, $showName, true);
-
-      $solutions[] = $solution;
-
-      $counter++;
+    if (!$config) {
+      abort(404);
     }
 
-    $response = array('images' => $images, 'solutions' => $solutions);
-
+    $response = ImageManager::saveLibraryImages($contentData, $section, $config);
     return response()->json($response);
   }
 

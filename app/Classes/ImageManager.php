@@ -47,23 +47,53 @@ class ImageManager
     return false;
   }
 
-  public static function saveSudokuImage($section, $directory, $file_name, $show_name, $solution = false)
+  public static function saveSudokuImage($section, $imageConfig, $solution = false)
   {
     $image = new \App\Image;
-    $image->s3_disk = config('sudokus.s3_folder');
-    $image->s3_directory = $directory;
-    $image->file_name = $file_name;
-    $image->show_name = $show_name;
-    $image->size = config('sudokus.size');;
-    $image->width = config('sudokus.width');
-    $image->height = config('sudokus.height');
-    $image->type = config('sudokus.type');
+    $image->s3_disk = $imageConfig['s3_folder'];
+    $image->s3_directory = $imageConfig['directory'];
+    $image->file_name = $imageConfig['file_name'];
+    $image->show_name = $imageConfig['show_name'];
+    $image->size = $imageConfig['size'];
+    $image->width = $imageConfig['width'];
+    $image->height = $imageConfig['height'];
+    $image->type = $imageConfig['type'];
     $image->solution = $solution;
     $section->content()->save($image);
 
     self::saveS3ImageLocally($image);
 
     return $image;
+  }
+
+  public static function saveLibraryImages($contentData, $section, $config)
+  {
+    $imageConfig = $config;
+    $imageConfig['directory'] = $contentData['directory'];
+    $imagesNumber = $contentData['number'];
+
+    $counter = $section->images->where('s3_disk', $config['s3_folder'])->count() + 1;
+    $imagesList = randomGen(0, $config['max_number'], $imagesNumber);
+    $images = $solutions = [];
+    foreach ($imagesList as $libraryImage) {
+      $imageConfig['file_name'] = $libraryImage  . $config['ext'];
+      $imageConfig['show_name'] = $config['puzzle_name'] . ' ' . $counter;
+      $image = self::saveSudokuImage($section, $imageConfig);
+
+      $images[] = $image;
+
+      if (!empty($config['solutions_folder'])) {
+        $imageConfig['showName'] = $config['solution_name'] . ' ' . $counter;
+        $solution = self::saveSudokuImage($section, $imageConfig, true);
+
+        $solutions[] = $solution;
+      }
+
+      $counter++;
+    }
+
+    $response = array('images' => $images, 'solutions' => $solutions);
+
   }
 
   public static function saveS3ImageLocally($image)

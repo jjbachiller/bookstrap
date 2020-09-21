@@ -32,7 +32,7 @@ Route::post('/sections/delete_image', 'SectionController@deleteSectionImage')->n
 Route::post('/books/sections/update', 'SectionController@updateSections')->name('sections.update');
 Route::post('/sections/update', 'SectionController@updateSection')->name('section.update-section');
 Route::post('/sections/delete', 'SectionController@deleteSection')->name('section.delete-section');
-Route::post('/sections/load_sudokus', 'SectionController@loadSudokuImages')->name('section.load-sudokus');
+Route::post('/sections/load_library_content', 'SectionController@loadLibraryContent')->name('section.load-library-content');
 Route::post('/sections/num_images', 'ProgressController@getSectionNumImages')->name('section.num-images');
 
 Route::post('/preview/getContent', 'ContentController@getPreviewContent')->name('preview.content');

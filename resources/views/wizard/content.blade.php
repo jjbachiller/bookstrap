@@ -342,7 +342,7 @@
 
       @include('wizard.steps.3.preview_jsdr')
 
-      @include('wizard.modal.load_content_jsdr')      
+      @include('wizard.modal.load_content_jsdr')
 
     });
 
