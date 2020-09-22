@@ -59,7 +59,10 @@ class WizardController extends Controller
     $response = array('file_url' => '', 'error' => 0);
     if (is_file($file)) {
       $response['file_url'] = $metaBook->getBookDownloadUrl() . $ext;
+
       $book->save();
+      
+      $book->updatedPagesAndSize();
     } else {
       $response['error'] = 1;
     }

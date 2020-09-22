@@ -92,7 +92,7 @@ class ImageManager
       $counter++;
     }
 
-    $response = array('images' => $images, 'solutions' => $solutions);
+    return array('images' => $images, 'solutions' => $solutions);
 
   }
 

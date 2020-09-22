@@ -34,3 +34,33 @@ $('#addSudokusButton').on('click', function() {
 
   loadContentFromLibrary();
 });
+
+$('#addAkarisButton').on('click', function() {
+  $('#selectedContentType').val("{{ config('content-types.AKARIS') }}");
+
+  loadContentFromLibrary();
+});
+
+$('#addDominosButton').on('click', function() {
+  $('#selectedContentType').val("{{ config('content-types.DOMINOS') }}");
+
+  loadContentFromLibrary();
+});
+
+$('#addFillominosButton').on('click', function() {
+  $('#selectedContentType').val("{{ config('content-types.FILLOMINOS') }}");
+
+  loadContentFromLibrary();
+});
+
+$('#addFutoshikisButton').on('click', function() {
+  $('#selectedContentType').val("{{ config('content-types.FUTOSHIKIS') }}");
+
+  loadContentFromLibrary();
+});
+
+$('#addSikakusButton').on('click', function() {
+  $('#selectedContentType').val("{{ config('content-types.SIKAKUS') }}");
+
+  loadContentFromLibrary();
+});

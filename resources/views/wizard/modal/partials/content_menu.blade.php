@@ -13,7 +13,7 @@
   {{-- end::Sudoku --}}
   {{-- begin::Akari --}}
   <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="sudoku">
+    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="akari">
       <span class="nav-icon py-2 w-auto">
           <img class="mw-50 w-100px" src="{{ asset('media/categories/akari.png') }}">
       </span>
@@ -25,7 +25,7 @@
   {{-- end::Akari --}}
   {{-- begin::Domino --}}
   <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" href="#sudoku_options">
+    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="domino">
       <span class="nav-icon py-2 w-auto">
           <img class="mw-50 w-100px" src="{{ asset('media/categories/domino.png') }}">
       </span>
@@ -37,7 +37,7 @@
   {{-- end::Domino --}}
   {{-- begin::Fillomino --}}
   <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" href="#sudoku_options">
+    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="fillomino">
       <span class="nav-icon py-2 w-auto">
           <img class="mw-50 w-100px" src="{{ asset('media/categories/fillomino.png') }}">
       </span>
@@ -49,7 +49,7 @@
   {{-- end::Fillomino --}}
   {{-- begin::Futoshiki --}}
   <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" href="#sudoku_options">
+    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="futoshiki">
       <span class="nav-icon py-2 w-auto">
           <img class="mw-50 w-100px" src="{{ asset('media/categories/futoshiki.png') }}">
       </span>

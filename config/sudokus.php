@@ -5,7 +5,7 @@ return [
   'puzzles_folder' => '/puzzles/',
   'solutions_folder' => '/solutions/',
   'puzzle_name' => 'Sudoku',
-  'solution_name' => 'Solutions',
+  'solution_name' => 'Solution',
   'ext' => '.png',
   'type' => 'image/png',
   'max_number' => 10000,

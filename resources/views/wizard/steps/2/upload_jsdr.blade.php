@@ -530,15 +530,49 @@ function showProgress(numNewImages, sectionId) {
 
 function getDataForContentType(contentType) {
   var data = { 'content_type': contentType };
+
   switch (contentType) {
     case '{{ config("content-types.SUDOKUS") }}':
 
-        data.directory = $('#sudokusDifficulty').val();
-        data.number = $('#sudokusNumber').val();
-        data.has_solutions = {{ empty(config('sudokus.solutions_folder')) ? 0 : 1 }};
-        break;
+      data.directory = $('#sudokusDifficulty').val();
+      data.number = $('#sudokusNumber').val();
+      data.has_solutions = {{ empty(config('sudokus.solutions_folder')) ? 0 : 1 }};
+      break;
 
     case '{{ config("content-types.SIKAKUS") }}':
+
+      data.directory = $('#sikakusDifficulty').val();
+      data.number = $('#sikakusNumber').val();
+      data.has_solutions = {{ empty(config('sikakus.solutions_folder')) ? 0 : 1 }};
+      break;
+
+    case '{{ config("content-types.DOMINOS") }}':
+
+      data.directory = $('#dominosDifficulty').val();
+      data.number = $('#dominosNumber').val();
+      data.has_solutions = {{ empty(config('dominos.solutions_folder')) ? 0 : 1 }};
+      break;
+
+    case '{{ config("content-types.FILLOMINOS") }}':
+
+      data.directory = $('#fillominosDifficulty').val();
+      data.number = $('#fillominosNumber').val();
+      data.has_solutions = {{ empty(config('fillominos.solutions_folder')) ? 0 : 1 }};
+      break;
+
+    case '{{ config("content-types.FUTOSHIKIS") }}':
+
+      data.directory = $('#futoshikisDifficulty').val();
+      data.number = $('#futoshikisNumber').val();
+      data.has_solutions = {{ empty(config('futoshiki.solutions_folder')) ? 0 : 1 }};
+      alert("Incomplete solutions :o!");
+      break;
+
+    case '{{ config("content-types.AKARIS") }}':
+
+      data.directory = $('#akarisDifficulty').val();
+      data.number = $('#akarisNumber').val();
+      data.has_solutions = {{ empty(config('akaris.solutions_folder')) ? 0 : 1 }};
       break;
   }
   return data;
@@ -579,6 +613,7 @@ function addContent(sectionIndex, sectionId) {
       for (var index in images) {
         var image = images[index];
         var imageData = {'name': image.show_name, 'size': image.size, 'type': image.type};
+
         sectionDropzone.displayExistingFile(imageData, image.url);
         // Add to the dropZone files array (so you can delete all).
         sectionDropzone.files.push(imageData);
