@@ -6,8 +6,8 @@
     RewriteEngine On
 
     # www redirected to domain without www
-    RewriteRule ^(.*)$ https://www.bookstrap.io [NC]
-    RewriteCond %{HTTP_HOST} ^bookstrap.io/$1 [L,R=301]
+    RewriteCond %{HTTP_HOST} ^www.bookstrap.io [NC]
+    RewriteRule ^(.*)$ https://bookstrap.io/$1 [L,R=301]
 
 
     # redirect old subdomain project to new domain
