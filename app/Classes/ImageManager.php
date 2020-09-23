@@ -47,7 +47,7 @@ class ImageManager
     return false;
   }
 
-  public static function saveSudokuImage($section, $imageConfig, $solution = false)
+  public static function saveLibraryImage($section, $imageConfig, $solution = false)
   {
     $image = new \App\Image;
     $image->s3_disk = $imageConfig['s3_folder'];
@@ -78,13 +78,13 @@ class ImageManager
     foreach ($imagesList as $libraryImage) {
       $imageConfig['file_name'] = $libraryImage  . $config['ext'];
       $imageConfig['show_name'] = $config['puzzle_name'] . ' ' . $counter;
-      $image = self::saveSudokuImage($section, $imageConfig);
+      $image = self::saveLibraryImage($section, $imageConfig);
 
       $images[] = $image;
 
       if (!empty($config['solutions_folder'])) {
-        $imageConfig['showName'] = $config['solution_name'] . ' ' . $counter;
-        $solution = self::saveSudokuImage($section, $imageConfig, true);
+        $imageConfig['show_name'] = $config['solution_name'] . ' ' . $counter;
+        $solution = self::saveLibraryImage($section, $imageConfig, true);
 
         $solutions[] = $solution;
       }
