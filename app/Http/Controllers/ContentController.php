@@ -43,7 +43,14 @@ class ContentController extends Controller
       abort(404);
     }
 
-    return response()->file($file);
+    // return response()->file($file);
+
+
+    $headers = array('Content-Type' => $image->type);
+    //return the image file
+    $response = response()->download($file,$image->show_name,$headers);
+    ob_end_clean();
+    return $response;
   }
 
   public function getPreviewImage($imageId)

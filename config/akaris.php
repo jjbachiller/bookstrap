@@ -1,4 +1,4 @@
- <?php
+<?php
 
 return [
   's3_folder' => '/akari/',
