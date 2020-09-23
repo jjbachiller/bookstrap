@@ -5,6 +5,15 @@
 
     RewriteEngine On
 
+    # www redirected to domain without www
+    RewriteCond %{HTTP_HOST} !localhost
+    RewriteCond %{HTTP_HOST} !^(.+)\.(.+)\.(.+)
+    RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [L,R=301]
+
+    # redirect old subdomain project to new domain
+    RewriteCond %{HTTP_HOST} ^bookstrap.elvendelibros.com$
+    RewriteRule (.*)$ https://bookstrap.io/$1 [R=301,L]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
