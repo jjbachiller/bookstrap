@@ -299,9 +299,10 @@
       // Wizard config and requests logic
       $("#smartwizard").on("leaveStep", function(e, anchorObject, currentStepIndex, stepDirection) {
         switch (currentStepIndex) {
-          case 0:
-            updateBookOptions(false);
-            break;
+          // If run this, sections options not loaded will be deleted from database.
+          // case 0:
+          //   updateBookOptions(false);
+          //   break;
           case 1:
             // Update sections with a method on the upload_jsdr.
             sendSectionsUpdate();

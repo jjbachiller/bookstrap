@@ -108,7 +108,7 @@
             <div class="col">
               <label class="addTitleHeaderLabel text-muted">Add title as:</label>
               <br>
-              <div class="btn-group btn-group-toggle toggle-primary" data-toggle="buttons" id="section-title-as">
+              <div class="btn-group btn-group-toggle toggle-primary section-title-as" data-toggle="buttons">
                 <label class="btn btn-outline-secondary">
                   <input type="radio" name="options" id="option1" autocomplete="off" value="{{ config('bookstrap-constants.sectionTitle.PAGE') }}"> Section 1st page
                 </label>
@@ -245,7 +245,7 @@
           <input type="text" class="form-control section-title-solutions-input" id="sectionTitleSolution1" aria-describedby="Header text" maxlength="60" placeholder="Solutions title">
           <label class="addTitleHeaderSolutionLabel text-muted">Add solutions title as:</label>
           <br>
-          <div class="btn-group btn-group-toggle toggle-success" data-toggle="buttons" id="solutions-title-as">
+          <div class="btn-group btn-group-toggle toggle-success solutions-title-as" data-toggle="buttons">
             <label class="btn btn-outline-secondary">
               <input type="radio" name="options" id="option1" autocomplete="off" value="{{ config('bookstrap-constants.sectionTitle.PAGE') }}"> Solutions 1st page
             </label>

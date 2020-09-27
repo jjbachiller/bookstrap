@@ -13,7 +13,7 @@ return [
   'height' => 1823,
   'size' => 120000,
   'difficulties' => [
-    'grid8x8' => '8x8 Grid',
+    '8x8-Grid1-D1' => '8x8 Grid',
   ],
   'addGroups' => [
     10, 25, 50, 100, 150, 200

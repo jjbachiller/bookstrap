@@ -42,6 +42,7 @@ Route::get('/content/{size}/{id}', 'ContentController@getImage')->name('get.cont
 // Route::get('/content/{bookUid}/{section}/{size}/{image}', 'ContentController@getContent')->name('get.content');
 // Route::get('/content/{bookUid}/{section}/solutions/{size}/{image}', 'ContentController@getSolutionsContent')->name('get.solutions-content');
 Route::get('/book/{bookUid}/{date}/{book}', 'BookController@download')->name('get.book');
+Route::post('/book/clone', 'CloneController@cloneBook')->name('book.clone');
 
 Route::get('/login', 'AuthenticationController@showLogin')
   ->name('login.form')

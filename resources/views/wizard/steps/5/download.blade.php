@@ -46,7 +46,7 @@
 
       <div class="bg-light-primary px-6 py-8 rounded-xl mb-7 text-center w-25 text-primary font-size-lg">
         <strong>Go to your Dashboard</strong><br>
-        <a href="{{ route('dashboard') }}" class="btn btn-primary text-light-primary font-weight-bold font-size-h6 mt-2" id="restart_wizard">
+        <a href="{{ route('dashboard') }}" class="btn btn-primary text-light-primary font-weight-bold font-size-h6 mt-2" id="dashboard_button">
           <i class="icon-xl fas fa-tachometer-alt text-light-primary"></i>
           Dashboard
         </a>
@@ -54,10 +54,10 @@
 
       <div class="bg-light-info px-6 py-8 rounded-xl mb-7 text-center w-25 text-info font-size-lg">
         <strong>Create another book</strong><br>
-        <button class="btn btn-info restart_wizard text-light-info font-weight-bold font-size-h6 mt-2" id="restart_wizard" type="button">
+        <a href="{{ route('books.wizard') }}" class="btn btn-info text-light-info font-weight-bold font-size-h6 mt-2" id="new_book_button">
           <i class="icon-xl fas fa-book-medical text-light-info"></i>
           New book
-        </button>
+        </a>
       </div>
     </div>
 

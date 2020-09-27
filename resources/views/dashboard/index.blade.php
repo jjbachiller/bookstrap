@@ -143,7 +143,7 @@
                           </div>
                         </td>
                         <td class="pl-0">
-                          <a href="{{ route('books.edit', $book->id) }}" target="_blank">
+                          <a href="{{ route('books.edit', $book->id) }}" class="bookNameLink" target="_blank">
                             @if ($book->name)
                               {{ $book->name }}
                             @else
@@ -196,8 +196,8 @@
                           <a href="{{ route('books.edit', $book->id) }}" class="btn btn-icon btn-light btn-hover-primary btn-sm">
                             <i class="icon-xl far fa-edit text-primary"></i>
                           </a>
-                          <a href="#" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
-                            <i class="icon-xl fas fa-clone text-muted"></i>
+                          <a href="#" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 cloneThisBook" data={{ $book->id }} data-toggle="modal" data-target="#cloneBook">
+                            <i class="icon-xl fas fa-clone text-primary"></i>
                           </a>
                           <a href="#" class="btn btn-icon btn-light btn-hover-primary btn-sm" onclick="if(confirm('Delete this book?')){document.getElementById('delete-book-{{ $book->id }}').submit();return false;}">
                             <i class="icon-xl fas fa-trash-alt text-primary"></i>
@@ -237,6 +237,7 @@
     </div>
   </div>
 
+  @include('dashboard.modal.clone_book')
 
 @endsection
 
@@ -352,6 +353,42 @@
 
       var chart = new ApexCharts(document.querySelector("#chart"), options);
       chart.render();
+
+      $('.cloneThisBook').on('click', function() {
+        var bookId = $(this).attr('data');
+        var bookNameLink = $(this).closest('tr').find('.bookNameLink');
+        // if book has no name, we set the new name to an empty string
+        var bookName = bookNameLink.children().length > 0 ? '' : bookNameLink.html().trim() + ' Clone';
+
+        $('#originalBookId').val(bookId);
+        $('#cloneBookName').val(bookName);
+      });
+
+      // On show modal
+      $('#cloneBook').on('shown.bs.modal', function() {
+        $('#cloneBookName').focus().select();
+      });
+
+      $('#cloneBookButton').on('click', function() {
+        // Show circle for waiting till the book is cloned.
+
+        var data = {
+          _token: "{{ csrf_token() }}",
+          id: $('#originalBookId').val(),
+          name: $('#cloneBookName').val(),
+        }
+
+        $.ajax({
+          type: "POST",
+          url: "{{ route('book.clone') }}",
+          dataType: 'json',
+          data: data,
+          success: function(response) {
+            console.log('Book cloned successfuly');
+            // Show buttons for close modal or edit cloned book
+          },
+        });
+      });
     });
   </script>
 

@@ -5,6 +5,13 @@ var firstLoad = true;
 // Load Book content from server and generate book
 function loadPreviewContent() {
 
+  KTApp.blockPage({
+    overlayColor: '#000',
+    state: 'info',
+    message: 'Loading preview content. Please wait...',
+    opacity: 0.15,
+  });
+
   $.ajax({
     type: "POST",
     url : "{{ route('preview.content') }}",
@@ -611,6 +618,9 @@ function generateBookSlider(blank = false) {
   });
 
   $('#bookPagination').addClass('Initialized');
+
+  // When the preview book is generated, unlock the interface.
+  KTApp.unblockPage('#smartwizard');
 }
 
 function initSizeSlider() {

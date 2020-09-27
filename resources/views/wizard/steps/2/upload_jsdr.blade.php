@@ -91,16 +91,16 @@ function addNewSection(section = []) {
       newSection.find('.section-button').text(section['title']);
       if ((typeof section['header'] !== 'undefined')
         && (section['header'] !== null)) {
-        $('#section-title-as .btn input[value=' + {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }} + ']').click();
+        newSection.find('.section-title-as .btn input[value=' + {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }} + ']').click();
       } else {
-        $('#section-title-as .btn input[value=' + {{ config('bookstrap-constants.sectionTitle.PAGE') }} + ']').click();
+        newSection.find('.section-title-as .btn input[value=' + {{ config('bookstrap-constants.sectionTitle.PAGE') }} + ']').click();
       }
   } else if ((typeof section['header'] !== 'undefined')
     && (section['header'] !== null)) {
       newSection.find(".addSectionTitle").prop('checked', true).change();
       newSection.find(".section-title-input").val(section['header']);
       newSection.find('.section-button').text(section['header']);
-      $('#section-title-as .btn input[value=' + {{ config('bookstrap-constants.sectionTitle.HEADER') }} + ']').click();
+      newSection.find('.section-title-as .btn input[value=' + {{ config('bookstrap-constants.sectionTitle.HEADER') }} + ']').click();
   }
 
   if (typeof section['image_name_as_title'] !== 'undefined') {
@@ -122,15 +122,15 @@ function addNewSection(section = []) {
       newSection.find(".section-title-solutions-input").val(section['solutions_title']);
       newSection.find(".solutions-content div.alert").text(section['solutions_title']);
       if (section['solutions_header'] !== null) {
-        $('#solutions-title-as .btn input[value=' + {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }} + ']').click();
+        newSection.find('.solutions-title-as .btn input[value=' + {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }} + ']').click();
       } else {
-        $('#solutions-title-as .btn input[value=' + {{ config('bookstrap-constants.sectionTitle.PAGE') }} + ']').click();
+        newSection.find('.solutions-title-as .btn input[value=' + {{ config('bookstrap-constants.sectionTitle.PAGE') }} + ']').click();
       }
     } else if (section['solutions_header'] !== null) {
       newSection.find(".addSolutionTitle").prop('checked', true).change();
       newSection.find(".section-title-solutions-input").val(section['solutions_header']);
       newSection.find(".solutions-content div.alert").text(section['solutions_header']);
-      $('#solutions-title-as .btn input[value=' + {{ config('bookstrap-constants.sectionTitle.HEADER') }} + ']').click();
+      newSection.find('.solutions-title-as .btn input[value=' + {{ config('bookstrap-constants.sectionTitle.HEADER') }} + ']').click();
     }
 
     if (typeof section['solutions_name_as_title'] !== 'undefined') {
@@ -225,7 +225,7 @@ function currentSectionData(sectionIndex) {
   section.folder = currentSection.find("input.section-index").val();
   section.addTitle = currentSection.find(".addSectionTitle").is(':checked');
   var sectionTitle = currentSection.find(".section-title-input").val();
-  var titleAs = currentSection.find('#section-title-as').find('.active').find('input').val();
+  var titleAs = currentSection.find('.section-title-as').find('.active').find('input').val();
   section.title = (titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE') }} | titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? sectionTitle : '';
   section.titleHeader = (titleAs == {{ config('bookstrap-constants.sectionTitle.HEADER') }} | titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? sectionTitle : '';
   section.imageNameAsTitle = currentSection.find(".imageNameAsTitle").is(':checked');
@@ -233,7 +233,7 @@ function currentSectionData(sectionIndex) {
   // Solutions fields
   section.addSolutionsTitle = currentSection.find(".addSolutionTitle").is(':checked');
   var solutionsTitle = currentSection.find(".section-title-solutions-input").val();
-  var solutionsTitleAs = currentSection.find('#solutions-title-as').find('.active').find('input').val();
+  var solutionsTitleAs = currentSection.find('.solutions-title-as').find('.active').find('input').val();
   section.solutionsTitle = (solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.PAGE') }} | solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? solutionsTitle : '';
   section.solutionsHeader = (solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.HEADER') }} | solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? solutionsTitle : '';
   section.solutionNameAsTitle = currentSection.find(".imageNameAsTitleSolution").is(':checked');
@@ -479,6 +479,39 @@ $('.toggleSolutionsOptions').on('click', function() {
   addNewSection();
 @endisset
 
+// Begin ::::> Update section data on realtime (if section exists).
+
+function updateSectionOnChange(changedElement) {
+  var sectionIndex = changedElement.closest('.section-block').find('.section-index').val();
+  var affectedSection = currentSectionData(sectionIndex);
+
+  // Update or create the section data
+  $.ajax({
+    type: "POST",
+    url: "{{ route('section.update-section') }}",
+    dataType: 'json',
+    data: JSON.stringify({'section-data': affectedSection}),
+    success: function(response) {
+      updateSectionId(sectionIndex, response.id);
+    }
+  });
+}
+
+$(".imagesPerPage").bind('change', function() { updateSectionOnChange($(this)) } );
+$(".addSectionTitle").on('change', function() { updateSectionOnChange($(this)) } );
+$(".section-title-input").on('change', function() { updateSectionOnChange($(this)) } );
+$(".section-title-as").on('change', function() { updateSectionOnChange($(this)) } );
+$(".imageNameAsTitle").on('change', function() { updateSectionOnChange($(this)) } );
+$(".addSolutions").on('change', function() { updateSectionOnChange($(this)) } );
+
+$(".solutionsPerPage").on('change', function() { updateSectionOnChange($(this)) } );
+$(".addSolutionTitle").on('change', function() { updateSectionOnChange($(this)) } );
+$(".section-title-solutions-input").on('change', function() { updateSectionOnChange($(this)) } );
+$(".solutions-title-as").on('change', function() { updateSectionOnChange($(this)) } );
+$(".imageNameAsTitleSolution").on('change', function() { updateSectionOnChange($(this)) } );
+$(".placeSolutionsAtTheEnd").on('change', function() { updateSectionOnChange($(this)) } );
+
+// End ::::> Update section data
 
 // Begin ::::> Load content from library functions
 
