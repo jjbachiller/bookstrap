@@ -384,7 +384,8 @@
           dataType: 'json',
           data: data,
           success: function(response) {
-            console.log('Book cloned successfuly');
+            console.log('Book cloned successfuly, you can edit it at:');
+            console.log(response.editUrl);
             // Show buttons for close modal or edit cloned book
           },
         });

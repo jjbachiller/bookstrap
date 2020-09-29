@@ -175,6 +175,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        // Model cloner
+        Bkwld\Cloner\ServiceProvider::class,
 
     ],
 
@@ -230,7 +232,7 @@ return [
 
         // Metronic Aliases
         'Metronic' => App\Classes\Theme\Metronic::class,
-        'Menu' => App\Classes\Theme\Menu::class,        
+        'Menu' => App\Classes\Theme\Menu::class,
 
     ],
 

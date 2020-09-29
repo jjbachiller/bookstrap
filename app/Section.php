@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Auth;
 
 class Section extends Model
 {
+
+    use \Bkwld\Cloner\Cloneable;
+
+    protected $cloneable_relations = ['content'];
+
     // Book which contains the section
     public function book()
     {

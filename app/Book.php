@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class Book extends Model
 {
+    use \Bkwld\Cloner\Cloneable;
+
+    protected $cloneable_relations = ['sections'];
+    protected $clone_exempt_attributes = ['uid', 'name'];
+
     // Owner of the book
     public function user()
     {
@@ -18,6 +23,11 @@ class Book extends Model
     public function sections()
     {
       return $this->hasMany('App\Section')->orderBy('order');;
+    }
+
+
+    public function onCloning($src, $child = null) {
+        $this->uid = uniqid();
     }
 
     public function scopeWithContent($query)
