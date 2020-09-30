@@ -23,14 +23,20 @@ class CloneController extends Controller
       $userPath = config('bookstrap-constants.uploads_path');
       $userPath.= Auth::user()->uid . '/';
       $clonedPath = $userPath . $clonedBook->uid;
-      $entro = false;
       if(Storage::exists($clonedPath)) {
-        $entro = true;
         $newPath = $userPath . $newBook->uid;
-        File::copyDirectory(Storage::path($clonedPath), Storage::path($newPath));
-        //Movida, no se puede hacer así, las secciones se guardan por el id y este cambia al clonar
-        // Quizás ordenando por id en el book clonado y en el nuevo y creando directorios y clonando
-        // El contenido... habrá que probarlo.
+        // Cloned sections content (ordered by order, sections has same order in both books)
+        $clonedSections = $clonedBook->sections;
+        $newSections = $newBook->sections;
+        foreach ($clonedSections as $id => $clonedSection) {
+          $newSection = $newSections[$id];
+          $clonedSectionPath = $clonedPath . '/' . $clonedSection->id . '/';
+          // If folder exists, section has local images uploaded
+          if (Storage::exists($clonedSectionPath)) {
+            $newSectionPath = $newPath . '/' . $newSection->id . '/';
+            File::copyDirectory(Storage::path($clonedSectionPath), Storage::path($newSectionPath));
+          }
+        }
       }
 
       $editUrl = route('books.edit', $newBook->id);
