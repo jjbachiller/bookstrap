@@ -1,7 +1,7 @@
 <?php
 
 return [
- 's3_folder' => '/fillomino/',
+ 's3_folder' => '/japanesepuzzles/fillomino/',
  'puzzles_folder' => '/puzzles/',
  'solutions_folder' => '/solutions/',
  'puzzle_name' => 'Fillomino',

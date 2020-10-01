@@ -1,7 +1,7 @@
 <?php
 
 return [
- 's3_folder' => '/domino/',
+ 's3_folder' => '/japanesepuzzles/domino/',
  'puzzles_folder' => '/puzzles/',
  'solutions_folder' => '/solutions/',
  'puzzle_name' => 'Domino',
@@ -15,7 +15,7 @@ return [
  'difficulties' => [
    'size3' => 'Size 3',
    'size4' => 'Size 4',
-   'size5' => 'Size 5',      
+   'size5' => 'Size 5',
  ],
  'addGroups' => [
    10, 25, 50, 100, 150, 200

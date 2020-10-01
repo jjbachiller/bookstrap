@@ -196,7 +196,7 @@
                           <a href="{{ route('books.edit', $book->id) }}" class="btn btn-icon btn-light btn-hover-primary btn-sm">
                             <i class="icon-xl far fa-edit text-primary"></i>
                           </a>
-                          <a href="#" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 cloneThisBook" data={{ $book->id }} data-toggle="modal" data-target="#cloneBook">
+                          <a href="#" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 cloneThisBook" data={{ $book->id }} data-toggle="modal" data-target="#cloneBookModal">
                             <i class="icon-xl fas fa-clone text-primary"></i>
                           </a>
                           <a href="#" class="btn btn-icon btn-light btn-hover-primary btn-sm" onclick="if(confirm('Delete this book?')){document.getElementById('delete-book-{{ $book->id }}').submit();return false;}">
@@ -365,12 +365,16 @@
       });
 
       // On show modal
-      $('#cloneBook').on('shown.bs.modal', function() {
+      $('#cloneBookModal').on('shown.bs.modal', function() {
         $('#cloneBookName').focus().select();
       });
 
       $('#cloneBookButton').on('click', function() {
+        // Hide modal button
+        $('.modal-footer').addClass('d-none');
+        $('#clonedName').addClass('d-none');
         // Show circle for waiting till the book is cloned.
+        $('#clonedWait').removeClass('d-none');
 
         var data = {
           _token: "{{ csrf_token() }}",
@@ -384,12 +388,21 @@
           dataType: 'json',
           data: data,
           success: function(response) {
-            console.log('Book cloned successfuly, you can edit it at:');
-            console.log(response.editUrl);
             // Show buttons for close modal or edit cloned book
+            $("#editClonedBook").attr('href', response.editUrl);
+            $('#clonedWait').addClass('d-none');
+            $('#clonedActions').removeClass('d-none');
           },
         });
       });
+
+      $('#cloneBookModal').on('hidden.bs.modal', function () {
+        $('#clonedName').removeClass('d-none');
+        $('.modal-footer').removeClass('d-none');
+        $('#clonedWait').addClass('d-none');
+        $('#clonedActions').addClass('d-none');
+      });
+
     });
   </script>
 
