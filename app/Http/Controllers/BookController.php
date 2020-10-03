@@ -50,7 +50,7 @@ class BookController extends Controller
       $fileInfo = pathinfo($file);
       $contentType = ('.'.$fileInfo['extension'] == config('bookstrap-constants.PDF_EXTENSION')) ? config('bookstrap-constants.PDF_CONTENT_TYPE'):config('bookstrap-constants.PPT_CONTENT_TYPE');
       $headers = array('Content-Type' => $contentType);
-      $response = response()->download($file,$fileInfo['filename'],$headers);
+      $response = response()->download($file,$fileInfo['basename'],$headers);
       ob_end_clean();
       return $response;
     }
