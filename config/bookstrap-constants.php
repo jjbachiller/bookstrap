@@ -116,6 +116,8 @@ return [
   'PPT' => 2,
   'PDF_EXTENSION' => '.pdf',
   'PPT_EXTENSION' => '.pptx',
+  'PDF_CONTENT_TYPE' => 'application/pdf';
+  'PPT_CONTENT_TYPE' => 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
   'NUM_BOOKS_PAGINATION' => 10,
   'NUM_IMAGES_PRELOADED' => 2,
 ];

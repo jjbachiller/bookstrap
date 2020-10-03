@@ -46,8 +46,13 @@ class BookController extends Controller
       if (!is_file($file)) {
         abort(404);
       }
-      return response()->file($file);
-
+      //return response()->file($file);
+      $fileInfo = pathinfo($file);
+      $contentType = ('.'.$fileInfo['extension'] == config('bookstrap-constants.PDF_EXTENSION')) ? config('bookstrap-constants.PDF_CONTENT_TYPE'):config('bookstrap-constants.PPT_CONTENT_TYPE');
+      $headers = array('Content-Type' => $contentType);
+      $response = response()->download($file,$fileInfo['filename'],$headers);
+      ob_end_clean();
+      return $response;
     }
 
     /**
