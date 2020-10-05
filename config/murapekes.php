@@ -1,10 +1,10 @@
 <?php
 
 return [
-  's3_folder' => '/japanese/akari/',
+  's3_folder' => '/japanese/murapeke/',
   'puzzles_folder' => '/puzzles/',
   'solutions_folder' => '/solutions/',
-  'puzzle_name' => 'Akari',
+  'puzzle_name' => 'Murapeke',
   'solution_name' => 'Solution',
   'ext' => '.png',
   'type' => 'image/png',
@@ -13,9 +13,12 @@ return [
   'height' => 1823,
   'size' => 120000,
   'difficulties' => [
-    '8x8-Grid1-D1' => '8x8 Grid 1',
-    '8x8-Grid2-D1' => '8x8 Grid 2',
-    '10x10-Grid3-D1' => '10x10 Grid 3',
+    '5x5' => '5 x 5 Grid',
+    '6x6' => '6 x 6 Grid',
+    '7x7' => '7 x 7 Grid',
+    '8x8' => '8 x 8 Grid',
+    '9x9' => '9 x 9 Grid',
+    '10x20' => '10 x 10 Grid',            
   ],
   'addGroups' => [
     10, 25, 50, 100, 150, 200

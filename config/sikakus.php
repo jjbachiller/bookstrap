@@ -1,7 +1,7 @@
  <?php
 
 return [
-  's3_folder' => '/japanesepuzzles/sikaku/',
+  's3_folder' => '/japanese/sikaku/',
   'puzzles_folder' => '/puzzles/',
   'solutions_folder' => '/solutions/',
   'puzzle_name' => 'Sikaku',
@@ -13,6 +13,11 @@ return [
   'height' => 1823,
   'size' => 120000,
   'difficulties' => [
+    'grid5x5' => '5x5 Grid',
+    'grid6x6' => '6x6 Grid',
+    'grid7x7' => '7x7 Grid',
+    'grid8x8' => '8x8 Grid',
+    'grid9x9' => '9x9 Grid',
     'grid10x10' => '10x10 Grid',
     'grid11x11' => '11x11 Grid',
     'grid12x12' => '12x12 Grid',

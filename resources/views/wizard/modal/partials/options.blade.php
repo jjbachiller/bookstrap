@@ -23,6 +23,36 @@
   @include('wizard.modal.partials.forms.futoshiki')
 </div>
 {{-- end::Futoshiki --}}
+{{-- begin::Gokigen --}}
+<div class="library-pane justify-content-center align-self-center w-100 d-none" id="gokigen" role="tabpanel" aria-labelledby="gokigen-tab">
+  @include('wizard.modal.partials.forms.gokigen')
+</div>
+{{-- end::Gokigen --}}
+{{-- begin::Kakuro --}}
+<div class="library-pane justify-content-center align-self-center w-100 d-none" id="kakuro" role="tabpanel" aria-labelledby="kakuro-tab">
+  @include('wizard.modal.partials.forms.kakuro')
+</div>
+{{-- end::Kakuro --}}
+{{-- begin::Kendoku --}}
+<div class="library-pane justify-content-center align-self-center w-100 d-none" id="kendoku" role="tabpanel" aria-labelledby="kendoku-tab">
+  @include('wizard.modal.partials.forms.kendoku')
+</div>
+{{-- end::Kendoku --}}
+{{-- begin::Minesweeper --}}
+<div class="library-pane justify-content-center align-self-center w-100 d-none" id="minesweeper" role="tabpanel" aria-labelledby="minesweeper-tab">
+  @include('wizard.modal.partials.forms.minesweeper')
+</div>
+{{-- end::Minesweeper --}}
+{{-- begin::Murapeke --}}
+<div class="library-pane justify-content-center align-self-center w-100 d-none" id="murapeke" role="tabpanel" aria-labelledby="murapeke-tab">
+  @include('wizard.modal.partials.forms.murapeke')
+</div>
+{{-- end::Murapeke --}}
+{{-- begin::Roundabouts --}}
+<div class="library-pane justify-content-center align-self-center w-100 d-none" id="roundabout" role="tabpanel" aria-labelledby="roundabout-tab">
+  @include('wizard.modal.partials.forms.roundabout')
+</div>
+{{-- end::Roundabouts --}}
 {{-- begin::Sikaku --}}
 <div class="library-pane justify-content-center align-self-center w-100 d-none" id="sikaku" role="tabpanel" aria-labelledby="sikaku-tab">
   @include('wizard.modal.partials.forms.sikaku')

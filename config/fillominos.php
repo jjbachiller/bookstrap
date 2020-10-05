@@ -1,10 +1,10 @@
 <?php
 
 return [
- 's3_folder' => '/japanesepuzzles/fillomino/',
+ 's3_folder' => '/japanese/fiilomino/',
  'puzzles_folder' => '/puzzles/',
  'solutions_folder' => '/solutions/',
- 'puzzle_name' => 'Fillomino',
+ 'puzzle_name' => 'Fiilomino',
  'solution_name' => 'Solution',
  'ext' => '.png',
  'type' => 'image/png',
@@ -13,7 +13,7 @@ return [
  'height' => 1823,
  'size' => 120000,
  'difficulties' => [
-   //Is empty? --> '5x5' => '5x5 Grid',
+   '5x5' => '5x5 Grid',
    '6x6' => '6x6 Grid',
    '7x7' => '7x7 Grid',
    '8x8' => '8x8 Grid',

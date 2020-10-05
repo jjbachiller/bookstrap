@@ -1,10 +1,16 @@
 <?php
 
 return [
-  'SUDOKUS' => 'sudokus',
   'AKARIS' => 'akaris',
   'DOMINOS' => 'dominos',
   'FILLOMINOS' => 'fillominos',
-  'FUTOSHIKIS' => 'futoshikis',        
+  'FUTOSHIKIS' => 'futoshikis',
+  'GOKIGENS' => 'gokigens',
+  'KAKUROS' => 'kakuros',
+  'KENDOKUS' => 'kendokus',
+  'MINESWEEPERS' => 'minesweepers',
+  'MURAPEKES' => 'murapekes',
+  'ROUNDABOUTS' => 'roundabouts',                    
   'SIKAKUS' => 'sikakus',
+  'SUDOKUS' => 'sudokus',
 ];

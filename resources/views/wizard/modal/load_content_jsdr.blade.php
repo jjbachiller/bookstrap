@@ -59,6 +59,42 @@ $('#addFutoshikisButton').on('click', function() {
   loadContentFromLibrary();
 });
 
+$('#addGokigensButton').on('click', function() {
+  $('#selectedContentType').val("{{ config('content-types.GOKIGENS') }}");
+
+  loadContentFromLibrary();
+});
+
+$('#addKakurosButton').on('click', function() {
+  $('#selectedContentType').val("{{ config('content-types.KAKUROS') }}");
+
+  loadContentFromLibrary();
+});
+
+$('#addKendokusButton').on('click', function() {
+  $('#selectedContentType').val("{{ config('content-types.KENDOKUS') }}");
+
+  loadContentFromLibrary();
+});
+
+$('#addMinesweepersButton').on('click', function() {
+  $('#selectedContentType').val("{{ config('content-types.MINESWEEPERS') }}");
+
+  loadContentFromLibrary();
+});
+
+$('#addMurapekesButton').on('click', function() {
+  $('#selectedContentType').val("{{ config('content-types.MURAPEKES') }}");
+
+  loadContentFromLibrary();
+});
+
+$('#addRoundaboutsButton').on('click', function() {
+  $('#selectedContentType').val("{{ config('content-types.ROUNDABOUTS') }}");
+
+  loadContentFromLibrary();
+});
+
 $('#addSikakusButton').on('click', function() {
   $('#selectedContentType').val("{{ config('content-types.SIKAKUS') }}");
 

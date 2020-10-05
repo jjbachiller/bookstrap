@@ -61,7 +61,7 @@
   {{-- end::Futoshiki --}}
   {{-- begin::Gokigen --}}
   <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" href="#sudoku_options">
+    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="gokigen">
       <span class="nav-icon py-2 w-auto">
           <img class="mw-50 w-100px" src="{{ asset('media/categories/gokigen.png') }}">
       </span>
@@ -87,37 +87,25 @@
   {{-- end::Sikaku --}}
   {{-- begin::Kakuro --}}
   <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="coming_soon">
+    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="kakuro">
       <span class="nav-icon py-2 w-auto">
-          <img class="mw-50 w-100px" src="{{ asset('media/categories/kakuro-muted.png') }}">
+          <img class="mw-50 w-100px" src="{{ asset('media/categories/kakuro.png') }}">
       </span>
       <span class="nav-text font-size-lg py-2 font-weight-bold text-center">
         Kakuro
       </span>
-      <div class="row align-items-start w-100">
-        <span class="label pulse pulse-info mr-1">
-            <span class="pulse-ring"></span>
-        </span>
-        <span class="label label-info label-inline mr-1">Coming soon</span>
-      </div>
     </a>
   </li>
   {{-- end::Kakuro --}}
   {{-- begin::Kendoku --}}
   <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="coming_soon">
+    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="kendoku">
       <span class="nav-icon py-2 w-auto">
-          <img class="mw-50 w-100px" src="{{ asset('media/categories/kendoku-muted.png') }}">
+          <img class="mw-50 w-100px" src="{{ asset('media/categories/kendoku.png') }}">
       </span>
       <span class="nav-text font-size-lg py-2 font-weight-bold text-center">
         Kendoku
       </span>
-      <div class="row align-items-start w-100">
-        <span class="label pulse pulse-info mr-1">
-            <span class="pulse-ring"></span>
-        </span>
-        <span class="label label-info label-inline mr-1">Coming soon</span>
-      </div>
     </a>
   </li>
   {{-- end::Kendoku --}}
@@ -141,37 +129,25 @@
   {{-- end::Ksudoku --}}
   {{-- begin::Minesweeper --}}
   <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="coming_soon">
+    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="minesweeper">
       <span class="nav-icon py-2 w-auto">
-          <img class="mw-50 w-100px" src="{{ asset('media/categories/minesweeper-muted.png') }}">
+          <img class="mw-50 w-100px" src="{{ asset('media/categories/minesweeper.png') }}">
       </span>
       <span class="nav-text font-size-lg py-2 font-weight-bold text-center">
-        Mine Sweeper
+        Minesweeper
       </span>
-      <div class="row align-items-start w-100">
-        <span class="label pulse pulse-info mr-1">
-            <span class="pulse-ring"></span>
-        </span>
-        <span class="label label-info label-inline mr-1">Coming soon</span>
-      </div>
     </a>
   </li>
   {{-- end::Minesweeper --}}
   {{-- begin::Murapeke --}}
   <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="coming_soon">
+    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="murapeke">
       <span class="nav-icon py-2 w-auto">
-          <img class="mw-50 w-100px" src="{{ asset('media/categories/murapeke-muted.png') }}">
+          <img class="mw-50 w-100px" src="{{ asset('media/categories/murapeke.png') }}">
       </span>
       <span class="nav-text font-size-lg py-2 font-weight-bold text-center">
         Murapeke
       </span>
-      <div class="row align-items-start w-100">
-        <span class="label pulse pulse-info mr-1">
-            <span class="pulse-ring"></span>
-        </span>
-        <span class="label label-info label-inline mr-1">Coming soon</span>
-      </div>
     </a>
   </li>
   {{-- end::Murapeke --}}
@@ -179,19 +155,13 @@
 <ul class="dashboard-tabs nav nav-pills nav-light-primary row row-paddingless m-0 p-0 flex-column flex-sm-row" role="tablist">
   {{-- begin::Roundabouts --}}
   <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="coming_soon">
+    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="roundabout">
       <span class="nav-icon py-2 w-auto">
-          <img class="mw-50 w-100px" src="{{ asset('media/categories/roundabout-muted.png') }}">
+          <img class="mw-50 w-100px" src="{{ asset('media/categories/roundabout.png') }}">
       </span>
       <span class="nav-text font-size-lg py-2 font-weight-bold text-center">
-        Round Abouts
+        Round About
       </span>
-      <div class="row align-items-start w-100">
-        <span class="label pulse pulse-info mr-1">
-            <span class="pulse-ring"></span>
-        </span>
-        <span class="label label-info label-inline mr-1">Coming soon</span>
-      </div>
     </a>
   </li>
   {{-- end::Roundabouts --}}

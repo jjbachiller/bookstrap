@@ -565,18 +565,12 @@ function getDataForContentType(contentType) {
   var data = { 'content_type': contentType };
 
   switch (contentType) {
-    case '{{ config("content-types.SUDOKUS") }}':
 
-      data.directory = $('#sudokusDifficulty').val();
-      data.number = $('#sudokusNumber').val();
-      data.has_solutions = {{ empty(config('sudokus.solutions_folder')) ? 0 : 1 }};
-      break;
+    case '{{ config("content-types.AKARIS") }}':
 
-    case '{{ config("content-types.SIKAKUS") }}':
-
-      data.directory = $('#sikakusDifficulty').val();
-      data.number = $('#sikakusNumber').val();
-      data.has_solutions = {{ empty(config('sikakus.solutions_folder')) ? 0 : 1 }};
+      data.directory = $('#akarisDifficulty').val();
+      data.number = $('#akarisNumber').val();
+      data.has_solutions = {{ empty(config('akaris.solutions_folder')) ? 0 : 1 }};
       break;
 
     case '{{ config("content-types.DOMINOS") }}':
@@ -597,16 +591,66 @@ function getDataForContentType(contentType) {
 
       data.directory = $('#futoshikisDifficulty').val();
       data.number = $('#futoshikisNumber').val();
-      data.has_solutions = {{ empty(config('futoshiki.solutions_folder')) ? 0 : 1 }};
+      data.has_solutions = {{ empty(config('futoshikis.solutions_folder')) ? 0 : 1 }};
       alert("Incomplete solutions :o!");
       break;
 
-    case '{{ config("content-types.AKARIS") }}':
+    case '{{ config("content-types.GOKIGENS") }}':
 
-      data.directory = $('#akarisDifficulty').val();
-      data.number = $('#akarisNumber').val();
-      data.has_solutions = {{ empty(config('akaris.solutions_folder')) ? 0 : 1 }};
+      data.directory = $('#gokigenDifficulty').val();
+      data.number = $('#gokigenNumber').val();
+      data.has_solutions = {{ empty(config('gokigens.solutions_folder')) ? 0 : 1 }};
       break;
+
+    case '{{ config("content-types.KAKUROS") }}':
+
+      data.directory = $('#kakuroDifficulty').val();
+      data.number = $('#kakuroNumber').val();
+      data.has_solutions = {{ empty(config('kakuros.solutions_folder')) ? 0 : 1 }};
+      break;
+
+    case '{{ config("content-types.KENDOKUS") }}':
+
+      data.directory = $('#kendokuDifficulty').val();
+      data.number = $('#kendokuNumber').val();
+      data.has_solutions = {{ empty(config('kendokus.solutions_folder')) ? 0 : 1 }};
+      break;
+
+    case '{{ config("content-types.MINESWEEPERS") }}':
+
+      data.directory = $('#minesweeperDifficulty').val();
+      data.number = $('#minesweeperNumber').val();
+      data.has_solutions = {{ empty(config('minesweepers.solutions_folder')) ? 0 : 1 }};
+      break;
+
+    case '{{ config("content-types.MURAPEKES") }}':
+
+      data.directory = $('#murapekeDifficulty').val();
+      data.number = $('#murapekeNumber').val();
+      data.has_solutions = {{ empty(config('murapekes.solutions_folder')) ? 0 : 1 }};
+      break;
+
+    case '{{ config("content-types.ROUNDABOUTS") }}':
+
+      data.directory = $('#roundaboutDifficulty').val();
+      data.number = $('#roundaboutNumber').val();
+      data.has_solutions = {{ empty(config('roundabouts.solutions_folder')) ? 0 : 1 }};
+      break;
+
+    case '{{ config("content-types.SIKAKUS") }}':
+
+      data.directory = $('#sikakusDifficulty').val();
+      data.number = $('#sikakusNumber').val();
+      data.has_solutions = {{ empty(config('sikakus.solutions_folder')) ? 0 : 1 }};
+      break;
+
+    case '{{ config("content-types.SUDOKUS") }}':
+
+      data.directory = $('#sudokusDifficulty').val();
+      data.number = $('#sudokusNumber').val();
+      data.has_solutions = {{ empty(config('sudokus.solutions_folder')) ? 0 : 1 }};
+      break;
+
   }
   return data;
 }
