@@ -185,37 +185,25 @@
   {{-- end::Slither Link --}}
   {{-- begin::Tatami --}}
   <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="coming_soon">
+    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="tatami">
       <span class="nav-icon py-2 w-auto">
-          <img class="mw-50 w-100px" src="{{ asset('media/categories/tatami-muted.png') }}">
+          <img class="mw-50 w-100px" src="{{ asset('media/categories/tatami.png') }}">
       </span>
       <span class="nav-text font-size-lg py-2 font-weight-bold text-center">
         Tatami
       </span>
-      <div class="row align-items-start w-100">
-        <span class="label pulse pulse-info mr-1">
-            <span class="pulse-ring"></span>
-        </span>
-        <span class="label label-info label-inline mr-1">Coming soon</span>
-      </div>
     </a>
   </li>
   {{-- end::Tatami --}}
   {{-- begin::Tents --}}
   <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="coming_soon">
+    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="tents">
       <span class="nav-icon py-2 w-auto">
-          <img class="mw-50 w-100px" src="{{ asset('media/categories/tents-muted.png') }}">
+          <img class="mw-50 w-100px" src="{{ asset('media/categories/tents.png') }}">
       </span>
       <span class="nav-text font-size-lg py-2 font-weight-bold text-center">
         Tents
       </span>
-      <div class="row align-items-start w-100">
-        <span class="label pulse pulse-info mr-1">
-            <span class="pulse-ring"></span>
-        </span>
-        <span class="label label-info label-inline mr-1">Coming soon</span>
-      </div>
     </a>
   </li>
   {{-- end::Tents --}}

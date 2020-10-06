@@ -29,12 +29,6 @@ $('#loadContentFromLibrary').on('hidden.bs.modal', function () {
   showCategories();
 });
 
-$('#addSudokusButton').on('click', function() {
-  $('#selectedContentType').val("{{ config('content-types.SUDOKUS') }}");
-
-  loadContentFromLibrary();
-});
-
 $('#addAkarisButton').on('click', function() {
   $('#selectedContentType').val("{{ config('content-types.AKARIS') }}");
 
@@ -97,6 +91,24 @@ $('#addRoundaboutsButton').on('click', function() {
 
 $('#addSikakusButton').on('click', function() {
   $('#selectedContentType').val("{{ config('content-types.SIKAKUS') }}");
+
+  loadContentFromLibrary();
+});
+
+$('#addSudokusButton').on('click', function() {
+  $('#selectedContentType').val("{{ config('content-types.SUDOKUS') }}");
+
+  loadContentFromLibrary();
+});
+
+$('#addTatamisButton').on('click', function() {
+  $('#selectedContentType').val("{{ config('content-types.TATAMIS') }}");
+
+  loadContentFromLibrary();
+});
+
+$('#addTentsButton').on('click', function() {
+  $('#selectedContentType').val("{{ config('content-types.TENTS') }}");
 
   loadContentFromLibrary();
 });

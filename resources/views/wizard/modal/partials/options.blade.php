@@ -58,6 +58,16 @@
   @include('wizard.modal.partials.forms.sikaku')
 </div>
 {{-- end::Sikaku --}}
+{{-- begin::Tatami --}}
+<div class="library-pane justify-content-center align-self-center w-100 d-none" id="tatami" role="tabpanel" aria-labelledby="tatami-tab">
+  @include('wizard.modal.partials.forms.tatami')
+</div>
+{{-- end::Tatami --}}
+{{-- begin::Tents --}}
+<div class="library-pane justify-content-center align-self-center w-100 d-none" id="tents" role="tabpanel" aria-labelledby="tents-tab">
+  @include('wizard.modal.partials.forms.tents')
+</div>
+{{-- end::Tents --}}
 {{-- begin::Coming soon --}}
 <div class="library-pane justify-content-center align-self-center w-100 d-none" id="coming_soon" role="tabpanel" aria-labelledby="coming-soon-tab">
   @include('wizard.modal.partials.forms.coming_soon')

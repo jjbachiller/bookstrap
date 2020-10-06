@@ -105,11 +105,11 @@ class Image extends Model
     return $localS3Path;
   }
 
-  public function s3Path() {
+  public function s3Path($config) {
     if ($this->isLocal()) return false;
 
     $s3ImagePath = $this->s3_disk . $this->s3_directory;
-    $s3ImagePath .= ($this->solution) ? config('sudokus.solutions_folder') : config('sudokus.puzzles_folder');
+    $s3ImagePath .= ($this->solution) ? $config['solutions_folder'] : $config['puzzles_folder'];
 
     return $s3ImagePath;
   }

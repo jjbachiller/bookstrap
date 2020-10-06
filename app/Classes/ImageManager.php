@@ -61,7 +61,7 @@ class ImageManager
     $image->solution = $solution;
     $section->content()->save($image);
 
-    self::saveS3ImageLocally($image);
+    self::saveS3ImageLocally($image, $imageConfig);
 
     return $image;
   }
@@ -96,7 +96,7 @@ class ImageManager
 
   }
 
-  public static function saveS3ImageLocally($image)
+  public static function saveS3ImageLocally($image, $imageConfig)
   {
 
     $localImagePath = $image->path();
@@ -106,7 +106,7 @@ class ImageManager
     $localImagePath.= $image->file_name;
 
     if (!is_file($localImagePath)) {
-      $s3ImagePath = $image->s3Path() . $image->file_name;
+      $s3ImagePath = $image->s3Path($imageConfig) . $image->file_name;
 
       Storage::put($localImagePath, Storage::disk('s3')->get($s3ImagePath));
     }

@@ -1,10 +1,10 @@
 <?php
 
 return [
-  's3_folder' => '/japanese/gokigen/',
-  'puzzles_folder' => '/puzzle/',
+  's3_folder' => '/japanese/tatami/',
+  'puzzles_folder' => '/puzzles/',
   'solutions_folder' => '/solutions/',
-  'puzzle_name' => 'Gokigen',
+  'puzzle_name' => 'Tatami',
   'solution_name' => 'Solution',
   'ext' => '.png',
   'type' => 'image/png',
@@ -13,7 +13,7 @@ return [
   'height' => 1823,
   'size' => 120000,
   'difficulties' => [
-    '5x5' => '5x5 Grid',
+    '6x6' => '6 x 6 Grid',
   ],
   'addGroups' => [
     10, 25, 50, 100, 150, 200

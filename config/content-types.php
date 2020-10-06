@@ -10,7 +10,9 @@ return [
   'KENDOKUS' => 'kendokus',
   'MINESWEEPERS' => 'minesweepers',
   'MURAPEKES' => 'murapekes',
-  'ROUNDABOUTS' => 'roundabouts',                    
+  'ROUNDABOUTS' => 'roundabouts',
   'SIKAKUS' => 'sikakus',
   'SUDOKUS' => 'sudokus',
+  'TATAMIS' => 'tatamis',
+  'TENTS' => 'tents',    
 ];

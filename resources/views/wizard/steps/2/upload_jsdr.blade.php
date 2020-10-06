@@ -651,6 +651,19 @@ function getDataForContentType(contentType) {
       data.has_solutions = {{ empty(config('sudokus.solutions_folder')) ? 0 : 1 }};
       break;
 
+    case '{{ config("content-types.TATAMIS") }}':
+
+      data.directory = $('#tatamisDifficulty').val();
+      data.number = $('#tatamisNumber').val();
+      data.has_solutions = {{ empty(config('tatamis.solutions_folder')) ? 0 : 1 }};
+      break;
+
+    case '{{ config("content-types.TENTS") }}':
+
+      data.directory = $('#tentsDifficulty').val();
+      data.number = $('#tentsNumber').val();
+      data.has_solutions = {{ empty(config('tents.solutions_folder')) ? 0 : 1 }};
+      break;
   }
   return data;
 }
