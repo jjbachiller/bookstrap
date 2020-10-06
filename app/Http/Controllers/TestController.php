@@ -23,13 +23,12 @@ class TestController extends Controller
       // // return response()->file($file);
 
       // $directory = 'test';
-      $files = Storage::disk('s3')->files('/japanese/tents/very easy/5x5/puzzles/');
-      // $files = Storage::disk('s3')->directories('japanese/tents/very easy/5x5');
+      // $files = Storage::disk('s3')->files('/maze/tubular/Easy/');
+      $files = Storage::disk('s3')->directories('maze/tubular/Easy');
       echo "<h1>Total de archivos del nivel 1: " . count($files) . "</h1>";
-      // for ($i=0; $i<count($files); $i++) {
-      //   print_r($files[$i]. "      |         ");
-      //
-      // }
+      for ($i=0; $i<count($files); $i++) {
+        print_r($files[$i]. "      |         ");
+      }
       exit;
     }
 

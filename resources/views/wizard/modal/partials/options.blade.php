@@ -68,6 +68,16 @@
   @include('wizard.modal.partials.forms.tents')
 </div>
 {{-- end::Tents --}}
+{{-- begin::Tubular Mazes --}}
+<div class="library-pane justify-content-center align-self-center w-100 d-none" id="tubulars" role="tabpanel" aria-labelledby="tubulars-tab">
+  @include('wizard.modal.partials.forms.tubulars')
+</div>
+{{-- end::Tubular Mazes --}}
+{{-- begin::Square Mazes --}}
+<div class="library-pane justify-content-center align-self-center w-100 d-none" id="squares" role="tabpanel" aria-labelledby="squares-tab">
+  @include('wizard.modal.partials.forms.squares')
+</div>
+{{-- end::Square Mazes --}}
 {{-- begin::Coming soon --}}
 <div class="library-pane justify-content-center align-self-center w-100 d-none" id="coming_soon" role="tabpanel" aria-labelledby="coming-soon-tab">
   @include('wizard.modal.partials.forms.coming_soon')

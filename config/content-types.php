@@ -14,5 +14,7 @@ return [
   'SIKAKUS' => 'sikakus',
   'SUDOKUS' => 'sudokus',
   'TATAMIS' => 'tatamis',
-  'TENTS' => 'tents',    
+  'TENTS' => 'tents',
+  'TUBULARS' => 'tubulars',
+  'SQUARES' => 'squares',  
 ];

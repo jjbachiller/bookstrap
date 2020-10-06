@@ -207,6 +207,32 @@
     </a>
   </li>
   {{-- end::Tents --}}
+  {{-- begin::Tubular Mazes --}}
+  <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
+    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="tubulars">
+      <span class="nav-icon py-2 w-auto">
+          <img class="mw-50 w-100px" src="{{ asset('media/categories/tubular-maze.png') }}">
+      </span>
+      <span class="nav-text font-size-lg py-2 font-weight-bold text-center">
+        Tubular Mazes
+      </span>
+    </a>
+  </li>
+  {{-- end::Tubular Mazes --}}
+  {{-- begin::Square Mazes --}}
+  <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
+    <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="squares">
+      <span class="nav-icon py-2 w-auto">
+          <img class="mw-50 w-100px" src="{{ asset('media/categories/square-maze.png') }}">
+      </span>
+      <span class="nav-text font-size-lg py-2 font-weight-bold text-center">
+        Square Mazes
+      </span>
+    </a>
+  </li>
+  {{-- end::Square Mazes --}}
+</ul>
+<ul class="dashboard-tabs nav nav-pills nav-light-primary row row-paddingless m-0 p-0 flex-column flex-sm-row" role="tablist">
   {{-- begin::Jigsaw --}}
   <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
     <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="coming_soon">
@@ -243,8 +269,6 @@
     </a>
   </li>
   {{-- end::Coloring --}}
-</ul>
-<ul class="dashboard-tabs nav nav-pills nav-light-primary row row-paddingless m-0 p-0 flex-column flex-sm-row" role="tablist">
   {{-- begin::Activity --}}
   <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
     <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="coming_soon">
@@ -281,10 +305,6 @@
     </a>
   </li>
   {{-- end::Journal --}}
-  <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-  </li>
-  <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-  </li>
   <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
   </li>
   <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">

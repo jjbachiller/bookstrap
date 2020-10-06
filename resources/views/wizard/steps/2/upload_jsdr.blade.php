@@ -566,6 +566,8 @@ function getDataForContentType(contentType) {
 
   switch (contentType) {
 
+    // Begin::Japanese
+
     case '{{ config("content-types.AKARIS") }}':
 
       data.directory = $('#akarisDifficulty').val();
@@ -664,6 +666,25 @@ function getDataForContentType(contentType) {
       data.number = $('#tentsNumber').val();
       data.has_solutions = {{ empty(config('tents.solutions_folder')) ? 0 : 1 }};
       break;
+
+    // End::Japanese
+    // Begin::Mazes
+
+    case '{{ config("content-types.TUBULARS") }}':
+
+      data.directory = $('#tubularDifficulty').val();
+      data.number = $('#tubularNumber').val();
+      data.has_solutions = {{ empty(config('tubulars.solutions_folder')) ? 0 : 1 }};
+      break;
+
+    case '{{ config("content-types.SQUARES") }}':
+
+      data.directory = $('#squareDifficulty').val();
+      data.number = $('#squareNumber').val();
+      data.has_solutions = {{ empty(config('squares.solutions_folder')) ? 0 : 1 }};
+      break;
+
+    // End::Mazes
   }
   return data;
 }

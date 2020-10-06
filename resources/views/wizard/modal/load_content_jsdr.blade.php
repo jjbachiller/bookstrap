@@ -112,3 +112,15 @@ $('#addTentsButton').on('click', function() {
 
   loadContentFromLibrary();
 });
+
+$('#addTubularsButton').on('click', function() {
+  $('#selectedContentType').val("{{ config('content-types.TUBULARS') }}");
+
+  loadContentFromLibrary();
+});
+
+$('#addSquaresButton').on('click', function() {
+  $('#selectedContentType').val("{{ config('content-types.SQUARES') }}");
+
+  loadContentFromLibrary();
+});
