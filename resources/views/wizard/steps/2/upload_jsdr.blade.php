@@ -594,7 +594,6 @@ function getDataForContentType(contentType) {
       data.directory = $('#futoshikisDifficulty').val();
       data.number = $('#futoshikisNumber').val();
       data.has_solutions = {{ empty(config('futoshikis.solutions_folder')) ? 0 : 1 }};
-      alert("Incomplete solutions :o!");
       break;
 
     case '{{ config("content-types.GOKIGENS") }}':
