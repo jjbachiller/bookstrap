@@ -14,7 +14,7 @@ class StatisticsCalculator {
     $totalSize = $user->books()->withContent()->sum('total_size');
 
     $subscription = $user->subscription();
-    $percentDiskOccupied = ( $totalSize / $subscription['disk_quote'] ) * 100;
+    $percentDiskOccupied = ($subscription) ? ( $totalSize / $subscription['disk_quote'] ) * 100 : 100;
 
 
     return compact('totalBooks', 'totalPages', 'totalSize', 'percentDiskOccupied');

@@ -50,13 +50,19 @@ class User extends Authenticatable
       return $this->hasMany('App\Section');
     }
 
+    // User Books Downloads
+    public function downloads()
+    {
+      return $this->hasMany('App\Download');
+    }
+
     public function subscription()
     {
       $subscriptionType = $this->subscription_type;
       if (is_null($subscriptionType)) {
         return false;
       }
-      
+
       $subscriptions = config('amember.subscriptions');
       $subscription = [];
       foreach ($subscriptions as $sub) {
@@ -74,5 +80,14 @@ class User extends Authenticatable
       $endSubscriptionDate = Carbon::parse($this->subscribed_until);
       $subscription['next_billing'] = $endSubscriptionDate->add('1 day');
       return $subscription;
+    }
+
+    public function numDownloadsThisWeek() {
+      $weekDownloads = $this->downloads()
+        ->whereBetween('download_at',
+          [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+        ->count();
+
+      return $weekDownloads;
     }
 }
