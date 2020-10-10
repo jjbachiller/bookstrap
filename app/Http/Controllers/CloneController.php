@@ -6,11 +6,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 
 class CloneController extends Controller
 {
     public function cloneBook(Request $request)
     {
+      if (Gate::denies('active-subscription')) {
+        $error = [
+          'deny' => config('bookstrap-constants.DENIES.EXPIRED_ACCOUNT.code'),
+          'message' => config('bookstrap-constants.DENIES.EXPIRED_ACCOUNT.message')
+        ];
+
+        return response()->json($error);
+      }
+
       $clonedBookId = $request->input('id');
       $newBookName = $request->input('name');
       // Copy book in DB

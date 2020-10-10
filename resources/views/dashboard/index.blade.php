@@ -388,10 +388,16 @@
           dataType: 'json',
           data: data,
           success: function(response) {
-            // Show buttons for close modal or edit cloned book
-            $("#editClonedBook").attr('href', response.editUrl);
-            $('#clonedWait').addClass('d-none');
-            $('#clonedActions').removeClass('d-none');
+            if (response.deny) {
+              $('#denyMessage').html(response.message);
+              $('#cloneBookModal').modal('hide');
+              $('#showAlertDeny').modal('show');
+            } else {
+              // Show buttons for close modal or edit cloned book
+              $("#editClonedBook").attr('href', response.editUrl);
+              $('#clonedWait').addClass('d-none');
+              $('#clonedActions').removeClass('d-none');
+            }
           },
         });
       });

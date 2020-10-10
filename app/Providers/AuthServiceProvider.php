@@ -27,21 +27,24 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('active-subscription', function($user) {
-          return Carbon::now()->lt($user->suscribed_until);
+          return Carbon::now()->lt($user->subscribed_until);
         });
 
         Gate::define('download-book', function($user) {
-          // Get subscription config for $user->subscription_type
-          // Compare weeks downloads with $user->numDownloadsThisWeek();
+          $subscription = $user->subscription();
+          if (!$subscription) return false;
+          return $subscription['week_downloads'] > $user->numDownloadsThisWeek();
         });
 
+        // requiredSpace: Space necessary in bytes.
         Gate::define('has-space-available', function($user, $requiredSpace) {
-          // Get subscription config for $user->subscription_type
-          // Compare SUM($user->books->total_space) + $requiredSpace??? with space available.
+          $subscription = $user->subscription();
+          if (!$subscription) return false;
+          return $subscription['disk_quote'] >= ($user->diskOccupation() + $requiredSpace);
         });
 
         Gate::define('library-content-access', function($user) {
-          // Check if user is silver or gold
-        })
+
+        });
     }
 }

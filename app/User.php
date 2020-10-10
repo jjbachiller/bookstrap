@@ -83,11 +83,17 @@ class User extends Authenticatable
     }
 
     public function numDownloadsThisWeek() {
-      $weekDownloads = $this->downloads()
+      $weekDownloads = $this->downloads
         ->whereBetween('download_at',
           [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
         ->count();
 
       return $weekDownloads;
+    }
+
+    public function diskOccupation() {
+      $diskOccuptaion = $this->books->sum('total_size');
+
+      return $diskOccuptaion;
     }
 }

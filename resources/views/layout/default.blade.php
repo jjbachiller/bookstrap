@@ -57,6 +57,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
         @include('layout.base._layout')
 
+        @include('modal.show_alert')
+
         {{-- <script>var HOST_URL = "{{ route('quick-search') }}";</script> --}}
 
         {{-- Global Config (global config for global JS scripts) --}}
@@ -79,6 +81,12 @@ License: You must have a valid license purchased only from themeforest(the above
               event.preventDefault();
               $('#contactModal').modal('show');
             });
+
+            {{-- JQuery code to launch the denies modal --}}
+            @if(session('deny'))
+              $('#denyMessage').html("{{ session('message') }}");
+              $('#showAlertDeny').modal('show');
+            @endif
         </script>
 
     </body>

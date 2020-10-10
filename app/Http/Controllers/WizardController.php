@@ -5,16 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-// use App\Book\DocumentConfigSettings;
+use Illuminate\Support\Facades\Gate;
 use App\Bookstrap\MetaBook;
 use App\Bookstrap\PDF;
 use App\Bookstrap\PPT;
 
+use Carbon\Carbon;
+
 class WizardController extends Controller
 {
   // Start the step by step wizard
-  public function start()
+  public function start(Request $request)
   {
+    if (Gate::denies('active-subscription')) {
+      $request->session()->flash('deny', config('bookstrap-constants.DENIES.EXPIRED_ACCOUNT.code'));
+      $request->session()->flash('message', config('bookstrap-constants.DENIES.EXPIRED_ACCOUNT.message'));
+      return redirect()->route('books.index');
+    }
+
     $bookUid = uniqid();
     $book = new \App\Book;
     $book->uid = $bookUid;
@@ -61,7 +69,7 @@ class WizardController extends Controller
       $response['file_url'] = $metaBook->getBookDownloadUrl() . $ext;
 
       $book->save();
-      
+
       $book->updatedPagesAndSize();
     } else {
       $response['error'] = 1;

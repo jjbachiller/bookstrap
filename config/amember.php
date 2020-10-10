@@ -12,25 +12,29 @@ return [
       'id' => 34,
       'name' => 'Gold',
       'icon' => 'flaticon-trophy',
-      'disk_quote' => 524288000,
+      'disk_quote' => 5242880000,
+      'week_downloads' => 250,
     ],
     'SILVER' => [
       'id' => 33,
       'name' => 'Silver',
       'icon' => 'flaticon-rocket',
-      'disk_quote' => 104857600,
+      'disk_quote' => 1048576000,
+      'week_downloads' => 25,
     ],
     'STARTER' => [
       'id' => 29,
       'name' => 'Starter',
       'icon' => 'flaticon-confetti',
       'disk_quote' => 20971520,
+      'week_downloads' => 5,
     ],
     'FREE' => [
       'id' => 35,
       'name' => 'Free',
       'icon' => 'flaticon-avatar',
       'disk_quote' => 0,
+      'week_downloads' => 0,
     ],
   ]
 ];

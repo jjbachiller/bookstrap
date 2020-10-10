@@ -120,4 +120,18 @@ return [
   'PPT_CONTENT_TYPE' => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
   'NUM_BOOKS_PAGINATION' => 10,
   'NUM_IMAGES_PRELOADED' => 2,
+  'DENIES' => [
+    'EXPIRED_ACCOUNT' => [
+        'code' => 1,
+        'message' => 'Your subscription has expired. Please, renew your subscription to get full access.',
+      ],
+    'NOT_ENOUGH_SPACE' => [
+        'code' => 2,
+        'message' => 'You don\'t have enough space left in your account. Delete some content or upgrade your account type.',
+      ],
+    'NO_DOWNLOADS_LEFT' => [
+        'code' => 3,
+        'message' => 'No downloades left for your account this week. Wait for the next week or upgrade your account type.',
+      ],
+  ]
 ];

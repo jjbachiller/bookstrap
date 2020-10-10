@@ -6,6 +6,7 @@ use App\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use App\Bookstrap\StatisticsCalculator;
 
 class BookController extends Controller
@@ -40,6 +41,13 @@ class BookController extends Controller
 
     public function download($bookUid, $date, $book)
     {
+
+      if (Gate::denies('active-subscription')) {
+        request()->session()->flash('deny', config('bookstrap-constants.DENIES.EXPIRED_ACCOUNT.code'));
+        request()->session()->flash('message', config('bookstrap-constants.DENIES.EXPIRED_ACCOUNT.message'));
+        return redirect()->route('books.index');
+      }
+
       $userUid =  Auth::user()->uid;
       $bookPath = config('bookstrap-constants.downloads_path') . $userUid . '/' . $bookUid . '/' . $date  . '/' . $book;
       $file = Storage::path($bookPath);
@@ -52,6 +60,7 @@ class BookController extends Controller
       $headers = array('Content-Type' => $contentType);
       $response = response()->download($file,$fileInfo['basename'],$headers);
       ob_end_clean();
+      // Save the download in the downloads table.
       return $response;
     }
 
@@ -109,6 +118,12 @@ class BookController extends Controller
       $user = auth()->user();
       if ($user->id != $book->user_id) {
         return abort(401);
+      }
+
+      if (Gate::denies('active-subscription')) {
+        request()->session()->flash('deny', config('bookstrap-constants.DENIES.EXPIRED_ACCOUNT.code'));
+        request()->session()->flash('message', config('bookstrap-constants.DENIES.EXPIRED_ACCOUNT.message'));
+        return redirect()->route('books.index');
       }
 
       // Delete uploads path content for the book
