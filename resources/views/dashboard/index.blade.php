@@ -38,7 +38,11 @@
 
           <div class="col-lg-4 col-xxl-4">
             <!--begin::Mixed Widget 1-->
-            <div class="card card-custom bg-light-primary text-primary card-stretch gutter-b">
+            @can('download-book')
+              <div class="card card-custom bg-light-primary text-primary card-stretch gutter-b">
+            @else
+              <div class="card card-custom bg-light-secondary text-secondary text-muted card-stretch gutter-b">
+            @endcan
               <!--begin::Header-->
               <div class="card-header border-0 py-5">
                   <h3 class="card-title font-weight-bolder text-primary">Books Stats</h3>
@@ -52,6 +56,17 @@
                     ({{ $statistics['totalPages'] }} total pages.)
                   </span>
                 </h1>
+                @php
+                  $subscription = Auth::user()->subscription();
+                  $downloads = $subscription['week_downloads'] - Auth::user()->numDownloadsThisWeek();
+                @endphp
+
+                <div class="mt-10">
+                  <i class="icon-8x fas fa-cloud-download-alt text-primary"></i>
+                  <h3 class="mt-3">
+                    {{ $downloads }} / {{ $subscription['week_downloads'] }} <span class="font-size-lg"> Available Downloads</span>
+                  </h3>
+                </div>
               </div>
               <!--end::Body-->
             </div>
@@ -60,7 +75,11 @@
 
           <div class="col-lg-4 col-xxl-4">
             <!--begin::Mixed Widget 1-->
-            <div class="card card-custom bg-light-primary text-primary card-stretch gutter-b">
+            @can('space-available', 0)
+              <div class="card card-custom bg-light-primary text-primary card-stretch gutter-b">
+            @else
+              <div class="card card-custom bg-light-secondary text-secondary text-muted card-stretch gutter-b">
+            @endcan
               <!--begin::Header-->
               <div class="card-header border-0 py-5">
                   <h3 class="card-title font-weight-bolder text-primary">Account Stats</h3>
@@ -71,8 +90,19 @@
                 <div id="chart" style="min-height: 250px;">
 
                 </div>
-                <h3 class="text-dark-50 pb-2">{{ formatBytes($statistics['totalSize']) }} occupied</h3>
-                <span class="btn btn-primary btn-shadow btn-shadow-hover font-weight-bolder mb-10 py-3">
+                @can('space-available', 0)
+                  <h3 class="text-dark-50 pb-2">
+                @else
+                  <h3 class="text-danger pb-2">
+                @endcan
+                  {{ formatBytes($statistics['totalSize']) }} occupied
+                </h3>
+
+                @can('space-available', 0)
+                  <span class="btn btn-primary btn-shadow btn-shadow-hover font-weight-bolder mb-10 py-3">
+                @else
+                  <span class="btn btn-danger btn-shadow btn-shadow-hover font-weight-bolder mb-10 py-3">
+                @endcan
                   @php
                     $subscription = Auth::user()->subscription();
                   @endphp
@@ -89,7 +119,11 @@
 
           <div class="col-lg-4 col-xxl-4">
             <!--begin::Mixed Widget 1-->
-            <div class="card card-custom bg-light-primary text-primary card-stretch gutter-b">
+            @can('active-subscription')
+              <div class="card card-custom bg-light-primary text-primary card-stretch gutter-b">
+            @else
+              <div class="card card-custom bg-light-secondary text-secondary text-muted card-stretch gutter-b">
+            @endcan
               <!--begin::Header-->
               <div class="card-header border-0 py-5">
                   <h3 class="card-title font-weight-bolder text-primary">Subscription</h3>
@@ -99,12 +133,22 @@
               <!--begin::Body-->
               <div class="card-body p-0 position-relative overflow-hidden mt-10 text-center">
                 <h1 class="widget-big-text mt-10">
-                  <i class="icon-6x text-primary {{ $subscription['icon'] }}"></i><br>
+                  @can('active-subscription')
+                    <i class="icon-6x text-primary {{ $subscription['icon'] }}"></i><br>
+                  @else
+                    <i class="icon-6x text-secondary text-muted {{ $subscription['icon'] }}"></i><br>
+                  @endcan
                   {{ $subscription['name'] }}
                 </h1>
 
               </div>
               <!--end::Body-->
+              @cannot('active-subscription')
+                <h5 class="text-danger">
+                  **Your subscription is expired **
+                  <a href="https://puzzlebookcompiler.com/members/product/LCBW-Gold">Renew</a>
+                </h5>
+              @endcannot
             </div>
             <!--end::Mixed Widget 1-->
           </div>

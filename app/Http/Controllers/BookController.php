@@ -82,29 +82,31 @@ class BookController extends Controller
     }
 
     public function update(Request $request) {
-      $book = \App\Book::findOrFail(session('idBook'));
-      if (auth()->user()->id != $book->user_id) {
-        return abort(401);
+      if (Gate::allows('active-subscription')) {
+        $book = \App\Book::findOrFail(session('idBook'));
+        if (auth()->user()->id != $book->user_id) {
+          return abort(401);
+        }
+
+        $bookData = json_decode($request->getContent(), true);
+        $book->name = $bookData['filename'];
+        $bookTypes = config('book-types');
+        $book->book_type = array_key_exists($bookData['type'], $bookTypes) ? $bookData['type'] : array_shift($bookTypes);
+        $bookSizes = config('book-sizes');
+        $book->dimensions = array_key_exists($bookData['size'], $bookSizes) ? $bookData['size'] : reset($bookSizes);
+        $book->img_position = $bookData['imagePosition'];
+        $book->img_scale = $bookData['imageSize'];
+        $book->footer_details = $bookData['footer']['addFooter'] ? $bookData['footer']['text'] : '';
+        $book->page_number_position = $bookData['pageNumber']['addPageNumber'] ? $bookData['pageNumber']['position'] : 0;
+        $book->add_blank_pages = $bookData['addBlankPages'];
+        $book->full_bleed = $bookData['fullBleed'];
+        $book->total_pages = $bookData['totalPages'];
+        $book->save();
+
+        $book->updatedPagesAndSize();
+
+        return $book;
       }
-
-      $bookData = json_decode($request->getContent(), true);
-      $book->name = $bookData['filename'];
-      $bookTypes = config('book-types');
-      $book->book_type = array_key_exists($bookData['type'], $bookTypes) ? $bookData['type'] : array_shift($bookTypes);
-      $bookSizes = config('book-sizes');
-      $book->dimensions = array_key_exists($bookData['size'], $bookSizes) ? $bookData['size'] : reset($bookSizes);
-      $book->img_position = $bookData['imagePosition'];
-      $book->img_scale = $bookData['imageSize'];
-      $book->footer_details = $bookData['footer']['addFooter'] ? $bookData['footer']['text'] : '';
-      $book->page_number_position = $bookData['pageNumber']['addPageNumber'] ? $bookData['pageNumber']['position'] : 0;
-      $book->add_blank_pages = $bookData['addBlankPages'];
-      $book->full_bleed = $bookData['fullBleed'];
-      $book->total_pages = $bookData['totalPages'];
-      $book->save();
-
-      $book->updatedPagesAndSize();
-
-      return $book;
     }
 
     /**

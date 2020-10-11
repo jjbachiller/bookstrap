@@ -54,7 +54,13 @@ $(".section-index").on('change', function() {
   }
 });
 
-$('#addSection').on("click", addNewSection);
+$('#addSection').on("click", function() {
+  @can('active-subscription')
+    addNewSection();
+  @else
+    showExpiredAccountError();
+  @endcan
+});
 
 function addNewSection(section = []) {
 
@@ -264,8 +270,13 @@ function sendSectionsUpdate() {
       dataType: 'json',
       data: JSON.stringify(data),
       success: function(response) {
-        // After update the section data, load the content in the preview
-        loadPreviewContent();
+        if (response.deny) {
+          $('#denyMessage').html(response.message);
+          $('#showAlertDeny').modal('show');
+        } else {
+          // After update the section data, load the content in the preview
+          loadPreviewContent();
+        }
       },
     });
 }
@@ -277,94 +288,100 @@ function updateSectionId(sectionIndex, id) {
 }
 
 function setupDropzone(newDropzone, newSection, newIndex, solutions=0) {
-
-  newDropzone.on("sending", function(file, xhr, formData) {
-    var filenames = [];
-    $('.dz-preview .dz-filename').each(function() {
-      filenames.push($(this).find('span').text());
-    });
-    formData.append("_token", $('#_token').val());
-    formData.append("section", newIndex);
-    // On every image upload, we send the section data for update/creation.
-    var sectionData = currentSectionData(newIndex);
-    formData.append("section-data", JSON.stringify(sectionData));
-    formData.append("solutions", solutions);
-    formData.append('filenames', filenames);
-  });
-
-  var deleteClass = solutions ? '.delete-solutions' : '.delete-images';
-
-  newDropzone.on("addedfile", function(file) {
-    // Enable the delete all images button
-    newSection.find(deleteClass).prop('disabled', false);
-    // Append the file name to the image preview.
-    var previewContent = solutions ? newSection.find('.solutions-content') : newSection.find('.section-content');
-    var preview = previewContent.find(".dz-preview:last-child");
-    var filenameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
-    var imageName = $("<span/>")
-                      .attr("class", "badge badge-pill badge-primary mb-2")
-                      .attr("data-placement", "top")
-                      .attr("data-toggle", "tooltip")
-                      .attr("title", filenameWithoutExt)
-                      .html(filenameWithoutExt);
-    imageName.tooltip();
-    preview.prepend(imageName);
-
-    var secondDZ = solutions ? Dropzone.forElement("#myDrop"+newIndex) : Dropzone.forElement("#myDropSolutions"+newIndex);
-    // If the number of files are different error = true
-    /// (When we added an existing file, it calls this event but index
-    // count one less so here we check only this scenario )
-    var error = (newDropzone.files.length + 1) - secondDZ.files.length;
-
-    updateSolutionsNumberMatchMessage(newIndex, error);
-  });
-
-  newDropzone.on("success", function(file, response) {
-    // Append the image id in database to the preview Element
-    var bookstrapImage = response.images.shift();
-    $('<input>').addClass('imageId').attr('type','hidden').val(bookstrapImage.id).appendTo(file.previewElement);
-
-    // Check the normal scenario of uploading a file from the user computer
-    var secondDZ = solutions ? Dropzone.forElement("#myDrop"+newIndex) : Dropzone.forElement("#myDropSolutions"+newIndex);
-
-    // If the number of files are different error = true
-    var error = newDropzone.files.length - secondDZ.files.length;
-
-    // Update the sectionId
-    updateSectionId(newIndex, response.sectionId);
-
-    updateSolutionsNumberMatchMessage(newIndex, error);
-  })
-
-  newDropzone.on("removedfile", function(file) {
-    var imageId = $(file.previewElement).find('.imageId').val();
-
-    $.ajax({
-      type: "POST",
-      url : "{{ route('section.delete-image') }}",
-      data: {user: $('#user').val(), _token: "{{ csrf_token() }}", imageId: imageId},
-      success: function(response) {
-        if (response.deletedSolutionId) {
-          // If has deleted a complement (solution for deleted images o image for deleted solutions)
-          // Remove the preview of this file deleted.
-          $('.dz-preview').find("input.imageId[value='" + response.deletedSolutionId + "']").parent().remove();
-          //We should remove it from the DZ files array to prevent call deletes when press remove all images buttons.
-        }
-
-      },
+  @can('active-subscription')
+    newDropzone.on("sending", function(file, xhr, formData) {
+      var filenames = [];
+      $('.dz-preview .dz-filename').each(function() {
+        filenames.push($(this).find('span').text());
+      });
+      formData.append("_token", $('#_token').val());
+      formData.append("section", newIndex);
+      // On every image upload, we send the section data for update/creation.
+      var sectionData = currentSectionData(newIndex);
+      formData.append("section-data", JSON.stringify(sectionData));
+      formData.append("solutions", solutions);
+      formData.append('filenames', filenames);
     });
 
-    // Delete complementary Image/solution.
+    var deleteClass = solutions ? '.delete-solutions' : '.delete-images';
 
-    if (newDropzone.files.length == 0) {
-      newSection.find(deleteClass).prop('disabled', true);
-    }
+    newDropzone.on("addedfile", function(file) {
+      // Enable the delete all images button
+      newSection.find(deleteClass).prop('disabled', false);
+      // Append the file name to the image preview.
+      var previewContent = solutions ? newSection.find('.solutions-content') : newSection.find('.section-content');
+      var preview = previewContent.find(".dz-preview:last-child");
+      var filenameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
+      var imageName = $("<span/>")
+                        .attr("class", "badge badge-pill badge-primary mb-2")
+                        .attr("data-placement", "top")
+                        .attr("data-toggle", "tooltip")
+                        .attr("title", filenameWithoutExt)
+                        .html(filenameWithoutExt);
+      imageName.tooltip();
+      preview.prepend(imageName);
 
-    var secondDZ = solutions ? Dropzone.forElement("#myDrop"+newIndex) : Dropzone.forElement("#myDropSolutions"+newIndex);
-    // If the number of files are different error = true
-    var error = newDropzone.files.length - secondDZ.files.length;
-    updateSolutionsNumberMatchMessage(newIndex, error);
-  });
+      var secondDZ = solutions ? Dropzone.forElement("#myDrop"+newIndex) : Dropzone.forElement("#myDropSolutions"+newIndex);
+      // If the number of files are different error = true
+      /// (When we added an existing file, it calls this event but index
+      // count one less so here we check only this scenario )
+      var error = (newDropzone.files.length + 1) - secondDZ.files.length;
+
+      updateSolutionsNumberMatchMessage(newIndex, error);
+    });
+
+    newDropzone.on("success", function(file, response) {
+      if (response.deny) {
+        file.previewElement.remove();
+        $('#denyMessage').html(response.message);
+        $('#showAlertDeny').modal('show');
+      } else {
+        // Append the image id in database to the preview Element
+        var bookstrapImage = response.images.shift();
+        $('<input>').addClass('imageId').attr('type','hidden').val(bookstrapImage.id).appendTo(file.previewElement);
+
+        // Check the normal scenario of uploading a file from the user computer
+        var secondDZ = solutions ? Dropzone.forElement("#myDrop"+newIndex) : Dropzone.forElement("#myDropSolutions"+newIndex);
+
+        // If the number of files are different error = true
+        var error = newDropzone.files.length - secondDZ.files.length;
+
+        // Update the sectionId
+        updateSectionId(newIndex, response.sectionId);
+
+        updateSolutionsNumberMatchMessage(newIndex, error);
+      }
+    })
+
+    newDropzone.on("removedfile", function(file) {
+      var imageId = $(file.previewElement).find('.imageId').val();
+
+      $.ajax({
+        type: "POST",
+        url : "{{ route('section.delete-image') }}",
+        data: {user: $('#user').val(), _token: "{{ csrf_token() }}", imageId: imageId},
+        success: function(response) {
+          if (response.deletedSolutionId) {
+            // If has deleted a complement (solution for deleted images o image for deleted solutions)
+            // Remove the preview of this file deleted.
+            $('.dz-preview').find("input.imageId[value='" + response.deletedSolutionId + "']").parent().remove();
+            //We should remove it from the DZ files array to prevent call deletes when press remove all images buttons.
+          }
+        },
+      });
+      // Delete complementary Image/solution.
+      if (newDropzone.files.length == 0) {
+        newSection.find(deleteClass).prop('disabled', true);
+      }
+
+      var secondDZ = solutions ? Dropzone.forElement("#myDrop"+newIndex) : Dropzone.forElement("#myDropSolutions"+newIndex);
+      // If the number of files are different error = true
+      var error = newDropzone.files.length - secondDZ.files.length;
+      updateSolutionsNumberMatchMessage(newIndex, error);
+    });
+  @else
+    showExpiredAccountError();
+  @endcan
 }
 
 function updateSolutionsNumberMatchMessage(sectionIndex, error) {
@@ -390,31 +407,43 @@ $(".addSolutionTitle").on('change', function() {
 
 $('.delete-images').on('click', function() {
   if (confirm("Are you sure you want to delete all images from this section?")) {
-    var dropzoneIndex = $(this).closest(".section-block").find('.section-index').val();
-    var sectionDropzone = Dropzone.forElement("#myDrop"+dropzoneIndex);
-    sectionDropzone.removeAllFiles(true);
+    @can('active-subscription')
+      var dropzoneIndex = $(this).closest(".section-block").find('.section-index').val();
+      var sectionDropzone = Dropzone.forElement("#myDrop"+dropzoneIndex);
+      sectionDropzone.removeAllFiles(true);
+    @else
+      showExpiredAccountError();
+    @endcan
   }
 });
 
 $('.delete-solutions').on('click', function() {
   if (confirm("Are you sure you want to delete all solutions from this section?")) {
-    var dropzoneIndex = $(this).closest(".section-block").find('.section-index').val();
-    var sectionDropzone = Dropzone.forElement("#myDropSolutions"+dropzoneIndex);
-    sectionDropzone.removeAllFiles(true);
+    @can('active-subscription')
+      var dropzoneIndex = $(this).closest(".section-block").find('.section-index').val();
+      var sectionDropzone = Dropzone.forElement("#myDropSolutions"+dropzoneIndex);
+      sectionDropzone.removeAllFiles(true);
+    @else
+      showExpiredAccountError();
+    @endcan
   }
 });
 
 $('.delete-section').on('click', function(e) {
   if (confirm("Do you really want to delete this section?")) {
-    var sectionId = $(this).closest(".section-block").find(".section-id").val();
-    if (sectionId) {
-      $.ajax({
-        type: "POST",
-        url : "{{ route('section.delete-section') }}",
-        data: {_token: "{{ csrf_token() }}", sectionId: sectionId},
-      });
-    }
-    $(this).closest(".section-block").remove();
+    @can('active-subscription')
+      var sectionId = $(this).closest(".section-block").find(".section-id").val();
+      if (sectionId) {
+        $.ajax({
+          type: "POST",
+          url : "{{ route('section.delete-section') }}",
+          data: {_token: "{{ csrf_token() }}", sectionId: sectionId},
+        });
+      }
+      $(this).closest(".section-block").remove();
+    @else
+      showExpiredAccountError();
+    @endcan
   } else {
     e.stopPropagation();
   }
@@ -716,6 +745,10 @@ function addContent(sectionIndex, sectionId) {
       $('.currentProgress').remove();
       KTApp.unblockPage('#smartwizard');
 
+      if (response.deny) {
+        $('#denyMessage').html(response.message);
+        $('#showAlertDeny').modal('show');
+      }
       var sectionDropzone = Dropzone.forElement("#myDrop"+sectionIndex);
 
       // Add the library content to the dropzone images.
@@ -757,22 +790,25 @@ function addContent(sectionIndex, sectionId) {
 }
 
 function loadContentFromLibrary() {
-  var affectedSectionIndex = $("#modalAffectedSection").val();
-  var affectedSection = currentSectionData(affectedSectionIndex);
+  @can('active-subscription')
+    var affectedSectionIndex = $("#modalAffectedSection").val();
+    var affectedSection = currentSectionData(affectedSectionIndex);
 
-  // Update or create the section data
-  $.ajax({
-    type: "POST",
-    url: "{{ route('section.update-section') }}",
-    dataType: 'json',
-    data: JSON.stringify({'section-data': affectedSection}),
-    success: function(response) {
-      updateSectionId(affectedSectionIndex, response.id);
-      // Once created, load the content
-      addContent(affectedSectionIndex, response.id);
-    }
-  });
-
+    // Update or create the section data
+    $.ajax({
+      type: "POST",
+      url: "{{ route('section.update-section') }}",
+      dataType: 'json',
+      data: JSON.stringify({'section-data': affectedSection}),
+      success: function(response) {
+        updateSectionId(affectedSectionIndex, response.id);
+        // Once created, load the content
+        addContent(affectedSectionIndex, response.id);
+      }
+    });
+  @else
+    showExpiredAccountError();
+  @endcan
 };
 
 // End ::::> Load content from library functions

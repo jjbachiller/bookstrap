@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Gate;
 use App\Classes\ImageManager;
 
 class SectionController extends Controller
@@ -59,68 +59,86 @@ class SectionController extends Controller
   // FIXME: Clean this method (divide)
   public function uploadSectionImages(Request $request)
   {
-    $sectionData = json_decode($request->input('section-data'));
-    $section = $this->updateOrCreateSection($sectionData);
+    if (Gate::allows('active-subscription')) {
+      $sectionData = json_decode($request->input('section-data'));
+      $section = $this->updateOrCreateSection($sectionData);
 
-    $errorCode = 0;
-    $errorMessage = '';
+      $errorCode = 0;
+      $errorMessage = '';
 
-    // FIXME: Validations (exists: session useruid and bookid. Parameters section and image sizes)
-    $files = $request->file('files');
-    $images = [];
-    if(!empty($files)) {
-      $prepareNames   =   array();
-      foreach ($files as $file) {
-        if ($file->getError()) continue;
+      // FIXME: Validations (exists: session useruid and bookid. Parameters section and image sizes)
+      $files = $request->file('files');
+      $images = [];
+      if(!empty($files)) {
+        $prepareNames   =   array();
+        foreach ($files as $file) {
+          if ($file->getError()) continue;
 
-        if($file->getMimeType() == 'image/gif' || $file->getMimeType() == 'image/jpeg' || $file->getMimeType() == 'image/png') {
-          // FIXME: Check filesize here.
-          $image = ImageManager::saveLocalImage($section, $file, $request->input('solutions'));
-          if ($image) {
-            $images[] = $image;
-            $Sflag = 1;
-          }else{
-            $Sflag = 2; // file not move to the destination
+          if($file->getMimeType() == 'image/gif' || $file->getMimeType() == 'image/jpeg' || $file->getMimeType() == 'image/png') {
+
+            if (Gate::denies('space-available', $file->getSize())) {
+              $error = [
+                'deny' => config('bookstrap-constants.DENIES.NOT_ENOUGH_SPACE.code'),
+                'message' => config('bookstrap-constants.DENIES.NOT_ENOUGH_SPACE.message')
+              ];
+
+              return response()->json($error);
+            }
+
+            $image = ImageManager::saveLocalImage($section, $file, $request->input('solutions'));
+            if ($image) {
+              $images[] = $image;
+              $Sflag = 1;
+            }else{
+              $Sflag = 2; // file not move to the destination
+            }
+          }
+          else
+          {
+              $Sflag  = 3; //extension not valid
+            }
+          }
+
+          if ($Sflag==2) {
+            $errorCode = 2;
+            $errorMessage = 'File not move to the destination.';
+          }else if($Sflag==3){
+            $errorCode = 3;
+            $errorMessage = 'File extension not good. Try with .PNG, .JPEG, .GIF, .JPG';
           }
         }
-        else
-        {
-            $Sflag  = 3; //extension not valid
-        }
+
+        $response = array('sectionId' => $section->id, 'images' => $images, 'errorCode' => $errorCode, 'errorMessage' => $errorMessage);
+
+        return response()->json($response);
       }
-
-      if ($Sflag==2) {
-          $errorCode = 2;
-          $errorMessage = 'File not move to the destination.';
-      }else if($Sflag==3){
-          $errorCode = 3;
-          $errorMessage = 'File extension not good. Try with .PNG, .JPEG, .GIF, .JPG';
-      }
-
-    }
-
-    $response = array('sectionId' => $section->id, 'images' => $images, 'errorCode' => $errorCode, 'errorMessage' => $errorMessage);
-
-    return response()->json($response);
   }
 
   public function loadLibraryContent(Request $request) {
-    $contentData = json_decode($request->getContent(), true);
+    if (Gate::allows('active-subscription')) {
+      $contentData = json_decode($request->getContent(), true);
 
-    $section = \App\Section::findOrFail($contentData['section_id']);
+      $section = \App\Section::findOrFail($contentData['section_id']);
 
-    $config = config($contentData['content_type']);
+      $config = config($contentData['content_type']);
 
-    if (!$config) {
-      abort(404);
+      if (!$config) {
+        abort(404);
+      }
+
+      $response = ImageManager::saveLibraryImages($contentData, $section, $config);
+      return response()->json($response);
     }
-
-    $response = ImageManager::saveLibraryImages($contentData, $section, $config);
-    return response()->json($response);
   }
 
   public function updateSection(Request $request)
   {
+    if (Gate::denies('active-subscription')) {
+      request()->session()->flash('deny', config('bookstrap-constants.DENIES.EXPIRED_ACCOUNT.code'));
+      request()->session()->flash('message', config('bookstrap-constants.DENIES.EXPIRED_ACCOUNT.message'));
+      return redirect()->route('books.index');
+    }
+
     $requestData = json_decode($request->getContent(), true);
     $sectionData = (object) $requestData['section-data'];
 
@@ -130,6 +148,12 @@ class SectionController extends Controller
   }
 
   public function  updateSections(Request $request) {
+    if (Gate::denies('active-subscription')) {
+      request()->session()->flash('deny', config('bookstrap-constants.DENIES.EXPIRED_ACCOUNT.code'));
+      request()->session()->flash('message', config('bookstrap-constants.DENIES.EXPIRED_ACCOUNT.message'));
+      return redirect()->route('books.index');
+    }
+
     $updatedData = json_decode($request->getContent(), true);
     $sections = $updatedData['sections'];
     foreach ($sections as $sectionArray) {
@@ -142,23 +166,24 @@ class SectionController extends Controller
   }
 
   public function deleteSection(Request $request) {
-    $section = \App\Section::findOrFail($request->input('sectionId'));
+    if (Gate::allows('active-subscription')) {
+      $section = \App\Section::findOrFail($request->input('sectionId'));
 
-    // Verify section is from the user.
-    if ($section->user_id != Auth::user()->id) {
-      abort(404);
+      // Verify section is from the user.
+      if ($section->user_id != Auth::user()->id) {
+        abort(404);
+      }
+
+      // Delete the section folder
+      Storage::deleteDirectory($section->getContentFolder());
+
+      // Delete the section from the database.
+      $section->deleteWithImages();
     }
-
-    // Delete the section folder
-    Storage::deleteDirectory($section->getContentFolder());
-
-    // Delete the section from the database.
-    $section->deleteWithImages();
-
   }
 
   public function deleteSectionImage(Request $request) {
-
+    if (Gate::allows('active-subscription')) {
       $image = \App\Image::findOrFail($request->input('imageId'));
 
       // Verify image is from the user.
@@ -167,7 +192,7 @@ class SectionController extends Controller
       }
 
       return ImageManager::deleteImage($image);
-
+    }
   }
 
 }

@@ -25,6 +25,17 @@ class CloneController extends Controller
       $newBookName = $request->input('name');
       // Copy book in DB
       $clonedBook = \App\Book::findOrFail($clonedBookId);
+
+      if (Gate::denies('space-available', $clonedBook->total_size)) {
+        $error = [
+          'deny' => config('bookstrap-constants.DENIES.NOT_ENOUGH_SPACE.code'),
+          'message' => config('bookstrap-constants.DENIES.NOT_ENOUGH_SPACE.message')
+        ];
+
+        return response()->json($error);
+      }
+
+
       $newBook = $clonedBook->duplicate();
       $newBook->name = $newBookName;
       $newBook->save();

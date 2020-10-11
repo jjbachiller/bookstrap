@@ -2,6 +2,7 @@
 namespace App\Classes;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
 
 class ImageManager
 {
@@ -76,6 +77,18 @@ class ImageManager
     $imagesList = randomGen(0, $config['max_number'], $imagesNumber);
     $images = $solutions = [];
     foreach ($imagesList as $libraryImage) {
+
+      if (Gate::denies('space-available', $imageConfig['size'])) {
+        $error = [
+          'deny' => config('bookstrap-constants.DENIES.NOT_ENOUGH_SPACE.code'),
+          'message' => config('bookstrap-constants.DENIES.NOT_ENOUGH_SPACE.message'),
+          'images' => $images,
+          'solutions' => $solutions,
+        ];
+
+        return $error;
+      }
+
       $imageConfig['file_name'] = $libraryImage  . $config['ext'];
       $imageConfig['show_name'] = $config['puzzle_name'] . ' ' . $counter;
       $image = self::saveLibraryImage($section, $imageConfig);

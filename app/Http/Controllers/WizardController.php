@@ -42,40 +42,42 @@ class WizardController extends Controller
   // XHR call to generate a file with all the configuration/data selected.
   public function generateBookFile(Request $request)
   {
+    if (Gate::allows('active-subscription')) {
 
-    $configuration = json_decode($request->getContent(), true);
+      $configuration = json_decode($request->getContent(), true);
 
-    // $book = $this->updateSessionBook($configuration);
+      // $book = $this->updateSessionBook($configuration);
 
-    $book = \App\Book::findOrFail(session('idBook'));
+      $book = \App\Book::findOrFail(session('idBook'));
 
-    $metaBook = new MetaBook($book);
+      $metaBook = new MetaBook($book);
 
-    if ($configuration['filetype'] == config('bookstrap-constants.PDF'))
-    {
-      $pdf = new PDF($metaBook);
-      $ext = config('bookstrap-constants.PDF_EXTENSION');
-      $file = $pdf->generatePDF();
-      $book->pdf = $metaBook->getBookDownloadUrl() . $ext;
-    } else {
-      $ppt = new PPT($metaBook);
-      $ext = config('bookstrap-constants.PPT_EXTENSION');
-      $file = $ppt->generatePPT();
-      $book->ppt = $metaBook->getBookDownloadUrl() . $ext;
+      if ($configuration['filetype'] == config('bookstrap-constants.PDF'))
+      {
+        $pdf = new PDF($metaBook);
+        $ext = config('bookstrap-constants.PDF_EXTENSION');
+        $file = $pdf->generatePDF();
+        $book->pdf = $metaBook->getBookDownloadUrl() . $ext;
+      } else {
+        $ppt = new PPT($metaBook);
+        $ext = config('bookstrap-constants.PPT_EXTENSION');
+        $file = $ppt->generatePPT();
+        $book->ppt = $metaBook->getBookDownloadUrl() . $ext;
+      }
+
+      $response = array('file_url' => '', 'error' => 0);
+      if (is_file($file)) {
+        $response['file_url'] = $metaBook->getBookDownloadUrl() . $ext;
+
+        $book->save();
+
+        $book->updatedPagesAndSize();
+      } else {
+        $response['error'] = 1;
+      }
+      echo json_encode($response);
+
     }
-
-    $response = array('file_url' => '', 'error' => 0);
-    if (is_file($file)) {
-      $response['file_url'] = $metaBook->getBookDownloadUrl() . $ext;
-
-      $book->save();
-
-      $book->updatedPagesAndSize();
-    } else {
-      $response['error'] = 1;
-    }
-    echo json_encode($response);
-
   }
 
   // private function updateSessionBook($configuration)

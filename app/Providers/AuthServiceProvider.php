@@ -37,7 +37,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         // requiredSpace: Space necessary in bytes.
-        Gate::define('has-space-available', function($user, $requiredSpace) {
+        Gate::define('space-available', function($user, $requiredSpace) {
           $subscription = $user->subscription();
           if (!$subscription) return false;
           return $subscription['disk_quote'] >= ($user->diskOccupation() + $requiredSpace);

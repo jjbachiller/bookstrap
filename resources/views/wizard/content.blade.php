@@ -259,35 +259,41 @@
       }
 
       function updateBookOptions(generateBook) {
+        @can('active-subscription')
+          var data = {
+            type: $('#book-type').val(),
+            size: $('#book-size').val(),
+            user: $('#user').val(),
+            imageSize: getImageSize(),
+            imagePosition: getImagePosition(),
+            header: getBookHeader(),
+            footer: getBookFooter(),
+            pageNumber: getBookPageNumber(),
+            addBlankPages: $('#addBlankPages').is(':checked'),
+            fullBleed: $('#fullBleed').is(':checked'),
+            totalPages: $('#total-pages').val(),
+            filename: $("input[name='book_filename']").val(),
+          };
 
-        var data = {
-          type: $('#book-type').val(),
-          size: $('#book-size').val(),
-          user: $('#user').val(),
-          imageSize: getImageSize(),
-          imagePosition: getImagePosition(),
-          header: getBookHeader(),
-          footer: getBookFooter(),
-          pageNumber: getBookPageNumber(),
-          addBlankPages: $('#addBlankPages').is(':checked'),
-          fullBleed: $('#fullBleed').is(':checked'),
-          totalPages: $('#total-pages').val(),
-          filename: $("input[name='book_filename']").val(),
-        };
-
-        $.ajax({
-          type: "POST",
-          url: "{{ route('books.update') }}",
-          dataType: 'json',
-          data: JSON.stringify(data),
-          success: function(response) {
-            if (generateBook) {
-              // If user goes to the generating screen
-              generateBookFile();
-            }
-          },
-        });
-
+          $.ajax({
+            type: "POST",
+            url: "{{ route('books.update') }}",
+            dataType: 'json',
+            data: JSON.stringify(data),
+            success: function(response) {
+              if (generateBook) {
+                // If user goes to the generating screen
+                generateBookFile();
+              }
+            },
+          });
+        @else
+          if (generateBook) {
+            bookGeneratedError();
+          } else {
+            showExpiredAccountError();
+          }
+        @endcan
       }
 
       $.ajaxSetup({
@@ -346,6 +352,12 @@
       @include('wizard.modal.load_content_jsdr')
 
     });
+
+
+    function showExpiredAccountError() {
+      $('#denyMessage').html("{{ config('bookstrap-constants.DENIES.EXPIRED_ACCOUNT.message') }}");
+      $('#showAlertDeny').modal('show');
+    }
 
   </script>
 
