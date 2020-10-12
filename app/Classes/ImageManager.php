@@ -76,9 +76,10 @@ class ImageManager
     $counter = $section->images->where('s3_disk', $config['s3_folder'])->count() + 1;
     $imagesList = randomGen(0, $config['max_number'], $imagesNumber);
     $images = $solutions = [];
+    $batchSize = 0;
     foreach ($imagesList as $libraryImage) {
-
-      if (Gate::denies('space-available', $imageConfig['size'])) {
+      $batchSize+= $imageConfig['size'];
+      if (Gate::denies('space-available', $batchSize)) {
         $error = [
           'deny' => config('bookstrap-constants.DENIES.NOT_ENOUGH_SPACE.code'),
           'message' => config('bookstrap-constants.DENIES.NOT_ENOUGH_SPACE.message'),

@@ -335,22 +335,21 @@ function setupDropzone(newDropzone, newSection, newIndex, solutions=0) {
         file.previewElement.remove();
         $('#denyMessage').html(response.message);
         $('#showAlertDeny').modal('show');
-      } else {
-        // Append the image id in database to the preview Element
-        var bookstrapImage = response.images.shift();
-        $('<input>').addClass('imageId').attr('type','hidden').val(bookstrapImage.id).appendTo(file.previewElement);
-
-        // Check the normal scenario of uploading a file from the user computer
-        var secondDZ = solutions ? Dropzone.forElement("#myDrop"+newIndex) : Dropzone.forElement("#myDropSolutions"+newIndex);
-
-        // If the number of files are different error = true
-        var error = newDropzone.files.length - secondDZ.files.length;
-
-        // Update the sectionId
-        updateSectionId(newIndex, response.sectionId);
-
-        updateSolutionsNumberMatchMessage(newIndex, error);
       }
+      // Append the image id in database to the preview Element
+      var bookstrapImage = response.images.shift();
+      $('<input>').addClass('imageId').attr('type','hidden').val(bookstrapImage.id).appendTo(file.previewElement);
+
+      // Check the normal scenario of uploading a file from the user computer
+      var secondDZ = solutions ? Dropzone.forElement("#myDrop"+newIndex) : Dropzone.forElement("#myDropSolutions"+newIndex);
+
+      // If the number of files are different error = true
+      var error = newDropzone.files.length - secondDZ.files.length;
+
+      // Update the sectionId
+      updateSectionId(newIndex, response.sectionId);
+
+      updateSolutionsNumberMatchMessage(newIndex, error);
     })
 
     newDropzone.on("removedfile", function(file) {

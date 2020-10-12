@@ -2,10 +2,10 @@
 
 namespace App\Bookstrap;
 
-use Codedge\Fpdf\Fpdf\Fpdf;
+use App\Classes\PDF_ImageAlpha;
 use App\Bookstrap\MetaBook;
 
-class PDF extends FPDF {
+class PDF extends PDF_ImageAlpha {
 
     private $metaBook;
     private $previousPage;

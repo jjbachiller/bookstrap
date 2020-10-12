@@ -69,17 +69,20 @@ class SectionController extends Controller
       // FIXME: Validations (exists: session useruid and bookid. Parameters section and image sizes)
       $files = $request->file('files');
       $images = [];
+      $batchSize = 0;
       if(!empty($files)) {
         $prepareNames   =   array();
         foreach ($files as $file) {
           if ($file->getError()) continue;
 
           if($file->getMimeType() == 'image/gif' || $file->getMimeType() == 'image/jpeg' || $file->getMimeType() == 'image/png') {
-
-            if (Gate::denies('space-available', $file->getSize())) {
+            $batchSize+= $file->getSize();
+            if (Gate::denies('space-available', $batchSize)) {
               $error = [
                 'deny' => config('bookstrap-constants.DENIES.NOT_ENOUGH_SPACE.code'),
-                'message' => config('bookstrap-constants.DENIES.NOT_ENOUGH_SPACE.message')
+                'message' => config('bookstrap-constants.DENIES.NOT_ENOUGH_SPACE.message'),
+                'sectionId' => $section->id,
+                'images' => $images,
               ];
 
               return response()->json($error);

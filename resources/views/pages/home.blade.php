@@ -400,14 +400,15 @@
                 <h4 class=" mb-15">Starter</h4>
                 <span class="px-7 py-3 d-inline-flex flex-center rounded-lg mb-15 bg-primary-o-10">
                   <span class="pr-2 opacity-70">$</span>
+                  <span class="pr-2 font-size-h3 text-muted font-weight-bold" style="text-decoration: line-through;">19.99</span>
                   <span class="pr-2 font-size-h1 font-weight-bold">9.99</span>
                   <span class="opacity-70">/&nbsp;&nbsp;Per Month</span>
                 </span>
                 <br>
                 <p class="mb-10 d-flex flex-column text-dark-50">
-                  <span>Lorem ipsum dolor sit amet adipiscing elit</span>
-                  <span>sed do eiusmod tempors labore et dolore</span>
-                  <span>magna siad enim aliqua</span>
+                  <span>5 Downloads per WEEK</span>
+                  <span>250 MBytes of disk quota</span>
+                  <span>Limited access to library content</span>
                 </p>
                 <a href="https://puzzlebookcompiler.com/members/product/LCBW-Starter" target="_blank" type="button" class="btn btn-primary text-uppercase font-size-lg font-weight-bolder px-15 py-3">Subscribe</a>
               </div>
@@ -420,14 +421,15 @@
     					<h4 class=" text-white mb-15">Silver</h4>
     					<span class="px-7 py-3 bg-white d-inline-flex flex-center rounded-lg mb-15 bg-white">
     						<span class="pr-2 text-primary opacity-70">$</span>
+                <span class="pr-2 font-size-h3 text-muted font-weight-bold" style="text-decoration: line-through;">39.99</span>                
     						<span class="pr-2 font-size-h1 font-weight-bold text-primary">29.99</span>
     						<span class="text-primary opacity-70">/&nbsp;&nbsp;Per Month</span>
     					</span>
     					<br>
     					<p class="text-white mb-10 d-flex flex-column">
-    						<span>Lorem ipsum dolor sit amet adipiscing elit</span>
-    						<span>sed do eiusmod tempors labore et dolore</span>
-    						<span>magna siad enim aliqua</span>
+    						<span>25 Downloads per WEEK</span>
+    						<span>1 GBytes of disk quota</span>
+    						<span>UNlimited access to library content</span>
     					</p>
     					<a href="https://puzzlebookcompiler.com/members/product/LCBW-Silver" target="_blank" type="button" class="btn btn-white text-uppercase font-size-lg font-weight-bolder px-15 py-3">Subscribe</a>
     				</div>
@@ -445,9 +447,9 @@
     					</span>
     					<br>
     					<p class="mb-10 d-flex flex-column text-dark-50">
-    						<span>Lorem ipsum dolor sit amet adipiscing elit</span>
-    						<span>sed do eiusmod tempors labore et dolore</span>
-    						<span>magna siad enim aliqua</span>
+                <span>250 Downloads per WEEK</span>
+    						<span>5 GBytes of disk quota</span>
+    						<span>UNlimited access to library content</span>
     					</p>
     					<a href="https://puzzlebookcompiler.com/members/product/LCBW-Gold" target="_blank" type="button" class="btn btn-primary text-uppercase font-size-lg font-weight-bolder px-15 py-3">Subscribe</a>
     				</div>

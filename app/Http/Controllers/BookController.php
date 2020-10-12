@@ -48,6 +48,12 @@ class BookController extends Controller
         return redirect()->route('books.index');
       }
 
+      if (Gate::denies('download-book')) {
+        request()->session()->flash('deny', config('bookstrap-constants.DENIES.NO_DOWNLOADS_LEFT.code'));
+        request()->session()->flash('message', config('bookstrap-constants.DENIES.NO_DOWNLOADS_LEFT.message'));
+        return redirect()->route('books.index');
+      }
+
       $userUid =  Auth::user()->uid;
       $bookPath = config('bookstrap-constants.downloads_path') . $userUid . '/' . $bookUid . '/' . $date  . '/' . $book;
       $file = Storage::path($bookPath);
@@ -61,6 +67,11 @@ class BookController extends Controller
       $response = response()->download($file,$fileInfo['basename'],$headers);
       ob_end_clean();
       // Save the download in the downloads table.
+      $download = new \App\Download();
+      $download->user_id = Auth::user()->id;
+      $book = \App\Book::where('uid', $bookUid)->first();
+      $download->book_id = $book->id;
+      $download->save();
       return $response;
     }
 

@@ -177,6 +177,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         // Model cloner
         Bkwld\Cloner\ServiceProvider::class,
+        // TCPDF
+        // Elibyy\TCPDF\ServiceProvider::class,
 
     ],
 
@@ -233,6 +235,8 @@ return [
         // Metronic Aliases
         'Metronic' => App\Classes\Theme\Metronic::class,
         'Menu' => App\Classes\Theme\Menu::class,
+
+        // 'TCPDF' => Elibyy\TCPDF\Facades\TCPDF::class
 
     ],
 
