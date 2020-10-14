@@ -87,10 +87,17 @@ class PPT extends PhpPresentation {
     return Alignment::HORIZONTAL_CENTER;
   }
 
-  private function addTextElement($element)
+  private function addTextElement($element, $middleTo=false)
   {
     list($x, $y) = $element->getPosition();
     list($width, $height) = $element->getDimensions();
+
+    // Calculate the center of the space between the image and the header
+    if ($middleTo) {
+      // If we like to center title in the middle of a space between the tittle Y
+      // And a higher Y: For example the start of image Y
+      $y += (($middleTo - $y - $height) / 2);
+    }
 
     $currentSlide = $this->getActiveSlide();
 
@@ -152,16 +159,17 @@ class PPT extends PhpPresentation {
   private function addImages($images)
   {
     foreach ($images as $img) {
+      list($x, $y) = $img->getPosition();
+
       $imgTitle = $img->getImageTitle();
       if ($imgTitle) {
         // Add image title on the page
-        $this->addTextElement($imgTitle);
+        $this->addTextElement($imgTitle, $y);
       }
 
       $currentSlide = $this->getActiveSlide();
       $shape = $currentSlide->createDrawingShape();
 
-      list($x, $y) = $img->getPosition();
       list($width, $height) = $img->getDimensions();
 
       $image = $img->getImage();

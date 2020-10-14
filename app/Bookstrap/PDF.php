@@ -58,19 +58,28 @@ class PDF extends PDF_ImageAlpha {
       return $style;
     }
 
-    private function addTextElement($element, $multiCell = false, $line = 1)
+    private function addTextElement($element, $multiCell = false, $line = 0, $middleTo = false)
     {
       $style = $this->getPDFStyle($element);
       $this->SetFont($element->getFont(), $style, $element->getFontSize());
 
       list($x, $y) = $element->getPosition();
+      list($width, $height) = $element->getDimensions();
+
+      // Calculate the center of the space between the image and the header
+      if ($middleTo) {
+        // If we like to center title in the middle of a space between the tittle Y
+        // And a higher Y: For example the start of image Y
+        $y += (($middleTo - $y - $height) / 2);
+      }
+
       $this->SetXY($x,$y);
 
-      list($width, $height) = $element->getDimensions();
+
       $text = preprocessText($element->getText());
       $alignment = $element->getAlignment();
       if ($multiCell) {
-        $this->Multicell($width, $height, $text, 1, $alignment);
+        $this->Multicell($width, $height, $text, 0, $alignment);
       } else {
         $this->Cell($width, $height, $text, $line, 0, $alignment);
       }
@@ -84,13 +93,14 @@ class PDF extends PDF_ImageAlpha {
     private function addImages($images)
     {
       foreach ($images as $img) {
+        list($x, $y) = $img->getPosition();
+
         $imgTitle = $img->getImageTitle();
         if ($imgTitle) {
           // Add image title on the page
-          $this->addTextElement($imgTitle);
+          $this->addTextElement($imgTitle, false, 0, $y);
         }
 
-        list($x, $y) = $img->getPosition();
         list($width, $height) = $img->getDimensions();
 
         $image = $img->getImage();
