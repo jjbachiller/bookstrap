@@ -58,7 +58,7 @@ class PDF extends PDF_ImageAlpha {
       return $style;
     }
 
-    private function addTextElement($element, $multiCell = false, $line = 0)
+    private function addTextElement($element, $multiCell = false, $line = 1)
     {
       $style = $this->getPDFStyle($element);
       $this->SetFont($element->getFont(), $style, $element->getFontSize());
@@ -70,7 +70,7 @@ class PDF extends PDF_ImageAlpha {
       $text = preprocessText($element->getText());
       $alignment = $element->getAlignment();
       if ($multiCell) {
-        $this->Multicell($width, $height, $text, 0, $alignment);
+        $this->Multicell($width, $height, $text, 1, $alignment);
       } else {
         $this->Cell($width, $height, $text, $line, 0, $alignment);
       }
