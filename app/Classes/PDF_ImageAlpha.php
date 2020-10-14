@@ -92,9 +92,9 @@ class PDF_ImageAlpha extends FPDF
   // pixel-wise operation, not very fast
   function ImagePngWithAlpha($file,$x,$y,$w=0,$h=0,$link='')
   {
-      $tmp_alpha = tempnam('.', 'mska');
+      $tmp_alpha = @tempnam('.', 'mska');
       $this->tmpFiles[] = $tmp_alpha;
-      $tmp_plain = tempnam('.', 'mskp');
+      $tmp_plain = @tempnam('.', 'mskp');
       $this->tmpFiles[] = $tmp_plain;
 
       list($wpx, $hpx) = getimagesize($file);

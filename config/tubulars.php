@@ -4,7 +4,7 @@ return [
   's3_folder' => '/maze/tubular/',
   'puzzles_folder' => '/puzzles/',
   'solutions_folder' => '/solutions/',
-  'puzzle_name' => 'Tent',
+  'puzzle_name' => 'Tubular Maze',
   'solution_name' => 'Solution',
   'ext' => '.png',
   'type' => 'image/png',
