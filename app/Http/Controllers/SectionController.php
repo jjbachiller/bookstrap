@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
 use App\Classes\ImageManager;
+use App\Jobs\LoadS3ContentJob;
 
 class SectionController extends Controller
 {
@@ -123,13 +124,13 @@ class SectionController extends Controller
 
       $section = \App\Section::findOrFail($contentData['section_id']);
 
-      $config = config($contentData['content_type']);
-
-      if (!$config) {
+      if (!config($contentData['content_type'])) {
         abort(404);
       }
 
-      $response = ImageManager::saveLibraryImages($contentData, $section, $config);
+      LoadS3ContentJob::dispatch(Auth::user(), $section, $contentData);
+      // $response = ImageManager::saveLibraryImages($contentData, $section, $config);
+      $response = ['ok' => true];
       return response()->json($response);
     }
   }

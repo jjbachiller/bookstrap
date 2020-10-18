@@ -549,42 +549,97 @@ $('.loadLibraryContentButton').on('click', function() {
   $("#modalAffectedSection").val(sectionIndex);
 });
 
-function updateProgress(startFrom, targetNum, sectionId) {
+function unblockUploader(data, solutions) {
+  $('.currentProgress').remove();
+  KTApp.unblockPage('#smartwizard');
+
+  //Add the solutions at the end to simplify the  code
+  // If content has solutions, added the solutions to the solutions dropzone.
+  if (data.has_solutions) {
+    // Mark the section as a section with solutions.
+    if (!$("#addSolutions"+data.sectionIndex).prop('checked')) {
+      $("#addSolutions"+data.sectionIndex).prop('checked', true).change();
+    }
+    var solutionsDropzone = Dropzone.forElement("#myDropSolutions"+data.sectionIndex);
+
+    var solutions = solutions;
+    for (var index in solutions) {
+      var solution = solutions[index];
+      var solutionData = {'name': solution.show_name, 'size': solution.size, 'type': solution.type};
+      solutionsDropzone.displayExistingFile(solutionData, solution.url);
+      solutionsDropzone.files.push(solutionData);
+      // Add the database id to the preview Element
+      var lastSolutionFile = solutionsDropzone.files[solutionsDropzone.files.length - 1];
+      $('<input>').addClass('imageId').attr('type','hidden').val(solution.id).appendTo(lastSolutionFile.previewElement);
+    }
+  }
+}
+
+function updateProgress(startFrom, targetNum, data) {
   // Query each 2 seconds, the number of files from s3 copied locally.
   setTimeout(function() {
     $.ajax({
       type: "POST",
       url: "{{ route('section.num-images') }}",
       dataType: 'json',
-      data: JSON.stringify({ 'id': sectionId}),
+      data: JSON.stringify({ 'id': data.section_id}),
       success: function(response) {
         var numNewFiles = response.num_images - startFrom;
         var percentage = (numNewFiles * 100) / targetNum;
         $('.currentProgress div.progress-bar').width(percentage + '%');
-        // console.log("startFrom: " + startFrom);
-        // console.log("targetNum: " + targetNum);
-        // console.log("numNewFiles: " + numNewFiles);
-        // console.log("percentage: " + percentage);
-        if (percentage < 100) {
-          // Check if loader ended before and element is removed
-          if ($('.currentProgress').length) {
-            updateProgress(startFrom, targetNum, sectionId);
+
+        var sectionDropzone = Dropzone.forElement("#myDrop"+data.sectionIndex);
+
+        // Add the library content to the dropzone images.
+        var images = response.images;
+        var newImages = images.slice(data.alreadyLoaded);
+        for (var index in newImages) {
+          var image = newImages[index];
+          var imageData = {'name': image.show_name, 'size': image.size, 'type': image.type};
+
+          sectionDropzone.displayExistingFile(imageData, image.url);
+          // Add to the dropZone files array (so you can delete all).
+          sectionDropzone.files.push(imageData);
+          // Add the database id to the preview Element
+          var lastFile = sectionDropzone.files[sectionDropzone.files.length - 1];
+          $('<input>').addClass('imageId').attr('type','hidden').val(image.id).appendTo(lastFile.previewElement);
+          data.alreadyLoaded+= 1;
+        }
+
+        if (response.deny) {
+          // If error unlock
+          unblockUploader(data, response.solutions);
+
+          $('#denyMessage').html(response.message);
+          $('#showAlertDeny').modal('show');
+        } else {
+          // if not error
+          if (numNewFiles < targetNum) {
+            // if files left, we make another check call
+            // Check if loader ended before and element is removed
+            if ($('.currentProgress').length) {
+              updateProgress(startFrom, targetNum, data);
+            }
+          } else {
+            // if files completed, we finish the load.
+            unblockUploader(data, response.solutions);
           }
         }
       }
     });
-  }, 2000);
+  }, 5000);
 }
 
-function showProgress(numNewImages, sectionId) {
+function showProgress(data) {
   $('#progress-container').clone().removeClass('d-none').addClass('currentProgress').appendTo('.blockPage');
   $.ajax({
     type: "POST",
     url: "{{ route('section.num-images') }}",
     dataType: 'json',
-    data: JSON.stringify({'id': sectionId}),
+    data: JSON.stringify({'id': data.section_id}),
     success: function(response) {
-      updateProgress(response.num_images, numNewImages, sectionId);
+      data.alreadyLoaded = response.images.length;
+      updateProgress(response.num_images, data.numImages, data);
     }
   });
 }
@@ -720,6 +775,7 @@ function addContent(sectionIndex, sectionId) {
   var contentType = $("#selectedContentType").val();
   var data = getDataForContentType(contentType);
   data.section_id = sectionId;
+  data.sectionIndex = sectionIndex;
 
   // Block the section container
   // var sectionToLock = getSectionByIndex(affectedSectionIndex);
@@ -731,8 +787,8 @@ function addContent(sectionIndex, sectionId) {
   });
 
   // The number of images is doubled to include solutions
-  var numImages = (data.has_solutions) ? data.number * 2 : data.number;
-  showProgress(numImages, sectionId);
+  data.numImages = (data.has_solutions) ? data.number * 2 : data.number;
+  showProgress(data);
 
   // ajax call to randomly associate sudokus to section
   $.ajax({
@@ -741,48 +797,48 @@ function addContent(sectionIndex, sectionId) {
     dataType: 'json',
     data: JSON.stringify(data),
     success: function(response) {
-      $('.currentProgress').remove();
-      KTApp.unblockPage('#smartwizard');
-
-      if (response.deny) {
-        $('#denyMessage').html(response.message);
-        $('#showAlertDeny').modal('show');
-      }
-      var sectionDropzone = Dropzone.forElement("#myDrop"+sectionIndex);
-
-      // Add the library content to the dropzone images.
-      var images = response.images;
-      for (var index in images) {
-        var image = images[index];
-        var imageData = {'name': image.show_name, 'size': image.size, 'type': image.type};
-
-        sectionDropzone.displayExistingFile(imageData, image.url);
-        // Add to the dropZone files array (so you can delete all).
-        sectionDropzone.files.push(imageData);
-        // Add the database id to the preview Element
-        var lastFile = sectionDropzone.files[sectionDropzone.files.length - 1];
-        $('<input>').addClass('imageId').attr('type','hidden').val(image.id).appendTo(lastFile.previewElement);
-      }
-
-      // If content has solutions, added the solutions to the solutions dropzone.
-      if (data.has_solutions) {
-        // Mark the section as a section with solutions.
-        if (!$("#addSolutions"+sectionIndex).prop('checked')) {
-          $("#addSolutions"+sectionIndex).prop('checked', true).change();
-        }
-        var solutionsDropzone = Dropzone.forElement("#myDropSolutions"+sectionIndex);
-
-        var solutions = response.solutions;
-        for (var index in response.solutions) {
-          var solution = solutions[index];
-          var solutionData = {'name': solution.show_name, 'size': solution.size, 'type': solution.type};
-          solutionsDropzone.displayExistingFile(solutionData, solution.url);
-          solutionsDropzone.files.push(solutionData);
-          // Add the database id to the preview Element
-          var lastSolutionFile = solutionsDropzone.files[solutionsDropzone.files.length - 1];
-          $('<input>').addClass('imageId').attr('type','hidden').val(solution.id).appendTo(lastSolutionFile.previewElement);
-        }
-      }
+      // $('.currentProgress').remove();
+      // KTApp.unblockPage('#smartwizard');
+      //
+      // if (response.deny) {
+      //   $('#denyMessage').html(response.message);
+      //   $('#showAlertDeny').modal('show');
+      // }
+      // var sectionDropzone = Dropzone.forElement("#myDrop"+sectionIndex);
+      //
+      // // Add the library content to the dropzone images.
+      // var images = response.images;
+      // for (var index in images) {
+      //   var image = images[index];
+      //   var imageData = {'name': image.show_name, 'size': image.size, 'type': image.type};
+      //
+      //   sectionDropzone.displayExistingFile(imageData, image.url);
+      //   // Add to the dropZone files array (so you can delete all).
+      //   sectionDropzone.files.push(imageData);
+      //   // Add the database id to the preview Element
+      //   var lastFile = sectionDropzone.files[sectionDropzone.files.length - 1];
+      //   $('<input>').addClass('imageId').attr('type','hidden').val(image.id).appendTo(lastFile.previewElement);
+      // }
+      //
+      // // If content has solutions, added the solutions to the solutions dropzone.
+      // if (data.has_solutions) {
+      //   // Mark the section as a section with solutions.
+      //   if (!$("#addSolutions"+sectionIndex).prop('checked')) {
+      //     $("#addSolutions"+sectionIndex).prop('checked', true).change();
+      //   }
+      //   var solutionsDropzone = Dropzone.forElement("#myDropSolutions"+sectionIndex);
+      //
+      //   var solutions = response.solutions;
+      //   for (var index in response.solutions) {
+      //     var solution = solutions[index];
+      //     var solutionData = {'name': solution.show_name, 'size': solution.size, 'type': solution.type};
+      //     solutionsDropzone.displayExistingFile(solutionData, solution.url);
+      //     solutionsDropzone.files.push(solutionData);
+      //     // Add the database id to the preview Element
+      //     var lastSolutionFile = solutionsDropzone.files[solutionsDropzone.files.length - 1];
+      //     $('<input>').addClass('imageId').attr('type','hidden').val(solution.id).appendTo(lastSolutionFile.previewElement);
+      //   }
+      // }
     },
   });
 
