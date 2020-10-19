@@ -114,6 +114,11 @@ span.reference a:hover{
 	font-size: 0.6vw;
 }
 
+.booklet .h-16 .img-title {
+	height: 15%;
+	font-size: 0.6vw;
+}
+
 .booklet .img-container {
 	width: 100%;
 	height: 94%;
@@ -127,6 +132,10 @@ span.reference a:hover{
 .booklet .h-33 .img-container,
 .booklet .h-25 .img-container {
 	height: 87%;
+}
+
+.booklet .h-16 .img-container {
+	height: 85%;
 }
 
 .booklet .page-content .img-container img {
@@ -213,6 +222,10 @@ span.reference a:hover{
 	position:relative;
 	background:transparent url(../img/bg-phone_w.png) no-repeat 16px 2px;
 	/* background:transparent url(../img/bg.png) no-repeat 9px 27px; */
+}
+
+.h-16 {
+	height: 16%;
 }
 
 .h-33 {

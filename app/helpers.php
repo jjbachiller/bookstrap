@@ -194,6 +194,7 @@
         $imageMaxHeight = $bookMaxHeight / 2;
         break;
       case 5:
+      case 9:
         $imageMaxWidth = $bookMaxWidth / 3;
         $imageMaxHeight = $bookMaxHeight / 3;
         break;
@@ -202,9 +203,24 @@
         $imageMaxWidth = $bookMaxWidth / 2;
         $imageMaxHeight = $bookMaxHeight / 4;
         break;
-      default: // From 9 to 12
+      case 10:
+      case 11:
+      case 12:
         $imageMaxWidth = $bookMaxWidth / 3;
         $imageMaxHeight = $bookMaxHeight / 4;
+        break;
+      case 13:
+      case 14:
+      case 15:
+      case 16:
+      case 17:
+      case 18:
+        $imageMaxWidth = $bookMaxWidth / 3;
+        $imageMaxHeight = $bookMaxHeight / 6;
+        break;
+      default: // From 19 to 24
+        $imageMaxWidth = $bookMaxWidth / 4;
+        $imageMaxHeight = $bookMaxHeight / 6;
     }
 
     return [$imageMaxWidth, $imageMaxHeight];
@@ -278,9 +294,12 @@
         if ($totalImages <= 6 || $totalImages == 9) {
           $offsetX = $imageMaxWidth;
           $offsetY = $imageMaxHeight;
-        } else {
+        } elseif ($totalImages < 13) {
           $offsetX = $imageMaxWidth;
           $offsetY = 0;
+        } else {
+          $offsetX = 0;
+          $offsetY = $imageMaxHeight * 4;
         }
 
         break;
@@ -288,14 +307,45 @@
         if ($totalImages == 6 || $totalImages == 9) {
           $offsetX = $imageMaxWidth;
           $offsetY = $imageMaxHeight * 2;
-        } else {
+        } elseif ($totalImages < 13) {
           $offsetX = $imageMaxWidth;
           $offsetY = $imageMaxHeight;
+        } else {
+          $offsetX = 0;
+          $offsetY = $imageMaxHeight * 5;
         }
 
         break;
       case 7:
         if ($totalImages == 9) {
+          $offsetX = $imageMaxWidth * 2;
+          $offsetY = 0;
+        } elseif ($totalImages < 13) {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight * 2;
+        } else {
+          $offsetX = $imageMaxWidth;
+          $offsetY = 0;
+        }
+
+        break;
+      case 8:
+        if ($totalImages == 9) {
+          $offsetX = $imageMaxWidth * 2;
+          $offsetY = $imageMaxHeight;
+        } elseif ($totalImages < 13) {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight * 3;
+        } else {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight;
+        }
+        break;
+      case 9:
+        if ($totalImages == 9) {
+          $offsetX = $imageMaxWidth * 2;
+          $offsetY = $imageMaxHeight * 2;
+        } elseif ($totalImages < 13) {
           $offsetX = $imageMaxWidth * 2;
           $offsetY = 0;
         } else {
@@ -304,38 +354,94 @@
         }
 
         break;
-      case 8:
-        if ($totalImages == 9) {
+      case 10:
+        if ($totalImages < 13) {
           $offsetX = $imageMaxWidth * 2;
           $offsetY = $imageMaxHeight;
         } else {
           $offsetX = $imageMaxWidth;
           $offsetY = $imageMaxHeight * 3;
         }
+
         break;
-      case 9:
-        if ($totalImages == 9) {
+      case 11:
+        if ($totalImages < 13) {
           $offsetX = $imageMaxWidth * 2;
-          $offsetY = $imageMaxHeight * 3;
+          $offsetY = $imageMaxHeight * 2;
         } else {
-          $offsetX = $imageMaxWidth * 2;
-          $offsetY = 0;
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight * 4;
         }
 
         break;
-      case 10:
+      case 12:
+        if ($totalImages < 13) {
+          $offsetX = $imageMaxWidth * 2;
+          $offsetY = $imageMaxHeight * 3;
+        } else {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight * 5;
+        }
+
+        break;
+      case 13:
+        $offsetX = $imageMaxWidth * 2;
+        $offsetY = 0;
+
+        break;
+      case 14:
         $offsetX = $imageMaxWidth * 2;
         $offsetY = $imageMaxHeight;
 
         break;
-      case 11:
+      case 15:
         $offsetX = $imageMaxWidth * 2;
         $offsetY = $imageMaxHeight * 2;
 
         break;
-      case 12:
+      case 16:
         $offsetX = $imageMaxWidth * 2;
         $offsetY = $imageMaxHeight * 3;
+
+        break;
+      case 17:
+        $offsetX = $imageMaxWidth * 2;
+        $offsetY = $imageMaxHeight * 4;
+
+        break;
+      case 18:
+        $offsetX = $imageMaxWidth * 2;
+        $offsetY = $imageMaxHeight * 5;
+
+        break;
+      case 19:
+        $offsetX = $imageMaxWidth * 3;
+        $offsetY = 0;
+
+        break;
+      case 20:
+        $offsetX = $imageMaxWidth * 3;
+        $offsetY = $imageMaxHeight;
+
+        break;
+      case 21:
+        $offsetX = $imageMaxWidth * 3;
+        $offsetY = $imageMaxHeight * 2;
+
+        break;
+      case 22:
+        $offsetX = $imageMaxWidth * 3;
+        $offsetY = $imageMaxHeight * 3;
+
+        break;
+      case 23:
+        $offsetX = $imageMaxWidth * 3;
+        $offsetY = $imageMaxHeight * 4;
+
+        break;
+      case 24:
+        $offsetX = $imageMaxWidth * 3;
+        $offsetY = $imageMaxHeight * 5;
 
         break;
       default:
