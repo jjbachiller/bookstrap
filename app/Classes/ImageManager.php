@@ -60,9 +60,11 @@ class ImageManager
     $image->height = $imageConfig['height'];
     $image->type = $imageConfig['type'];
     $image->solution = $solution;
-    $section->content()->save($image);
 
+    // Download the image before save it to the database.
     self::saveS3ImageLocally($image, $imageConfig);
+
+    $section->content()->save($image);
 
     return $image;
   }

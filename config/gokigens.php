@@ -2,7 +2,7 @@
 
 return [
   's3_folder' => '/japanese/gokigen/',
-  'puzzles_folder' => '/puzzle/',
+  'puzzles_folder' => '/puzzles/',
   'solutions_folder' => '/solutions/',
   'puzzle_name' => 'Gokigen',
   'solution_name' => 'Solution',

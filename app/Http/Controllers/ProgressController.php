@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ProgressController extends Controller
 {
@@ -19,7 +20,14 @@ class ProgressController extends Controller
 
       $numImages = $section->content->count();
 
-      return json_encode(['num_images' => $numImages]);
+      $response = ['num_images' => $numImages, 'images' => $section->images, 'solutions' => $section->solutions];
+
+      if (Gate::denies('space-available', 0)) {
+        $response['deny'] = config('bookstrap-constants.DENIES.NOT_ENOUGH_SPACE.code');
+        $response['message'] = config('bookstrap-constants.DENIES.NOT_ENOUGH_SPACE.message');
+      }
+
+      return json_encode($response);
     }
 
 }
