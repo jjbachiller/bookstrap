@@ -12,6 +12,7 @@ use App\Section;
 use App\User;
 use App\Classes\ImageManager;
 use App\Exceptions\NoSpaceLeftException;
+use Illuminate\Support\Facades\Auth;
 
 class LoadS3ContentJob implements ShouldQueue
 {
@@ -43,6 +44,7 @@ class LoadS3ContentJob implements ShouldQueue
      */
     public function handle()
     {
+      // Auth::login($this->user);
       $imagesNumber = $this->contentData['number'];
       $counter = $this->section->images->where('s3_disk', $this->imageConfig['s3_folder'])->count() + 1;
       $imagesList = randomGen(0, $this->imageConfig['max_number'], $imagesNumber);

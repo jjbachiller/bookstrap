@@ -38,6 +38,8 @@ class CloneController extends Controller
 
       $newBook = $clonedBook->duplicate();
       $newBook->name = $newBookName;
+      $newBook->pdf = null;
+      $newBook->ppt = null;
       $newBook->save();
 
       // Copy the files with the structure under the new book uid (for the local images).
