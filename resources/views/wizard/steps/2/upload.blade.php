@@ -43,14 +43,9 @@
                 </div>
               </div>
               <select class="custom-select imagesPerPage text-right" id="imagesPerPage1">
-                <option value="1" selected>1</option>
-                <option value="2">2</option>
-                <option value="4">4</option>
-                <option value="6">6</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="12">12</option>
-                <option value="24">24</option>
+                @foreach (config('bookstrap-constants.IMAGES_PER_PAGE_OPTIONS') as $value => $text)
+                  <option value="{{ $value }}" {{ $loop->first ? 'selected':'' }}>{{ $text }}</option>
+                @endforeach
               </select>
             </div>
           </div>
@@ -185,14 +180,9 @@
                 </div>
               </div>
               <select class="custom-select solutionsPerPage text-right" id="solutionsPerPage1">
-                <option value="1" selected>1</option>
-                <option value="2">2</option>
-                <option value="4">4</option>
-                <option value="6">6</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="12">12</option>
-                <option value="24">24</option>    
+                @foreach (config('bookstrap-constants.IMAGES_PER_PAGE_OPTIONS') as $value => $text)
+                  <option value="{{ $value }}" {{ $loop->first ? 'selected':'' }}>{{ $text }}</option>
+                @endforeach
               </select>
             </div>
           </div>
