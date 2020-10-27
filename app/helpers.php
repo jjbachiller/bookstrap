@@ -230,6 +230,240 @@
   {
     switch ($currentImage) {
       case 2:
+
+        if ($totalImages == 2) {
+          $offsetX = 0;
+          $offsetY = $imageMaxHeight;
+        } else {
+          $offsetX = $imageMaxWidth;
+          $offsetY = 0;
+        }
+
+        break;
+      case 3:
+
+        if ($totalImages < 9) {
+          $offsetX = 0;
+          $offsetY = $imageMaxHeight;
+        } else {
+          $offsetX = $imageMaxWidth * 2;
+          $offsetY = 0;
+        }
+
+        break;
+      case 4:
+
+        if ($totalImages < 9) {
+
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight;
+
+        } elseif ($totalImages < 19) {
+
+          $offsetX = 0;
+          $offsetY = $imageMaxHeight;
+
+        } else {
+
+          $offsetX = $imageMaxWidth * 3;
+          $offsetY = 0;
+
+        }
+
+        break;
+      case 5:
+        // Same offset for 5 or 6 images
+        if ($totalImages < 9) {
+          $offsetX = 0;
+          $offsetY = $imageMaxHeight * 2;
+        } elseif ($totalImages < 19) {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight;
+        } else {
+          $offsetX = 0;
+          $offsetY = $imageMaxHeight;
+        }
+
+        break;
+      case 6:
+        if ($totalImages < 9) {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight * 2;
+        } elseif ($totalImages < 19) {
+          $offsetX = $imageMaxWidth * 2;
+          $offsetY = $imageMaxHeight;
+        } else {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight;
+        }
+
+        break;
+      case 7:
+        if ($totalImages < 9) {
+          $offsetX = 0;
+          $offsetY = $imageMaxHeight * 3;
+        } elseif ($totalImages < 19) {
+          $offsetX = 0;
+          $offsetY = $imageMaxHeight * 2;
+        } else {
+          $offsetX = $imageMaxWidth * 2;
+          $offsetY = $imageMaxHeight;
+        }
+
+        break;
+      case 8:
+        if ($totalImages == 9) {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight * 3;
+        } elseif ($totalImages < 19) {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight * 2;
+        } else {
+          $offsetX = $imageMaxWidth * 3;
+          $offsetY = $imageMaxHeight;
+        }
+        break;
+      case 9:
+        if ($totalImages < 19) {
+          $offsetX = $imageMaxWidth * 2;
+          $offsetY = $imageMaxHeight * 2;
+        } else {
+          $offsetX = 0;
+          $offsetY = $imageMaxHeight * 2;
+        }
+
+        break;
+      case 10:
+        if ($totalImages < 19) {
+          $offsetX = 0;
+          $offsetY = $imageMaxHeight * 3;
+        } else {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight * 2;
+        }
+
+        break;
+      case 11:
+        if ($totalImages < 19) {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight * 3;
+        } else {
+          $offsetX = $imageMaxWidth * 2;
+          $offsetY = $imageMaxHeight * 2;
+        }
+
+        break;
+      case 12:
+        if ($totalImages < 19) {
+          $offsetX = $imageMaxWidth * 2;
+          $offsetY = $imageMaxHeight * 3;
+        } else {
+          $offsetX = $imageMaxWidth * 3;
+          $offsetY = $imageMaxHeight * 2;
+        }
+
+        break;
+      case 13:
+        if ($totalImages < 19) {
+          $offsetX = 0;
+          $offsetY = $imageMaxHeight * 4;
+        } else {
+          $offsetX = 0;
+          $offsetY = $imageMaxHeight * 3;
+        }
+
+        break;
+      case 14:
+        if ($totalImages < 19) {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight * 4;
+        } else {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight * 3;
+        }
+
+        break;
+      case 15:
+        if ($totalImages < 19) {
+          $offsetX = $imageMaxWidth * 2;
+          $offsetY = $imageMaxHeight * 4;
+        } else {
+          $offsetX = $imageMaxWidth * 2;
+          $offsetY = $imageMaxHeight * 3;
+        }
+
+        break;
+      case 16:
+        if ($totalImages < 19) {
+          $offsetX = 0;
+          $offsetY = $imageMaxHeight * 5;
+        } else {
+          $offsetX = $imageMaxWidth * 3;
+          $offsetY = $imageMaxHeight * 3;
+        }
+
+        break;
+      case 17:
+        if ($totalImages < 19) {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight * 5;
+        } else {
+          $offsetX = 0;
+          $offsetY = $imageMaxHeight * 4;
+        }
+
+        break;
+      case 18:
+        if ($totalImages < 19) {
+          $offsetX = $imageMaxWidth * 2;
+          $offsetY = $imageMaxHeight * 5;
+        } else {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight * 4;
+        }
+
+        break;
+      case 19:
+        $offsetX = $imageMaxWidth * 2;
+        $offsetY = $imageMaxHeight * 4;
+
+        break;
+      case 20:
+        $offsetX = $imageMaxWidth * 3;
+        $offsetY = $imageMaxHeight * 4;
+
+        break;
+      case 21:
+        $offsetX = 0;
+        $offsetY = $imageMaxHeight * 5;
+
+        break;
+      case 22:
+        $offsetX = $imageMaxWidth;
+        $offsetY = $imageMaxHeight * 5;
+
+        break;
+      case 23:
+        $offsetX = $imageMaxWidth * 2;
+        $offsetY = $imageMaxHeight * 5;
+
+        break;
+      case 24:
+        $offsetX = $imageMaxWidth * 3;
+        $offsetY = $imageMaxHeight * 5;
+
+        break;
+      default:
+        $offsetX = $offsetY = 0;
+    }
+
+    return [$offsetX, $offsetY];
+  }
+
+  function calculateImageOffsetOld($totalImages, $currentImage, $imageMaxWidth, $imageMaxHeight)
+  {
+    switch ($currentImage) {
+      case 2:
         $offsetX = 0;
 
         if ($totalImages == 2 || $totalImages == 4 || $totalImages >= 6) {
