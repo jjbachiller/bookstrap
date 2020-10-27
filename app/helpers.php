@@ -312,7 +312,7 @@
 
         break;
       case 8:
-        if ($totalImages == 9) {
+        if ($totalImages < 9) {
           $offsetX = $imageMaxWidth;
           $offsetY = $imageMaxHeight * 3;
         } elseif ($totalImages < 19) {
