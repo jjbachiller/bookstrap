@@ -258,47 +258,8 @@
     </div>
   </div>
   </div>
-  {{-- 5 images per page --}}
-  <div class="p-0 w-100 h-100 images-per-page-5">
-  <div class="h-33 d-flex flex-row flex-nowrap justify-content-center align-items-center">
-    <div class="w-50 h-100 d-flex flex-column">
-      <div class="img-title title-1"></div>
-      <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-        <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt=""/>
-      </div>
-    </div>
-    <div class="w-50 h-100 d-flex flex-column">
-      <div class="img-title title-2"></div>
-      <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-        <img class="lazy img-fluid image-2"  data-src="[IMG_URL]" alt=""/>
-      </div>
-    </div>
-  </div>
-  <div class="h-33 d-flex flex-row flex-nowrap justify-content-center align-items-center">
-    <div class="w-100 h-100 d-flex flex-column">
-      <div class="img-title title-3"></div>
-      <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-        <img class="lazy img-fluid image-3"  data-src="[IMG_URL]" alt=""/>
-      </div>
-    </div>
-  </div>
-  <div class="h-33 d-flex flex-row flex-nowrap justify-content-center align-items-center">
-    <div class="w-50 h-100 d-flex flex-column">
-      <div class="img-title title-4"></div>
-      <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-        <img class="lazy img-fluid image-4"  data-src="[IMG_URL]" alt=""/>
-      </div>
-    </div>
-    <div class="w-50 h-100 d-flex flex-column">
-      <div class="img-title title-5"></div>
-      <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-        <img class="lazy img-fluid image-5"  data-src="[IMG_URL]" alt=""/>
-      </div>
-    </div>
-  </div>
-  </div>
-  {{-- 6 images per page --}}
-  <div class="p-0 w-100 h-100 images-per-page-6">
+  {{-- 5 to 6 images per page --}}
+  <div class="p-0 w-100 h-100  images-per-page-5 images-per-page-6">
   <div class="h-33 d-flex flex-row flex-nowrap justify-content-center align-items-center">
     <div class="w-50 h-100 d-flex flex-column">
       <div class="img-title title-1"></div>
