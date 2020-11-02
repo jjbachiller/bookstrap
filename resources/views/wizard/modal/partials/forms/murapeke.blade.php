@@ -19,12 +19,13 @@
 
   <label class="col-form-label text-right col-lg-2 col-sm-12">Amount:</label>
   <div class="col-lg-4 col-md-9 col-sm-12">
-    <div class="dropdown bootstrap-select form-control">
-      <select class="form-control selectpicker" data-style="btn-light-info" data-container="body" id="murapekeNumber">
-        @foreach (config('murapekes.addGroups') as $amount)
-          <option value="{{ $amount }}">{{ $amount }} Murapekes</option>
-        @endforeach
-      </select>
+    <div class="row">
+      <div class="col-8">
+        <div class="nouislider-drag-danger slider_num_library_items"></div>
+      </div>
+      <div class="col-4">
+        <input type="text" step="1" class="form-control num_library_items" id="murapekeNumber" value="10"  data-style="btn-light-info" data-container="body">
+      </div>
     </div>
   </div>
 

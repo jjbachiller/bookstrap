@@ -72,6 +72,7 @@ function loadPreviewContent() {
           if (currentPageImages.length == imagesPerPage) {
             var pageOptions = {
               'pageNumber': current_page,
+              'imagesPerPage': imagesPerPage,
               'images': currentPageImages,
               'header': (solutions) ? section.solutions_header : section.header,
               'imageNameAsTitle': (solutions) ? section.solutions_name_as_title : section.image_name_as_title,
@@ -103,6 +104,7 @@ function loadPreviewContent() {
         if (currentPageImages.length > 0) {
           var pageOptions = {
             'pageNumber': current_page,
+            'imagesPerPage': imagesPerPage,
             'images': currentPageImages,
             'header': (solutions) ? section.solutions_header : section.header,
             'imageNameAsTitle': (solutions) ? section.solutions_name_as_title : section.image_name_as_title,
@@ -206,7 +208,7 @@ function getNewImagePage(imagePageOptions) {
     imageTemplate.find('.page').addClass("section-start");
   }
 
-  var numImages = imagePageOptions['images'].length;
+  var numImages = imagePageOptions['imagesPerPage'];
   var imagesLayout = $('.images-layout').find('.images-per-page-' + numImages).clone();
   imagePageOptions['images'].forEach(function(image, i) {
     var imageNumber = i + 1;

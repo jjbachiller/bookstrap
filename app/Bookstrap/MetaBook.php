@@ -96,14 +96,18 @@ class MetaBook {
     // $filenames = glob($folder.'*');
     // natsort($filenames);
     // foreach ($filenames as $imgFile) {
+    $imagesPerPage = false;
     foreach ($images as $image) {
       // $fileinfo = new \SplFileInfo($imgFile);
       // if (!$fileinfo->isFile() || !in_array($fileinfo->getExtension(), config('bookstrap-constants.allowedExtensions'), true)) continue;
       $imagesCurrentPage[] = $image;
 
-      $imagesPerPage = ($solutions) ? $image->section->solutions_per_page : $image->section->images_per_page;
+      if (!$imagesPerPage) {
+        $imagesPerPage = ($solutions) ? $image->section->solutions_per_page : $image->section->images_per_page;
+      }
+
       if (count($imagesCurrentPage) == $imagesPerPage) {
-        $this->addImagePage($imagesCurrentPage, $pageNumber, $solutions);
+        $this->addImagePage($imagesCurrentPage, $pageNumber, $imagesPerPage, $solutions);
         $pageNumber++;
 
         if ($image->section->book->add_blank_pages) {
@@ -117,7 +121,7 @@ class MetaBook {
 
     // Add a final page with the images that are pending.
     if (count($imagesCurrentPage)) {
-      $this->addImagePage($imagesCurrentPage, $pageNumber, $solutions);
+      $this->addImagePage($imagesCurrentPage, $pageNumber, $imagesPerPage, $solutions);
       $pageNumber++;
 
       if ($image->section->book->add_blank_pages) {
@@ -172,7 +176,7 @@ class MetaBook {
     $this->pages[] = $page;
   }
 
-  private function addImagePage($images, $pageNumber, $solution = false)
+  private function addImagePage($images, $pageNumber, $imagesPerPage, $solution = false)
   {
     $page = $this->getBookPage($pageNumber);
 
@@ -191,7 +195,7 @@ class MetaBook {
 
     // Add section image
     $imageTitle = $solution ? $this->currentSection->solutions_name_as_title : $this->currentSection->image_name_as_title;
-    $page->setSectionImages($images, $imageTitle);
+    $page->setSectionImages($images, $imagesPerPage, $imageTitle);
 
     $this->pages[] = $page;
   }

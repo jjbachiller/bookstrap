@@ -124,3 +124,18 @@ $('#addSquaresButton').on('click', function() {
 
   loadContentFromLibrary();
 });
+
+$('.num_library_items').inputmask('numeric', { min:1, max:200 });
+$('.slider_num_library_items').ionRangeSlider({
+  min: 1,
+  max: 200,
+  from: 10,
+  skin: "sharp",
+  onChange: function(data) {
+    $('.num_library_items').val(data.from);
+  }
+});
+var numItemsRange = $('.slider_num_library_items').data("ionRangeSlider");
+$('.num_library_items').on('change', function() {
+  numItemsRange.update({ from: $(this).val() });
+})

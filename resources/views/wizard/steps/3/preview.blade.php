@@ -194,41 +194,8 @@
       </div>
     </div>
   </div>
-  {{-- 3 images per page --}}
-  <div class="p-0 w-100 h-100 images-per-page-3">
-  <div class="h-33 d-flex flex-row flex-nowrap justify-content-left align-items-center">
-    <div class="w-50 h-100 d-flex flex-column">
-      <div class="img-title title-1"></div>
-      <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-        <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt=""/>
-      </div>
-    </div>
-    <div class="w-50 d-flex flex-column">
-    </div>
-  </div>
-  <div class="h-33 d-flex flex-row flex-nowrap justify-content-right align-items-center">
-    <div class="w-50 d-flex flex-column">
-    </div>
-    <div class="w-50 h-100 d-flex flex-column">
-      <div class="img-title title-2"></div>
-      <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-        <img class="lazy img-fluid image-2"  data-src="[IMG_URL]" alt=""/>
-      </div>
-    </div>
-  </div>
-  <div class="h-33 d-flex flex-row flex-nowrap justify-content-left align-items-center">
-    <div class="w-50 h-100 d-flex flex-column">
-      <div class="img-title title-3"></div>
-      <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-        <img class="lazy img-fluid image-3"  data-src="[IMG_URL]" alt=""/>
-      </div>
-    </div>
-    <div class="w-50 d-flex flex-column">
-    </div>
-  </div>
-  </div>
   {{-- 4 images per page --}}
-  <div class="p-0 w-100 h-100 images-per-page-4">
+  <div class="p-0 w-100 h-100 images-per-page-3 images-per-page-4">
   <div class="h-50 d-flex flex-row flex-nowrap justify-content-center align-items-center">
     <div class="w-50 h-100 d-flex flex-column">
       <div class="img-title title-1"></div>
@@ -258,47 +225,8 @@
     </div>
   </div>
   </div>
-  {{-- 5 images per page --}}
-  <div class="p-0 w-100 h-100 images-per-page-5">
-  <div class="h-33 d-flex flex-row flex-nowrap justify-content-center align-items-center">
-    <div class="w-50 h-100 d-flex flex-column">
-      <div class="img-title title-1"></div>
-      <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-        <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt=""/>
-      </div>
-    </div>
-    <div class="w-50 h-100 d-flex flex-column">
-      <div class="img-title title-2"></div>
-      <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-        <img class="lazy img-fluid image-2"  data-src="[IMG_URL]" alt=""/>
-      </div>
-    </div>
-  </div>
-  <div class="h-33 d-flex flex-row flex-nowrap justify-content-center align-items-center">
-    <div class="w-100 h-100 d-flex flex-column">
-      <div class="img-title title-3"></div>
-      <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-        <img class="lazy img-fluid image-3"  data-src="[IMG_URL]" alt=""/>
-      </div>
-    </div>
-  </div>
-  <div class="h-33 d-flex flex-row flex-nowrap justify-content-center align-items-center">
-    <div class="w-50 h-100 d-flex flex-column">
-      <div class="img-title title-4"></div>
-      <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-        <img class="lazy img-fluid image-4"  data-src="[IMG_URL]" alt=""/>
-      </div>
-    </div>
-    <div class="w-50 h-100 d-flex flex-column">
-      <div class="img-title title-5"></div>
-      <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-        <img class="lazy img-fluid image-5"  data-src="[IMG_URL]" alt=""/>
-      </div>
-    </div>
-  </div>
-  </div>
   {{-- 6 images per page --}}
-  <div class="p-0 w-100 h-100 images-per-page-6">
+  <div class="p-0 w-100 h-100 images-per-page-5 images-per-page-6">
   <div class="h-33 d-flex flex-row flex-nowrap justify-content-center align-items-center">
     <div class="w-50 h-100 d-flex flex-column">
       <div class="img-title title-1"></div>
@@ -548,134 +476,8 @@
     </div>
   </div>
 
-
-
-   {{-- 13 to 18 images per page --}}
-   <div class="p-0 w-100 h-100 images-per-page-13 images-per-page-14 images-per-page-15 images-per-page-16 images-per-page-17 images-per-page-18">
-    <div class="h-16 d-flex flex-row flex-nowrap justify-content-center align-items-center">
-      <div class="w-33 h-100 d-flex flex-column">
-        <div class="img-title title-1"></div>
-        <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-          <img class="lazy img-fluid image-1"  data-src="[IMG_URL]" alt=""/>
-        </div>
-      </div>
-      <div class="w-33 h-100 d-flex flex-column">
-        <div class="img-title title-2"></div>
-        <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-          <img class="lazy img-fluid image-2"  data-src="[IMG_URL]" alt=""/>
-        </div>
-      </div>
-      <div class="w-33 h-100 d-flex flex-column">
-        <div class="img-title title-3"></div>
-        <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-          <img class="lazy img-fluid image-3"  data-src="[IMG_URL]" alt=""/>
-        </div>
-      </div>
-    </div>
-    <div class="h-16 d-flex flex-row flex-nowrap justify-content-center align-items-center">
-      <div class="w-33 h-100 d-flex flex-column">
-        <div class="img-title title-4"></div>
-        <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-          <img class="lazy img-fluid image-4"  data-src="[IMG_URL]" alt=""/>
-        </div>
-      </div>
-      <div class="w-33 h-100 d-flex flex-column">
-        <div class="img-title title-5"></div>
-        <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-          <img class="lazy img-fluid image-5"  data-src="[IMG_URL]" alt=""/>
-        </div>
-      </div>
-      <div class="w-33 h-100 d-flex flex-column">
-        <div class="img-title title-6"></div>
-        <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-          <img class="lazy img-fluid image-6"  data-src="[IMG_URL]" alt=""/>
-        </div>
-      </div>
-    </div>
-    <div class="image-container h-16 d-flex flex-row flex-nowrap justify-content-center align-items-center">
-      <div class="w-33 h-100 d-flex flex-column">
-        <div class="img-title title-7"></div>
-        <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-          <img class="lazy img-fluid image-7"  data-src="[IMG_URL]" alt=""/>
-        </div>
-      </div>
-      <div class="w-33 h-100 d-flex flex-column">
-        <div class="img-title title-8"></div>
-        <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-          <img class="lazy img-fluid image-8"  data-src="[IMG_URL]" alt=""/>
-        </div>
-      </div>
-      <div class="w-33 h-100 d-flex flex-column">
-        <div class="img-title title-9"></div>
-        <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-          <img class="lazy img-fluid image-9"  data-src="[IMG_URL]" alt=""/>
-        </div>
-      </div>
-    </div>
-    <div class="image-container h-16 d-flex flex-row flex-nowrap justify-content-center align-items-center">
-      <div class="w-33 h-100 d-flex flex-column">
-        <div class="img-title title-10"></div>
-        <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-          <img class="lazy img-fluid image-10"  data-src="[IMG_URL]" alt=""/>
-        </div>
-      </div>
-      <div class="w-33 h-100 d-flex flex-column">
-        <div class="img-title title-11"></div>
-        <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-          <img class="lazy img-fluid image-11"  data-src="[IMG_URL]" alt=""/>
-        </div>
-      </div>
-      <div class="w-33 h-100 d-flex flex-column">
-        <div class="img-title title-12"></div>
-        <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-          <img class="lazy img-fluid image-12"  data-src="[IMG_URL]" alt=""/>
-        </div>
-      </div>
-    </div>
-    <div class="image-container h-16 d-flex flex-row flex-nowrap justify-content-center align-items-center">
-     <div class="w-33 h-100 d-flex flex-column">
-       <div class="img-title title-13"></div>
-       <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-         <img class="lazy img-fluid image-13"  data-src="[IMG_URL]" alt=""/>
-       </div>
-     </div>
-     <div class="w-33 h-100 d-flex flex-column">
-       <div class="img-title title-14"></div>
-       <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-         <img class="lazy img-fluid image-14"  data-src="[IMG_URL]" alt=""/>
-       </div>
-     </div>
-     <div class="w-33 h-100 d-flex flex-column">
-       <div class="img-title title-15"></div>
-       <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-         <img class="lazy img-fluid image-15"  data-src="[IMG_URL]" alt=""/>
-       </div>
-     </div>
-    </div>
-    <div class="image-container h-16 d-flex flex-row flex-nowrap justify-content-center align-items-center">
-      <div class="w-33 h-100 d-flex flex-column">
-        <div class="img-title title-16"></div>
-        <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-          <img class="lazy img-fluid image-16"  data-src="[IMG_URL]" alt=""/>
-        </div>
-      </div>
-      <div class="w-33 h-100 d-flex flex-column">
-        <div class="img-title title-17"></div>
-        <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-          <img class="lazy img-fluid image-17"  data-src="[IMG_URL]" alt=""/>
-        </div>
-      </div>
-      <div class="w-33 h-100 d-flex flex-column">
-        <div class="img-title title-18"></div>
-        <div class="img-container spinner spinner-center d-flex flex-column flex-nowrap justify-content-center align-items-center">
-          <img class="lazy img-fluid image-18"  data-src="[IMG_URL]" alt=""/>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  {{-- 19 to 24 images per page --}}
-  <div class="p-0 w-100 h-100 images-per-page-19 images-per-page-20 images-per-page-21 images-per-page-22 images-per-page-23 images-per-page-24">
+  {{-- 13 to 24 images per page --}}
+  <div class="p-0 w-100 h-100 images-per-page-13 images-per-page-14 images-per-page-15 images-per-page-16 images-per-page-17 images-per-page-18 images-per-page-19 images-per-page-20 images-per-page-21 images-per-page-22 images-per-page-23 images-per-page-24">
    <div class="h-16 d-flex flex-row flex-nowrap justify-content-center align-items-center">
      <div class="w-25 h-100 d-flex flex-column">
        <div class="img-title title-1"></div>

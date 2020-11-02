@@ -129,18 +129,17 @@ class Page {
     $this->title->setText($title);
   }
 
-  public function setSectionImages($images, $addTitle=false)
+  public function setSectionImages($images, $totalImages, $addTitle=false)
   {
     $this->images = [];
 
     $moreThanOneImage = count($images) > 1;
     $pageWidth = $this->getPageWidth($moreThanOneImage);
     $pageHeight = $this->getPageHeight($moreThanOneImage);
-    list($imgMaxWidth, $imgMaxHeight) = calculateImageMaxDimensions($pageWidth, $pageHeight, count($images));
+    list($imgMaxWidth, $imgMaxHeight) = calculateImageMaxDimensions($pageWidth, $pageHeight, $totalImages);
 
     foreach ($images as $current => $image) {
       $imgPosition = $current + 1;
-      $totalImages = count($images);
       $imageElement = new ImageElement();
       // Set the maximal dimensions and the max init point for the image
       $imageElement->setDimensions($imgMaxWidth, $imgMaxHeight);
