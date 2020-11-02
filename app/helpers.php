@@ -185,6 +185,7 @@
         $imageMaxHeight = $bookMaxHeight / 2;
         break;
       case 3:
+      case 5:
       case 6:
         $imageMaxWidth = $bookMaxWidth / 2;
         $imageMaxHeight = $bookMaxHeight / 3;
@@ -193,7 +194,6 @@
         $imageMaxWidth = $bookMaxWidth / 2;
         $imageMaxHeight = $bookMaxHeight / 2;
         break;
-      case 5:
       case 9:
         $imageMaxWidth = $bookMaxWidth / 3;
         $imageMaxHeight = $bookMaxHeight / 3;
@@ -209,16 +209,7 @@
         $imageMaxWidth = $bookMaxWidth / 3;
         $imageMaxHeight = $bookMaxHeight / 4;
         break;
-      case 13:
-      case 14:
-      case 15:
-      case 16:
-      case 17:
-      case 18:
-        $imageMaxWidth = $bookMaxWidth / 3;
-        $imageMaxHeight = $bookMaxHeight / 6;
-        break;
-      default: // From 19 to 24
+      default: // From 13 to 24
         $imageMaxWidth = $bookMaxWidth / 4;
         $imageMaxHeight = $bookMaxHeight / 6;
     }
@@ -234,6 +225,9 @@
         if ($totalImages == 2) {
           $offsetX = 0;
           $offsetY = $imageMaxHeight;
+        } elseif ($totalImages == 3) {
+          $offsetX = $imageMaxWidth;
+          $offsetY = $imageMaxHeight;
         } else {
           $offsetX = $imageMaxWidth;
           $offsetY = 0;
@@ -242,7 +236,10 @@
         break;
       case 3:
 
-        if ($totalImages < 9) {
+        if ($totalImages == 3) {
+          $offsetX = 0;
+          $offsetY = $imageMaxHeight * 2;
+        } elseif ($totalImages < 9) {
           $offsetX = 0;
           $offsetY = $imageMaxHeight;
         } else {
@@ -254,25 +251,19 @@
       case 4:
 
         if ($totalImages < 9) {
-
           $offsetX = $imageMaxWidth;
           $offsetY = $imageMaxHeight;
-
         } elseif ($totalImages < 24) {
-
           $offsetX = 0;
           $offsetY = $imageMaxHeight;
-
         } else {
-
           $offsetX = $imageMaxWidth * 3;
           $offsetY = 0;
-
         }
 
         break;
       case 5:
-        // Same offset for 5 or 6 images
+
         if ($totalImages < 9) {
           $offsetX = 0;
           $offsetY = $imageMaxHeight * 2;
@@ -416,231 +407,6 @@
       case 23:
         $offsetX = $imageMaxWidth * 2;
         $offsetY = $imageMaxHeight * 5;
-
-        break;
-      case 24:
-        $offsetX = $imageMaxWidth * 3;
-        $offsetY = $imageMaxHeight * 5;
-
-        break;
-      default:
-        $offsetX = $offsetY = 0;
-    }
-
-    return [$offsetX, $offsetY];
-  }
-
-  function calculateImageOffsetOld($totalImages, $currentImage, $imageMaxWidth, $imageMaxHeight)
-  {
-    switch ($currentImage) {
-      case 2:
-        $offsetX = 0;
-
-        if ($totalImages == 2 || $totalImages == 4 || $totalImages >= 6) {
-          $offsetY = $imageMaxHeight;
-        } else {
-          $offsetY = $imageMaxHeight * 2;
-        }
-
-        break;
-      case 3:
-
-        if ($totalImages == 3) {
-          // Centered on the right side of the page
-          $offsetX = $imageMaxWidth;
-          $offsetY = $imageMaxHeight;
-
-        } elseif ($totalImages == 4) {
-
-          $offsetX = $imageMaxWidth;
-          $offsetY = 0;
-
-        } elseif ($totalImages == 5) {
-
-          $offsetX = $imageMaxWidth * 2;
-          $offsetY = 0;
-
-        } else {
-
-          $offsetX = 0;
-          $offsetY = $imageMaxHeight * 2;
-
-        }
-
-        break;
-      case 4:
-
-        if ($totalImages == 4) {
-
-          $offsetX = $imageMaxWidth;
-          $offsetY = $imageMaxHeight;
-
-        } elseif ($totalImages == 5) {
-
-          $offsetX = $imageMaxWidth * 2;
-          $offsetY = $imageMaxHeight * 2;
-
-        } elseif ($totalImages == 6 || $totalImages == 9) {
-
-          $offsetX = $imageMaxWidth;
-          $offsetY = 0;
-
-        } else {
-
-          $offsetX = 0;
-          $offsetY = $imageMaxHeight * 3;
-
-        }
-
-        break;
-      case 5:
-        // Same offset for 5 or 6 images
-        if ($totalImages <= 6 || $totalImages == 9) {
-          $offsetX = $imageMaxWidth;
-          $offsetY = $imageMaxHeight;
-        } elseif ($totalImages < 13) {
-          $offsetX = $imageMaxWidth;
-          $offsetY = 0;
-        } else {
-          $offsetX = 0;
-          $offsetY = $imageMaxHeight * 4;
-        }
-
-        break;
-      case 6:
-        if ($totalImages == 6 || $totalImages == 9) {
-          $offsetX = $imageMaxWidth;
-          $offsetY = $imageMaxHeight * 2;
-        } elseif ($totalImages < 13) {
-          $offsetX = $imageMaxWidth;
-          $offsetY = $imageMaxHeight;
-        } else {
-          $offsetX = 0;
-          $offsetY = $imageMaxHeight * 5;
-        }
-
-        break;
-      case 7:
-        if ($totalImages == 9) {
-          $offsetX = $imageMaxWidth * 2;
-          $offsetY = 0;
-        } elseif ($totalImages < 13) {
-          $offsetX = $imageMaxWidth;
-          $offsetY = $imageMaxHeight * 2;
-        } else {
-          $offsetX = $imageMaxWidth;
-          $offsetY = 0;
-        }
-
-        break;
-      case 8:
-        if ($totalImages == 9) {
-          $offsetX = $imageMaxWidth * 2;
-          $offsetY = $imageMaxHeight;
-        } elseif ($totalImages < 13) {
-          $offsetX = $imageMaxWidth;
-          $offsetY = $imageMaxHeight * 3;
-        } else {
-          $offsetX = $imageMaxWidth;
-          $offsetY = $imageMaxHeight;
-        }
-        break;
-      case 9:
-        if ($totalImages == 9) {
-          $offsetX = $imageMaxWidth * 2;
-          $offsetY = $imageMaxHeight * 2;
-        } elseif ($totalImages < 13) {
-          $offsetX = $imageMaxWidth * 2;
-          $offsetY = 0;
-        } else {
-          $offsetX = $imageMaxWidth;
-          $offsetY = $imageMaxHeight * 2;
-        }
-
-        break;
-      case 10:
-        if ($totalImages < 13) {
-          $offsetX = $imageMaxWidth * 2;
-          $offsetY = $imageMaxHeight;
-        } else {
-          $offsetX = $imageMaxWidth;
-          $offsetY = $imageMaxHeight * 3;
-        }
-
-        break;
-      case 11:
-        if ($totalImages < 13) {
-          $offsetX = $imageMaxWidth * 2;
-          $offsetY = $imageMaxHeight * 2;
-        } else {
-          $offsetX = $imageMaxWidth;
-          $offsetY = $imageMaxHeight * 4;
-        }
-
-        break;
-      case 12:
-        if ($totalImages < 13) {
-          $offsetX = $imageMaxWidth * 2;
-          $offsetY = $imageMaxHeight * 3;
-        } else {
-          $offsetX = $imageMaxWidth;
-          $offsetY = $imageMaxHeight * 5;
-        }
-
-        break;
-      case 13:
-        $offsetX = $imageMaxWidth * 2;
-        $offsetY = 0;
-
-        break;
-      case 14:
-        $offsetX = $imageMaxWidth * 2;
-        $offsetY = $imageMaxHeight;
-
-        break;
-      case 15:
-        $offsetX = $imageMaxWidth * 2;
-        $offsetY = $imageMaxHeight * 2;
-
-        break;
-      case 16:
-        $offsetX = $imageMaxWidth * 2;
-        $offsetY = $imageMaxHeight * 3;
-
-        break;
-      case 17:
-        $offsetX = $imageMaxWidth * 2;
-        $offsetY = $imageMaxHeight * 4;
-
-        break;
-      case 18:
-        $offsetX = $imageMaxWidth * 2;
-        $offsetY = $imageMaxHeight * 5;
-
-        break;
-      case 19:
-        $offsetX = $imageMaxWidth * 3;
-        $offsetY = 0;
-
-        break;
-      case 20:
-        $offsetX = $imageMaxWidth * 3;
-        $offsetY = $imageMaxHeight;
-
-        break;
-      case 21:
-        $offsetX = $imageMaxWidth * 3;
-        $offsetY = $imageMaxHeight * 2;
-
-        break;
-      case 22:
-        $offsetX = $imageMaxWidth * 3;
-        $offsetY = $imageMaxHeight * 3;
-
-        break;
-      case 23:
-        $offsetX = $imageMaxWidth * 3;
-        $offsetY = $imageMaxHeight * 4;
 
         break;
       case 24:
