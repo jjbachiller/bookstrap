@@ -20,14 +20,14 @@ return [
       'name' => 'Silver',
       'icon' => 'flaticon-rocket',
       'disk_quote' => 1073741824,
-      'week_downloads' => 25,
+      'week_downloads' => 100,
     ],
     'STARTER' => [
       'id' => 29,
       'name' => 'Starter',
       'icon' => 'flaticon-confetti',
       'disk_quote' => 262144000,
-      'week_downloads' => 5,
+      'week_downloads' => 25,
     ],
     'FREE' => [
       'id' => 35,
