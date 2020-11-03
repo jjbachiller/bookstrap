@@ -135,7 +135,8 @@ $('.slider_num_library_items').ionRangeSlider({
     $('.num_library_items').val(data.from);
   }
 });
-var numItemsRange = $('.slider_num_library_items').data("ionRangeSlider");
+
 $('.num_library_items').on('change', function() {
-  numItemsRange.update({ from: $(this).val() });
+  var numItemsRange = $(this).closest('.row').find('.slider_num_library_items').data("ionRangeSlider");
+  numItemsRange.update({ from: $(this).val(), to: $(this).val() });
 })

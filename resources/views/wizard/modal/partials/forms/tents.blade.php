@@ -21,7 +21,9 @@
   <div class="col-lg-4 col-md-9 col-sm-12">
     <div class="row">
       <div class="col-8">
-        <div class="nouislider-drag-danger slider_num_library_items"></div>
+        <div class="ion-range-slider">
+           <input type="hidden" class="slider_num_library_items"/>
+        </div>
       </div>
       <div class="col-4">
         <input type="text" step="1" class="form-control num_library_items" id="tentsNumber" value="10"  data-style="btn-light-info" data-container="body">
