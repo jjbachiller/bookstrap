@@ -467,8 +467,8 @@
                                 <!--begin::Item-->
                                 <div class="card border-top-0">
                                     <!--begin::Header-->
-                                    <div class="card-header" id="faqHeading3">
-                                        <div class="card-title collapsed text-dark" data-toggle="collapse" data-target="#faq3" aria-expanded="false" aria-controls="faq3" role="button">
+                                    <div class="card-header" id="faqHeading4">
+                                        <div class="card-title collapsed text-dark" data-toggle="collapse" data-target="#faq4" aria-expanded="false" aria-controls="faq4" role="button">
                                             <span class="svg-icon svg-icon-primary">
                                               <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Angle-double-right.svg-->
                                               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -486,7 +486,7 @@
                                     <!--end::Header-->
 
                                     <!--begin::Body-->
-                                    <div id="faq3" class="collapse" aria-labelledby="faqHeading3" data-parent="#faq">
+                                    <div id="faq4" class="collapse" aria-labelledby="faqHeading4" data-parent="#faq">
                                       <div class="card-body text-dark-50 font-size-lg pl-12">
                                         Your books will remain on the server for 30 days after your subscription expires, This will give you time to renew without losing your Books.<br>
                                         After the 30 days all your books will be permanently deleted and membership terminated.
@@ -499,8 +499,8 @@
                                 <!--begin::Item-->
                                 <div class="card border-top-0">
                                     <!--begin::Header-->
-                                    <div class="card-header" id="faqHeading3">
-                                        <div class="card-title collapsed text-dark" data-toggle="collapse" data-target="#faq3" aria-expanded="false" aria-controls="faq3" role="button">
+                                    <div class="card-header" id="faqHeading5">
+                                        <div class="card-title collapsed text-dark" data-toggle="collapse" data-target="#faq5" aria-expanded="false" aria-controls="faq5" role="button">
                                             <span class="svg-icon svg-icon-primary">
                                               <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Angle-double-right.svg-->
                                               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -518,7 +518,7 @@
                                     <!--end::Header-->
 
                                     <!--begin::Body-->
-                                    <div id="faq3" class="collapse" aria-labelledby="faqHeading3" data-parent="#faq">
+                                    <div id="faq5" class="collapse" aria-labelledby="faqHeading5" data-parent="#faq">
                                       <div class="card-body text-dark-50 font-size-lg pl-12">
                                         Absolutely. You just can not offer them as PLR or other types of packages to other vendors.
                                       </div>
@@ -530,8 +530,8 @@
                                 <!--begin::Item-->
                                 <div class="card border-top-0">
                                     <!--begin::Header-->
-                                    <div class="card-header" id="faqHeading3">
-                                        <div class="card-title collapsed text-dark" data-toggle="collapse" data-target="#faq3" aria-expanded="false" aria-controls="faq3" role="button">
+                                    <div class="card-header" id="faqHeading6">
+                                        <div class="card-title collapsed text-dark" data-toggle="collapse" data-target="#faq6" aria-expanded="false" aria-controls="faq6" role="button">
                                             <span class="svg-icon svg-icon-primary">
                                               <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Angle-double-right.svg-->
                                               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -549,7 +549,7 @@
                                     <!--end::Header-->
 
                                     <!--begin::Body-->
-                                    <div id="faq3" class="collapse" aria-labelledby="faqHeading3" data-parent="#faq">
+                                    <div id="faq6" class="collapse" aria-labelledby="faqHeading6" data-parent="#faq">
                                       <div class="card-body text-dark-50 font-size-lg pl-12">
                                         Commercial Use and Personal Use ONLY. You can use Bookstrap for your own Personal Use and to compile Paperback Books for your clients.<br>
                                         You have all rights to sell your creations/compilations in any ethical manner without restrictions except the following: You DO NOT have PLR Rights to sell to other authors.
@@ -562,8 +562,8 @@
                                 <!--begin::Item-->
                                 <div class="card border-top-0">
                                     <!--begin::Header-->
-                                    <div class="card-header" id="faqHeading3">
-                                        <div class="card-title collapsed text-dark" data-toggle="collapse" data-target="#faq3" aria-expanded="false" aria-controls="faq3" role="button">
+                                    <div class="card-header" id="faqHeading7">
+                                        <div class="card-title collapsed text-dark" data-toggle="collapse" data-target="#faq7" aria-expanded="false" aria-controls="faq7" role="button">
                                             <span class="svg-icon svg-icon-primary">
                                               <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Angle-double-right.svg-->
                                               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -581,7 +581,7 @@
                                     <!--end::Header-->
 
                                     <!--begin::Body-->
-                                    <div id="faq3" class="collapse" aria-labelledby="faqHeading3" data-parent="#faq">
+                                    <div id="faq7" class="collapse" aria-labelledby="faqHeading7" data-parent="#faq">
                                       <div class="card-body text-dark-50 font-size-lg pl-12">
                                         Yes. Watch the training videos before seding in a support ticket.
                                       </div>
@@ -593,8 +593,8 @@
                                 <!--begin::Item-->
                                 <div class="card border-top-0">
                                     <!--begin::Header-->
-                                    <div class="card-header" id="faqHeading3">
-                                        <div class="card-title collapsed text-dark" data-toggle="collapse" data-target="#faq3" aria-expanded="false" aria-controls="faq3" role="button">
+                                    <div class="card-header" id="faqHeading8">
+                                        <div class="card-title collapsed text-dark" data-toggle="collapse" data-target="#faq8" aria-expanded="false" aria-controls="faq8" role="button">
                                             <span class="svg-icon svg-icon-primary">
                                               <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Angle-double-right.svg-->
                                               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -612,7 +612,7 @@
                                     <!--end::Header-->
 
                                     <!--begin::Body-->
-                                    <div id="faq3" class="collapse" aria-labelledby="faqHeading3" data-parent="#faq">
+                                    <div id="faq8" class="collapse" aria-labelledby="faqHeading8" data-parent="#faq">
                                       <div class="card-body text-dark-50 font-size-lg pl-12">
                                         Support & Training is provided through the Private Facebook Group
                                       </div>
@@ -624,8 +624,8 @@
                                 <!--begin::Item-->
                                 <div class="card border-top-0">
                                     <!--begin::Header-->
-                                    <div class="card-header" id="faqHeading3">
-                                        <div class="card-title collapsed text-dark" data-toggle="collapse" data-target="#faq3" aria-expanded="false" aria-controls="faq3" role="button">
+                                    <div class="card-header" id="faqHeading9">
+                                        <div class="card-title collapsed text-dark" data-toggle="collapse" data-target="#faq9" aria-expanded="false" aria-controls="faq9" role="button">
                                             <span class="svg-icon svg-icon-primary">
                                               <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Angle-double-right.svg-->
                                               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -643,7 +643,7 @@
                                     <!--end::Header-->
 
                                     <!--begin::Body-->
-                                    <div id="faq3" class="collapse" aria-labelledby="faqHeading3" data-parent="#faq">
+                                    <div id="faq9" class="collapse" aria-labelledby="faqHeading9" data-parent="#faq">
                                       <div class="card-body text-dark-50 font-size-lg pl-12">
                                         Absolutely not. Although if you feel you have to then that is your decision to do so and not a prerequisite.
                                       </div>
@@ -655,8 +655,8 @@
                                 <!--begin::Item-->
                                 <div class="card border-top-0">
                                     <!--begin::Header-->
-                                    <div class="card-header" id="faqHeading3">
-                                        <div class="card-title collapsed text-dark" data-toggle="collapse" data-target="#faq3" aria-expanded="false" aria-controls="faq3" role="button">
+                                    <div class="card-header" id="faqHeading10">
+                                        <div class="card-title collapsed text-dark" data-toggle="collapse" data-target="#faq10" aria-expanded="false" aria-controls="faq10" role="button">
                                             <span class="svg-icon svg-icon-primary">
                                               <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Angle-double-right.svg-->
                                               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -674,7 +674,7 @@
                                     <!--end::Header-->
 
                                     <!--begin::Body-->
-                                    <div id="faq3" class="collapse" aria-labelledby="faqHeading3" data-parent="#faq">
+                                    <div id="faq10" class="collapse" aria-labelledby="faqHeading10" data-parent="#faq">
                                       <div class="card-body text-dark-50 font-size-lg pl-12">
                                         Not at this point in time.
                                       </div>
@@ -686,8 +686,8 @@
                                 <!--begin::Item-->
                                 <div class="card border-top-0">
                                     <!--begin::Header-->
-                                    <div class="card-header" id="faqHeading3">
-                                        <div class="card-title collapsed text-dark" data-toggle="collapse" data-target="#faq3" aria-expanded="false" aria-controls="faq3" role="button">
+                                    <div class="card-header" id="faqHeading11">
+                                        <div class="card-title collapsed text-dark" data-toggle="collapse" data-target="#faq11" aria-expanded="false" aria-controls="faq11" role="button">
                                             <span class="svg-icon svg-icon-primary">
                                               <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Angle-double-right.svg-->
                                               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -705,7 +705,7 @@
                                     <!--end::Header-->
 
                                     <!--begin::Body-->
-                                    <div id="faq3" class="collapse" aria-labelledby="faqHeading3" data-parent="#faq">
+                                    <div id="faq11" class="collapse" aria-labelledby="faqHeading11" data-parent="#faq">
                                       <div class="card-body text-dark-50 font-size-lg pl-12">
                                         Not at this point in time.
                                       </div>
@@ -717,8 +717,8 @@
                                 <!--begin::Item-->
                                 <div class="card border-top-0">
                                     <!--begin::Header-->
-                                    <div class="card-header" id="faqHeading3">
-                                        <div class="card-title collapsed text-dark" data-toggle="collapse" data-target="#faq3" aria-expanded="false" aria-controls="faq3" role="button">
+                                    <div class="card-header" id="faqHeading12">
+                                        <div class="card-title collapsed text-dark" data-toggle="collapse" data-target="#faq12" aria-expanded="false" aria-controls="faq12" role="button">
                                             <span class="svg-icon svg-icon-primary">
                                               <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Angle-double-right.svg-->
                                               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -736,7 +736,7 @@
                                     <!--end::Header-->
 
                                     <!--begin::Body-->
-                                    <div id="faq3" class="collapse" aria-labelledby="faqHeading3" data-parent="#faq">
+                                    <div id="faq12" class="collapse" aria-labelledby="faqHeading12" data-parent="#faq">
                                       <div class="card-body text-dark-50 font-size-lg pl-12">
                                         Ron Pumflleet (coder and KDP author)<br>
                                         Juan Bachiller (Head Programmer)
