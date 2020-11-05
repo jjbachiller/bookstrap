@@ -187,7 +187,7 @@ function addNewSection(section = []) {
     if (images instanceof Array) {
       for (var index in images) {
         var image = images[index];
-        var imageData = {'name': image['show_name'], 'size': image['size'], 'type': image['type']};
+        var imageData = {'name': image['show_name'], 'size': image['size'], 'type': image['type'], 'class': 'lazyClass'};
 
         sectionDropzone.displayExistingFile(imageData, image['preview_url']);
         sectionDropzone.files.push(imageData);
@@ -321,6 +321,14 @@ function setupDropzone(newDropzone, newSection, newIndex, solutions=0) {
       imageName.tooltip();
       preview.prepend(imageName);
 
+      // Modify image for lazy loading:
+      var dataSrc = $(file.previewElement).find("img").first();
+      $(file.previewElement).find("img").attr("data-src", dataSrc);
+      $(file.previewElement).find("img").attr("src", "");
+      $(file.previewElement).find("img").addClass("lazy");
+      console.log(dataSrc);
+      // file.previewElement.children[1].children[0] = DZImg;
+
       var secondDZ = solutions ? Dropzone.forElement("#myDrop"+newIndex) : Dropzone.forElement("#myDropSolutions"+newIndex);
       // If the number of files are different error = true
       /// (When we added an existing file, it calls this event but index
@@ -336,6 +344,7 @@ function setupDropzone(newDropzone, newSection, newIndex, solutions=0) {
         $('#denyMessage').html(response.message);
         $('#showAlertDeny').modal('show');
       }
+
       // Append the image id in database to the preview Element
       var bookstrapImage = response.images.shift();
       $('<input>').addClass('imageId').attr('type','hidden').val(bookstrapImage.id).appendTo(file.previewElement);
