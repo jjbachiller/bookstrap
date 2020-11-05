@@ -117,10 +117,10 @@
             </div>
             <div class="row justify-content-center my-20">
               <div class="col-sm-6 d-flex align-items-center justify-content-sm-center">
-                <img src="{{ asset('/media/img/strugle.png') }}" alt="Stop Strugling">
+                <img src="{{ asset('/media/img/strugle.png') }}" alt="Stop Struggling">
               </div>
               <div class="col-sm-6 text-center">
-                <h2 class="text-dark mb-4">Stop Strugling!</h2>
+                <h2 class="text-dark mb-4">Stop Struggling!</h2>
                 <p class="text-dark-50 font-size-lg">To Find Content For Your Projects.</p>
                 <ul class="text-left ml-6">
                   <li>Use Our Extensive Cloud Based Library. Alwasy adding more.</li>
@@ -143,7 +143,7 @@
             </div>
             <div class="row justify-content-center my-20">
               <div class="col-sm-6 d-flex align-items-center justify-content-sm-center">
-                <img src="{{ asset('/media/img/easy.png') }}" alt="Stop Strugling">
+                <img src="{{ asset('/media/img/easy.png') }}" alt="Stop Struggling">
               </div>
               <div class="col-sm-6 text-center">
                 <h2 class="text-dark mb-4">Very Simple, Intuitive and Easy To Use</h2>
@@ -668,7 +668,7 @@
                                               </svg>
                                               <!--end::Svg Icon-->
                                             </span>
-                                          <div class="card-label text-dark pl-4">Do you have an Affiliate Program to sell Puzzle Book Compiler?</div>
+                                          <div class="card-label text-dark pl-4">Do you have an Affiliate Program to sell Bookstrap?</div>
                                         </div>
                                     </div>
                                     <!--end::Header-->
@@ -738,7 +738,7 @@
                                     <!--begin::Body-->
                                     <div id="faq12" class="collapse" aria-labelledby="faqHeading12" data-parent="#faq">
                                       <div class="card-body text-dark-50 font-size-lg pl-12">
-                                        Ron Pumflleet (coder and KDP author)<br>
+                                        Ron Pumfleet (coder and KDP author)<br>
                                         Juan Bachiller (Head Programmer)
                                       </div>
                                     </div>
@@ -792,7 +792,7 @@
     					<span class="px-7 py-3 bg-white d-inline-flex flex-center rounded-lg mb-15 bg-white">
     						<span class="pr-2 text-primary opacity-70">$</span>
                 <span class="pr-2 font-size-h3 text-muted font-weight-bold" style="text-decoration: line-through;">39.99</span>
-    						<span class="pr-2 font-size-h1 font-weight-bold text-primary">29.99</span>
+    						<span class="pr-2 font-size-h1 font-weight-bold text-primary">19.99</span>
     						<span class="text-primary opacity-70">/&nbsp;&nbsp;Per Month</span>
     					</span>
     					<br>
@@ -812,7 +812,7 @@
     					<h4 class=" mb-15">Gold</h4>
     					<span class="px-7 py-3 d-inline-flex flex-center rounded-lg mb-15 bg-primary-o-10">
     						<span class="pr-2 opacity-70">$</span>
-    						<span class="pr-2 font-size-h1 font-weight-bold">59.99</span>
+    						<span class="pr-2 font-size-h1 font-weight-bold">39.99</span>
     						<span class="opacity-70">/&nbsp;&nbsp;Per Month</span>
     					</span>
     					<br>
@@ -836,13 +836,13 @@
           <div class="card-body d-flex">
             <div class="d-flex py-5 flex-column align-items-start flex-grow-1">
               <div class="flex-grow-1">
-                <a href="#" class="text-white font-weight-bolder font-size-h3">Create a Free Account</a>
+                <a href="#" class="text-white font-weight-bolder font-size-h3">Create a Starter Account</a>
                 <p class="text-white opacity-75 font-weight-bold mt-3">
-                    Temporarily you can create a free account to test Bookstrap.
+                    Temporarily you can create a starter account to test Bookstrap for a really cheap price.
                 </p>
               </div>
-              <a href="https://puzzlebookcompiler.com/members/product/LCBW-Free" target="_blank" class="btn btn-link btn-link-white font-weight-bold">
-                Create a Free Account
+              <a href="https://puzzlebookcompiler.com/members/product/LCBW-Starter" target="_blank" class="btn btn-link btn-link-white font-weight-bold">
+                Create a Starter Account
                 <span class="svg-icon svg-icon-lg svg-icon-white">
                   <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
                   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">

@@ -322,11 +322,11 @@ function setupDropzone(newDropzone, newSection, newIndex, solutions=0) {
       preview.prepend(imageName);
 
       // Modify image for lazy loading:
-      var dataSrc = $(file.previewElement).find("img").first();
-      $(file.previewElement).find("img").attr("data-src", dataSrc);
-      $(file.previewElement).find("img").attr("src", "");
-      $(file.previewElement).find("img").addClass("lazy");
-      console.log(dataSrc);
+      // var dataSrc = $(file.previewElement).find("img").first();
+      // $(file.previewElement).find("img").attr("data-src", dataSrc);
+      // $(file.previewElement).find("img").attr("src", "");
+      // $(file.previewElement).find("img").addClass("lazy");
+      // console.log(dataSrc);
       // file.previewElement.children[1].children[0] = DZImg;
 
       var secondDZ = solutions ? Dropzone.forElement("#myDrop"+newIndex) : Dropzone.forElement("#myDropSolutions"+newIndex);
