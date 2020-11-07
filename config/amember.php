@@ -23,7 +23,7 @@ return [
       'week_downloads' => 100,
     ],
     'STARTER' => [
-      'id' => 29,
+      'id' => 32,
       'name' => 'Starter',
       'icon' => 'flaticon-confetti',
       'disk_quote' => 262144000,
