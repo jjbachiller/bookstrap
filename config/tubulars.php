@@ -9,8 +9,8 @@ return [
   'ext' => '.png',
   'type' => 'image/png',
   'max_number' => 10000,
-  'width' => 1823,
-  'height' => 1823,
+  'width' => 828,
+  'height' => 828,
   'size' => 120000,
   'difficulties' => [
     'Easy' => 'Easy',

@@ -9,8 +9,8 @@ return [
   'ext' => '.png',
   'type' => 'image/png',
   'max_number' => 10000,
-  'width' => 1823,
-  'height' => 1823,
+  'width' => 2422,
+  'height' => 2422,
   'size' => 120000,
   'difficulties' => [
     '5x5' => '5 x 5 Grid',
@@ -18,7 +18,7 @@ return [
     '7x7' => '7 x 7 Grid',
     '8x8' => '8 x 8 Grid',
     '9x9' => '9 x 9 Grid',
-    '10x20' => '10 x 10 Grid',            
+    '10x20' => '10 x 10 Grid',
   ],
   'addGroups' => [
     10, 25, 50, 100, 150, 200

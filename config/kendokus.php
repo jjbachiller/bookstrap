@@ -9,8 +9,8 @@ return [
   'ext' => '.png',
   'type' => 'image/png',
   'max_number' => 10000,
-  'width' => 1823,
-  'height' => 1823,
+  'width' => 2422,
+  'height' => 2757,
   'size' => 120000,
   'difficulties' => [
     'Grid5' => '5x5 Grid',
