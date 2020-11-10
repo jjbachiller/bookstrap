@@ -2,10 +2,12 @@
 
 namespace App\Bookstrap;
 
-use App\Classes\PDF_ImageAlpha;
+// use App\Classes\PDF_ImageAlpha;
+use Codedge\Fpdf\Fpdf\Fpdf;
 use App\Bookstrap\MetaBook;
 
-class PDF extends PDF_ImageAlpha {
+// class PDF extends PDF_ImageAlpha {
+class PDF extends FPDF {
 
     private $metaBook;
     private $previousPage;
@@ -102,7 +104,6 @@ class PDF extends PDF_ImageAlpha {
         }
 
         list($width, $height) = $img->getDimensions();
-
         $image = $img->getImage();
         $this->Image(
           $image->fullPath(),

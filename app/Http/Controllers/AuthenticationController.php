@@ -25,7 +25,7 @@ class AuthenticationController extends Controller
       // Ask for amember user with this credentials
       if (app()->isLocal()) {
         // For local development, don't ask the API for the user
-        $aMemberUser = ['ok' => true, 'name' => 'Juan Bachiller', 'email' => 'jjbachiller@gmail.com', 'user_id' => 198, 'subscriptions' => [29 => '2021-08-19']];
+        $aMemberUser = ['ok' => true, 'name' => 'Juan Bachiller', 'email' => 'jjbachiller@gmail.com', 'user_id' => 198, 'subscriptions' => [32 => '2021-08-19']];
       } else {
         $aMemberUser = aMember::login($request->input('email'), $request->input('password'));
       }

@@ -65,7 +65,7 @@ class Image extends Model
 
   public function fullPath() {
 
-    $fullPath = $this->path() . $this->file_name;
+    $fullPath = $this->path('original') . $this->file_name;
 
     return Storage::path($fullPath);
 
