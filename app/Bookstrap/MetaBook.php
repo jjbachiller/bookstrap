@@ -210,6 +210,11 @@ class MetaBook {
     return $this->pages;
   }
 
+  public function getNumPages()
+  {
+    return count($this->pages);
+  }
+
   public function getBookSavePath()
   {
     return $this->bookSettings->getBookFilePath();

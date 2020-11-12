@@ -14,6 +14,9 @@ return [
       'icon' => 'flaticon-trophy',
       'disk_quote' => 5368709120,
       'week_downloads' => 250,
+      'max_books' => 300,
+      'max_pages_book' => 220,
+      'library_content' => [ 'full' ],
     ],
     'SILVER' => [
       'id' => 33,
@@ -21,6 +24,9 @@ return [
       'icon' => 'flaticon-rocket',
       'disk_quote' => 1073741824,
       'week_downloads' => 100,
+      'max_books' => 120,
+      'max_pages_book' => 120,
+      'library_content' => [ 'full' ],
     ],
     'STARTER' => [
       'id' => 32,
@@ -28,6 +34,11 @@ return [
       'icon' => 'flaticon-confetti',
       'disk_quote' => 262144000,
       'week_downloads' => 25,
+      'max_books' => 1,
+      'max_pages_book' => 15,
+      'library_content' => [
+          'sudoku'
+      ],
     ],
     'FREE' => [
       'id' => 35,
@@ -35,6 +46,9 @@ return [
       'icon' => 'flaticon-avatar',
       'disk_quote' => 0,
       'week_downloads' => 0,
+      'max_books' => 0,
+      'max_pages_book' => 0,
+      'library_content' => [ ],
     ],
   ]
 ];

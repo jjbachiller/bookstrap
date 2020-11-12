@@ -35,6 +35,15 @@ class CloneController extends Controller
         return response()->json($error);
       }
 
+      if (Gate::denies('pages-available', $clonedBook->total_pages)) {
+        $error = [
+          'deny' => config('bookstrap-constants.DENIES.TOTAL_PAGES.code'),
+          'message' => config('bookstrap-constants.DENIES.TOTAL_PAGES.message')
+        ];
+
+        return response()->json($error);
+      }
+
 
       $newBook = $clonedBook->duplicate();
       $newBook->name = $newBookName;

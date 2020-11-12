@@ -23,6 +23,12 @@ class WizardController extends Controller
       return redirect()->route('books.index');
     }
 
+    if (Gate::denies('pages-available')) {
+      $request->session()->flash('deny', config('bookstrap-constants.DENIES.TOTAL_PAGES.code'));
+      $request->session()->flash('message', config('bookstrap-constants.DENIES.TOTAL_PAGES.message'));
+      return redirect()->route('books.index');
+    }
+
     $bookUid = uniqid();
     $book = new \App\Book;
     $book->uid = $bookUid;
@@ -51,6 +57,12 @@ class WizardController extends Controller
       $book = \App\Book::findOrFail(session('idBook'));
 
       $metaBook = new MetaBook($book);
+
+      if (Gate::denies('pages-available')) {
+        $response = array('file_url' => '', 'error' => config('bookstrap-constants.DENIES.TOTAL_PAGES.code'));
+        echo json_encode($response);
+        return;
+      }
 
       if ($configuration['filetype'] == config('bookstrap-constants.PDF'))
       {

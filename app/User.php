@@ -92,8 +92,14 @@ class User extends Authenticatable
     }
 
     public function diskOccupation() {
-      $diskOccuptaion = $this->books->sum('total_size');
+      $diskOccupation = $this->books->sum('total_size');
 
-      return $diskOccuptaion;
+      return $diskOccupation;
+    }
+
+    public function totalPages() {
+      $totalPages = $this->books->sum('total_pages');
+
+      return $totalPages;
     }
 }

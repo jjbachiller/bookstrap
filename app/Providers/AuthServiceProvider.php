@@ -33,18 +33,22 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('download-book', function($user) {
           $subscription = $user->subscription();
           if (!$subscription) return false;
-          return $subscription['week_downloads'] > $user->numDownloadsThisWeek();
+          // return $subscription['week_downloads'] > $user->numDownloadsThisWeek();
+          return true;
         });
 
         // requiredSpace: Space necessary in bytes.
         Gate::define('space-available', function($user, $requiredSpace) {
           $subscription = $user->subscription();
           if (!$subscription) return false;
-          return $subscription['disk_quote'] >= ($user->diskOccupation() + $requiredSpace);
+          // return $subscription['disk_quote'] >= ($user->diskOccupation() + $requiredSpace);
+          return true;
         });
 
-        Gate::define('library-content-access', function($user) {
-
+        Gate::define('pages-available', function($user, $newPages = 0) {
+          $subscription = $user->subscription();
+          if (!$subscription) return false;
+          return $subscription['max_books'] * $subscription['max_pages_book'] >= $user->totalPages() + $newPages;
         });
     }
 }

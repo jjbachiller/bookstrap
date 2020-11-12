@@ -155,5 +155,9 @@ return [
         'code' => 3,
         'message' => 'No downloades left for your account this week. Wait for the next week or upgrade your account type.',
       ],
+    'TOTAL_PAGES' => [
+        'code' => 4,
+        'message' => 'Not enough pages left for your account. Delete some pages or upgrade your account type.',
+      ],
   ]
 ];

@@ -250,7 +250,15 @@
           dataType: 'json',
           data: JSON.stringify(data),
           success: function(response) {
-            bookGeneratedSuccess(response.file_url);
+            if (response.error == 0) {
+              bookGeneratedSuccess(response.file_url);
+            } else {
+              if (response.error  == {{ config('bookstrap-constants.DENIES.TOTAL_PAGES.code') }}) {
+                showTotalPagesError();
+              }
+              bookGeneratedError();
+            }
+
           },
           error: function (data){
             bookGeneratedError();
@@ -356,6 +364,11 @@
 
     function showExpiredAccountError() {
       $('#denyMessage').html("{{ config('bookstrap-constants.DENIES.EXPIRED_ACCOUNT.message') }}");
+      $('#showAlertDeny').modal('show');
+    }
+
+    function showTotalPagesError() {
+      $('#denyMessage').html("{{ config('bookstrap-constants.DENIES.TOTAL_PAGES.message') }}");
       $('#showAlertDeny').modal('show');
     }
 
