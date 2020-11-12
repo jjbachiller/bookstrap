@@ -455,11 +455,14 @@
 
     $bookUid = $urlSegments[2];
     $date = $urlSegments[3];
-    $book = $urlSegments[4];
+    $bookName = $urlSegments[4];
 
-    $userUid =  Auth::user()->uid;
+    $book = App\Book::where('uid', $bookUid)->first();
+    if (!$book) {
+      return 0;
+    }
 
-    $bookPath = config('bookstrap-constants.downloads_path') . $userUid . '/' . $bookUid . '/' . $date  . '/' . $book;
+    $bookPath = config('bookstrap-constants.downloads_path') . $book->user->uid . '/' . $bookUid . '/' . $date  . '/' . $bookName;
     $file = Storage::path($bookPath);
     if (!is_file($file)) {
       return 0;
