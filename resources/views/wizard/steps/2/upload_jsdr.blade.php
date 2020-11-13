@@ -1,4 +1,4 @@
-//// New section add
+javas//// New section add
 $(function() {
   $(".myDrop").sortable({
     items: '.dz-preview',
@@ -167,7 +167,7 @@ function addNewSection(section = []) {
        addRemoveLinks: true,
        uploadMultiple: true,
        autoProcessQueue: true,
-       parallelUploads: 50,
+       parallelUploads: 30,
        maxFilesize: 5, // MB
        acceptedFiles: ".png, .jpeg, .jpg, .gif",
        url: "{{ route('section.upload-images') }}",
