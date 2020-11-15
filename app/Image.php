@@ -33,18 +33,18 @@ class Image extends Model
     return is_null($this->s3_disk);
   }
 
-  public static function boot() {
-    parent::boot();
-
-    self::created(function($image){
-      $image->section->book->updatedPagesAndSize();
-    });
-
-    self::deleted(function($image){
-      $image->section->book->updatedPagesAndSize();
-    });
-
-  }
+  // public static function boot() {
+  //   parent::boot();
+  //
+  //   self::created(function($image){
+  //     $image->section->book->updatedPagesAndSize();
+  //   });
+  //
+  //   self::deleted(function($image){
+  //     $image->section->book->updatedPagesAndSize();
+  //   });
+  //
+  // }
 
 
   // public function data() {

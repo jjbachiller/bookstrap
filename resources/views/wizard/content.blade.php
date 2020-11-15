@@ -332,7 +332,7 @@
       });
 
       $('.restart_wizard').click(function() {
-        if (confirm("Do you really want to delete all your changes and restart the wizard?")) {
+        if (confirm("Do you really want to restart the wizard?")) {
           location.reload();
         }
       });

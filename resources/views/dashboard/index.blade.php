@@ -59,13 +59,21 @@
                 @php
                   $subscription = Auth::user()->subscription();
                   $downloads = $subscription['week_downloads'] - Auth::user()->numDownloadsThisWeek();
+
+                  $pagesPercentage = ceil(Auth::user()->totalPages() * 100 / ($subscription['max_books'] * $subscription['max_pages_book']));
                 @endphp
 
                 <div class="mt-10">
                   <i class="icon-8x fas fa-cloud-download-alt text-primary"></i>
-                  <h3 class="mt-3">
+                  {{-- <h3 class="mt-3">
                     {{ $downloads }} / {{ $subscription['week_downloads'] }} <span class="font-size-lg"> Available Downloads</span>
-                  </h3>
+                  </h3> --}}
+                </div>
+                <div class="m-5">
+                  <h5 class="text-align-center">Your Pages Quote</h3>
+                  <div class="progress m-5">
+                    <div class="progress-bar progress-bar-striped" role="progressbar"  style="width: {{ $pagesPercentage }}%" aria-valuenow="{{ $pagesPercentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
                 </div>
               </div>
               <!--end::Body-->

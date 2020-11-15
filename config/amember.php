@@ -34,8 +34,8 @@ return [
       'icon' => 'flaticon-confetti',
       'disk_quote' => 262144000,
       'week_downloads' => 25,
-      'max_books' => 1,
-      'max_pages_book' => 15,
+      'max_books' => 50,
+      'max_pages_book' => 32,
       'library_content' => [
           'sudoku'
       ],

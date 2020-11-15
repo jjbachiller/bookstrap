@@ -3,6 +3,7 @@ namespace App\Classes;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 
 class ImageManager
 {
@@ -11,18 +12,19 @@ class ImageManager
   {
     $image = new \App\Image;
     $image->solution = $solution;
-    $section->content()->save($image);
+    // $section->content()->save($image);
+    $image->section_id = $section->id;
 
     $imagePath = $image->path('original');
-
     Storage::makeDirectory($imagePath);
 
     $fileName = trim($uploadedFile->getClientOriginalName());
-
     $imageFilePath = $uploadedFile->storeAs($imagePath, $fileName);
+
     if($imageFilePath)
     {
       $imageFilePath = Storage::path($imageFilePath);
+
       $imageFile = new \SplFileInfo($imageFilePath);
 
       // Update the image data with the saved file info.
@@ -41,6 +43,7 @@ class ImageManager
         if ($miniature['width'] == 0 || $miniature['height'] == 0) continue;
         makeThumbnails($imagePath, $image->file_name, $miniature);
       }
+
 
       return $image;
     }

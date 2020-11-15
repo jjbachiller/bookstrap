@@ -1,4 +1,4 @@
-javas//// New section add
+//// New section add
 $(function() {
   $(".myDrop").sortable({
     items: '.dz-preview',
@@ -56,13 +56,30 @@ $(".section-index").on('change', function() {
 
 $('#addSection').on("click", function() {
   @can('active-subscription')
-    addNewSection();
+    createSection();
   @else
     showExpiredAccountError();
   @endcan
 });
 
+function createSection() {
+  // Update or create the section data
+  $.ajax({
+    type: "POST",
+    url: "{{ route('section.create-section') }}",
+    success: function(response) {
+      console.log(response);
+      addNewSection(response);
+    }
+  });
+}
+
 function addNewSection(section = []) {
+  if ((typeof section['id'] === 'undefined')
+    || (section['id'] === null)) {
+      console.log("Section id is empty!");
+      return;
+  }
 
   if (typeof section['folder'] === 'undefined') {
     // New section
@@ -83,11 +100,8 @@ function addNewSection(section = []) {
   // Change index value triggering the change in the identifiers and classes for the block
   newSection.find(".section-index").val(newIndex).change();
 
-  // Load section value if is an editing section
-  if ((typeof section['id'] !== 'undefined')
-    && (section['id'] !== null)) {
-    newSection.find(".section-id").val(section['id']);
-  }
+  // Load section Id from database
+  newSection.find(".section-id").val(section['id']);
 
   // SECTION CONTENT: If user is updating a section and the section has a title, set the title values
   if ((typeof section['title'] !== 'undefined')
@@ -167,7 +181,7 @@ function addNewSection(section = []) {
        addRemoveLinks: true,
        uploadMultiple: true,
        autoProcessQueue: true,
-       parallelUploads: 30,
+       parallelUploads: 10,
        maxFilesize: 5, // MB
        acceptedFiles: ".png, .jpeg, .jpg, .gif",
        url: "{{ route('section.upload-images') }}",
@@ -281,11 +295,11 @@ function sendSectionsUpdate() {
     });
 }
 
-function updateSectionId(sectionIndex, id) {
-  var currentSection = getSectionByIndex(sectionIndex);
-
-  currentSection.find("input.section-id").val(id);
-}
+// function updateSectionId(sectionIndex, id) {
+//   var currentSection = getSectionByIndex(sectionIndex);
+//
+//   currentSection.find("input.section-id").val(id);
+// }
 
 function setupDropzone(newDropzone, newSection, newIndex, solutions=0) {
   @can('active-subscription')
@@ -356,7 +370,7 @@ function setupDropzone(newDropzone, newSection, newIndex, solutions=0) {
       var error = newDropzone.files.length - secondDZ.files.length;
 
       // Update the sectionId
-      updateSectionId(newIndex, response.sectionId);
+      // updateSectionId(newIndex, response.sectionId);
 
       updateSolutionsNumberMatchMessage(newIndex, error);
     })
@@ -513,7 +527,7 @@ $('.toggleSolutionsOptions').on('click', function() {
   @endforeach
 @else
   // If is not editing, we add a new blank section
-  addNewSection();
+  createSection();
 @endisset
 
 // Begin ::::> Update section data on realtime (if section exists).
@@ -529,7 +543,7 @@ function updateSectionOnChange(changedElement) {
     dataType: 'json',
     data: JSON.stringify({'section-data': affectedSection}),
     success: function(response) {
-      updateSectionId(sectionIndex, response.id);
+      // updateSectionId(sectionIndex, response.id);
     }
   });
 }
@@ -780,10 +794,10 @@ function getDataForContentType(contentType) {
   return data;
 }
 
-function addContent(sectionIndex, sectionId) {
+function addContent(sectionIndex, section) {
   var contentType = $("#selectedContentType").val();
   var data = getDataForContentType(contentType);
-  data.section_id = sectionId;
+  data.section_id = section.id;
   data.sectionIndex = sectionIndex;
 
   // Block the section container
@@ -859,17 +873,20 @@ function loadContentFromLibrary() {
     var affectedSection = currentSectionData(affectedSectionIndex);
 
     // Update or create the section data
-    $.ajax({
-      type: "POST",
-      url: "{{ route('section.update-section') }}",
-      dataType: 'json',
-      data: JSON.stringify({'section-data': affectedSection}),
-      success: function(response) {
-        updateSectionId(affectedSectionIndex, response.id);
-        // Once created, load the content
-        addContent(affectedSectionIndex, response.id);
-      }
-    });
+    addContent(affectedSectionIndex, affectedSection);
+
+    // $.ajax({
+    //   type: "POST",
+    //   url: "{{ route('section.update-section') }}",
+    //   dataType: 'json',
+    //   data: JSON.stringify({'section-data': affectedSection}),
+    //   success: function(response) {
+    //     updateSectionId(affectedSectionIndex, response.id);
+    //     // Once created, load the content
+    //     addContent(affectedSectionIndex, response.id);
+    //   }
+    // });
+
   @else
     showExpiredAccountError();
   @endcan

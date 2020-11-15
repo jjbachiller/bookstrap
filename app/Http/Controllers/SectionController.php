@@ -8,15 +8,16 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
 use App\Classes\ImageManager;
 use App\Jobs\LoadS3ContentJob;
+use Illuminate\Support\Facades\Log;
 
 class SectionController extends Controller
 {
 
-  private function updateOrCreateSection($sectionData)
+  private function updateSectionData($sectionData)
   {
     $book = \App\Book::findOrFail(session('idBook'));
 
-    $section = empty($sectionData->id) ? new \App\Section : \App\Section::findOrFail($sectionData->id);
+    $section = \App\Section::findOrFail($sectionData->id);
 
     if ($sectionData->addTitle) {
       $section->title = empty($sectionData->title) ? null : $sectionData->title;
@@ -62,7 +63,7 @@ class SectionController extends Controller
   {
     if (Gate::allows('active-subscription')) {
       $sectionData = json_decode($request->input('section-data'));
-      $section = $this->updateOrCreateSection($sectionData);
+      $section = $this->updateSectionData($sectionData);
 
       $errorCode = 0;
       $errorMessage = '';
@@ -135,6 +136,13 @@ class SectionController extends Controller
     }
   }
 
+  public function createSection(Request $request)
+  {
+    $section = new \App\Section;
+    $section->save();
+    return $section;
+  }
+
   public function updateSection(Request $request)
   {
     if (Gate::denies('active-subscription')) {
@@ -146,7 +154,7 @@ class SectionController extends Controller
     $requestData = json_decode($request->getContent(), true);
     $sectionData = (object) $requestData['section-data'];
 
-    $section = $this->updateOrCreateSection($sectionData);
+    $section = $this->updateSectionData($sectionData);
 
     return $section;
   }
@@ -162,7 +170,7 @@ class SectionController extends Controller
     $sections = $updatedData['sections'];
     foreach ($sections as $sectionArray) {
       $sectionObject = (object) $sectionArray;
-      $this->updateOrCreateSection($sectionObject);
+      $this->updateSectionData($sectionObject);
     }
 
     $response = array('result' => 'ok');
