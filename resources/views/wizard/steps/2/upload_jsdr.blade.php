@@ -68,7 +68,6 @@ function createSection() {
     type: "POST",
     url: "{{ route('section.create-section') }}",
     success: function(response) {
-      console.log(response);
       addNewSection(response);
     }
   });
