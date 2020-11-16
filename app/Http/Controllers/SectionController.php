@@ -15,8 +15,6 @@ class SectionController extends Controller
 
   private function updateSectionData($sectionData)
   {
-    $book = \App\Book::findOrFail(session('idBook'));
-
     $section = \App\Section::findOrFail($sectionData->id);
 
     if ($sectionData->addTitle) {
@@ -42,16 +40,16 @@ class SectionController extends Controller
     $section->solutions_to_the_end = $sectionData->solutionsToTheEnd;
 
     // List images in section in order to calculate num pages and total size for the section.
-    if (Auth::check()) {
-      $section->user_id = Auth::user()->id;
-      $userUid = Auth::user()->uid;
-    } else {
-      $userUid = session('user_uid');
-    }
+    // if (Auth::check()) {
+    //   $section->user_id = Auth::user()->id;
+    //   $userUid = Auth::user()->uid;
+    // } else {
+    //   $userUid = session('user_uid');
+    // }
 
     $section->order = $sectionData->order ?? null;
 
-    $book->sections()->save($section);
+    $section->save();
 
     $section->book->updatedPagesAndSize();
 
@@ -138,8 +136,10 @@ class SectionController extends Controller
 
   public function createSection(Request $request)
   {
+    $book = \App\Book::findOrFail(session('idBook'));
     $section = new \App\Section;
-    $section->save();
+    $section->user_id = Auth::user()->id;
+    $book->sections()->save($section);
     return $section;
   }
 
