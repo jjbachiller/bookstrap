@@ -1,5 +1,3 @@
-
-
 var firstLoad = true;
 
 // Load Book content from server and generate book
@@ -16,7 +14,7 @@ function loadPreviewContent() {
     type: "POST",
     url : "{{ route('preview.content') }}",
     success: function (data) {
-
+      setTotalPages(data.total_pages);
       var current_page = current_page_blankpages_book = 1;
 
       // Delete old content
@@ -390,49 +388,17 @@ window.addEventListener(orientationEvent, function() {
 }, false);
 
 
-// Image size options management
-// $('#image-size').TouchSpin({
-//   min: 1,
-//   max: 100,
-//   initval: '100',
-//   replacementval: '',
-//   decimals: 0,
-//   forcestepdivisibility: 'round',
-//   verticalbuttons: false,
-//   verticalupclass: 'oi oi-chevron-top',
-//   verticaldownclass: 'oi oi-chevron-bottom',
-//   boostat: 5,
-//   booster: true,
-//   maxboostedstep: 10,
-//   postfix: '%',
-//   step: 1,
-//   stepinterval: 100,
-//   stepintervaldelay: 500,
-//   mousewheel: true,
-//   buttondown_class: 'btn btn-primary',
-//   buttonup_class: 'btn btn-primary',
-//   buttondown_txt: '-',
-//   buttonup_txt: '+'
-// });
-
-// $('#image-size').on('change', function() {
-//   var percentage = $(this).val();
-//   console.log("Entro con: " + percentage);
-//   if (percentage) {
-//     $('.imgages-content img').width(percentage);
-//   }
-// });
-
-// $('#image-size').focusout(function() {
-//   var percentage = $(this).val();
-//   if (!isNaN(percentage) || percentage < 0 || percentage > 100) {
-//     var image_width = $('.page-content img').width();
-//     var parent_width = $('.page-content img').parent().width();
-//     var image_percentage = Math.ceil(image_width / parent_width * 100);
-//     $(this).val(image_percentage);
-//   }
-// });
-// End image size options management
+function setTotalPages(totalPages) {
+  @php
+    $subscription = Auth::user()->subscription();
+  @endphp
+  $('#current-book-pages').html(totalPages);
+  if (totalPages > {{ $subscription['max_book_pages'] }} ) {
+    $('#current-book-pages').addClass('text-danger');
+  } else {
+    $('#current-book-pages').removeClass('text-danger');
+  }
+}
 
 // Image position options management
 function imagePosition(position) {
@@ -515,13 +481,16 @@ $('#addBlankPages').on('change', function() {
     $('#mybook-blankpages').booklet("gotopage", 'start');
     $('#mybook-blankpages').show();
     generateBookSlider(true);
+    bookPages = $('#mybook-blankpages').find('div.page');
   } else {
     // removeBlankPages();
     $('#mybook').booklet("gotopage", 'start');
     $('#mybook').show();
     $('#mybook-blankpages').hide();
     generateBookSlider();
+    bookPages = $('#mybook').find('div.page');
   }
+  setTotalPages(bookPages.length);
 });
 //End Blank pages options management
 

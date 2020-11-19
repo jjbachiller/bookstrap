@@ -23,7 +23,7 @@ class WizardController extends Controller
       return redirect()->route('books.index');
     }
 
-    if (Gate::denies('pages-available')) {
+    if (Gate::denies('total-pages-available')) {
       $request->session()->flash('deny', config('bookstrap-constants.DENIES.TOTAL_PAGES.code'));
       $request->session()->flash('message', config('bookstrap-constants.DENIES.TOTAL_PAGES.message'));
       return redirect()->route('books.index');
@@ -58,8 +58,14 @@ class WizardController extends Controller
 
       $metaBook = new MetaBook($book);
 
-      if (Gate::denies('pages-available')) {
+      if (Gate::denies('total-pages-available')) {
         $response = array('file_url' => '', 'error' => config('bookstrap-constants.DENIES.TOTAL_PAGES.code'));
+        echo json_encode($response);
+        return;
+      }
+
+      if (Gate::denies('book-pages-in-limit', $book->total_pages)) {
+        $response = array('file_url' => '', 'error' => config('bookstrap-constants.DENIES.BOOK_PAGES.code'));
         echo json_encode($response);
         return;
       }

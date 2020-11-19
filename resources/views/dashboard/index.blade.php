@@ -60,7 +60,7 @@
                   $subscription = Auth::user()->subscription();
                   $downloads = $subscription['week_downloads'] - Auth::user()->numDownloadsThisWeek();
 
-                  $pagesPercentage = ceil(Auth::user()->totalPages() * 100 / ($subscription['max_books'] * $subscription['max_pages_book']));
+                  $pagesPercentage = ceil(Auth::user()->totalPages() * 100 / $subscription['max_total_pages']);
                 @endphp
 
                 <div class="mt-10">
@@ -70,7 +70,7 @@
                   </h3> --}}
                 </div>
                 <div class="m-5">
-                  <h5 class="text-align-center">Your Pages Quote</h3>
+                  <h5 class="text-align-center">Your Pages Quota</h3>
                   <div class="progress m-5">
                     <div class="progress-bar progress-bar-striped" role="progressbar"  style="width: {{ $pagesPercentage }}%" aria-valuenow="{{ $pagesPercentage }}" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
@@ -116,7 +116,7 @@
                   @endphp
 
                   <i class="icon-xl far fa-hdd"></i>
-                  {{ formatBytes($subscription['disk_quote']) }} Disk Available
+                  {{ formatBytes($subscription['disk_quota']) }} Disk Available
                 </span>
                 {{-- <span class="label label-lg label-primary label-inline font-weight-bolder mb-10 py-3">Disk Percentage</span> --}}
               </div>

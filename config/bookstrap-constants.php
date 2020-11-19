@@ -159,5 +159,9 @@ return [
         'code' => 4,
         'message' => 'Not enough pages left for your account. Delete some pages or upgrade your account type.',
       ],
+    'BOOK_PAGES' => [
+        'code' => 5,
+        'message' => 'Your book exceeds your account pages per book limit. Delete some pages or upgrade your account type.',
+      ],
   ]
 ];

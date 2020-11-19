@@ -9,10 +9,11 @@
           <i class="icon-xl text-white far fa-clock"></i>
           &nbsp;&nbsp;Realtime updated
     		</div>
-    		<h3 class="card-title">
-    			Book Options
-    		</h3>
-    	</div>
+        <div class="row">
+          <div class="col-12">
+              <button class="btn btn-light-info mt-2 mb-2 float-right">Book Pages: <span id="current-book-pages" class="font-weight-bolder">0</span> </button>
+          </div>
+        </div>    	</div>
     	<div class="card-body">
 
         <div class="book-options-col col-12">

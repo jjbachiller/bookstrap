@@ -253,9 +253,7 @@
             if (response.error == 0) {
               bookGeneratedSuccess(response.file_url);
             } else {
-              if (response.error  == {{ config('bookstrap-constants.DENIES.TOTAL_PAGES.code') }}) {
-                showTotalPagesError();
-              }
+              showError(response.error)
               bookGeneratedError();
             }
 
@@ -367,9 +365,17 @@
       $('#showAlertDeny').modal('show');
     }
 
-    function showTotalPagesError() {
-      $('#denyMessage').html("{{ config('bookstrap-constants.DENIES.TOTAL_PAGES.message') }}");
-      $('#showAlertDeny').modal('show');
+    function showError(error) {
+      switch (error) {
+        case {{ config('bookstrap-constants.DENIES.TOTAL_PAGES.code') }}:
+          $('#denyMessage').html("{{ config('bookstrap-constants.DENIES.TOTAL_PAGES.message') }}");
+          $('#showAlertDeny').modal('show');
+          break;
+        case {{ config('bookstrap-constants.DENIES.BOOK_PAGES.code') }}:
+          $('#denyMessage').html("{{ config('bookstrap-constants.DENIES.BOOK_PAGES.message') }}");
+          $('#showAlertDeny').modal('show');
+          break;
+      }
     }
 
   </script>

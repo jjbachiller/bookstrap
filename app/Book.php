@@ -32,7 +32,7 @@ class Book extends Model
 
     public function scopeWithContent($query)
     {
-      return $query->has('sections');
+      return $query->has('sections.images');
     }
 
     public function updatedPagesAndSize()
