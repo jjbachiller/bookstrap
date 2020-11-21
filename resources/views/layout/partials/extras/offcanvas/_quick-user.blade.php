@@ -125,7 +125,7 @@
         	</h5>
 
 			{{-- Item --}}
-	        <div class="d-flex align-items-center bg-light-warning rounded p-5 gutter-b">
+	        {{-- <div class="d-flex align-items-center bg-light-warning rounded p-5 gutter-b">
 	            <span class="svg-icon svg-icon-warning mr-5">
 	                {{ Metronic::getSVG("media/svg/icons/Home/Library.svg", "svg-icon-lg") }}
 	            </span>
@@ -136,10 +136,10 @@
 	            </div>
 
 	            <span class="font-weight-bolder text-warning py-1 font-size-lg">+28%</span>
-	        </div>
+	        </div> --}}
 
 	        {{-- Item --}}
-	        <div class="d-flex align-items-center bg-light-success rounded p-5 gutter-b">
+	        {{-- <div class="d-flex align-items-center bg-light-success rounded p-5 gutter-b">
 	            <span class="svg-icon svg-icon-success mr-5">
 	                {{ Metronic::getSVG("media/svg/icons/Communication/Write.svg", "svg-icon-lg") }}
 	            </span>
@@ -149,10 +149,10 @@
 	            </div>
 
 	            <span class="font-weight-bolder text-success py-1 font-size-lg">+50%</span>
-	        </div>
+	        </div> --}}
 
 	        {{-- Item --}}
-	        <div class="d-flex align-items-center bg-light-danger rounded p-5 gutter-b">
+	        {{-- <div class="d-flex align-items-center bg-light-danger rounded p-5 gutter-b">
 	            <span class="svg-icon svg-icon-danger mr-5">
 	                {{ Metronic::getSVG("media/svg/icons/Communication/Group-chat.svg", "svg-icon-lg") }}
 	            </span>
@@ -162,7 +162,7 @@
 	            </div>
 
 	            <span class="font-weight-bolder text-danger py-1 font-size-lg">-27%</span>
-	        </div>
+	        </div> --}}
 
 	        {{-- Item --}}
 	        <div class="d-flex align-items-center bg-light-info rounded p-5">
@@ -171,11 +171,10 @@
 	            </span>
 
 	            <div class="d-flex flex-column flex-grow-1 mr-2">
-	                <a href="#" class="font-weight-normel text-dark-75 text-hover-primary font-size-lg mb-1">The best product</a>
-	                <span class="text-muted font-size-sm">Due in 2 Days</span>
+	                <a href="https://bookstrap.io/video/training" class="font-weight-normel text-dark-75 text-hover-primary font-size-lg mb-1" alt="Training" title="Training" data-toggle="modal" data-target="#videoModal">Video Training</a>
+	                <span class="text-muted font-size-sm">Last video updated</span>
 	            </div>
 
-	            <span class="font-weight-bolder text-info py-1 font-size-lg">+8%</span>
 	        </div>
 		</div>
     </div>
