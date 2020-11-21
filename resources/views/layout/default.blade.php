@@ -111,6 +111,14 @@ License: You must have a valid license purchased only from themeforest(the above
               $('#denyMessage').html("{{ session('message') }}");
               $('#showAlertDeny').modal('show');
             @endif
+
+            $('#videoModal').on('shown.bs.modal', function(e) {
+              $('#kt_quick_user').removeClass('offcanvas-on');
+            });
+
+            $('#videoModal').on('hide.bs.modal', function(e) {
+              $('#video').attr('src', $('#video').attr('src'));
+            });
         </script>
 
     </body>

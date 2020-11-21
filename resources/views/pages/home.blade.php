@@ -889,14 +889,6 @@
           $('#contactModal').modal('show');
         });
 
-        $('#videoModal').on('shown.bs.modal', function(e) {
-          $('#kt_quick_user').removeClass('offcanvas-on');
-        });
-
-        $('#videoModal').on('hide.bs.modal', function(e) {
-          $('#video').attr('src', $('#video').attr('src'));
-        });
-
       });
 
     </script>
