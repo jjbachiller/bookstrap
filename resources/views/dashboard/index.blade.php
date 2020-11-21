@@ -148,6 +148,8 @@
                   @endcan
                   {{ $subscription['name'] }}
                 </h1>
+                <h4>{{ $subscription['max_book_pages']}} pages per book</h4>
+                <h4>{{ $subscription['max_total_pages']}} total pages</h4>
 
               </div>
               <!--end::Body-->

@@ -15,7 +15,7 @@ return [
       'disk_quota' => 5368709120,
       'week_downloads' => 250,
       'max_total_pages' => 40000,
-      'max_book_pages' => 500,
+      'max_book_pages' => 550,
       'library_content' => [ 'full' ],
     ],
     'SILVER' => [
@@ -25,7 +25,7 @@ return [
       'disk_quota' => 1073741824,
       'week_downloads' => 100,
       'max_total_pages' => 5600,
-      'max_book_pages' => 300,
+      'max_book_pages' => 350,
       'library_content' => [ 'full' ],
     ],
     'STARTER' => [
@@ -35,7 +35,7 @@ return [
       'disk_quota' => 262144000,
       'week_downloads' => 25,
       'max_total_pages' => 1500,
-      'max_book_pages' => 100,
+      'max_book_pages' => 200,
       'library_content' => [
           'sudoku'
       ],

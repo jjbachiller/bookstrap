@@ -3,6 +3,7 @@
   <div class="d-flex justify-content-center">
 
     <div class="card card-custom shadow w-75">
+      <span id="max-pages-error" class="label label-danger label-inline font-weight-bold m-2 d-none"> Your book exceeds your subscription max pages per book</span>      
     	<div class="card-header card-header-right ribbon ribbon-clip ribbon-left">
     		<div class="ribbon-target" style="top: 12px;">
     			<span class="ribbon-inner bg-info"></span>

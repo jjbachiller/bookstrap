@@ -776,9 +776,11 @@
                 </span>
                 <br>
                 <p class="mb-10 d-flex flex-column text-dark-50">
-                  <span>25 Downloads <strong>per WEEK</strong></span>
+                  <span>Unlimited Downloads</span>
                   <span>250 MBytes of disk quota</span>
-                  <span>Limited access to library content</span>
+                  <span>Books up to 200 pages</span>
+                  <span>Up to 1,500 pages in total</span>
+                  <span>Unlimited access to library content</span>
                 </p>
                 <a href="https://puzzlebookcompiler.com/members/product/LCBW-Starter" target="_blank" type="button" class="btn btn-primary text-uppercase font-size-lg font-weight-bolder px-15 py-3">Subscribe</a>
               </div>
@@ -797,9 +799,11 @@
     					</span>
     					<br>
     					<p class="text-white mb-10 d-flex flex-column">
-    						<span>100 Downloads <strong>per WEEK</strong></span>
-    						<span>1 GBytes of disk quota</span>
-    						<span>UNlimited access to library content</span>
+                <span>Unlimited Downloads</span>
+                <span>1 GByte of disk quota</span>
+                <span>Books up to 350 pages</span>
+                <span>Up to 5,600 pages in total</span>
+                <span>Unlimited access to library content</span>
     					</p>
     					<a href="https://puzzlebookcompiler.com/members/product/LCBW-Silver" target="_blank" type="button" class="btn btn-white text-uppercase font-size-lg font-weight-bolder px-15 py-3">Subscribe</a>
     				</div>
@@ -817,9 +821,11 @@
     					</span>
     					<br>
     					<p class="mb-10 d-flex flex-column text-dark-50">
-                <span>250 Downloads <strong>per WEEK</strong></span>
-    						<span>5 GBytes of disk quota</span>
-    						<span>UNlimited access to library content</span>
+                <span>Unlimited Downloads</span>
+                <span>5 GByte of disk quota</span>
+                <span>Books up to 550 pages</span>
+                <span>Up to 40,000 pages in total</span>
+                <span>Unlimited access to library content</span>
     					</p>
     					<a href="https://puzzlebookcompiler.com/members/product/LCBW-Gold" target="_blank" type="button" class="btn btn-primary text-uppercase font-size-lg font-weight-bolder px-15 py-3">Subscribe</a>
     				</div>

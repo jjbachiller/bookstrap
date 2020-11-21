@@ -395,8 +395,10 @@ function setTotalPages(totalPages) {
   $('#current-book-pages').html(totalPages);
   if (totalPages > {{ $subscription['max_book_pages'] }} ) {
     $('#current-book-pages').addClass('text-danger');
+    $('#max-pages-error').removeClass('d-none');
   } else {
     $('#current-book-pages').removeClass('text-danger');
+    $('#max-pages-error').addClass('d-none');    
   }
 }
 
