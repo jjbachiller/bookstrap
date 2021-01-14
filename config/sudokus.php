@@ -29,6 +29,7 @@ return [
     'Level Fourteen' => 'Level 14',
     'Level Fifteen' => 'Level 15',
     'Level Sixteen' => 'Level 16',
+    'Level Seventeen' => 'Level 17',
   ],
   'addGroups' => [
     10, 25, 50, 100, 150, 200
