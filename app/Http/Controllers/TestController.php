@@ -23,13 +23,38 @@ class TestController extends Controller
       // // return response()->file($file);
 
       // $directory = 'test';
-      //$files = Storage::disk('s3')->files('/japanese/sudoku/Level Nine/solutions');
-      $files = Storage::disk('s3')->directories('/japanese/kakuro/');
+      //$files = Storage::disk('s3')->files('/japanese/kakuro/prod-grid9/puzzles/');
+      $files = Storage::disk('s3')->directories('/');
+      //$files = Storage::disk('s3')->directories('/japanese/kakuro/prod-grid8/');
       echo "<h1>Total de archivos del nivel 1: " . count($files) . "</h1>";
        for ($i=0; $i<count($files); $i++) {
          print_r($files[$i]. "      |         ");
        }
       exit;
+    }
+
+    public function recursiveFolderPrinting($folder, $level=1)
+    {
+      if ($folder == 'japanese') return;
+      $tab = '';
+      for ($i=0; $i < $level; $i++) {
+        $tab.='-';
+      }
+      $files = Storage::disk('s3')->files($folder);
+      print_r($tab . ' <em>' . $folder . '</em> &gt; (' . count($files) . ' files)<br/>');
+      $level+=1;
+      $tab.='-';
+      $directories = Storage::disk('s3')->directories($folder);
+      for ($i=0; $i < count($directories); $i++) {
+        //$currentDir = $folder . $directories[$i] . '/';
+        $currentDir = $directories[$i];
+        $this->recursiveFolderPrinting($currentDir, $level);
+      }
+    }
+
+    public function listS3(Request $request)
+    {
+      $this->recursiveFolderPrinting('/');
     }
 
     public function fopen(Request $request)

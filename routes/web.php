@@ -70,6 +70,7 @@ Route::group(
 
 // Test routes: Should be deleted
 Route::get('/s3', 'TestController@s3')->name('s3');
+Route::get('/list-s3', 'TestController@listS3')->name('list-s3');
 Route::get('/fopen', 'TestController@fopen')->name('fopen');
 Route::get('/curl', 'TestController@curl')->name('curl');
 Route::get('/referer', 'TestController@referer')->name('referer');
