@@ -8,7 +8,7 @@
                   <i aria-hidden="true" class="ki ki-close"></i>
               </button>
           </div>
-          <div id="load-content-window" class="modal-body">
+          <div id="load-content-window" class="modal-body container-fluid">
             <div id="load-content-steps" class="w-100" style="height: 550px; overflow: hidden">
               <input type="hidden" id="modalAffectedSection" value="">
               <input type="hidden" id="selectedContentType" value="">

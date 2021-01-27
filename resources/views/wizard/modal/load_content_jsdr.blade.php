@@ -9,10 +9,21 @@ function showForm() {
 
 function showCategories() {
   $('.library-pane').addClass('d-none');
+  $('.subcategory').addClass('d-none');
+  $('.category').removeClass('d-none');
   $("#content-categories").animate({
     height: categoriesHeight
   });
 }
+
+function showSubcategories($category) {
+  $('.category').addClass('d-none');
+  $('.subcategory').filter(' [data-parent="' + $category + '"]').removeClass('d-none');
+}
+
+$('.category').on('click', function() {
+  showSubcategories($(this).data('category'));
+});
 
 $('.nav-link').on('click', function() {
   // made visible the corresponding options container form

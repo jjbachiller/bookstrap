@@ -1,64 +1,62 @@
+<div class="row">
+
 @foreach (config('categories.list') as $index => $category)
 
-  @if ($index % config('categories.itemsPerRow') == 0)
+  <div class="col-xl-3 col-lg-5 col-md-5 col-sm-5 category" data-category="{{ $category['shortname'] }}">
+    <div class="card gutter-b card-stretch">
+      <div class="card-body text-center pt-4">
 
-    @if($index > 0)
-      </ul>
-    @endif
-
-    <ul class="dashboard-tabs nav nav-pills nav-light-primary row row-paddingless m-0 p-0 flex-column flex-sm-row" role="tablist">
-
-  @endif
-
-    <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-
-      <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="sudoku">
-        <span class="nav-icon py-2 w-auto">
+        <div class="mt-7">
+          <div class="symbol symbol-circle symbol-lg-90">
             @php
               $categoryIcon = config('categories.iconPath') . $category['shortname'] . config('categories.iconExtension');
             @endphp
-            <img class="mw-50 w-100px" src="{{ asset($categoryIcon) }}">
-        </span>
-        <span class="nav-text font-size-lg py-2 font-weight-bold text-center">
-          {{ $category['name'] }}
-        </span>
-      </a>
+            <img class="mw-50 w-100px" src="{{ asset($categoryIcon) }}" alt="{{ $category['name'] }}">
+          </div>
+        </div>
+        
+        <div class="my-4">
+          <a class="text-dark font-weight-bold text-hover-primary font-size-h4" data="{{ $category['shortname'] }}">{{ $category['name'] }}</a>
+        </div>
 
-      @if (!empty($category['subcategories']))
-        <!-- TODO: BACK BUTTON -->
-        @foreach ($category['subcategories'] as $subindex => $subcategory)
-    
-          @if ($subindex % config('categories.itemsPerRow'))i == 0)
-    
-            @if ($subindex > 0)
-              </ul>
-            @endif
+        <div class="mt-9">
+          <a class="btn btn-light-primary font-weight-bolder btn-sm py-3 px-6 text-uppercase" data="{{ $category['shortname'] }}">Select</a>
+        </div>
 
-            <ul class="dashboard-tabs nav nav-pills nav-light-primary row row-paddingless m-0 p-0 flex-column flex-sm-row" role="tablist">
+      </div>
+    </div>
+  </div>
+
+  @foreach ($category['subcategories'] as $subindex => $subcategory)
+    
+    <div class="col-xl-3 col-lg-5 col-md-5 col-sm-5 subcategory d-none" data-parent="{{ $category['shortname'] }}">
+      <div class="card gutter-b card-stretch">
+        <div class="card-body text-center pt-4">
+
+          <div class="mt-7">
+            <div class="symbol symbol-circle symbol-lg-90">
+              @php
+
+                $subcategoryIcon = config('categories.iconPath') . $subcategory['shortname'] . config('categories.iconExtension');
+              @endphp
+              <img class="mw-50 w-100px" src="{{ asset($subcategoryIcon) }}" alt="{{ $subcategory['name'] }}">
+            </div>
+          </div>
           
-          @endif 
+          <div class="my-4">
+            <a class="text-dark font-weight-bold text-hover-primary font-size-h4" data="{{ $subcategory['shortname'] }}">{{ $subcategory['name'] }}</a>
+          </div>
 
-          <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
+          <div class="mt-9">
+            <a class="btn btn-light-primary font-weight-bolder btn-sm py-3 px-6 text-uppercase" data="{{ $category['shortname'] }}">Select</a>
+          </div>
 
-            <a class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data="sudoku">
-              <span class="nav-icon py-2 w-auto">
-                  @php
-                    $subcategoryIcon = config('categories.iconPath') . $subcategory['shortname'] . config('categories.iconExtension');
-                  @endphp
-                  <img class="mw-50 w-100px" src="{{ asset($subcategoryIcon) }}">
-              </span>
-              <span class="nav-text font-size-lg py-2 font-weight-bold text-center">
-                {{ $subcategory['name'] }}
-              </span>
-            </a>
+        </div>
+      </div>
+    </div>
 
-          </li>
-        @endforeach
-
-        </ul>
-      @endif
-    </li>
+  @endforeach
 
 @endforeach
 
-</ul>
+</div>
