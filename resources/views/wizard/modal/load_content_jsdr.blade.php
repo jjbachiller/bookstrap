@@ -14,11 +14,13 @@ function showCategories() {
   $("#content-categories").animate({
     height: categoriesHeight
   });
+  $('#backBtn').addClass('d-none');
 }
 
 function showSubcategories($category) {
   $('.category').addClass('d-none');
   $('.subcategory').filter(' [data-parent="' + $category + '"]').removeClass('d-none');
+  $('#backBtn').removeClass('d-none');
 }
 
 $('.category').on('click', function() {

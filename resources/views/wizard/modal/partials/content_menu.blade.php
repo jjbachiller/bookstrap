@@ -1,3 +1,9 @@
+<div class="row flex-center p-6">
+
+  <a id="backBtn" class="btn btn-light-info font-weight-bolder btn-lg py-3 px-6 text-uppercase d-none back-categories-button"> &lt; Back</a>
+
+</div>
+
 <div class="row">
 
 @foreach (config('categories.list') as $index => $category)
