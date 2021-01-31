@@ -106,7 +106,7 @@
 
         {{-- Modal for library content --}}
 
-        @include('wizard.modal.load_content')
+        @include('wizard.modal.load_content') 
 
       </div>
 
@@ -171,32 +171,6 @@
         bookGenerated();
         $('#error_container').removeClass('d-none');
       }
-
-      // function getBookSections() {
-      //   var sections = [];
-      //   $("#Sections .section-block").each(function(index) {
-      //       var section = {};
-      //       section.folder = $(this).find("input.section-index").val();
-      //       section.addTitle = $(this).find(".addSectionTitle").is(':checked');
-      //       var sectionTitle = $(this).find(".section-title-input").val();
-      //       var titleAs = $('#section-title-as').find('.active').find('input').val();
-      //       section.title = (titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE') }} | titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? sectionTitle : '';
-      //       section.titleHeader = (titleAs == {{ config('bookstrap-constants.sectionTitle.HEADER') }} | titleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? sectionTitle : '';
-      //       section.imageNameAsTitle = $(this).find(".imageNameAsTitle").is(':checked');
-      //       section.imagesPerPage = $(this).find(".imagesPerPage").val();
-      //       // Solutions fields
-      //       section.addSolutionsTitle = $(this).find(".addSolutionTitle").is(':checked');
-      //       var solutionsTitle = $(this).find(".section-title-solutions-input").val();
-      //       var solutionsTitleAs = $('#solutions-title-as').find('.active').find('input').val();
-      //       section.solutionsTitle = (solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.PAGE') }} | solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? solutionsTitle : '';
-      //       section.solutionsHeader = (solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.HEADER') }} | solutionsTitleAs == {{ config('bookstrap-constants.sectionTitle.PAGE_AND_HEADER') }}) ? solutionsTitle : '';
-      //       section.solutionNameAsTitle = $(this).find(".imageNameAsTitleSolution").is(':checked');
-      //       section.solutionsPerPage = $(this).find(".solutionsPerPage").val();
-      //       section.solutionsToTheEnd = $(this).find(".placeSolutionsAtTheEnd").is(':checked');
-      //       sections.push(section);
-      //   });
-      //   return sections;
-      // }
 
       function getImageSize() {
           var imagePercentage = $("#image-size").val();

@@ -1,4 +1,4 @@
-`<div id="sikakus-header" class="text-center mb-10">
+<div id="sikakus-header" class="text-center mb-10">
   <img class="mw-50 w-100px mb-5" src="{{ asset('media/categories/tubular-maze.png') }}">
 
   <h3 class="pb-3">Tubular Mazes Options</h3>

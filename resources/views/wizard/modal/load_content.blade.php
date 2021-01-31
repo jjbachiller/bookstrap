@@ -16,6 +16,7 @@
                 @include('wizard.modal.partials.content_menu')
               </div>
               <div class="library-content float-left d-flex w-100" style="height: 550px;">
+                @include('wizard.modal.partials.content_form')
               </div>
             </div>
           </div>
