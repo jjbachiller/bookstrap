@@ -12,17 +12,29 @@
   </div>
 
   <div class="form-group row mb-10">
+    @php
+      $contentType = $item['shortname'];
+      if (!empty($parent)) {
+        $contentType = $parent . '.subcategories.' . $contentType;
+      }
+    @endphp
+    <input type="hidden" class="selected_content_type" value="{{ $contentType }}"/> 
+    <input type="hidden" class="content_type_has_solutions" value="{{ empty($item['solutions_folder']) ? 0 : 1 }}"/> 
 
-    <label class="col-form-label text-right col-lg-2 col-sm-12">Grid size:</label>
-    <div class="col-lg-4 col-md-9 col-sm-12">
-      <div class="dropdown bootstrap-select form-control">
-        <select class="form-control selectpicker dificulty_select" data-style="btn-light-info" data-container="body">
-          @foreach ($item['difficulties'] as $difficultyFolder => $difficultyName)  
-            <option value="{{ $difficultyFolder }}">{{ $difficultyName }}</option>
-          @endforeach
-        </select>
+    @if (!empty($item['difficulties']))
+      <label class="col-form-label text-right col-lg-2 col-sm-12">Grid size:</label>
+      <div class="col-lg-4 col-md-9 col-sm-12">
+        <div class="dropdown bootstrap-select form-control">
+          <select class="form-control selectpicker dificulty_select" data-style="btn-light-info" data-container="body">
+            @foreach ($item['difficulties'] as $difficultyFolder => $difficultyName)  
+              <option value="{{ $difficultyFolder }}">{{ $difficultyName }}</option>
+            @endforeach
+          </select>
+        </div>
       </div>
-    </div>
+    @else
+      <div class="col-lg-2 col-md-4 col-sm-10"></div>
+    @endif
 
     <label class="col-form-label text-right col-lg-2 col-sm-12">Amount:</label>
     <div class="col-lg-4 col-md-9 col-sm-12">
@@ -41,7 +53,7 @@
   </div>
 
   <div class="form-group row justify-content-end card-footer">
-    <button class="col-lg-4 col-md-4 col-sm-4 btn btn-light-primary font-weight-bold mr-2" type="button" data-dismiss="modal" id="add_puzzles">
+    <button class="col-lg-4 col-md-4 col-sm-4 btn btn-light-primary font-weight-bold mr-2 addSelectedLibraryContent" type="button" data-dismiss="modal" id="add_puzzles">
       <i class="icon-2x flaticon2-add-square"></i>
       Add 
     </button>

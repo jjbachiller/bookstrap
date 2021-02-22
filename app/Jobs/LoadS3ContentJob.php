@@ -31,7 +31,7 @@ class LoadS3ContentJob implements ShouldQueue
     public function __construct(User $user, Section $section, $contentData)
     {
       $this->user = $user;
-      $this->imageConfig = config($contentData['content_type']);
+      $this->imageConfig = config('categories.list.' . $contentData['content_type']);
       $this->imageConfig['directory'] = $contentData['directory'];
       $this->contentData = $contentData;
       $this->section = $section;
@@ -50,22 +50,14 @@ class LoadS3ContentJob implements ShouldQueue
       $imagesList = randomGen(0, $this->imageConfig['max_number'], $imagesNumber);
       $images = $solutions = [];
       $batchSize = 0;
-      // $user = $this->section->book->user;
       foreach ($imagesList as $libraryImage) {
         $batchSize+= $this->imageConfig['size'];
         if (Gate::forUser($this->user)->denies('space-available', $batchSize)) {
-          // $error = [
-          //   'deny' => config('bookstrap-constants.DENIES.NOT_ENOUGH_SPACE.code'),
-          //   'message' => config('bookstrap-constants.DENIES.NOT_ENOUGH_SPACE.message'),
-          //   'images' => $images,
-          //   'solutions' => $solutions,
-          // ];
-          // return $error;
           throw new NoSpaceLeftException($this->section->id);
         }
 
         $this->imageConfig['file_name'] = $libraryImage  . $this->imageConfig['ext'];
-        $this->imageConfig['show_name'] = $this->imageConfig['puzzle_name'] . ' ' . $counter;
+        $this->imageConfig['show_name'] = $this->imageConfig['name'] . ' ' . $counter;
         $image = ImageManager::saveLibraryImage($this->section, $this->imageConfig);
 
         $images[] = $image;
@@ -80,6 +72,5 @@ class LoadS3ContentJob implements ShouldQueue
         $counter++;
       }
 
-      // return array('images' => $images, 'solutions' => $solutions);
     }
 }

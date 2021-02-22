@@ -24,7 +24,16 @@ return [
             [
               'name' => 'Akari',
               'shortname' => 'akari',
-
+              's3_folder' => '/japanese/akari/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 2422,
+              'height' => 2757,
+              'size' => 120000,
               'difficulties' => [
                 '8x8-Grid1-D1' => '8x8 Grid 1',
                 '8x8-Grid2-D1' => '8x8 Grid 2',
@@ -38,12 +47,21 @@ return [
             [
               'name' => 'Domino',
               'shortname' => 'domino',
-
-               'difficulties' => [
-                 'size3' => 'Size 3',
-                 'size4' => 'Size 4',
-                 'size5' => 'Size 5',
-               ],
+              's3_folder' => '/japanese/domino/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 2422,
+              'height' => 2757,
+              'size' => 120000,
+              'difficulties' => [
+                'size3' => 'Size 3',
+                'size4' => 'Size 4',
+                'size5' => 'Size 5',
+              ],
 
             ],
 
@@ -52,13 +70,22 @@ return [
             [
               'name' => 'Fillomino',
               'shortname' => 'fillomino',
-
-               'difficulties' => [
-                 '5x5' => '5x5 Grid',
-                 '6x6' => '6x6 Grid',
-                 '7x7' => '7x7 Grid',
-                 '8x8' => '8x8 Grid',
-               ],
+              's3_folder' => '/japanese/fillomino/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 2422,
+              'height' => 2422,
+              'size' => 120000,
+              'difficulties' => [
+                '5x5' => '5x5 Grid',
+                '6x6' => '6x6 Grid',
+                '7x7' => '7x7 Grid',
+                '8x8' => '8x8 Grid',
+              ],
 
             ],
 
@@ -67,10 +94,19 @@ return [
             [
               'name' => 'Futoshiki',
               'shortname' => 'futoshiki',
-
-               'difficulties' => [
-                 '6Grid-Hard' => 'HARD (6 Grid)',
-               ],
+              's3_folder' => '/japanese/futoshiki/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 2422,
+              'height' => 2757,
+              'size' => 120000,
+              'difficulties' => [
+                '6Grid-Hard' => 'HARD (6 Grid)',
+              ],
 
             ],
 
@@ -79,7 +115,16 @@ return [
             [
               'name' => 'Gokigen',
               'shortname' => 'gokigen',
-
+              's3_folder' => '/japanese/gokigen/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 2422,
+              'height' => 2757,
+              'size' => 120000,
               'difficulties' => [
                 '5x5' => '5x5 Grid',
               ],
@@ -91,7 +136,16 @@ return [
             [
               'name' => 'Kakuro',
               'shortname' => 'kakuro',
-
+              's3_folder' => '/japanese/kakuro/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 2422,
+              'height' => 2757,
+              'size' => 120000,
               'difficulties' => [
                 'Grid7' => '7x7 Grid',
                 'prod-grid1' => 'Prod Grid 1',
@@ -134,7 +188,16 @@ return [
             [
               'name' => 'Kendoku',
               'shortname' => 'kendoku',
-
+              's3_folder' => '/japanese/kendoku/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 2422,
+              'height' => 2757,
+              'size' => 120000,
               'difficulties' => [
                 'Grid5' => '5x5 Grid',
               ],
@@ -146,7 +209,16 @@ return [
             [
               'name' => 'Minesweeper',
               'shortname' => 'minesweeper',
-
+              's3_folder' => '/japanese/minesweeper/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 2422,
+              'height' => 2757,
+              'size' => 120000,
               'difficulties' => [
                 '8-8-Hard' => '8x8 Hard',
               ],
@@ -158,7 +230,16 @@ return [
             [
               'name' => 'Murapeke',
               'shortname' => 'murapeke',
-              
+              's3_folder' => '/japanese/murapeke/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 2422,
+              'height' => 2422,
+              'size' => 120000,
               'difficulties' => [
                 '5x5' => '5 x 5 Grid',
                 '6x6' => '6 x 6 Grid',
@@ -175,7 +256,16 @@ return [
             [
               'name' => 'Roundabouts',
               'shortname' => 'roundabout',
-
+              's3_folder' => '/japanese/roundabouts/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 2422,
+              'height' => 2757,
+              'size' => 120000,
               'difficulties' => [
                 '6x6' => '6 x 6 Grid',
               ],
@@ -187,7 +277,16 @@ return [
             [
               'name' => 'Sikaku',
               'shortname' => 'sikaku',
-
+              's3_folder' => '/japanese/sikaku/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 1823,
+              'height' => 1823,
+              'size' => 120000,
               'difficulties' => [
                 'grid5x5' => '5x5 Grid',
                 'grid6x6' => '6x6 Grid',
@@ -211,7 +310,16 @@ return [
             [
               'name' => 'Sudokus',
               'shortname' => 'sudoku',
-
+              's3_folder' => '/japanese/sudoku/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 1823,
+              'height' => 1823,
+              'size' => 120000,
               'difficulties' => [
                 'Level one' => 'Level 1',
                 'Level Two' => 'Level 2',
@@ -239,7 +347,16 @@ return [
             [
               'name' => 'Tatami',
               'shortname' => 'tatami',
-
+              's3_folder' => '/japanese/tatami/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 2422,
+              'height' => 2757,
+              'size' => 120000,
               'difficulties' => [
                 '6x6' => '6 x 6 Grid',
               ],
@@ -251,7 +368,16 @@ return [
             [
               'name' => 'Tents',
               'shortname' => 'tent',
-              
+              's3_folder' => '/japanese/tents/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 2422,
+              'height' => 2422,
+              'size' => 120000,
               'difficulties' => [
                 'very easy/5x5' => '5 x 5 Grid - Very Easy',
               ],
@@ -276,7 +402,16 @@ return [
             [
               'name' => 'Tubular Mazes',
               'shortname' => 'tubular-maze',
-
+              's3_folder' => '/maze/tubular/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 828,
+              'height' => 828,
+              'size' => 120000,
               'difficulties' => [
                 'Easy' => 'Easy',
                 'Medium' => 'Medium',
@@ -290,7 +425,16 @@ return [
             [
               'name' => 'Square Mazes',
               'shortname' => 'square-maze',
-
+              's3_folder' => '/maze/square/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 828,
+              'height' => 828,
+              'size' => 120000,
               'difficulties' => [
                 'Easy' => 'Easy',
                 'Easy_Random' => 'Easy Random',
@@ -302,6 +446,272 @@ return [
         ],
 
       ],// End Mazes Category
+  
+      // Coloring Pages 
+
+    'coloringpages' =>
+      [
+        'name' =>  'Coloring Pages',
+        'shortname' => 'coloringpages',
+        'subcategories' => [
+
+          //
+          'christmas' =>
+            [
+              'name' => 'Christmas',
+              'shortname' => 'christmas',
+              's3_folder' => '/coloringpages/',
+              'puzzles_folder' => '/christmas/',
+              'solutions_folder' => '',
+              'solution_name' => '',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 439,
+              'width' => 828,
+              'height' => 828,
+              'size' => 120000,
+              'difficulties' => [
+              ],
+
+            ],       
+
+          //
+          'flower' =>
+            [
+              'name' => 'Flowers',
+              'shortname' => 'flower',
+              's3_folder' => '/coloringpages/',
+              'puzzles_folder' => '/flower/',
+              'solutions_folder' => '',
+              'solution_name' => '',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 115,
+              'width' => 828,
+              'height' => 828,
+              'size' => 120000,
+              'difficulties' => [
+              ],
+
+            ],       
+            
+          //
+          'halloween' =>
+            [
+              'name' => 'Halloween',
+              'shortname' => 'halloween',
+              's3_folder' => '/coloringpages/',
+              'puzzles_folder' => '/halloween/',
+              'solutions_folder' => '',
+              'solution_name' => '',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 115,
+              'width' => 828,
+              'height' => 828,
+              'size' => 120000,
+              'difficulties' => [
+              ],
+
+            ],       
+
+          //
+          'kids' =>
+            [
+              'name' => 'Kids',
+              'shortname' => 'kids',
+              's3_folder' => '/coloringpages/',
+              'puzzles_folder' => '/kids/',
+              'solutions_folder' => '',
+              'solution_name' => '',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 115,
+              'width' => 828,
+              'height' => 828,
+              'size' => 120000,
+              'difficulties' => [
+              ],
+
+            ],       
+
+        ],
+
+      ],// End Coloring Pages Category
+
+      // Journal 
+      
+    'journal' =>
+      [
+        'name' =>  'Journal',
+        'shortname' => 'journal',
+        'subcategories' => [
+
+          //
+          'acting' =>
+            [
+              'name' => 'Acting',
+              'shortname' => 'acting',
+              's3_folder' => '/journal/',
+              'puzzles_folder' => '/acting/',
+              'solutions_folder' => '',
+              'solution_name' => '',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 200,
+              'width' => 828,
+              'height' => 828,
+              'size' => 120000,
+              'difficulties' => [
+              ],
+
+            ],       
+
+          //
+          'architectureprojectbook' =>
+            [
+              'name' => 'Architecture Project Book',
+              'shortname' => 'architectureprojectbook',
+              's3_folder' => '/journal/',
+              'puzzles_folder' => '/architectureprojectbook/',
+              'solutions_folder' => '',
+              'solution_name' => '',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 200,
+              'width' => 828,
+              'height' => 828,
+              'size' => 120000,
+              'difficulties' => [
+              ],
+
+            ],       
+
+          //
+          'dance' =>
+            [
+              'name' => 'Dance',
+              'shortname' => 'dance',
+              's3_folder' => '/journal/',
+              'puzzles_folder' => '/dance/',
+              'solutions_folder' => '',
+              'solution_name' => '',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 200,
+              'width' => 828,
+              'height' => 828,
+              'size' => 120000,
+              'difficulties' => [
+              ],
+
+            ],       
+
+          //
+          'disc-jockey' =>
+            [
+              'name' => 'Disc Jockey',
+              'shortname' => 'disc-jockey',
+              's3_folder' => '/journal/',
+              'puzzles_folder' => '/disc-jockey/',
+              'solutions_folder' => '',
+              'solution_name' => '',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 200,
+              'width' => 828,
+              'height' => 828,
+              'size' => 120000,
+              'difficulties' => [
+              ],
+
+            ],       
+
+          //
+          'guitar-tab' =>
+            [
+              'name' => 'Guitar Tab',
+              'shortname' => 'guitar-tab',
+              's3_folder' => '/journal/',
+              'puzzles_folder' => '/guitar-tab/',
+              'solutions_folder' => '',
+              'solution_name' => '',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 200,
+              'width' => 828,
+              'height' => 828,
+              'size' => 120000,
+              'difficulties' => [
+              ],
+
+            ],       
+
+          //
+          'health' =>
+            [
+              'name' => 'Health',
+              'shortname' => 'health',
+              's3_folder' => '/journal/',
+              'puzzles_folder' => '/guitar-tab/',
+              'solutions_folder' => '',
+              'solution_name' => '',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 200,
+              'width' => 828,
+              'height' => 828,
+              'size' => 120000,
+              'difficulties' => [
+              ],
+
+            ],       
+
+          //
+          'jewelery-making' =>
+            [
+              'name' => 'Jewelery Making',
+              'shortname' => 'jewelery-making',
+              's3_folder' => '/journal/',
+              'puzzles_folder' => '/jewelery-making/',
+              'solutions_folder' => '',
+              'solution_name' => '',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 200,
+              'width' => 828,
+              'height' => 828,
+              'size' => 120000,
+              'difficulties' => [
+              ],
+
+            ],       
+
+            
+        ],
+
+      ],// End Journal Category
+
+    // Mandala Category
+
+    'mandala' =>
+      [
+        'name' =>  'Mandala',
+        'shortname' => 'mandala',
+        'subcategories' => [],
+        's3_folder' => '/mandala/',
+        'puzzles_folder' => '',
+        'solutions_folder' => '',
+        'solution_name' => '',
+        'ext' => '.png',
+        'type' => 'image/png',
+        'max_number' => 10000,
+        'width' => 828,
+        'height' => 828,
+        'size' => 120000,
+        'difficulties' => [
+        ],
+      ],// End Mandala Category
 
     ],// End categories
 ];

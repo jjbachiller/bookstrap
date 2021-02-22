@@ -794,13 +794,7 @@ function getDataForContentType(contentType) {
 }
 
 function addContent(sectionIndex, section) {
-  var contentType = $("#selectedContentType").val();
-  var data = getDataForContentType(contentType);
-  data.section_id = section.id;
-  data.sectionIndex = sectionIndex;
-
   // Block the section container
-  // var sectionToLock = getSectionByIndex(affectedSectionIndex);
   KTApp.blockPage({
     overlayColor: '#000',
     state: 'info',
@@ -808,6 +802,14 @@ function addContent(sectionIndex, section) {
     opacity: 0.15,
   });
 
+
+  var data = {};
+  data.section_id = section.id;
+  data.sectionIndex = sectionIndex;
+  data.content_type = $('#SelectedContentType').val();
+  data.directory = $('#SelectedDifficulty').val();
+  data.number = $('#SelectedAmount').val();
+  data.has_solutions = ($('#SelectedHasSolutions').val() !== 0)
   // The number of images is doubled to include solutions
   data.numImages = (data.has_solutions) ? data.number * 2 : data.number;
   showProgress(data);
@@ -819,48 +821,6 @@ function addContent(sectionIndex, section) {
     dataType: 'json',
     data: JSON.stringify(data),
     success: function(response) {
-      // $('.currentProgress').remove();
-      // KTApp.unblockPage('#smartwizard');
-      //
-      // if (response.deny) {
-      //   $('#denyMessage').html(response.message);
-      //   $('#showAlertDeny').modal('show');
-      // }
-      // var sectionDropzone = Dropzone.forElement("#myDrop"+sectionIndex);
-      //
-      // // Add the library content to the dropzone images.
-      // var images = response.images;
-      // for (var index in images) {
-      //   var image = images[index];
-      //   var imageData = {'name': image.show_name, 'size': image.size, 'type': image.type};
-      //
-      //   sectionDropzone.displayExistingFile(imageData, image.url);
-      //   // Add to the dropZone files array (so you can delete all).
-      //   sectionDropzone.files.push(imageData);
-      //   // Add the database id to the preview Element
-      //   var lastFile = sectionDropzone.files[sectionDropzone.files.length - 1];
-      //   $('<input>').addClass('imageId').attr('type','hidden').val(image.id).appendTo(lastFile.previewElement);
-      // }
-      //
-      // // If content has solutions, added the solutions to the solutions dropzone.
-      // if (data.has_solutions) {
-      //   // Mark the section as a section with solutions.
-      //   if (!$("#addSolutions"+sectionIndex).prop('checked')) {
-      //     $("#addSolutions"+sectionIndex).prop('checked', true).change();
-      //   }
-      //   var solutionsDropzone = Dropzone.forElement("#myDropSolutions"+sectionIndex);
-      //
-      //   var solutions = response.solutions;
-      //   for (var index in response.solutions) {
-      //     var solution = solutions[index];
-      //     var solutionData = {'name': solution.show_name, 'size': solution.size, 'type': solution.type};
-      //     solutionsDropzone.displayExistingFile(solutionData, solution.url);
-      //     solutionsDropzone.files.push(solutionData);
-      //     // Add the database id to the preview Element
-      //     var lastSolutionFile = solutionsDropzone.files[solutionsDropzone.files.length - 1];
-      //     $('<input>').addClass('imageId').attr('type','hidden').val(solution.id).appendTo(lastSolutionFile.previewElement);
-      //   }
-      // }
     },
   });
 
@@ -873,18 +833,6 @@ function loadContentFromLibrary() {
 
     // Update or create the section data
     addContent(affectedSectionIndex, affectedSection);
-
-    // $.ajax({
-    //   type: "POST",
-    //   url: "{{ route('section.update-section') }}",
-    //   dataType: 'json',
-    //   data: JSON.stringify({'section-data': affectedSection}),
-    //   success: function(response) {
-    //     updateSectionId(affectedSectionIndex, response.id);
-    //     // Once created, load the content
-    //     addContent(affectedSectionIndex, response.id);
-    //   }
-    // });
 
   @else
     showExpiredAccountError();

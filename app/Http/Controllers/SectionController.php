@@ -119,11 +119,9 @@ class SectionController extends Controller
 
   public function loadLibraryContent(Request $request) {
     if (Gate::allows('active-subscription')) {
-      $contentData = json_decode($request->getContent(), true);
-
-      $section = \App\Section::findOrFail($contentData['section_id']);
-
-      if (!config($contentData['content_type'])) {
+      $contentData = json_decode($request->getContent(), true); 
+      $section = \App\Section::findOrFail($contentData['section_id']); 
+      if (!config('categories.list.' . $contentData['content_type'])) {
         abort(404);
       }
 

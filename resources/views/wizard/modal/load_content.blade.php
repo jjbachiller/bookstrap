@@ -10,8 +10,14 @@
           </div>
           <div id="load-content-window" class="modal-body container-fluid">
             <div id="load-content-steps" class="w-100" style="height: 550px; overflow: hidden">
+
+
+
+              <!-- MOVE THIS INTO THE FORM, WHO IS USING THIS ONE?? -->
               <input type="hidden" id="modalAffectedSection" value="">
-              <input type="hidden" id="selectedContentType" value="">
+
+
+
               <div id="content-categories" class="float-left w-100" data-scroll="true" data-height="550">
                 @include('wizard.modal.partials.content_menu')
               </div>
@@ -23,3 +29,10 @@
         </div>
     </div>
 </div>
+
+<form id='SelectedContentData'>
+  <input type="hidden" id="SelectedContentType"/>
+  <input type="hidden" id="SelectedDifficulty"/>
+  <input type="hidden" id="SelectedAmount"/>
+  <input type="hidden" id="SelectedHasSolutions"/>
+</form>
