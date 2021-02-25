@@ -20,12 +20,11 @@ class TestController extends Controller
       // // if (!is_file($file)) {
       // //   abort(404);
       // // }
-      // // return response()->file($file);
-
+      // // return response()->file($file); 
       // $directory = 'test';
       //$files = Storage::disk('s3')->files('/japanese/kakuro/prod-grid9/puzzles/');
       //$files = Storage::disk('s3')->directories('/');
-      $files = Storage::disk('s3')->files('/coloringpages/christmas/');
+      $files = Storage::disk('s3')->files('/journal/');
       echo "<h1>Total de archivos del nivel 1: " . count($files) . "</h1>";
        for ($i=0; $i<count($files); $i++) {
          print_r($files[$i]. "      |         ");

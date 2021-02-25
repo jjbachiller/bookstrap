@@ -466,7 +466,7 @@ return [
               'solution_name' => '',
               'ext' => '.png',
               'type' => 'image/png',
-              'max_number' => 439,
+              'max_number' => 431,
               'width' => 828,
               'height' => 828,
               'size' => 120000,
@@ -476,17 +476,17 @@ return [
             ],       
 
           //
-          'flower' =>
+          'flowers' =>
             [
               'name' => 'Flowers',
-              'shortname' => 'flower',
+              'shortname' => 'flowers',
               's3_folder' => '/coloringpages/',
-              'puzzles_folder' => '/flower/',
+              'puzzles_folder' => '/flowers/',
               'solutions_folder' => '',
               'solution_name' => '',
               'ext' => '.png',
               'type' => 'image/png',
-              'max_number' => 115,
+              'max_number' => 114,
               'width' => 828,
               'height' => 828,
               'size' => 120000,
@@ -506,7 +506,7 @@ return [
               'solution_name' => '',
               'ext' => '.png',
               'type' => 'image/png',
-              'max_number' => 115,
+              'max_number' => 216,
               'width' => 828,
               'height' => 828,
               'size' => 120000,
@@ -526,7 +526,7 @@ return [
               'solution_name' => '',
               'ext' => '.png',
               'type' => 'image/png',
-              'max_number' => 115,
+              'max_number' => 449,
               'width' => 828,
               'height' => 828,
               'size' => 120000,
@@ -535,183 +535,182 @@ return [
 
             ],       
 
+          //
+          'mandala' =>
+            [
+              'name' => 'Mandala',
+              'shortname' => 'mandala',
+              's3_folder' => '/coloringpages/',
+              'puzzles_folder' => '/mandala/',
+              'solutions_folder' => '',
+              'solution_name' => '',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 423,
+              'width' => 828,
+              'height' => 828,
+              'size' => 120000,
+              'difficulties' => [
+              ],
+
+            ],       
+            
         ],
 
       ],// End Coloring Pages Category
 
       // Journal 
       
-    'journal' =>
-      [
-        'name' =>  'Journal',
-        'shortname' => 'journal',
-        'subcategories' => [
+    //'journal' =>
+      //[
+        //'name' =>  'Journal',
+        //'shortname' => 'journal',
+        //'subcategories' => [
 
-          //
-          'acting' =>
-            [
-              'name' => 'Acting',
-              'shortname' => 'acting',
-              's3_folder' => '/journal/',
-              'puzzles_folder' => '/acting/',
-              'solutions_folder' => '',
-              'solution_name' => '',
-              'ext' => '.png',
-              'type' => 'image/png',
-              'max_number' => 200,
-              'width' => 828,
-              'height' => 828,
-              'size' => 120000,
-              'difficulties' => [
-              ],
+          ////
+          //'acting' =>
+            //[
+              //'name' => 'Acting',
+              //'shortname' => 'acting',
+              //'s3_folder' => '/journal/',
+              //'puzzles_folder' => '/acting/',
+              //'solutions_folder' => '',
+              //'solution_name' => '',
+              //'ext' => '.png',
+              //'type' => 'image/png',
+              //'max_number' => 200,
+              //'width' => 828,
+              //'height' => 828,
+              //'size' => 120000,
+              //'difficulties' => [
+              //],
 
-            ],       
+            //],       
 
-          //
-          'architectureprojectbook' =>
-            [
-              'name' => 'Architecture Project Book',
-              'shortname' => 'architectureprojectbook',
-              's3_folder' => '/journal/',
-              'puzzles_folder' => '/architectureprojectbook/',
-              'solutions_folder' => '',
-              'solution_name' => '',
-              'ext' => '.png',
-              'type' => 'image/png',
-              'max_number' => 200,
-              'width' => 828,
-              'height' => 828,
-              'size' => 120000,
-              'difficulties' => [
-              ],
+          ////
+          //'architectureprojectbook' =>
+            //[
+              //'name' => 'Architecture Project Book',
+              //'shortname' => 'architectureprojectbook',
+              //'s3_folder' => '/journal/',
+              //'puzzles_folder' => '/architectureprojectbook/',
+              //'solutions_folder' => '',
+              //'solution_name' => '',
+              //'ext' => '.png',
+              //'type' => 'image/png',
+              //'max_number' => 200,
+              //'width' => 828,
+              //'height' => 828,
+              //'size' => 120000,
+              //'difficulties' => [
+              //],
 
-            ],       
+            //],       
 
-          //
-          'dance' =>
-            [
-              'name' => 'Dance',
-              'shortname' => 'dance',
-              's3_folder' => '/journal/',
-              'puzzles_folder' => '/dance/',
-              'solutions_folder' => '',
-              'solution_name' => '',
-              'ext' => '.png',
-              'type' => 'image/png',
-              'max_number' => 200,
-              'width' => 828,
-              'height' => 828,
-              'size' => 120000,
-              'difficulties' => [
-              ],
+          ////
+          //'dance' =>
+            //[
+              //'name' => 'Dance',
+              //'shortname' => 'dance',
+              //'s3_folder' => '/journal/',
+              //'puzzles_folder' => '/dance/',
+              //'solutions_folder' => '',
+              //'solution_name' => '',
+              //'ext' => '.png',
+              //'type' => 'image/png',
+              //'max_number' => 200,
+              //'width' => 828,
+              //'height' => 828,
+              //'size' => 120000,
+              //'difficulties' => [
+              //],
 
-            ],       
+            //],       
 
-          //
-          'disc-jockey' =>
-            [
-              'name' => 'Disc Jockey',
-              'shortname' => 'disc-jockey',
-              's3_folder' => '/journal/',
-              'puzzles_folder' => '/disc-jockey/',
-              'solutions_folder' => '',
-              'solution_name' => '',
-              'ext' => '.png',
-              'type' => 'image/png',
-              'max_number' => 200,
-              'width' => 828,
-              'height' => 828,
-              'size' => 120000,
-              'difficulties' => [
-              ],
+          ////
+          //'disc-jockey' =>
+            //[
+              //'name' => 'Disc Jockey',
+              //'shortname' => 'disc-jockey',
+              //'s3_folder' => '/journal/',
+              //'puzzles_folder' => '/disc-jockey/',
+              //'solutions_folder' => '',
+              //'solution_name' => '',
+              //'ext' => '.png',
+              //'type' => 'image/png',
+              //'max_number' => 200,
+              //'width' => 828,
+              //'height' => 828,
+              //'size' => 120000,
+              //'difficulties' => [
+              //],
 
-            ],       
+            //],       
 
-          //
-          'guitar-tab' =>
-            [
-              'name' => 'Guitar Tab',
-              'shortname' => 'guitar-tab',
-              's3_folder' => '/journal/',
-              'puzzles_folder' => '/guitar-tab/',
-              'solutions_folder' => '',
-              'solution_name' => '',
-              'ext' => '.png',
-              'type' => 'image/png',
-              'max_number' => 200,
-              'width' => 828,
-              'height' => 828,
-              'size' => 120000,
-              'difficulties' => [
-              ],
+          ////
+          //'guitar-tab' =>
+            //[
+              //'name' => 'Guitar Tab',
+              //'shortname' => 'guitar-tab',
+              //'s3_folder' => '/journal/',
+              //'puzzles_folder' => '/guitar-tab/',
+              //'solutions_folder' => '',
+              //'solution_name' => '',
+              //'ext' => '.png',
+              //'type' => 'image/png',
+              //'max_number' => 200,
+              //'width' => 828,
+              //'height' => 828,
+              //'size' => 120000,
+              //'difficulties' => [
+              //],
 
-            ],       
+            //],       
 
-          //
-          'health' =>
-            [
-              'name' => 'Health',
-              'shortname' => 'health',
-              's3_folder' => '/journal/',
-              'puzzles_folder' => '/guitar-tab/',
-              'solutions_folder' => '',
-              'solution_name' => '',
-              'ext' => '.png',
-              'type' => 'image/png',
-              'max_number' => 200,
-              'width' => 828,
-              'height' => 828,
-              'size' => 120000,
-              'difficulties' => [
-              ],
+          ////
+          //'health' =>
+            //[
+              //'name' => 'Health',
+              //'shortname' => 'health',
+              //'s3_folder' => '/journal/',
+              //'puzzles_folder' => '/guitar-tab/',
+              //'solutions_folder' => '',
+              //'solution_name' => '',
+              //'ext' => '.png',
+              //'type' => 'image/png',
+              //'max_number' => 200,
+              //'width' => 828,
+              //'height' => 828,
+              //'size' => 120000,
+              //'difficulties' => [
+              //],
 
-            ],       
+            //],       
 
-          //
-          'jewelery-making' =>
-            [
-              'name' => 'Jewelery Making',
-              'shortname' => 'jewelery-making',
-              's3_folder' => '/journal/',
-              'puzzles_folder' => '/jewelery-making/',
-              'solutions_folder' => '',
-              'solution_name' => '',
-              'ext' => '.png',
-              'type' => 'image/png',
-              'max_number' => 200,
-              'width' => 828,
-              'height' => 828,
-              'size' => 120000,
-              'difficulties' => [
-              ],
+          ////
+          //'jewelery-making' =>
+            //[
+              //'name' => 'Jewelery Making',
+              //'shortname' => 'jewelery-making',
+              //'s3_folder' => '/journal/',
+              //'puzzles_folder' => '/jewelery-making/',
+              //'solutions_folder' => '',
+              //'solution_name' => '',
+              //'ext' => '.png',
+              //'type' => 'image/png',
+              //'max_number' => 200,
+              //'width' => 828,
+              //'height' => 828,
+              //'size' => 120000,
+              //'difficulties' => [
+              //],
 
-            ],       
+            //],       
 
             
-        ],
+        //],
 
-      ],// End Journal Category
-
-    // Mandala Category
-
-    'mandala' =>
-      [
-        'name' =>  'Mandala',
-        'shortname' => 'mandala',
-        'subcategories' => [],
-        's3_folder' => '/mandala/',
-        'puzzles_folder' => '',
-        'solutions_folder' => '',
-        'solution_name' => '',
-        'ext' => '.png',
-        'type' => 'image/png',
-        'max_number' => 10000,
-        'width' => 828,
-        'height' => 828,
-        'size' => 120000,
-        'difficulties' => [
-        ],
-      ],// End Mandala Category
+      //],// End Journal Category
 
     ],// End categories
 ];

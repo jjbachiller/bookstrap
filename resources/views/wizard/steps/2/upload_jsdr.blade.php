@@ -809,8 +809,7 @@ function addContent(sectionIndex, section) {
   data.content_type = $('#SelectedContentType').val();
   data.directory = $('#SelectedDifficulty').val();
   data.number = $('#SelectedAmount').val();
-  // Bad check !== - Can it come as an empty value?
-  data.has_solutions = ($('#SelectedHasSolutions').val() !== 0)
+  data.has_solutions = (parseInt($('#SelectedHasSolutions').val()) !== 0)
   // The number of images is doubled to include solutions
   data.numImages = (data.has_solutions) ? data.number * 2 : data.number;
   showProgress(data);

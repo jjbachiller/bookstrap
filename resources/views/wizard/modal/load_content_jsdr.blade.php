@@ -27,6 +27,11 @@ function hideForm() {
   });
 }
 
+$('#loadContentFromLibrary').on('shown.bs.modal', function(){
+  hideForm();
+  showCategories();
+});
+
 $('.showForm').on('click', function() {
    showForm($(this).data('current'));
 });
@@ -47,7 +52,7 @@ $('.num_library_items').inputmask('numeric', { min:1, max:200 });
 
 $('.slider_num_library_items').ionRangeSlider({
   min: 1,
-  max: 200,
+  max: $(this).data('max'),
   from: 10,
   skin: "sharp",
   onChange: function(data) {

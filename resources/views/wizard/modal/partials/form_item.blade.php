@@ -41,7 +41,7 @@
       <div class="row">
         <div class="col-8">
           <div class="ion-range-slider">
-             <input type="hidden" class="slider_num_library_items"/>
+             <input type="hidden" class="slider_num_library_items" data-max="{{ ($item['max_number'] < 200) ? $item['max_number'] : 200 }}"/>
           </div>
         </div>
         <div class="col-4">

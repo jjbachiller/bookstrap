@@ -47,7 +47,7 @@ class LoadS3ContentJob implements ShouldQueue
       // Auth::login($this->user);
       $imagesNumber = $this->contentData['number'];
       $counter = $this->section->images->where('s3_disk', $this->imageConfig['s3_folder'])->count() + 1;
-      $imagesList = randomGen(0, $this->imageConfig['max_number'], $imagesNumber);
+      $imagesList = randomGen(1, $this->imageConfig['max_number'], $imagesNumber);
       $images = $solutions = [];
       $batchSize = 0;
       foreach ($imagesList as $libraryImage) {
