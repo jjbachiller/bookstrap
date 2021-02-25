@@ -782,7 +782,7 @@
                   <span>Up to 1,500 pages in total</span>
                   <span>Unlimited access to library content</span>
                 </p>
-                <a href="https://puzzlebookcompiler.com/members/product/LCBW-Starter" target="_blank" type="button" class="btn btn-primary text-uppercase font-size-lg font-weight-bolder px-15 py-3">Subscribe</a>
+                <a href="https://warriorplus.com/o2/buy/kdktls/h3r7q5/ktgl8z" target="_blank"><img src="https://warriorplus.com/o2/btn/cn100011020/kdktls/h3r7q5/230455" width="100%" alt="Starter Subscription" title="Starter Subscription"></a>
               </div>
             </div>
       			<!-- end: Pricing-->
@@ -805,7 +805,7 @@
                 <span>Up to 5,600 pages in total</span>
                 <span>Unlimited access to library content</span>
     					</p>
-    					<a href="https://puzzlebookcompiler.com/members/product/LCBW-Silver" target="_blank" type="button" class="btn btn-white text-uppercase font-size-lg font-weight-bolder px-15 py-3">Subscribe</a>
+              <a href="https://warriorplus.com/o2/buy/kdktls/h3r7q5/ms6sl8" target="_blank"><img src="https://warriorplus.com/o2/btn/cn100011020/kdktls/h3r7q5/230570" width="100%" alt="Silver Subscription" title="Silver Subscription"></a>
     				</div>
     			</div>
     			<!-- end: Pricing-->
@@ -827,7 +827,7 @@
                 <span>Up to 40,000 pages in total</span>
                 <span>Unlimited access to library content</span>
     					</p>
-    					<a href="https://puzzlebookcompiler.com/members/product/LCBW-Gold" target="_blank" type="button" class="btn btn-primary text-uppercase font-size-lg font-weight-bolder px-15 py-3">Subscribe</a>
+              <a href="https://warriorplus.com/o2/buy/kdktls/h3r7q5/zywb5m" target="_blank"><img src="https://warriorplus.com/o2/btn/cn100011020/kdktls/h3r7q5/230572" width="100%" alt="Gold Subscription" title="Gold Subscription"></a>
     				</div>
     			</div>
     			<!-- end: Pricing-->
