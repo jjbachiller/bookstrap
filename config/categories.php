@@ -446,7 +446,30 @@ return [
         ],
 
       ],// End Mazes Category
-  
+
+      
+    //  Wordsearch Category
+
+    'wordsearch' =>
+      [
+        'name' =>  'Word search',
+        'shortname' => 'wordsearch',
+        's3_folder' => '/wordsearch/',
+        'puzzles_folder' => '/puzzles/',
+        'solutions_folder' => '/solutions/',
+        'solution_name' => 'Solution',
+        'ext' => '.png',
+        'type' => 'image/png',
+        'max_number' => 10000,
+        'width' => 828,
+        'height' => 828,
+        'size' => 120000,
+        'difficulties' => [
+        ],
+        'subcategories' => [],
+
+      ],// End Word search Category
+      
       // Coloring Pages 
 
     'coloringpages' =>
