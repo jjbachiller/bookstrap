@@ -461,8 +461,8 @@ return [
         'ext' => '.png',
         'type' => 'image/png',
         'max_number' => 10000,
-        'width' => 828,
-        'height' => 828,
+        'width' => 2554,
+        'height' => 3262,
         'size' => 120000,
         'difficulties' => [
         ],
