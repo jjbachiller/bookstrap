@@ -536,7 +536,7 @@ return [
               'size' => 120000,
               'difficulties' => [
                 'countries' => 'Countries',
-                'english' => 'English,'
+                'english' => 'English',
               ],
 
             ],
