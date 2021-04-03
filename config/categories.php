@@ -448,27 +448,105 @@ return [
       ],// End Mazes Category
 
       
+    // Crosswords Category
+
+    'crosswords' =>
+      [
+        'name' =>  'Crosswords',
+        'shortname' => 'crosswords',
+        'subcategories' => [
+
+          //
+          'am15' =>
+            [
+              'name' => 'American 15',
+              'shortname' => 'am15',
+              's3_folder' => '/crosswords/am15/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 3240,
+              'height' => 3468,
+              'size' => 600000,
+              'difficulties' => [
+                'english' => 'English',
+              ],
+
+            ],       
+
+          //
+          'br13' =>
+            [
+              'name' => 'Britsh 13',
+              'shortname' => 'br13',
+              's3_folder' => '/crosswords/br13/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              //'width' => 2505,
+              //'height' => 2661,
+              'width' => 3456,
+              'height' => 3300,
+              'size' => 350000,
+              'difficulties' => [
+                'duteng' => 'Duteng',
+                'engfin' => 'Engfin',
+              ],
+
+            ],       
+
+          //
+          'FILLIN' =>
+            [
+              'name' => 'FILLIN',
+              'shortname' => 'FILLIN',
+              's3_folder' => '/crosswords/FILLIN/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 2577,
+              'height' => 3524,
+              'size' => 210000,
+              'difficulties' => [],
+            ],       
+
+          //
+            'WORDSEARCH' => 
+            [
+              'name' =>  'Word search',
+              'shortname' => 'WORDSEARCH',
+              's3_folder' => '/crosswords/WORDSEARCH/',
+              'puzzles_folder' => '/puzzles/',
+              'solutions_folder' => '/solutions/',
+              'solution_name' => 'Solution',
+              'ext' => '.png',
+              'type' => 'image/png',
+              'max_number' => 10000,
+              'width' => 2554,
+              'height' => 3262,
+              'size' => 120000,
+              'difficulties' => [
+                'countries' => 'Countries',
+                'english' => 'English,'
+              ],
+
+            ],
+
+        ],
+
+      ],// End Crosswords Category
+
     //  Wordsearch Category
 
-    'wordsearch' =>
-      [
-        'name' =>  'Word search',
-        'shortname' => 'wordsearch',
-        's3_folder' => '/wordsearch/',
-        'puzzles_folder' => '/puzzles/',
-        'solutions_folder' => '/solutions/',
-        'solution_name' => 'Solution',
-        'ext' => '.png',
-        'type' => 'image/png',
-        'max_number' => 10000,
-        'width' => 2554,
-        'height' => 3262,
-        'size' => 120000,
-        'difficulties' => [
-        ],
-        'subcategories' => [],
-
-      ],// End Word search Category
       
       // Coloring Pages 
 
