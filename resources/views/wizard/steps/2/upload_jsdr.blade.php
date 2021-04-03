@@ -666,132 +666,132 @@ function showProgress(data) {
   });
 }
 
-function getDataForContentType(contentType) {
-  var data = { 'content_type': contentType };
+//function getDataForContentType(contentType) {
+  //var data = { 'content_type': contentType };
 
-  switch (contentType) {
+  //switch (contentType) {
 
-    // Begin::Japanese
+    //// Begin::Japanese
 
-    case '{{ config("content-types.AKARIS") }}':
+    //case '{{ config("content-types.AKARIS") }}':
 
-      data.directory = $('#akarisDifficulty').val();
-      data.number = $('#akarisNumber').val();
-      data.has_solutions = {{ empty(config('akaris.solutions_folder')) ? 0 : 1 }};
-      break;
+      //data.directory = $('#akarisDifficulty').val();
+      //data.number = $('#akarisNumber').val();
+      //data.has_solutions = {{ empty(config('akaris.solutions_folder')) ? 0 : 1 }};
+      //break;
 
-    case '{{ config("content-types.DOMINOS") }}':
+    //case '{{ config("content-types.DOMINOS") }}':
 
-      data.directory = $('#dominosDifficulty').val();
-      data.number = $('#dominosNumber').val();
-      data.has_solutions = {{ empty(config('dominos.solutions_folder')) ? 0 : 1 }};
-      break;
+      //data.directory = $('#dominosDifficulty').val();
+      //data.number = $('#dominosNumber').val();
+      //data.has_solutions = {{ empty(config('dominos.solutions_folder')) ? 0 : 1 }};
+      //break;
 
-    case '{{ config("content-types.FILLOMINOS") }}':
+    //case '{{ config("content-types.FILLOMINOS") }}':
 
-      data.directory = $('#fillominosDifficulty').val();
-      data.number = $('#fillominosNumber').val();
-      data.has_solutions = {{ empty(config('fillominos.solutions_folder')) ? 0 : 1 }};
-      break;
+      //data.directory = $('#fillominosDifficulty').val();
+      //data.number = $('#fillominosNumber').val();
+      //data.has_solutions = {{ empty(config('fillominos.solutions_folder')) ? 0 : 1 }};
+      //break;
 
-    case '{{ config("content-types.FUTOSHIKIS") }}':
+    //case '{{ config("content-types.FUTOSHIKIS") }}':
 
-      data.directory = $('#futoshikisDifficulty').val();
-      data.number = $('#futoshikisNumber').val();
-      data.has_solutions = {{ empty(config('futoshikis.solutions_folder')) ? 0 : 1 }};
-      break;
+      //data.directory = $('#futoshikisDifficulty').val();
+      //data.number = $('#futoshikisNumber').val();
+      //data.has_solutions = {{ empty(config('futoshikis.solutions_folder')) ? 0 : 1 }};
+      //break;
 
-    case '{{ config("content-types.GOKIGENS") }}':
+    //case '{{ config("content-types.GOKIGENS") }}':
 
-      data.directory = $('#gokigenDifficulty').val();
-      data.number = $('#gokigenNumber').val();
-      data.has_solutions = {{ empty(config('gokigens.solutions_folder')) ? 0 : 1 }};
-      break;
+      //data.directory = $('#gokigenDifficulty').val();
+      //data.number = $('#gokigenNumber').val();
+      //data.has_solutions = {{ empty(config('gokigens.solutions_folder')) ? 0 : 1 }};
+      //break;
 
-    case '{{ config("content-types.KAKUROS") }}':
+    //case '{{ config("content-types.KAKUROS") }}':
 
-      data.directory = $('#kakuroDifficulty').val();
-      data.number = $('#kakuroNumber').val();
-      data.has_solutions = {{ empty(config('kakuros.solutions_folder')) ? 0 : 1 }};
-      break;
+      //data.directory = $('#kakuroDifficulty').val();
+      //data.number = $('#kakuroNumber').val();
+      //data.has_solutions = {{ empty(config('kakuros.solutions_folder')) ? 0 : 1 }};
+      //break;
 
-    case '{{ config("content-types.KENDOKUS") }}':
+    //case '{{ config("content-types.KENDOKUS") }}':
 
-      data.directory = $('#kendokuDifficulty').val();
-      data.number = $('#kendokuNumber').val();
-      data.has_solutions = {{ empty(config('kendokus.solutions_folder')) ? 0 : 1 }};
-      break;
+      //data.directory = $('#kendokuDifficulty').val();
+      //data.number = $('#kendokuNumber').val();
+      //data.has_solutions = {{ empty(config('kendokus.solutions_folder')) ? 0 : 1 }};
+      //break;
 
-    case '{{ config("content-types.MINESWEEPERS") }}':
+    //case '{{ config("content-types.MINESWEEPERS") }}':
 
-      data.directory = $('#minesweeperDifficulty').val();
-      data.number = $('#minesweeperNumber').val();
-      data.has_solutions = {{ empty(config('minesweepers.solutions_folder')) ? 0 : 1 }};
-      break;
+      //data.directory = $('#minesweeperDifficulty').val();
+      //data.number = $('#minesweeperNumber').val();
+      //data.has_solutions = {{ empty(config('minesweepers.solutions_folder')) ? 0 : 1 }};
+      //break;
 
-    case '{{ config("content-types.MURAPEKES") }}':
+    //case '{{ config("content-types.MURAPEKES") }}':
 
-      data.directory = $('#murapekeDifficulty').val();
-      data.number = $('#murapekeNumber').val();
-      data.has_solutions = {{ empty(config('murapekes.solutions_folder')) ? 0 : 1 }};
-      break;
+      //data.directory = $('#murapekeDifficulty').val();
+      //data.number = $('#murapekeNumber').val();
+      //data.has_solutions = {{ empty(config('murapekes.solutions_folder')) ? 0 : 1 }};
+      //break;
 
-    case '{{ config("content-types.ROUNDABOUTS") }}':
+    //case '{{ config("content-types.ROUNDABOUTS") }}':
 
-      data.directory = $('#roundaboutDifficulty').val();
-      data.number = $('#roundaboutNumber').val();
-      data.has_solutions = {{ empty(config('roundabouts.solutions_folder')) ? 0 : 1 }};
-      break;
+      //data.directory = $('#roundaboutDifficulty').val();
+      //data.number = $('#roundaboutNumber').val();
+      //data.has_solutions = {{ empty(config('roundabouts.solutions_folder')) ? 0 : 1 }};
+      //break;
 
-    case '{{ config("content-types.SIKAKUS") }}':
+    //case '{{ config("content-types.SIKAKUS") }}':
 
-      data.directory = $('#sikakusDifficulty').val();
-      data.number = $('#sikakusNumber').val();
-      data.has_solutions = {{ empty(config('sikakus.solutions_folder')) ? 0 : 1 }};
-      break;
+      //data.directory = $('#sikakusDifficulty').val();
+      //data.number = $('#sikakusNumber').val();
+      //data.has_solutions = {{ empty(config('sikakus.solutions_folder')) ? 0 : 1 }};
+      //break;
 
-    case '{{ config("content-types.SUDOKUS") }}':
+    //case '{{ config("content-types.SUDOKUS") }}':
 
-      data.directory = $('#sudokusDifficulty').val();
-      data.number = $('#sudokusNumber').val();
-      data.has_solutions = {{ empty(config('sudokus.solutions_folder')) ? 0 : 1 }};
-      break;
+      //data.directory = $('#sudokusDifficulty').val();
+      //data.number = $('#sudokusNumber').val();
+      //data.has_solutions = {{ empty(config('sudokus.solutions_folder')) ? 0 : 1 }};
+      //break;
 
-    case '{{ config("content-types.TATAMIS") }}':
+    //case '{{ config("content-types.TATAMIS") }}':
 
-      data.directory = $('#tatamisDifficulty').val();
-      data.number = $('#tatamisNumber').val();
-      data.has_solutions = {{ empty(config('tatamis.solutions_folder')) ? 0 : 1 }};
-      break;
+      //data.directory = $('#tatamisDifficulty').val();
+      //data.number = $('#tatamisNumber').val();
+      //data.has_solutions = {{ empty(config('tatamis.solutions_folder')) ? 0 : 1 }};
+      //break;
 
-    case '{{ config("content-types.TENTS") }}':
+    //case '{{ config("content-types.TENTS") }}':
 
-      data.directory = $('#tentsDifficulty').val();
-      data.number = $('#tentsNumber').val();
-      data.has_solutions = {{ empty(config('tents.solutions_folder')) ? 0 : 1 }};
-      break;
+      //data.directory = $('#tentsDifficulty').val();
+      //data.number = $('#tentsNumber').val();
+      //data.has_solutions = {{ empty(config('tents.solutions_folder')) ? 0 : 1 }};
+      //break;
 
-    // End::Japanese
-    // Begin::Mazes
+    //// End::Japanese
+    //// Begin::Mazes
 
-    case '{{ config("content-types.TUBULARS") }}':
+    //case '{{ config("content-types.TUBULARS") }}':
 
-      data.directory = $('#tubularDifficulty').val();
-      data.number = $('#tubularNumber').val();
-      data.has_solutions = {{ empty(config('tubulars.solutions_folder')) ? 0 : 1 }};
-      break;
+      //data.directory = $('#tubularDifficulty').val();
+      //data.number = $('#tubularNumber').val();
+      //data.has_solutions = {{ empty(config('tubulars.solutions_folder')) ? 0 : 1 }};
+      //break;
 
-    case '{{ config("content-types.SQUARES") }}':
+    //case '{{ config("content-types.SQUARES") }}':
 
-      data.directory = $('#squareDifficulty').val();
-      data.number = $('#squareNumber').val();
-      data.has_solutions = {{ empty(config('squares.solutions_folder')) ? 0 : 1 }};
-      break;
+      //data.directory = $('#squareDifficulty').val();
+      //data.number = $('#squareNumber').val();
+      //data.has_solutions = {{ empty(config('squares.solutions_folder')) ? 0 : 1 }};
+      //break;
 
-    // End::Mazes
-  }
-  return data;
-}
+    //// End::Mazes
+  //}
+  //return data;
+//}
 
 function addContent(sectionIndex, section) {
   // Block the section container

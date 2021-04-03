@@ -480,7 +480,7 @@ return [
           //
           'br13' =>
             [
-              'name' => 'Britsh 13',
+              'name' => 'British 13',
               'shortname' => 'br13',
               's3_folder' => '/crosswords/br13/',
               'puzzles_folder' => '/puzzles/',
@@ -512,7 +512,7 @@ return [
               'solution_name' => 'Solution',
               'ext' => '.png',
               'type' => 'image/png',
-              'max_number' => 10000,
+              'max_number' => 100,
               'width' => 2577,
               'height' => 3524,
               'size' => 210000,

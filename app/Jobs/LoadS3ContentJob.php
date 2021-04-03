@@ -57,13 +57,13 @@ class LoadS3ContentJob implements ShouldQueue
         }
 
         $this->imageConfig['file_name'] = $libraryImage  . $this->imageConfig['ext'];
-        $this->imageConfig['show_name'] = $this->imageConfig['name'] . ' ' . $counter;
+        $this->imageConfig['show_name'] = $this->imageConfig['name'] . ' - ' . $counter;
         $image = ImageManager::saveLibraryImage($this->section, $this->imageConfig);
 
         $images[] = $image;
 
         if (!empty($this->imageConfig['solutions_folder'])) {
-          $this->imageConfig['show_name'] = $this->imageConfig['solution_name'] . ' ' . $counter;
+          $this->imageConfig['show_name'] = $this->imageConfig['solution_name'] . ' - ' . $counter;
           $solution = ImageManager::saveLibraryImage($this->section, $this->imageConfig, true);
 
           $solutions[] = $solution;
